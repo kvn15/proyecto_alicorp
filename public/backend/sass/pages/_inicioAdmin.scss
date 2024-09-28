@@ -1,0 +1,146 @@
+
+@include font-face('semibold', 'Poppins-SemiBold');
+
+.button {
+    font-size: 16px;
+    cursor: pointer;
+  
+    &--primary {
+      @include button-style(#ffffff, 1px, 5px,$color_boton);
+      color: $color_boton;
+      width: 60px;
+    }
+  
+    &--secondary {
+      @include button-style(#ffffff, 1px, 5px,$color_boton);
+      color: $color_boton;
+    }
+
+    &--3 {
+        @include button-style(red, 1px, 5px,$color_boton);
+        color: white;
+        border-color: red;
+        width: 100px;
+      }
+    
+  
+    // &--danger {
+    //   @include button-style(#e74c3c, darken(#e74c3c, 10%));
+    // }
+}
+
+
+h1{
+    font-family: 'semibold',sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 40px;
+}
+
+.proyecto{
+    border-radius: 15px;
+    border-color: #EFF0EF;
+    border-width: 2px;
+    border-style: solid;
+
+    h2{
+        font-family: 'semibold',sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 16px;
+    }
+
+    h3{
+        font-family: 'semibold',sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 16px;
+    }
+
+    p{
+        font-family: 'semibold',sans-serif;
+        font-weight: 400;
+        font-size: 10px;
+        line-height: 16px;
+    }
+
+    .botonera{
+        display: flex;
+        justify-content: space-between;
+    }
+
+}
+
+.cab-landind{
+    display: flex;
+    justify-content: space-between;
+    .hr-vermas{
+        width: 50px;
+    }
+    .hr-bloque{
+        display: flex;
+        align-items: end;
+    }
+}
+
+
+.landing,
+.juegosweb,
+.juegoscampana{
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-around;
+
+    .card {
+        width: 230px;
+        background-color: #fff;
+        border-radius: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s ease;
+        border-color: #EFF0EF;
+        border: 3px;
+    }
+    
+    .card-img {
+        width: 206PX;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 15px;
+    }
+    
+    .card-content {
+        padding: 20px;
+    }
+    
+    .card h2 {
+        font-size: 14px;
+        color: #323232;
+        font-family: 'semibold';
+        font-weight: 600;
+    }
+    
+    .card p {
+        font-family: 'semibold';
+        font-size:14px;
+        color: #323232;
+    }
+    
+    .button {
+        text-decoration: none;
+        background-color: #FFFFFF;
+        color: #78B928;
+        border: 2px;
+        border-color: #78B928;
+        padding: 2px 15px;
+        border-radius: 5px;
+        border-style: solid;
+    }
+    
+    .button:hover {
+        background-color: #2980b9;
+    }
+
+}
+
+   

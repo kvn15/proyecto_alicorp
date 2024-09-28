@@ -1,0 +1,231 @@
+.dashboard{
+    background: $color-principal;
+
+    //utilidad
+    .margenT25{
+        margin-top: 2.5rem;
+    }
+
+    .btn-config{
+        margin-top: 3.7rem;
+    }
+
+    .bienvenido{
+        color: white;
+        font-family: 'CoprAltMed';
+        font-size: 4.4rem;
+        font-weight:900;
+        line-height: 5.76rem;
+        margin-left: 5.8rem;
+        margin-top: 5rem;
+    }
+
+//       // Aplicación del mixin a diferentes botones
+    .button {
+        font-size: 1.6rem;
+        cursor: pointer;
+    
+        &--primary {
+        @include button-style(#3498db,1px, darken(#3498db, 10%),5px,'');
+        }
+    
+        &--secondary {
+        @include button-style(#2ecc71,1px, darken(#2ecc71, 10%),5px,'');
+        }
+    
+        &--danger {
+        @include button-style(#e74c3c,1px, darken(#e74c3c, 10%),5px,'');
+        }
+
+        &--perfil {
+            @include button-style(#ffffff,1px,'',1.5rem,16.3rem);
+            height: 4rem;
+            color: black;
+        }
+
+        &--perfil-2 {
+            @include button-style(#ffffff,1px,'',11.5rem,27.5rem);
+            height: 7.6rem;
+            color: $color-principal;
+            font-size: 2rem;
+            font-family: 'CoprAltMed';
+            font-weight: 800;
+        }
+
+        .contador{
+            font-size: 3rem;
+            font-weight: 800;
+        }
+
+        .parti{
+            line-height: 1.6rem;
+        }
+       
+    }
+
+    .titulo-resultado,
+    .sub-titulo-resultado{
+        font-family:'CoprAltMed' ;
+        font-size: 4rem;
+        font-weight: 900;
+        color: white;
+        text-decoration: 2px solid white;
+        margin-left: 2rem;
+
+    }
+
+    .sub-titulo-resultado{
+        font-size: 2rem;
+    }
+
+    .hr-result,
+    .hr-mas{
+        background: white;
+        height: 0.5rem;
+        width: 35rem;
+        margin-left: 2rem;
+        opacity: 01;
+    }
+
+    .hr-mas{
+        width: 7.5rem;
+    }
+
+    .card-horizontal {
+        display: flex;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        overflow: hidden;
+
+        .card-img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 1.5rem;
+        }
+
+        .card-img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            h3{
+                font-family: 'CoprAltBlack';
+                font-size: 2.4rem;
+                color: $color-principal;
+            }
+
+            p{
+                font-family: 'CoprAltBlack';
+                font-size: 1.3rem;
+                color: black;
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+        }
+    }       
+    
+    .card-content h3 {
+        margin: 0;
+        font-size: 1.5rem;
+    }
+    
+    .card-btn {
+        padding: 5px 0;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        font-size: 1.4rem;
+        border-radius: 1.5rem;
+        background-color: $color-principal;
+        position: relative;
+        left: 62px;
+        top: 1rem;
+    }
+    
+    // .card-btn:hover {
+    //     background-color: #0056b3;
+    // }
+  
+    .paticipaciones{
+        padding: 1.5rem;
+    }
+
+    .card{
+        border-radius: 1.5rem;
+        .card-title{
+            font-family: 'CoprAltMed';
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: $color-principal;
+        }
+    
+        .card-text{
+            font-family: 'CoprAltMed';
+            font-size: 2rem;
+            font-weight: 800;
+            color: #000000;
+        }
+    
+        .card-footer{
+            border-top: none;
+            .text-muted{
+                font-family: 'CoprAltMed';
+                font-size: 1.6rem;
+            }
+        }
+    }
+
+    .promos{
+        img{
+            width: 22rem;
+            height: 25rem;
+        }
+    }
+    .juegoPromo{
+        z-index: 10;
+    }
+
+    .section-promo{
+        position: relative;
+        width: 100%;
+    }
+
+    .img_back{
+        
+        img{
+            width: 150rem;
+        }
+        
+        position: absolute;
+        top: 167px;
+        left: -21px;
+    
+    }
+    
+}
+
+.pie_dashboard{
+    background: $color-principal;
+    height: 7.4rem;
+    p{
+        font-family: 'Gotham';
+        font-size: 2rem;
+        color: white;
+    }
+
+    img{
+        width: 4.8rem;
+        height: 4.8rem;
+    }
+}

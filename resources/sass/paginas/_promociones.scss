@@ -1,0 +1,76 @@
+
+.promociones{
+    background-color: $color-principal;  
+    
+    .fondo-blanco{
+        background-color: white!important;
+    }
+
+    .titulo-promo{
+        margin-top: 5rem;
+    }
+
+    h2{
+        font-family: 'CoprAltBlack';
+        font-size: 5.5rem;
+        color: white;
+    }
+    .hr-promo{
+        background: white;
+        height: 0.7rem;
+        width: 24rem;
+        opacity: 01;
+    }
+
+    img{
+        max-width: 100%;
+        height: auto;
+        border-radius: 15px;
+    }
+
+    .imagen-fondo{
+        //position: relative;
+        background-image: url('img/imagen_user_back.png'); /* Cambia la ruta a tu imagen */
+        background-size: cover; /* Ajusta la imagen para que cubra todo el contenedor */
+        background-position: center; /* Centra la imagen */
+        background-repeat: no-repeat; /* Evita que la imagen se repita */
+        top: 15rem;
+    }
+
+    .img-fondo-promo{
+        position: absolute;
+        top: -10px;
+    }
+    
+    .card{
+        box-shadow: 17px 17px 7px 0px rgba(0, 0, 0, 0.35);
+        border-radius: 15px;
+    }
+
+    .card-body{
+        background-color: $color-terciario;
+    }
+
+    .card-text{
+        font-size: 3.5rem;
+        font-family: 'CoprAltBlack', sans-serif;
+        text-align: center;
+        color: $color-secundario;       
+    }
+
+    .card-text2{
+        font-size: 2.5rem;
+        text-align: center;
+        color: $color-secundario;
+    }
+
+    .logos-marcas {
+        bottom: -10rem;
+
+        .sombras {
+            position: relative;
+            left: 68px;
+        }
+
+    }
+}

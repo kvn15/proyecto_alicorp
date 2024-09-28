@@ -1,0 +1,116 @@
+
+@include font-face('semibold', 'Poppins-SemiBold');
+
+.formulario-login-ali{
+    .section-formulario{
+        width: 482px;
+        height: 874px;
+        border: #868686;
+    }
+    h1{
+        font-family: 'semibold';
+        font-weight: 700;
+        font-size: 64px;
+        line-height: 96px;
+    }
+
+    p{
+        font-family: 'semibold';
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 28.8px; 
+        color: #868686;
+    }
+
+    .btn-primary {
+        background-color: #FD000D;
+        border-color: #FD000D;
+    }
+
+    .accent-red {
+        accent-color: FD000D;
+    }
+    
+    /* Ocultar el checkbox original */
+  .checkbox-container input[type="checkbox"] {
+    display: none;
+  }
+  
+  /* Estilos para el contenedor del checkbox */
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  /* Estilos del checkbox personalizado */
+  .custom-checkbox {
+    width: 20px;
+    height: 20px;
+    background-color: #ddd;
+    border: 2px solid #555;
+    margin-right: 10px;
+    border-radius: 4px;
+    position: relative;
+  }
+  
+  /* Estilo cuando está marcado */
+  .checkbox-container input[type="checkbox"]:checked + .custom-checkbox {
+    background-color: #FD000D; /* Color personalizado para checkbox marcado */
+  }
+  
+  /* Estilo del check cuando está marcado */
+  .checkbox-container input[type="checkbox"]:checked + .custom-checkbox:before {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  
+  .w-50 {
+    width: 85% !important;
+}
+
+  .derechos {
+    p{
+        font-family: 'semibold';
+        font-weight: 400;
+        font-size: 12px;
+    }
+    
+  }
+
+  .login input{
+    padding-left: 30px; 
+  }
+
+  .email{
+    top:-28px;
+    left: 7px;
+    pointer-events: none;
+  }
+
+  .lock{
+    top: -26px;
+    left: 9px;
+    pointer-events: none;
+  }
+
+  .eye button{
+    background: transparent;
+    border: 0;
+  }
+
+  .eye{
+    top: -51px;
+    left: 513px;    
+  }
+
+
+
+}

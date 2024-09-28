@@ -1,0 +1,15 @@
+// Mixin para generar botones
+@mixin button-style($bg-color,$button-padding, $hover-color,$border-radius,$width) {
+    background-color: $bg-color;
+    color: white;
+    padding: $button-padding;
+    border-radius: $border-radius;
+    border: none;
+    transition: background-color 0.3s ease;
+    width: $width;
+  
+    &:hover {
+      background-color: $hover-color;
+    }
+}
+  

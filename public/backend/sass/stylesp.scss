@@ -1,0 +1,41 @@
+
+@import "variables";
+@import "mixins";
+@import "pages/inicioAdmin";
+@import "pages/landingAdmin";  
+@import "pages/loginAdmin";
+
+/* personalizado */
+body{
+    background-color: white !important;
+}
+
+.vertical-menu{
+    background: red;
+}
+.sidebar-menu-p{
+    display: flex;
+    flex-direction: column;
+    height: 80%;
+    justify-content: space-between;
+}
+.sidebar-menu-p span{
+    color: white;
+}
+
+.navbar-brand-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user_details{
+    display: flex;
+    justify-content: space-around;
+    color: white;
+}
+
+.user_details h4{
+    color: white;
+    font-size: 10px
+}

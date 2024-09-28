@@ -1,0 +1,8 @@
+$font-path: "../fonts/";
+
+@mixin font-face($name, $file) {
+    @font-face {
+      font-family: $name;
+      src: url('#{$font-path}#{$file}.otf') format('opentype');
+    }
+}

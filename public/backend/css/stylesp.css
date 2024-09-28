@@ -1,0 +1,324 @@
+@charset "UTF-8";
+@font-face {
+  font-family: "semibold";
+  src: url("/backend/assets/fonts/Poppins/Poppins-SemiBold.ttf") format("truetype");
+}
+.button {
+  font-size: 16px;
+  cursor: pointer;
+}
+.button--primary {
+  background-color: #ffffff;
+  padding: 1px;
+  border-radius: 5px;
+  border-color: #868686;
+  transition: background-color 0.3s ease;
+  color: #868686;
+  width: 60px;
+}
+.button--secondary {
+  background-color: #ffffff;
+  padding: 1px;
+  border-radius: 5px;
+  border-color: #868686;
+  transition: background-color 0.3s ease;
+  color: #868686;
+}
+.button--3 {
+  background-color: red;
+  padding: 1px;
+  border-radius: 5px;
+  border-color: #868686;
+  transition: background-color 0.3s ease;
+  color: white;
+  border-color: red;
+  width: 100px;
+}
+
+h1 {
+  font-family: "semibold", sans-serif;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 40px;
+}
+
+.proyecto {
+  border-radius: 15px;
+  border-color: #EFF0EF;
+  border-width: 2px;
+  border-style: solid;
+}
+.proyecto h2 {
+  font-family: "semibold", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+}
+.proyecto h3 {
+  font-family: "semibold", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+}
+.proyecto p {
+  font-family: "semibold", sans-serif;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 16px;
+}
+.proyecto .botonera {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cab-landind {
+  display: flex;
+  justify-content: space-between;
+}
+.cab-landind .hr-vermas {
+  width: 50px;
+}
+.cab-landind .hr-bloque {
+  display: flex;
+  align-items: end;
+}
+
+.landing,
+.juegosweb,
+.juegoscampana {
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-around;
+}
+.landing .card,
+.juegosweb .card,
+.juegoscampana .card {
+  width: 230px;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  border-color: #EFF0EF;
+  border: 3px;
+}
+.landing .card-img,
+.juegosweb .card-img,
+.juegoscampana .card-img {
+  width: 206PX;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+.landing .card-content,
+.juegosweb .card-content,
+.juegoscampana .card-content {
+  padding: 20px;
+}
+.landing .card h2,
+.juegosweb .card h2,
+.juegoscampana .card h2 {
+  font-size: 14px;
+  color: #323232;
+  font-family: "semibold";
+  font-weight: 600;
+}
+.landing .card p,
+.juegosweb .card p,
+.juegoscampana .card p {
+  font-family: "semibold";
+  font-size: 14px;
+  color: #323232;
+}
+.landing .button,
+.juegosweb .button,
+.juegoscampana .button {
+  text-decoration: none;
+  background-color: #FFFFFF;
+  color: #78B928;
+  border: 2px;
+  border-color: #78B928;
+  padding: 2px 15px;
+  border-radius: 5px;
+  border-style: solid;
+}
+.landing .button:hover,
+.juegosweb .button:hover,
+.juegoscampana .button:hover {
+  background-color: #2980b9;
+}
+
+@font-face {
+  font-family: "semibold";
+  src: url("/backend/assets/fonts/Poppins/Poppins-SemiBold.ttf") format("truetype");
+}
+.landing-page h1 {
+  font-family: "semibold", sans-serif;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 40px;
+}
+.landing-page .hr-principal {
+  color: #EFF0EF;
+  border: 2px solid;
+}
+.landing-page .search-container {
+  position: relative;
+  width: 300px;
+}
+.landing-page .search-input {
+  width: 100%;
+  padding: 10px 40px 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  outline: none;
+}
+.landing-page .search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+}
+.landing-page .estadoFiltro {
+  display: flex;
+}
+.landing-page .estadoFiltro .estadol {
+  width: 50%;
+}
+
+@font-face {
+  font-family: "semibold";
+  src: url("/backend/assets/fonts/Poppins/Poppins-SemiBold.ttf") format("truetype");
+}
+.formulario-login-ali {
+  /* Ocultar el checkbox original */
+  /* Estilos para el contenedor del checkbox */
+  /* Estilos del checkbox personalizado */
+  /* Estilo cuando está marcado */
+  /* Estilo del check cuando está marcado */
+}
+.formulario-login-ali .section-formulario {
+  width: 482px;
+  height: 874px;
+  border: #868686;
+}
+.formulario-login-ali h1 {
+  font-family: "semibold";
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 96px;
+}
+.formulario-login-ali p {
+  font-family: "semibold";
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28.8px;
+  color: #868686;
+}
+.formulario-login-ali .btn-primary {
+  background-color: #FD000D;
+  border-color: #FD000D;
+}
+.formulario-login-ali .accent-red {
+  accent-color: FD000D;
+}
+.formulario-login-ali .checkbox-container input[type=checkbox] {
+  display: none;
+}
+.formulario-login-ali .checkbox-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.formulario-login-ali .custom-checkbox {
+  width: 20px;
+  height: 20px;
+  background-color: #ddd;
+  border: 2px solid #555;
+  margin-right: 10px;
+  border-radius: 4px;
+  position: relative;
+}
+.formulario-login-ali .checkbox-container input[type=checkbox]:checked + .custom-checkbox {
+  background-color: #FD000D; /* Color personalizado para checkbox marcado */
+}
+.formulario-login-ali .checkbox-container input[type=checkbox]:checked + .custom-checkbox:before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+.formulario-login-ali .w-50 {
+  width: 85% !important;
+}
+.formulario-login-ali .derechos p {
+  font-family: "semibold";
+  font-weight: 400;
+  font-size: 12px;
+}
+.formulario-login-ali .login input {
+  padding-left: 30px;
+}
+.formulario-login-ali .email {
+  top: -28px;
+  left: 7px;
+  pointer-events: none;
+}
+.formulario-login-ali .lock {
+  top: -26px;
+  left: 9px;
+  pointer-events: none;
+}
+.formulario-login-ali .eye button {
+  background: transparent;
+  border: 0;
+}
+.formulario-login-ali .eye {
+  top: -51px;
+  left: 513px;
+}
+
+/* personalizado */
+body {
+  background-color: white !important;
+}
+
+.vertical-menu {
+  background: red;
+}
+
+.sidebar-menu-p {
+  display: flex;
+  flex-direction: column;
+  height: 80%;
+  justify-content: space-between;
+}
+
+.sidebar-menu-p span {
+  color: white;
+}
+
+.navbar-brand-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user_details {
+  display: flex;
+  justify-content: space-around;
+  color: white;
+}
+
+.user_details h4 {
+  color: white;
+  font-size: 10px;
+}
+
+/*# sourceMappingURL=stylesp.css.map */

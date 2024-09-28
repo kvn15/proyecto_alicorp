@@ -1,0 +1,61 @@
+
+.separador-juegos{
+    margin-top: 5rem;
+}
+.juegos{
+    background-color: $color-principal;
+
+    .bloque-1{
+        margin-top: 5rem;
+        margin-left: 15rem;
+    }
+    
+    .titulo-juego{
+        font-family: 'CoprAltBlack';
+        font-size: 8rem;
+        color: white;
+    }
+
+    .hr-juego{
+        background: white;
+        height: 0.7rem;
+        width: 23rem;
+        opacity: 01;
+    }
+
+    .button {
+        font-size: 1.9rem;
+        font-family: 'CoprAltMed';
+        cursor: pointer;
+
+        &--perfil-2 {
+            @include button-style(#ffffff,0px,'',11.5rem,27.5rem);
+            height: 3.6rem;
+            color: $color-principal;           
+            font-weight: 800;
+        }
+
+        .contador{
+            font-size: 3rem;
+            font-weight: 800;
+        }
+
+        .parti{
+            line-height: 1.6rem;
+        }
+       
+    }
+
+    img{
+        width: 30rem;
+        height: auto;
+        border-radius: 1.5rem;
+        margin-top: 4rem;
+    }
+
+    .juego-card{
+        display: flex;
+        align-items: center;
+    }
+
+}

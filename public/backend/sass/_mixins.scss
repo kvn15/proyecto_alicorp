@@ -1,0 +1,24 @@
+$font-path: "/backend/assets/fonts/Poppins/";
+
+@mixin font-face($name, $file) {
+    @font-face {
+      font-family: $name;
+      src: url('#{$font-path}#{$file}.ttf') format('truetype');
+    }
+}
+
+// Mixin para generar botones
+@mixin button-style($bg-color,$button-padding,$border-radius,$border-color) {
+  background-color: $bg-color;
+  padding: $button-padding;
+  border-radius: $border-radius;
+  border-color: $border-color;
+  transition: background-color 0.3s ease;
+
+  // &:hover {
+  //   background-color: $hover-color;
+  // }
+}
+
+
+
