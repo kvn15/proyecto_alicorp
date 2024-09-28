@@ -18,7 +18,7 @@
     <link href="{{ asset('backend/css/admin/adminAlicorp.css') }}" rel="stylesheet" type="text/css" />
 </head> 
 
-<body class="layout-fixed sidebar-expand-lg sidebar-mini bg-body-tertiary">
+<body class="layout-fixed sidebar-expand-lg sidebar-mini bg-body-tertiary app-loaded sidebar-collapse">
 
     <div class="app-wrapper">
 
@@ -29,8 +29,8 @@
         {{-- Contenido --}}
         <main class="app-main">
             <div class="app-content">
-                <div class="container-fluid">
-                    <div class="row">
+                <div class="container-fluid m-auto" style="width: 95%;">
+                    <div class="row pt-4">
                         @yield('contenido')
                     </div>
                 </div>
