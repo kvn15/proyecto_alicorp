@@ -23,19 +23,19 @@ class AdminController extends Controller
     }
 
     public function landing(){
-        return view('admin.layouts.landing');
+        return view('admin.pages.inicio.landing');
     }
 
     public function juegosWeb(){
-        return view('admin.layouts.juegosWeb');
+        return view('admin.pages.inicio.juegosWeb');
     }
 
     public function juegosCamp(){
-        return view('admin.layouts.juegosCamp');
+        return view('admin.pages.inicio.juegosCamp');
     }
 
     public function configuracion(){
-        return view('admin.layouts.configuracion');
+        return view('admin.pages.inicio.configuracion');
     }
     
     public function destroy(Request $request)

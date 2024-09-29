@@ -14,6 +14,10 @@ body {
     font-style: normal;
 }
 
+.cursor-pointer {
+    cursor: pointer;
+}
+
 .bg-nav-alicorp {
     background-color: var(--bs-alicorp);
 }
@@ -290,7 +294,7 @@ hr {
 
 /* Teminar diseño movil */
 
-.promo-landing {
+.promo-landing, .row-landing {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     margin-top: 1rem;
@@ -337,4 +341,40 @@ hr {
         background-position: center;
     }
     
+}
+
+.landing-page-inicio .input-group-text {
+    background-color: var(--white);
+    padding-right: 0.2em;
+}
+
+.landing-page-inicio .form-control {
+    border-left: 0px;
+    box-shadow: none;
+}
+
+.landing-page-inicio .form-control:focus {
+    outline: none;
+    border-color: #dee2e6;
+}
+
+.btn-filtro {
+    box-shadow: none;
+    border: 1px solid #D0D5DD;
+    font-weight: 600;
+}
+
+.btn-filtro:hover {
+    border: 1px solid #D0D5DD;
+}
+
+.filtro-select-btn {
+    display: flex;
+    align-self: baseline;
+    box-shadow: none;
+    border: 1px solid #D0D5DD;
+    font-weight: 600;
+    padding: 0.4em 0.6em;
+    border-radius: 7px;
+    gap: 1rem;
 }
