@@ -55,6 +55,29 @@ class LandingPromocionalController extends Controller
         return view('admin.pages.landing_promocional.show', compact('landing'));
     }
 
+    public function indicador($id)
+    {
+        $landing = $id;
+        return view('admin.pages.landing_promocional.indicadores', compact('landing'));
+    }
+
+    public function participante($id)
+    {
+        $landing = $id;
+        return view('admin.pages.landing_promocional.participantes', compact('landing'));
+    }
+
+    public function ganador($id)
+    {
+        $landing = $id;
+        return view('admin.pages.landing_promocional.ganadores', compact('landing'));
+    }
+
+    public function configuracion($id)
+    {
+        $landing = $id;
+        return view('admin.pages.landing_promocional.configuracion', compact('landing'));
+    }
     /**
      * Show the form for editing the specified resource.
      *

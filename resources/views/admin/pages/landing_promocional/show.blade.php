@@ -19,40 +19,7 @@
 @section('inicio_dash')
 
     <div class="row-show">
-        <div class="menu-left">
-            <div class="title-menu">
-                <span>Menú</span>
-            </div>
-            <section class="body-menu">
-                <ul class="lista-menu">
-                    <li class="item-menu">
-                        <a href="" class="link-menu active">
-                            Overview
-                        </a>
-                    </li>
-                    <li class="item-menu">
-                        <a href="" class="link-menu">
-                            Indicadores
-                        </a>
-                    </li>
-                    <li class="item-menu">
-                        <a href="" class="link-menu">
-                            Participantes
-                        </a>
-                    </li>
-                    <li class="item-menu">
-                        <a href="" class="link-menu">
-                            Ganadores
-                        </a>
-                    </li>
-                    <li class="item-menu">
-                        <a href="" class="link-menu">
-                            Configuración
-                        </a>
-                    </li>
-                </ul>
-            </section>
-        </div>
+        <x-admin.menu-reg ruta="landing_promocional" />
         <div class="body-right">
             <h3>Overview</h3>
 
@@ -60,9 +27,9 @@
                 <div class="col-12">
                     <div class="card-w-full">
                         <div class="info-container">
-                            <a href="{{ route('landing_promocional.show', 1) }}"><img class="img-fluid" src="{{asset('backend/img/thumbnail.png')}}" alt=""></a>
+                            <a href="{{ route('landing_promocional.show.overview', 1) }}"><img class="img-fluid" src="{{asset('backend/img/thumbnail.png')}}" alt=""></a>
                             <div class="info-card">
-                                <p class="title-card"><a href="{{ route('landing_promocional.show', 1) }}">Nuevo Proyecto Campaña Web</a></p>
+                                <p class="title-card"><a href="{{ route('landing_promocional.show.overview', 1) }}">Nuevo Proyecto Campaña Web</a></p>
                                 <p>Landing Promocional</p>
                                 <p><small>Ultima actualización: 12/08/2024 16:34</small></p>
                                 <p><small>Fecha creación: 12/08/2024</small></p>

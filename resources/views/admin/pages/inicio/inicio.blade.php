@@ -11,9 +11,9 @@
                 <div class="w-100">
                     <div class="card-w-full">
                         <div class="info-container">
-                            <a href="{{ route('landing_promocional.show', 1) }}"><img class="img-fluid" src="{{asset('backend/img/thumbnail.png')}}" alt=""></a>
+                            <a href="{{ route('landing_promocional.show.overview', 1) }}"><img class="img-fluid" src="{{asset('backend/img/thumbnail.png')}}" alt=""></a>
                             <div class="info-card">
-                                <p class="title-card"><a href="{{ route('landing_promocional.show', 1) }}">Nuevo Proyecto Campaña Web</a></p>
+                                <p class="title-card"><a href="{{ route('landing_promocional.show.overview', 1) }}">Nuevo Proyecto Campaña Web</a></p>
                                 <p>Landing Promocional</p>
                                 <p><small>Ultima actualización: 12/08/2024 16:34</small></p>
                                 <p><small>Fecha creación: 12/08/2024</small></p>
@@ -60,9 +60,9 @@
                     </div>
                     <div class="card-w-full">
                         <div class="info-container">
-                            <a href="{{ route('landing_promocional.show', 1) }}"><img class="img-fluid" src="{{asset('backend/img/thumbnail.png')}}" alt=""></a>
+                            <a href="{{ route('landing_promocional.show.overview', 1) }}"><img class="img-fluid" src="{{asset('backend/img/thumbnail.png')}}" alt=""></a>
                             <div class="info-card">
-                                <p class="title-card"><a href="{{ route('landing_promocional.show', 1) }}">Nuevo Proyecto Campaña Web</a></p>
+                                <p class="title-card"><a href="{{ route('landing_promocional.show.overview', 1) }}">Nuevo Proyecto Campaña Web</a></p>
                                 <p>Landing Promocional</p>
                                 <p><small>Ultima actualización: 12/08/2024 16:34</small></p>
                                 <p><small>Fecha creación: 12/08/2024</small></p>
