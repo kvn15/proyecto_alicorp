@@ -12,6 +12,7 @@ body {
     font-family: "Poppins", sans-serif !important;
     font-weight: 400;
     font-style: normal;
+    color: var(--black) !important;
 }
 
 .cursor-pointer {
@@ -190,19 +191,21 @@ hr {
 .card-w-full {
     display: grid;
     width: 100%;
-    border: 4px solid #EFF0EF;
     padding: 0.5rem;
-    border-radius: 10px;
     grid-template-columns: auto 28rem auto;
     gap: 0.8em;
     justify-content: space-between;
-    margin-bottom: 1em;
 }
 
 .info-container {
     display: grid;
     grid-template-columns: 140px auto;
     gap: 0.8rem;
+}
+
+.info-container .title-card a {
+    color: var(--black);
+    text-decoration: none;
 }
 
 .card-w-full img {
@@ -289,6 +292,22 @@ hr {
     max-width: 90px;
     font-size: 13px;
 }
+
+.btn-inactivo {
+    background-color: #fff;
+    border: 1px solid #868686;
+    color: #868686;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.btn-inactivo:hover {
+    background-color: #fff;
+    border: 1px solid #868686;
+    color: #868686;
+}
+
+
 
 /* Meter diseño movil utlimos proyectos */
 
@@ -377,4 +396,10 @@ hr {
     padding: 0.4em 0.6em;
     border-radius: 7px;
     gap: 1rem;
+}
+
+.card-w-full, .border-card {
+    border: 4px solid #EFF0EF;
+    border-radius: 10px;
+    margin-bottom: 1em;
 }

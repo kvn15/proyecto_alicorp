@@ -22,7 +22,7 @@
                     </a> 
                 </li>
                 <li class="nav-item"> 
-                    <a href="{{ route('admin.dashboard.landing') }}" class="nav-link {{ request()->routeIs('admin.dashboard.landing') ? 'active' : '' }}"> 
+                    <a href="{{ route('landing_promocional.index') }}" class="nav-link {{ request()->routeIs('landing_promocional.*') || request()->routeIs('landing_promocional.*.*') ? 'active' : '' }}"> 
                         <i class="nav-icon bi bi-window"></i>
                         <p>Landing Promocional</p>
                     </a> 

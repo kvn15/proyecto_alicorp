@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\alicorpController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\AdminLoginController;
+use App\Http\Controllers\Admin\landing_promocional\LandingPromocionalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,13 +31,18 @@ Route::prefix('admin')->group(function () {
     Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
     Route::post('/login', [AdminLoginController::class, 'login'])->name('admin.login.submit');
     
-    Route::get('/admin/logout', [AdminController::class, 'destroy'])->name('admin.logout');
-    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    Route::get('/admin/dashboard/inicio', [AdminController::class, 'inicio'])->name('admin.dashboard.inicio');
-    Route::get('/admin/dashboard/landing', [AdminController::class, 'landing'])->name('admin.dashboard.landing');
-    Route::get('/admin/dashboard/juegosWeb', [AdminController::class, 'juegosWeb'])->name('admin.dashboard.juegosWeb');
-    Route::get('/admin/dashboard/juegosCamp', [AdminController::class, 'juegosCamp'])->name('admin.dashboard.juegosCamp');
-    Route::get('/admin/dashboard/configuracion', [AdminController::class, 'configuracion'])->name('admin.dashboard.configuracion');
+    Route::get('/logout', [AdminController::class, 'destroy'])->name('admin.logout');
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/dashboard/inicio', [AdminController::class, 'inicio'])->name('admin.dashboard.inicio');
+    Route::get('/dashboard/juegosWeb', [AdminController::class, 'juegosWeb'])->name('admin.dashboard.juegosWeb');
+    Route::get('/dashboard/juegosCamp', [AdminController::class, 'juegosCamp'])->name('admin.dashboard.juegosCamp');
+    Route::get('/dashboard/configuracion', [AdminController::class, 'configuracion'])->name('admin.dashboard.configuracion');
+
+    Route::prefix('landing_promocional')->group(function () {
+        Route::get('/', [AdminController::class, 'landing'])->name('landing_promocional.index');
+        // landing promocional
+        Route::get('show/{id}',[LandingPromocionalController::class, 'show'])->name('landing_promocional.show');
+    });
 
 });
 

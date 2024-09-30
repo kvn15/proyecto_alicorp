@@ -1,0 +1,143 @@
+.row-show {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 170px 1fr;
+    grid-template-rows: 1fr;
+    height: 100%;
+    min-height: calc(100vh - 57px);
+    background-color: #D9D9D9;
+    gap: 5px;
+}
+
+.menu-left {
+    background-color: #fff;
+    border-top: 5px solid #D9D9D9;
+}
+
+.menu-left .title-menu {
+    width: 100%;
+    padding: 0.7rem;
+    border-bottom: 2px solid #D9D9D9;
+}
+
+.menu-left .title-menu span {
+    font-weight: 700;
+    font-size: 1.2em;
+    color: var(--black);
+}
+
+.menu-left .body-menu {
+    width: 100%;
+    padding: 0.7rem;
+}
+
+.menu-left .body-menu .lista-menu {
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+}
+
+.menu-left .body-menu .lista-menu .item-menu {
+    position: relative;
+    width: 100%;
+}
+
+.menu-left .body-menu .lista-menu .item-menu .link-menu {
+    display: block;
+    text-decoration: none;
+    padding: 0.3rem 0.5rem;
+    border-radius: 9px;
+    cursor: pointer;
+    color: var(--black);
+    transition: ease 0.2s all;
+}
+
+.menu-left .body-menu .lista-menu .item-menu .link-menu:hover {
+    background-color: var(--bs-alicorp);
+    color: white;
+}
+
+.link-menu.active {
+    background-color: var(--bs-alicorp);
+    color: white !important;
+}
+
+.body-right {
+    background-color: #fff;
+    border-top: 5px solid #D9D9D9;
+    padding: 2rem;
+}
+
+.body-right h3 {
+    font-weight: 600;
+    margin-bottom: 1em;
+    color: var(--black) !important;
+}
+
+.card-right {
+    padding: 1em;
+}
+
+.card-right h5 {
+    font-weight: 600;
+    color: var(--black) !important;
+}
+
+.name-ganador span, .documento-ganador span {
+    display: block;
+    font-weight: 500;
+}
+
+.name-ganador, .documento-ganador, .estado-ganador {
+    font-size: 14px;
+}
+
+.documento-ganador, .estado-ganador {
+    display: flex;
+    align-items: center;
+}
+
+.estado-ganador {
+    justify-content: end;
+}
+
+.name-ganador {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.name-ganador small {
+    display: block;
+    font-size: 9px;
+    margin-bottom: -5px;
+    color: #323232 !important;
+}
+
+.estado-ganador span {
+    width: 100px;
+    padding: 0.2em;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.estado-ganador .estado-win {
+    background-color: #05CD991A;
+    color: #05CD99;
+    font-weight: 700;
+}
+
+.estado-ganador .estado-lose {
+    background-color: #EE5D501A;
+    color: #EE5D50;
+    font-weight: 700;
+}
+
+.ver_mas {
+    font-weight: 600;
+    color: var(--bs-alicorp);
+    text-decoration: none;
+    font-size: 14px;
+}
