@@ -109,7 +109,30 @@
                 </div>
                 <div class="col-12 col-lg-8">
                     <div class="border-card card-right">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="mb-4">Funnel</h5>
 
+                            <div>
+                                <select class="select-chart">
+                                    <option value="" selected>Todo</option>
+                                    <option value="">Enero</option>
+                                    <option value="">Febrero</option>
+                                    <option value="">Marzo</option>
+                                    <option value="">Abril</option>
+                                    <option value="">Mayo</option>
+                                    <option value="">Junio</option>
+                                    <option value="">Julio</option>
+                                    <option value="">Agosto</option>
+                                    <option value="">Setiembre</option>
+                                    <option value="">Octubre</option>
+                                    <option value="">Noviembre</option>
+                                    <option value="">Diciembre</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="chart">
+                            <canvas></canvas>
+                        </div>
                     </div>
                 </div>
                 <div class="col-12 col-lg-4">
@@ -205,7 +228,39 @@
                 </div>
                 <div class="col-12 col-lg-8">
                     <div class="border-card card-right">
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex mb-4 align-items-center" style="gap: 0.8em">
+                                <h5 class="mb-0">Usuarios</h5> 
+                                <span class="separate">|</span>
+                                <span class="leyenda">
+                                    <span class="leyenda-circle leyenda-success"></span>
+                                    Visitas
+                                </span>
+                                <span class="leyenda">
+                                    <span class="leyenda-circle leyenda-danger"></span>
+                                    Participantes
+                                </span>
+                            </div>
 
+                            <div>
+                                <select class="select-chart">
+                                    <option value="" selected>Todo</option>
+                                    <option value="">Enero</option>
+                                    <option value="">Febrero</option>
+                                    <option value="">Marzo</option>
+                                    <option value="">Abril</option>
+                                    <option value="">Mayo</option>
+                                    <option value="">Junio</option>
+                                    <option value="">Julio</option>
+                                    <option value="">Agosto</option>
+                                    <option value="">Setiembre</option>
+                                    <option value="">Octubre</option>
+                                    <option value="">Noviembre</option>
+                                    <option value="">Diciembre</option>
+                                </select>
+                            </div>
+                        </div>
+                        <canvas id="areaChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                     </div>
                 </div>
                 <div class="col-12 col-lg-4">
@@ -276,4 +331,137 @@
         </div>
     </div>
 
+    {{-- Chart Funnel --}}
+    <script>
+        const data = [{
+            "name": "Visitas",
+            "value": 673,
+            color: '#3AAAE3'
+        }, {
+            "name": "Participantes",
+            "value": 486,
+            color: '#3762D0'
+        }, {
+            "name": "Ganadores",
+            "value": 183,
+            color: '#E62020'
+        }];
+
+        const canvas = document.querySelector('canvas');
+        let ctx = canvas.getContext('2d');
+        let height = 250;
+        let width = 850;
+        canvas.style.width = "100%";
+        canvas.style.height = "100%";
+
+        let scale = window.devicePixelRatio;
+        canvas.width =  width * scale;
+        canvas.height = height * scale;
+        ctx.scale(scale, scale);
+
+        let graphHeight = height - 100;
+
+        let maxValue = Math.max.apply(Math, data.map(function(o) { return o.value; })) + 200;
+
+        data.forEach(item => {
+        item['height'] = (item.value / maxValue) * graphHeight
+        })
+
+        let boxes = data.length
+        ctx.strokeStyle = "#eee";
+        for(let i = 0; i < boxes; i++) {
+            let x = Math.round(i*(width / boxes));
+
+            // draw separation lines 
+            ctx.beginPath();
+            ctx.moveTo(x + 0.5, 0.5);
+            ctx.lineTo(x, height - 20);
+            ctx.stroke();
+
+            // draw item area 
+            ctx.fillStyle = data[i].color;
+            ctx.beginPath();
+            ctx.moveTo(x, height - 20 - data[i].height);
+            ctx.lineTo(x + (width / boxes) + 0.5, height - 20 - (data[i+1] ? data[i+1].height : data[i].height));
+            ctx.lineTo(x + (width / boxes) + 0.5, height - 20);
+            ctx.lineTo(x, height - 20);
+            ctx.closePath();
+            ctx.fill();
+
+            // draw header
+            ctx.font = "normal 15px sans-serif";
+            ctx.fillStyle = "#323232";
+            ctx.fillText(data[i].name, x + 10, 20);
+
+            ctx.font = "bolder 24px sans-serif";
+            ctx.fillStyle = "#000";
+            ctx.fillText(data[i].value, x + 10, 60);
+        }
+    </script>
+
+@endsection
+
+@section('script')
+
+{{-- Chart --}}
+<script>
+    // Get context with jQuery - using jQuery's .get() method.
+    var areaChartCanvas = document.querySelector('#areaChart').getContext('2d')
+
+    var areaChartData = {
+    labels  : ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio'],
+    datasets: [
+        {
+        label               : 'Digital Goods',
+        backgroundColor     : '#FD000D1a',
+        borderColor         : '#FD000D',
+        pointRadius          : false,
+        pointColor          : '#3b8bba',
+        pointStrokeColor    : 'rgba(60,141,188,1)',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(60,141,188,1)',
+        data                : [28, 48, 40, 19, 86, 27, 90]
+        },
+        {
+        label               : 'Electronics',
+        backgroundColor     : '#78B92800',
+        borderColor         : '#78B928',
+        borderDash: [5, 5],
+        pointRadius         : false,
+        pointColor          : 'rgba(210, 214, 222, 1)',
+        pointStrokeColor    : '#c1c7d1',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(220,220,220,1)',
+        data                : [65, 59, 80, 81, 56, 55, 40]
+        },
+    ]
+    }
+
+    var areaChartOptions = {
+    maintainAspectRatio : false,
+    responsive : true,
+    legend: {
+        display: false
+    },
+    scales: {
+        xAxes: [{
+        gridLines : {
+            display : false,
+        }
+        }],
+        yAxes: [{
+        gridLines : {
+            display : false,
+        }
+        }]
+    }
+    }
+
+    // This will get the first returned node in the jQuery collection.
+    new Chart(areaChartCanvas, {
+    type: 'line',
+    data: areaChartData,
+    options: areaChartOptions
+    })
+</script>
 @endsection

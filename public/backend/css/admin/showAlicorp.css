@@ -141,3 +141,52 @@
     text-decoration: none;
     font-size: 14px;
 }
+
+/* Funnel */
+.chart {
+    background: #FFF;
+    border-radius: 8px;
+    width: fit-content;
+    height: fit-content;
+    margin: auto;
+}
+
+canvas {
+    width: 100% !important;
+}
+
+.select-chart {
+    width: fit-content;
+    border: 0;
+    background-color: #fff;
+}
+
+.select-chart:focus, .select-chart:focus-visible {
+    outline: none;
+}
+
+.separate {
+    font-weight: 500;
+    color: Black/20%;
+}
+
+.leyenda {
+    font-size: 13px;
+}
+
+.leyenda .leyenda-circle {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.leyenda .leyenda-circle.leyenda-success {
+    background-color: #78B928;
+}
+
+.leyenda .leyenda-circle.leyenda-danger {
+    background-color: #FD000D;
+}
