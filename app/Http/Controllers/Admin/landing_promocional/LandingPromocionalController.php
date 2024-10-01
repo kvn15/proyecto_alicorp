@@ -61,12 +61,18 @@ class LandingPromocionalController extends Controller
         return view('admin.pages.landing_promocional.indicadores', compact('landing'));
     }
 
+    public function asignacion($id)
+    {
+        $landing = $id;
+        return view('admin.pages.landing_promocional.asingnacion', compact('landing'));
+    }
+
     public function participante($id)
     {
         $landing = $id;
         return view('admin.pages.landing_promocional.participantes', compact('landing'));
     }
-
+    
     public function ganador($id)
     {
         $landing = $id;

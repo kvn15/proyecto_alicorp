@@ -213,12 +213,90 @@
             </div>
             <div class="col-12 col-lg-8">
                 <div class="border-card card-right">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex mb-2 align-items-center" style="gap: 0.8em">
+                            <h5 class="mb-0">Participantes</h5> 
+                        </div>
 
+                        <div>
+                            <select class="select-chart">
+                                <option value="" selected>Todo</option>
+                                <option value="">Enero</option>
+                                <option value="">Febrero</option>
+                                <option value="">Marzo</option>
+                                <option value="">Abril</option>
+                                <option value="">Mayo</option>
+                                <option value="">Junio</option>
+                                <option value="">Julio</option>
+                                <option value="">Agosto</option>
+                                <option value="">Setiembre</option>
+                                <option value="">Octubre</option>
+                                <option value="">Noviembre</option>
+                                <option value="">Diciembre</option>
+                            </select>
+                        </div>
+                    </div>
+                    <canvas id="myChart" width="400" height="200"></canvas>
                 </div>
             </div>
             <div class="col-12 col-lg-4">
                 <div class="border-card card-right">
-
+                    <div class="d-flex justify-content-between mb-3">
+                        <div>
+                            <h5 class="mb-0">KPis</h5> 
+                        </div>
+                        <div>
+                            <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="33" height="33" rx="7" fill="#F4F7FE"/>
+                                <g clip-path="url(#clip0_112_2191)">
+                                <path d="M11.4 14.2H11.6C12.37 14.2 13 14.83 13 15.6V22.6C13 23.37 12.37 24 11.6 24H11.4C10.63 24 10 23.37 10 22.6V15.6C10 14.83 10.63 14.2 11.4 14.2ZM17 10C17.77 10 18.4 10.63 18.4 11.4V22.6C18.4 23.37 17.77 24 17 24C16.23 24 15.6 23.37 15.6 22.6V11.4C15.6 10.63 16.23 10 17 10ZM22.6 18C23.37 18 24 18.63 24 19.4V22.6C24 23.37 23.37 24 22.6 24C21.83 24 21.2 23.37 21.2 22.6V19.4C21.2 18.63 21.83 18 22.6 18Z" fill="#FD000D"/>
+                                </g>
+                                <defs>
+                                <clipPath id="clip0_112_2191">
+                                    <rect width="24" height="24" fill="white" transform="translate(5 5)"/>
+                                </clipPath>
+                                </defs>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="w-100" style="font-size: 14px; font-weight: 500">
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>KPI nro 1</span>
+                            <span>12,200</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>KPI nro 2</span>
+                            <span>12,200</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>KPI nro 3</span>
+                            <span>12,200</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>KPI nro 4</span>
+                            <span>12,200</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>KPI nro 5</span>
+                            <span>12,200</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>KPI nro 6</span>
+                            <span>12,200</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>KPI nro 7</span>
+                            <span>12,200</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>KPI nro 8</span>
+                            <span>12,200</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>KPI nro 9</span>
+                            <span>12,200</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -227,7 +305,7 @@
 @endsection
 
 @section('script')
-
+<script src="{{ asset('backend/js/admin/Chart.min.js') }}"></script>
 {{-- Chart --}}
 <script>
     // Get context with jQuery - using jQuery's .get() method.
@@ -288,5 +366,111 @@
     data: areaChartData,
     options: areaChartOptions
     })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.0.2"></script>
+<script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+
+    // Datos del gráfico
+    const data = {
+        labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        datasets: [{
+            label: 'Ventas',
+            data: [50, 60, 70, 80, 90, 100, 80, 70, 60, 50, 40, 30], // Datos para cada mes
+            backgroundColor: [
+                '#E9EDF7', '#E9EDF7', '#E9EDF7', '#E9EDF7', '#E9EDF7', '#FD000D', 
+                '#E9EDF7', '#E9EDF7', '#E9EDF7', '#E9EDF7', '#E9EDF7', '#E9EDF7'
+            ],
+            borderWidth: 1,
+            borderRadius: 8 // Esquinas redondeadas de 8px
+        }]
+    };
+
+    // Configuración inicial del gráfico
+    const config = {
+        type: 'bar',
+        data: data,
+        options: {
+            barPercentage: 0.9, // Ajustar el ancho de las barras
+            categoryPercentage: 0.5, // Ajustar el ancho de las categorías
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 120, // Máximo del eje Y para ajustar la escala
+                    grid: {
+                        display: false // Desactivar las cuadrículas en el eje Y
+                    },
+                    display: false // Desactivar el eje Y
+                },
+                x: {
+                    grid: {
+                        display: false // Desactivar las cuadrículas en el eje X
+                    }
+                }
+            },
+            plugins: {
+                annotation: {
+                    annotations: {
+                        line1: {
+                            type: 'line',
+                            display: true, // Mostrar la línea al inicio
+                            borderColor: '#FD000D', // Color de la línea
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            label: {
+                                enabled: true, // Habilitar la etiqueta
+                                content: '100', // Contenido de la etiqueta
+                                position: 'end',
+                                color: '#FD000D', // Color de la etiqueta
+                                backgroundColor: 'rgba(0,0,0,0)',
+                                xAdjust: 22, // Ajustar la posición de la etiqueta hacia la derecha
+                                yAdjust: -0 // Ajustar la posición vertical de la etiqueta
+                            },
+                            yMin: 90.5, // Posición de la línea un poco más abajo de la barra de junio
+                            yMax: 90.5, // Mantener la línea horizontal un poco más abajo
+                            xMin: 0, // Iniciar en el borde izquierdo
+                            xMax: data.labels.length - 1 // Terminar en el borde derecho
+                        }
+                    }
+                },
+                legend: {
+                    display: false // Esto oculta la leyenda
+                }
+            },
+            onClick: (e, elements) => {
+                // Reiniciar el color de todas las barras
+                data.datasets[0].backgroundColor = Array(data.labels.length).fill('#E9EDF7');
+                
+                if (elements.length > 0) {
+                    // Obtener el índice de la barra seleccionada
+                    const index = elements[0].index;
+                    // Obtener el valor de la barra seleccionada
+                    const barValue = data.datasets[0].data[index];
+
+                    // Activar la barra seleccionada
+                    data.datasets[0].backgroundColor[index] = '#FD000D'; // Pintar de rojo la barra seleccionada
+                    
+                    // Configurar la posición de la línea horizontal centrada en la barra seleccionada
+                    config.options.plugins.annotation.annotations.line1.display = true; // Hacer visible la línea
+                    config.options.plugins.annotation.annotations.line1.xMin = 0; // Iniciar en el borde izquierdo
+                    config.options.plugins.annotation.annotations.line1.xMax = data.labels.length - 1; // Terminar en el borde derecho
+                    config.options.plugins.annotation.annotations.line1.yMin = barValue - 10; // Mantener en el valor de la barra seleccionada menos un margen
+                    config.options.plugins.annotation.annotations.line1.yMax = barValue - 10; // Asegurar que sea horizontal
+                    
+                    // Habilitar la etiqueta y asignar el número correspondiente a la derecha de la línea
+                    config.options.plugins.annotation.annotations.line1.label.enabled = true;
+                    config.options.plugins.annotation.annotations.line1.label.content = barValue;
+
+                    // Actualizar el gráfico para mostrar la línea y cambiar colores
+                    myChart.update();
+                }
+            }
+        }
+    };
+
+    // Crear gráfico
+    const myChart = new Chart(ctx, config);
 </script>
 @endsection
