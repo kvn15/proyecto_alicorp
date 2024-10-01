@@ -233,3 +233,68 @@ canvas {
     font-weight: 700;
     font-size: 1.9em;
 }
+
+.btn-descarga {
+    background-color: transparent;
+    border: 1px solid #868686;
+    height: 35px;
+}
+
+.btn-descarga:hover {
+    background-color: transparent;
+    border: 1px solid #868686;
+}
+
+
+.nav-tab-alicorp.nav-tabs {
+    border-width: 2px;
+}
+
+.nav-tab-alicorp .nav-link {
+    color: #868686;
+    font-weight: 600;
+    border: 0 !important;
+}
+
+.nav-tab-alicorp.nav-tabs .nav-link.active, .nav-tab-alicorp.nav-tabs .nav-item.show .nav-link {
+    color: #E62020;
+    background-color: transparent;
+    border: 0 !important;
+}
+
+.nav-tab-alicorp.nav-tabs .nav-link.active {
+    border-bottom: 1px solid #E62020 !important;
+}
+
+.nav-tab-alicorp.nav-tabs .nav-link:hover, .nav-tab-alicorp.nav-tabs .nav-link:focus {
+    isolation: isolate;
+    border: 0 !important;
+}
+
+.nav-tab-alicorp.nav-tabs .nav-link.active:hover, .nav-tab-alicorp.nav-tabs .nav-link.active:focus {
+    isolation: isolate;
+    border: 0 !important;
+    border-bottom: 2px solid #E62020 !important;
+}
+
+.tab-content .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__rendered .select2-selection__choice {
+    font-size: 0.8rem !important;
+    background-color: #E620201F !important;
+    color: var(--black) !important;
+}
+
+.imagen-draw-fav {
+    display: block;
+    cursor: pointer;
+    border: 1px solid #D0D5DD;
+    border-radius: 8px;
+    padding: 1em 0;
+}
+
+.imagen-draw-fav small {
+    color: #868686;
+}
+
+.imagen-draw-fav small b {
+    color: #027A48 !important;
+}

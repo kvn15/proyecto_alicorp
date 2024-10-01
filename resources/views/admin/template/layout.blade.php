@@ -14,9 +14,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.min.css">
     <script src="https://kit.fontawesome.com/25bfdd98ec.js" crossorigin="anonymous"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
     <link href="{{ asset('backend/css/admin/adminlte.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('backend/css/admin/adminAlicorp.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('backend/css/admin/showAlicorp.css') }}" rel="stylesheet" type="text/css" />
+    @livewireStyles
 </head> 
 
 <body class="layout-fixed sidebar-expand-lg sidebar-mini bg-body-tertiary app-loaded sidebar-collapse">
@@ -38,11 +41,12 @@
         {{-- @include('admin.template.footer') --}}
     </div>
 
+    @livewireScripts
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/browser/overlayscrollbars.browser.es6.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script> 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-    <script src="{{ asset('backend/js/admin/Chart.min.js') }}"></script>
     <script src="{{ asset('backend/js/admin/adminlte.js') }}"></script>
     <script>
         const SELECTOR_SIDEBAR_WRAPPER = ".sidebar-wrapper";
@@ -68,6 +72,10 @@
         });
     </script>
     @yield('script')
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.full.min.js"></script>
+    @yield('script_jquery')
 </body>
 
 </html>

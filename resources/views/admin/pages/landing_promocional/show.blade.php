@@ -369,7 +369,7 @@
 @endsection
 
 @section('script')
-
+<script src="{{ asset('backend/js/admin/Chart.min.js') }}"></script>
 {{-- Chart --}}
 <script>
     // Get context with jQuery - using jQuery's .get() method.
