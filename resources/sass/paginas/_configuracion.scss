@@ -1,0 +1,101 @@
+@include font-face('Gotham', 'Gotham-Black');
+.configuracion{
+    background-color: $color-principal;
+
+    h2{
+        padding-top: 70px;
+        padding-left: 40px;
+        color: white;
+        font-family: 'CoprAltMed';
+        font-size: 48px;
+        font-weight: 900;
+        margin-bottom: 50px;
+    }
+
+    .config{
+        background: #FFFFFF;
+        width: 333px;
+        height: 590px;
+        border-top-right-radius: 150px;
+    }
+
+    .datos a,
+    .password a{
+        display: flex;
+        padding-top: 50px;
+        padding-left: 30px;
+        text-decoration: none;
+        color: #000000;
+        img{
+            width: 24px;
+            height: 24px;
+        }
+        p{
+            font-size: 16px;
+            margin-left: 10px;
+        }
+    }
+
+    .password a{
+        padding-top: 0;
+    }
+
+    .config-edit{
+        margin-left: 150px;
+        
+        h3{
+            color: #FFFFFF;
+            font-family: 'CoprAltMed';
+            font-size: 36px;
+            font-weight: 900;
+        }
+
+        .hr-config{
+            opacity: 2;
+            color: #FFFFFF;
+            height: 4px;
+            width: 350px;
+            margin-top: 15px;
+            margin-bottom: 60px;
+        }
+
+        .custom-col-4{
+            width: 9.33333%;
+        }
+        .col-form-label{
+            color: #FFFFFF;
+            font-size: 16PX;
+            font-family: 'CoprAltMed';
+        }
+
+        .form-control{
+            border-radius: 16px;
+            background-color: #D9D9D9;
+            border-color: 0;
+            height: 30px;
+        }
+
+        .boton-update{
+            display: flex;
+            justify-content: end;
+        }
+
+        .btn{
+            background-color: #FFFFFF;
+            color: #000000;
+            border-radius: 24px;
+            font-family: 'Gotham';
+            font-size: 16px;
+            font-weight: 700;
+            padding: 10px 16px;
+        }
+
+       
+    }
+
+    .text-danger{
+        color: #FFFFFF !important;
+        font-size: 20px;
+    }
+    
+}

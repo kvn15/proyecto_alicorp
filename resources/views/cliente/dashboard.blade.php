@@ -8,7 +8,8 @@
                  @endif
             </div>
             <div class="col-4 d-flex flex-column align-content-center justify-content-center btn-config">
-                <button class="button button--perfil"><i class="fa fa-cog" aria-hidden="true"></i> Configuración</button>
+                <button class="button button--perfil"><i class="fa fa-cog" aria-hidden="true"></i>
+                    <a href="{{route('cliente.configuracion')}}">Configuración</a></button>
             </div>
             <div class="col-4"></div>
         </div>

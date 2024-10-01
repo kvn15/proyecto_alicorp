@@ -52,6 +52,10 @@ Route::prefix('admin')->group(function () {
 
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/cliente/dashboard', [alicorpController::class, 'dashboard'])->name('cliente.dashboard');
+    Route::get('/cliente/configuracion', [alicorpController::class, 'PUpdate'])->name('cliente.configuracion');
+    Route::get('/cliente/contrasena', [alicorpController::class, 'contrasena'])->name('cliente.contrasena');
+    Route::post('cliente/password/update', [alicorpController::class, 'UpdatePassword'])->name('cliente.password.update');
+    Route::post('/cliente/profile/update', [alicorpController::class, 'UpdateProfile'])->name('cliente.update.user');
 });
 
 

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Auth;
+use Illuminate\Support\Facades\Hash;
 
 class alicorpController extends Controller
 {
@@ -45,7 +48,59 @@ class alicorpController extends Controller
         return view('cliente.dashboard',compact($dashboard));
     }
 
+    public function configuracion(){
+        $configuracion = 'configuracion';
+        return view('cliente.configuracion',compact($configuracion));
+    }
 
+    public function contrasena(){
+        $contrasena = 'contrasena';
+        return view('cliente.contrasena',compact($contrasena));
+    }
+
+    public function UpdatePassword(Request $request){
+
+        $validateData = $request->validate([
+            'oldpassword' => 'required',
+            'password' => 'required|confirmed'
+        ]);
+
+        $hashedPassword = Auth::user()->password;
+        if(Hash::check($request->oldpassword,$hashedPassword)){
+            $user = User::find(Auth::id());
+            $user->password = Hash::make($request->password);
+            $user->save();
+            Auth::logout();
+            return redirect()->route('login')->with('success','Password Is Chanage Successfuly');
+
+        }else{
+            return redirect()->back()->with('error','Current Password IS Invalid');
+        }
+
+    }
+
+    public function PUpdate(){
+        if(Auth::user()){
+            $user = User::find(Auth::user()->id);
+            if($user){
+                return view('cliente.configuracion',compact('user'));
+            }
+        }
+    }
+
+    public function UpdateProfile(Request $request){
+        $user = User::find(Auth::user()->id);
+        if($user){
+            $user->name = $request['name'];
+            $user->email = $request['email'];
+
+            $user->save();
+            return Redirect()->route('cliente.dashboard')->with('success','User Profile Is update Successfully');
+
+        }else{
+            return Redirect()->back();
+        }
+    }
 
 }
 
