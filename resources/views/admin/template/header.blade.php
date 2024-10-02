@@ -8,7 +8,7 @@
         </ul>
         @yield('header_center')
         <ul class="navbar-nav">
-            <li class="nav-item dropdown user-menu"> 
+            <li class="nav-item user-menu"> 
                 @yield('header_right')
             </li>
         </ul>

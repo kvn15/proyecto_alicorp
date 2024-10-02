@@ -12,9 +12,7 @@
 @endsection
 
 @section('header_right')
-<button type="button" class="btn btn-alicorp">
-    <i class="bi bi-plus-circle"></i> Crear Proyecto
-</button>
+<livewire:crear-proyecto-btn />
 @endsection
 
 @section('contenido')

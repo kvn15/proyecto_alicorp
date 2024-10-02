@@ -403,3 +403,306 @@ hr {
     border-radius: 10px;
     margin-bottom: 1em;
 }
+
+.table-alicorp {
+    border-radius: 8px;
+}
+
+.table-alicorp table {
+    margin: 0;
+}
+
+.table-alicorp table {
+    border: 1px solid #E4E7EC;
+}
+
+.table-alicorp table thead th {
+    background-color: #EFF0EF;
+    font-weight: 500 !important;
+    font-size: 12px;
+    color: #475467;
+}
+
+.table-alicorp table tbody td {
+    font-weight: 400 !important;
+    font-size: 14px;
+    color: #323232;
+    line-height: 20px;
+    height: 72px;
+    vertical-align: middle;
+}
+
+.table-alicorp nav {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+}
+
+.table-alicorp nav span span, .table-alicorp nav span button {
+    display: block;
+    padding: 8px 14px !important;
+    margin-bottom: 5px;
+    border: 1px solid #868686 !important;
+    border-radius: 8px;
+    color: var(--black);
+    font-weight: 600;
+    margin: 0px 10px;
+}
+
+.modal-backdrop {
+    z-index: 1300 !important;
+}
+
+.sidebar-expand-lg.layout-fixed-complete .app-sidebar, .sidebar-expand-lg.layout-fixed .app-sidebar {
+    z-index: 1200 !important;
+}
+
+.app-header {
+    z-index: 1334 !important;
+}
+
+ /* Progressbar */
+ .progressbar {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    counter-reset: step;
+    margin: 2rem 0 2.5rem;
+    max-width: 300px;
+    margin: 1rem auto 2.5rem auto;
+  }
+  
+  .progressbar::before,
+  .progress {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 4px;
+    width: 100%;
+    background-color: #dcdcdc;
+    z-index: 1;
+  }
+  
+  .progress {
+    background-color: #78B928;
+    width: 0%;
+    transition: 0.3s;
+  }
+  
+  .progress-step {
+    width: 2.1875rem;
+    height: 2.1875rem;
+    background-color: #dcdcdc;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+  }
+  
+  .progress-step::before {
+    counter-increment: step;
+    content: counter(step);
+  }
+  
+  .progress-step::after {
+    content: attr(data-title);
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    font-size: 0.85rem;
+    color: #666;
+  }
+  
+  .progress-step-active {
+    background-color: #78B928;
+    color: #f3f3f3;
+  }
+
+  .progress-step-active::after {
+    color: #78B928;
+  }
+
+  /* Form */
+  .form {
+    width: clamp(320px, 30%, 430px);
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    border-radius: 0.35rem;
+    padding: 1.5rem;
+  }
+  
+  .form-step {
+    display: none;
+    transform-origin: top;
+    animation: animate 0.5s;
+  }
+  
+  .form-step-active {
+    display: block;
+  }
+  
+  /* @keyframes animate {
+    from {
+      transform: scale(1, 0);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1, 1);
+      opacity: 1;
+    }
+  } */
+  
+.container-modal-alicorp {
+    padding: 1em;
+}
+
+.container-modal-alicorp h4 {
+    font-weight: 700;
+    font-size: 32px;
+}
+
+.container-modal-alicorp .subtitle-modal {
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.img-tipo-proyecto {
+    border: 3px solid #EFF0EF;
+    border-radius: 25px;
+    padding: 1em;
+    cursor: pointer;
+    background-color: transparent;
+    transition: all ease 0.3s;
+    width: 100%;
+    margin-bottom: 4rem;
+}
+
+.img-tipo-proyecto:hover, .img-tipo-proyecto:focus, .img-tipo-proyecto.active-promo {
+    border-color: #E62020;
+    background-color: #E620200D;
+}
+
+.container-modal-alicorp .img-tipo-proyecto img {
+    max-width: 200px;
+}
+
+.container-modal-alicorp .img-tipo-proyecto p {
+    text-align: center;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.btn-next, .btn-configuracion {
+    width: 340px;
+    border-radius: 5px;
+    padding: 8px 10px 8px 10px;
+    background: #FD000D;
+    font-weight: 700;
+    font-size: 16px;
+    color: white;
+    transition: all ease 0.3s;
+}
+
+.btn-next:hover, .btn-configuracion:hover {
+    background-color: #c5030d;
+    color: white;
+}
+
+.modal-body {
+    position: relative;
+}
+
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    border: 0;
+    background-color: transparent;
+}
+
+.btn-disabled {
+    background-color: #6e6e6e;
+    color: #444444;
+    cursor: none;
+}
+
+.tipo_promo_bold {
+    color: #E62020;
+    font-weight: 700;
+}
+.btn-prev {
+    width: 340px;
+    border-radius: 5px;
+    padding: 8px 10px 8px 10px;
+    background: transparent;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--black);
+    transition: all ease 0.3s;
+    border: 0 !important;
+    box-shadow: none;
+}
+
+.container-modal-alicorp .form-label {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+
+.form-input-alicorp {
+    border-radius: 6px !important;
+    border: 1px solid #BFC4D7 !important;
+    box-shadow: none;
+    height: 48px !important;
+}
+
+.form-input-alicorp:focus {
+    box-shadow: none;
+}
+
+.form-input-alicorp:focus-visible {
+    border: 1px solid #BFC4D7 !important;
+}
+
+.resumen-modal label {
+    color: #868686;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.content-success {
+    padding-top: 5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.content-success .content-exito {
+    width: 450px;
+    height: 100%;
+    text-align: center;
+}
+
+.content-success img {
+    width: 180px;
+    height: 180px;
+}
+
+.content-success button {
+    margin-top: 5rem;
+    margin-bottom: 2rem;
+}
+
+.content-success h5 {
+    font-weight: 700;
+    font-size: 32px;
+}
+
+.content-success .titulo-pro, .content-success .id-pro {
+    font-size: 24px;
+}
+
+.content-success .id-pro {
+    font-weight: 700;
+}
