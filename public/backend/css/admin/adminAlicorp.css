@@ -449,7 +449,7 @@ hr {
     margin: 0px 10px;
 }
 
-.modal-backdrop {
+/* .modal-backdrop {
     z-index: 1300 !important;
 }
 
@@ -459,7 +459,7 @@ hr {
 
 .app-header {
     z-index: 1334 !important;
-}
+} */
 
  /* Progressbar */
  .progressbar {

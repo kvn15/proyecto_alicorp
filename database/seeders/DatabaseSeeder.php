@@ -17,5 +17,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory(15)->create();
         $this->call(AdminUserSeeder::class);
         Asignancion::factory(35)->create();
+        $this->call(ProjectTypesSeeder::class);
+        $this->call(GameSeeder::class);
     }
 }

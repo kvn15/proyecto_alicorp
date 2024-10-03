@@ -1,10 +1,7 @@
 <div>
-    <button type="button" class="btn btn-alicorp" data-bs-toggle="modal" data-bs-target="#exampleModal" id="modal-nuevo">
-        <i class="bi bi-plus-circle"></i> Crear Proyecto
-    </button>
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div wire:ignore.self class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
                 <div class="modal-body">
@@ -13,7 +10,7 @@
                             <path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z" fill="#323232"/>
                         </svg>
                     </button>
-                    <form wire:submit.prevent="submit" id="form-proyecto">
+                    <form wire:ignore wire:submit.prevent="submit" id="form-proyecto">
                         <!-- Progress bar -->
                         <div class="progressbar">
                             <div class="progress" id="progress"></div>
@@ -34,21 +31,20 @@
                                     <p class="subtitle-modal">Selecciona una de los siguientes opciones para continuar con la creación</p>
                                 </div>
                                 <div class="row">
-                                    <input wire:model="tipo_proyecto" type="hidden" name="tipo_promocion" id="tipo_promocion">
                                     <div class="col-12 col-md-6 col-lg-4">
-                                        <button type="button" class="img-tipo-proyecto" id="btn-landing">
+                                        <button type="button" class="img-tipo-proyecto" id="btn-landing" wire:click="changeProjecto(1)">
                                             <img class="img-fluid" src="{{asset('backend/img/proyecto-landing.png')}}" alt="Landing Promocional">
                                             <p>Landing Promocional</p>
                                         </button>
                                     </div>
                                     <div class="col-12 col-md-6 col-lg-4">
-                                        <button type="button" class="img-tipo-proyecto" id="btn-web">
+                                        <button type="button" class="img-tipo-proyecto" id="btn-web" wire:click="changeProjecto(2)">
                                             <img class="img-fluid" src="{{asset('backend/img/proyecto-juego-web.png')}}" alt="Landing Promocional">
                                             <p>Juego Web</p>
                                         </button>
                                     </div>
                                     <div class="col-12 col-md-6 col-lg-4">
-                                        <button type="button" class="img-tipo-proyecto" id="btn-campana">
+                                        <button type="button" class="img-tipo-proyecto" id="btn-campana" wire:click="changeProjecto(3)">
                                             <img class="img-fluid" src="{{asset('backend/img/proyecto-juego-campana.png')}}" alt="Landing Promocional">
                                             <p>Juego Campaña</p>
                                         </button>
@@ -68,15 +64,15 @@
                                 <div class="row">
                                     <div class="col-12 mb-3">
                                         <label for="nombrePromocion" class="form-label">Nombre del promoción</label>
-                                        <input type="text" id="nombrePromocion" class="form-control form-input-alicorp" placeholder="Escribir">
+                                        <input wire:model="nombre_promocion" type="text" id="nombrePromocion" class="form-control form-input-alicorp" placeholder="Escribir">
                                     </div>
                                     <div class="col-12 mb-3">
                                         <label for="descPromocion" class="form-label">Descripción de la promoción</label>
-                                        <input type="text" id="descPromocion" class="form-control form-input-alicorp" placeholder="Escribir">
+                                        <input wire:model="desc_promocion" type="text" id="descPromocion" class="form-control form-input-alicorp" placeholder="Escribir">
                                     </div>
                                     <div class="col-12 col-md-6 mb-3" id="selectJuegoContent">
                                         <label for="selectJuego" class="form-label">Seleccionar Juego</label>
-                                        <select name="selectJuego" id="selectJuego" class="form-control form-input-alicorp">
+                                        <select wire:model="game_select" name="selectJuego" id="selectJuego" class="form-control form-input-alicorp">
                                             <option selected>-- Seleccionar --</option>
                                             @foreach ($game as $value)
                                             <option value="{{ $value->id }}">{{ $value->name }}</option>
@@ -86,7 +82,7 @@
                                     <div class="col-12 col-md-6 mb-3" id="selectMarcaContent">
                                         <label for="selectMarca" class="form-label">Seleccionar Marca</label>
                                         {{-- <input type="text" id="nombrePromocion" class="form-control form-input-alicorp" placeholder="Escribir"> --}}
-                                        <select class="form-select form-input-alicorp" id="selectMarca" data-placeholder="Escoja las marcas" multiple>
+                                        <select wire:model="marcas" class="form-select form-input-alicorp" id="selectMarca" data-placeholder="Escoja las marcas" multiple>
                                             <option>Christmas Island</option>
                                             <option>South Sudan</option>
                                             <option>Jamaica</option>
@@ -128,7 +124,7 @@
                                             <label>Tipo de Promoción</label>
                                         </div>
                                         <div class="col-12 col-md-6 col-lg-8">
-                                            <input type="text" id="descPromocion" class="form-control form-input-alicorp" placeholder="Escribir">
+                                            <input type="text" id="descPromocion" class="form-control form-input-alicorp" placeholder="Escribir" wire:model="tipoProyecto" readonly>
                                         </div>
                                     </div>
                                     <div class="row mb-3 d-none" id="juego-resumen">
@@ -136,7 +132,7 @@
                                             <label>Juego</label>
                                         </div>
                                         <div class="col-12 col-md-6 col-lg-8">
-                                            <input type="text" id="descPromocion" class="form-control form-input-alicorp" placeholder="Escribir">
+                                            <input type="text" id="descPromocion" class="form-control form-input-alicorp" placeholder="Escribir" wire:model="gameText" readonly>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -144,7 +140,7 @@
                                             <label>Nombre del promoción</label>
                                         </div>
                                         <div class="col-12 col-md-6 col-lg-8">
-                                            <input type="text" id="descPromocion" class="form-control form-input-alicorp" placeholder="Escribir">
+                                            <input type="text" id="descPromocion" class="form-control form-input-alicorp" placeholder="Escribir" wire:model="nombre_promocion" readonly>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -152,7 +148,7 @@
                                             <label>Descripción del promoción</label>
                                         </div>
                                         <div class="col-12 col-md-6 col-lg-8">
-                                            <input type="text" id="descPromocion" class="form-control form-input-alicorp" placeholder="Escribir">
+                                            <input type="text" id="descPromocion" class="form-control form-input-alicorp" placeholder="Escribir" wire:model="desc_promocion" readonly>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -160,7 +156,7 @@
                                             <label>Marca</label>
                                         </div>
                                         <div class="col-12 col-md-6 col-lg-8">
-                                            <input type="text" id="descPromocion" class="form-control form-input-alicorp" placeholder="Escribir">
+                                            <input type="text" id="descPromocion" class="form-control form-input-alicorp" placeholder="Escribir" readonly wire:model="marcas">
                                         </div>
                                     </div>
                                 </div>
@@ -176,8 +172,8 @@
                             <h5>Creación Exitosa</h5>
                             <p class="subtitle-modal">El <span class="tipo_promo_bold">Juego Web</span> a sido creado</p>
                             <img src="{{ asset('backend/img/check.png') }}" alt="Check">
-                            <p class="titulo-pro">Nuevo Proyecto</p>
-                            <p class="id-pro"><b>ID: 1233125</b></p>
+                            <p class="titulo-pro">{{ $nombreProyectoCreado }}</p>
+                            <p class="id-pro"><b>ID: {{ $idProyecto }}</b></p>
                             <button type="button" class="btn btn-configuracion">Ir a Configuración del proyecto</button>
                         </div>
                     </div>
@@ -188,6 +184,36 @@
     @section('script')
         <script src="{{ asset('backend/js/admin/step.js') }}"></script>
     @endsection
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Livewire.on('eventoLanding', () => {
+                // Tu lógica de JavaScript aquí
+                // tuFuncionEnJavaScript(); // Llama a tu función
+                btnLandingPromocional()
+            });
+            Livewire.on('eventoWeb', () => {
+                // Tu lógica de JavaScript aquí
+                // tuFuncionEnJavaScript(); // Llama a tu función
+                btJuegonWeb()
+            });
+            Livewire.on('eventoCampana', () => {
+                // Tu lógica de JavaScript aquí
+                // tuFuncionEnJavaScript(); // Llama a tu función
+                btnJuegoCampana()
+            });
+
+            Livewire.on('eventoFinish', () => {
+                // Tu lógica de JavaScript aquí
+                // tuFuncionEnJavaScript(); // Llama a tu función
+                finishCreate()
+            });
+            // Escuchar el evento de cambio de Select2
+            $('#selectMarca').on('change', function (e) {
+                var data = $(this).val(); // Obtener los valores seleccionados
+                @this.set('marcas', data.join(', ')); // Establecer la propiedad en Livewire
+            });
+        });
+    </script>
 
     @section('script_jquery')
         <script>

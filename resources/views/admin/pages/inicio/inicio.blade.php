@@ -185,4 +185,5 @@
         </div>
     </div>
 
+    <livewire:modal-project />
 @endsection
