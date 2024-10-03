@@ -26,8 +26,6 @@ class ModalProject extends Component
 
         $this->idProyecto = $proyecto->id;
         $this->nombreProyectoCreado = $proyecto->nombre_promocion;
-
-        $proyecto->project_type_id = '';
         $proyecto->nombre_promocion = '';
         $proyecto->desc_promocion = '';
         $proyecto->marcas = '';
@@ -46,6 +44,21 @@ class ModalProject extends Component
         } else {
             $this->emit('eventoCampana');
         }
+    }
+
+    public function redirectProyecto() {
+        $routeProyecto = '';
+        if ($this->tipo_promocion == 1) {
+            $routeProyecto = 'landing_promocional.show.configuracion';
+        } else if ($this->tipo_promocion == 2) {
+            $routeProyecto = 'landing_promocional.show.configuracion';
+        } else {
+            $routeProyecto = 'landing_promocional.show.configuracion';
+        }
+
+        $this->tipo_promocion = '';
+
+        return redirect()->route($routeProyecto, ['id' => $this->idProyecto]);
     }
 
     public function mount() 

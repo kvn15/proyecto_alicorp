@@ -10,4 +10,9 @@ class ProyectType extends Model
     use HasFactory;
     
     protected $fillable = ['name'];
+
+    // Relacion categoria - Uno a Uno
+    public function project() {
+        return $this->belongsTo(Project::class);
+    }
 }

@@ -174,7 +174,7 @@
                             <img src="{{ asset('backend/img/check.png') }}" alt="Check">
                             <p class="titulo-pro">{{ $nombreProyectoCreado }}</p>
                             <p class="id-pro"><b>ID: {{ $idProyecto }}</b></p>
-                            <button type="button" class="btn btn-configuracion">Ir a Configuración del proyecto</button>
+                            <button type="button" class="btn btn-configuracion" data-bs-dismiss="modal" wire:click="redirectProyecto">Ir a Configuración del proyecto</button>
                         </div>
                     </div>
                 </div>

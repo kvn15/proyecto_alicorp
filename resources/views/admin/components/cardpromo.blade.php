@@ -1,7 +1,7 @@
 
 <div class="card-promo">
     <div class="card-promo-header">
-        <div class="img-promo" style="background-image: url({{asset($img_promo)}})"></div>
+        <div class="img-promo" style="background-image: url({{$img_promo}})"></div>
     </div>
     <div class="card-body">
         <p class="m-0"><b>{{ $name_promo }}</b></p>
