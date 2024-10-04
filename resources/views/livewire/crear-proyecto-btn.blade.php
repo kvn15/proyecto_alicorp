@@ -13,7 +13,7 @@
                             <path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z" fill="#323232"/>
                         </svg>
                     </button>
-                    <form action="" id="form-proyecto">
+                    <form wire:submit.prevent="submit" id="form-proyecto">
                         <!-- Progress bar -->
                         <div class="progressbar">
                             <div class="progress" id="progress"></div>
@@ -34,7 +34,7 @@
                                     <p class="subtitle-modal">Selecciona una de los siguientes opciones para continuar con la creación</p>
                                 </div>
                                 <div class="row">
-                                    <input type="hidden" name="tipo_promocion" id="tipo_promocion">
+                                    <input wire:model="tipo_proyecto" type="hidden" name="tipo_promocion" id="tipo_promocion">
                                     <div class="col-12 col-md-6 col-lg-4">
                                         <button type="button" class="img-tipo-proyecto" id="btn-landing">
                                             <img class="img-fluid" src="{{asset('backend/img/proyecto-landing.png')}}" alt="Landing Promocional">
@@ -78,9 +78,9 @@
                                         <label for="selectJuego" class="form-label">Seleccionar Juego</label>
                                         <select name="selectJuego" id="selectJuego" class="form-control form-input-alicorp">
                                             <option selected>-- Seleccionar --</option>
-                                            <option value="1">Raspa y Gana</option>
-                                            <option value="2">Ruleta</option>
-                                            <option value="3">Memoria</option>
+                                            @foreach ($game as $value)
+                                            <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="col-12 col-md-6 mb-3" id="selectMarcaContent">
@@ -167,7 +167,7 @@
                             </div>
                             <div class="btns-group d-flex justify-content-between">
                                 <a href="#" class="btn btn-prev">Atras</a>
-                                <button type="button" class="btn btn-configuracion" id="next-fin">Crear promoción</button>
+                                <button type="submit" class="btn btn-configuracion" id="next-fin">Crear promoción</button>
                             </div>
                         </div>
                     </form>

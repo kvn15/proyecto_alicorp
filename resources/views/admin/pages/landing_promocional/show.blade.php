@@ -1,7 +1,7 @@
 @extends('admin.pages.inicio.layout')
 
 @section('header_left')
-  <span>Landing Promocional > <b>Nueva Proyecto Landing</b></span>
+  <span>Landing Promocional > <b>{{ $project["landing"]->nombre_promocion }}</b></span>
 @endsection
 
 @section('header_center')
@@ -10,9 +10,15 @@
 @endsection
 
 @section('header_right')
+@if ($project["landing"]->status)
+<button type="button" class="btn btn-inactivo">
+    Activo
+</button>
+@else
 <button type="button" class="btn btn-inactivo">
     Inactivo
 </button>
+@endif
 @endsection
 
 
@@ -27,39 +33,45 @@
                 <div class="col-12">
                     <div class="card-w-full">
                         <div class="info-container">
-                            <a href="{{ route('landing_promocional.show.overview', 1) }}"><img class="img-fluid" src="{{asset('backend/img/thumbnail.png')}}" alt=""></a>
+                            <a href="{{ route('landing_promocional.show.overview', $project["landing"]->id ) }}"><img class="img-fluid" src="{{asset('backend/img/thumbnail.png')}}" alt=""></a>
                             <div class="info-card">
-                                <p class="title-card"><a href="{{ route('landing_promocional.show.overview', 1) }}">Nuevo Proyecto Campaña Web</a></p>
-                                <p>Landing Promocional</p>
-                                <p><small>Ultima actualización: 12/08/2024 16:34</small></p>
-                                <p><small>Fecha creación: 12/08/2024</small></p>
+                                <p class="title-card"><a href="{{ route('landing_promocional.show.overview', $project["landing"]->id) }}">{{ $project["landing"]->nombre_promocion }}</a></p>
+                                <p>{{ $project["landing"]->desc_promocion }}</p>
+                                <p><small>Ultima actualización: {{ $project["landing"]->updated_at }}</small></p>
+                                <p><small>Fecha creación: {{ $project["landing"]->created_at }}</small></p>
                             </div>
                         </div>
                         <div class="etapas-card">
                             <div class="item-etapa">
                                 <span class="title-etapa"><b>Estado</b></span>
                                 <div class="body-etapa">
+                                    @if ($project["landing"]->status)
+                                    <div class="bage-activo">
+                                        Activo
+                                    </div>
+                                    @else
                                     <div class="bage-inactivo">
                                         Inactivo
                                     </div>
+                                    @endif
                                 </div>
                             </div>
                             <div class="item-etapa">
                                 <span class="title-etapa"><b>Fecha Inicio</b></span>
                                 <div class="body-etapa">
-                                    <span>20/08/2024</span>
+                                    <span>{{ $project["landing"]->fecha_ini_proyecto }}</span>
                                 </div>
                             </div>
                             <div class="item-etapa">
                                 <span class="title-etapa"><b>Fecha Fin</b></span>
                                 <div class="body-etapa">
-                                    <span>-</span>
+                                    <span>{{ $project->fecha_fin_proyecto ?? '-' }}</span>
                                 </div>
                             </div>
                             <div class="item-etapa">
                                 <span class="title-etapa"><b>Participantes</b></span>
                                 <div class="body-etapa">
-                                    <span>3500</span>
+                                    <span>0</span>
                                 </div>
                             </div>
                         </div>
@@ -107,83 +119,23 @@
                         <h5 class="mb-4">Ultimos participantes</h5>
 
                         <div class="w-100 d-flex flex-column" style="gap: 0.4rem">
+                            @foreach ($project["ultParticipantes"] as $ultParticipante)
                             <div class="row">
                                 <div class="col-5 name-ganador">
-                                    <span>Alex Manda</span>
+                                    <span>{{ $ultParticipante->user->name }}</span>
                                 </div>
                                 <div class="col-3 documento-ganador">
-                                    <span>65928421</span>
+                                    <span>{{ $ultParticipante->user->documento }}</span>
                                 </div>
                                 <div class="col-4 estado-ganador">
+                                    @if ($ultParticipante->ganador == 1)
                                     <span class="estado-win">Gano</span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-5 name-ganador">
-                                    <span>Alex Manda</span>
-                                </div>
-                                <div class="col-3 documento-ganador">
-                                    <span>65928421</span>
-                                </div>
-                                <div class="col-4 estado-ganador">
+                                    @else
                                     <span class="estado-lose">No Gano</span>
+                                    @endif
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-5 name-ganador">
-                                    <span>Alex Manda</span>
-                                </div>
-                                <div class="col-3 documento-ganador">
-                                    <span>65928421</span>
-                                </div>
-                                <div class="col-4 estado-ganador">
-                                    <span class="estado-lose">No Gano</span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-5 name-ganador">
-                                    <span>Alex Manda</span>
-                                </div>
-                                <div class="col-3 documento-ganador">
-                                    <span>65928421</span>
-                                </div>
-                                <div class="col-4 estado-ganador">
-                                    <span class="estado-lose">No Gano</span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-5 name-ganador">
-                                    <span>Alex Manda</span>
-                                </div>
-                                <div class="col-3 documento-ganador">
-                                    <span>65928421</span>
-                                </div>
-                                <div class="col-4 estado-ganador">
-                                    <span class="estado-lose">No Gano</span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-5 name-ganador">
-                                    <span>Alex Manda</span>
-                                </div>
-                                <div class="col-3 documento-ganador">
-                                    <span>65928421</span>
-                                </div>
-                                <div class="col-4 estado-ganador">
-                                    <span class="estado-win">Gano</span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-5 name-ganador">
-                                    <span>Alex Manda</span>
-                                </div>
-                                <div class="col-3 documento-ganador">
-                                    <span>65928421</span>
-                                </div>
-                                <div class="col-4 estado-ganador">
-                                    <span class="estado-win">Gano</span>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
 
                         <div class="w-100 d-flex justify-content-end mt-4">
@@ -235,55 +187,25 @@
                         <h5 class="mb-4">Ultimos ganadores</h5>
 
                         <div class="w-100 d-flex flex-column" style="gap: 0.4rem">
+                            @foreach ($project["ultGanadores"] as $ultGanadores)
                             <div class="row">
                                 <div class="col-5 name-ganador">
-                                    <span>Alex Manda</span>
-                                    <small>Hoy 25/08/2024</small>
+                                    <span>{{ $ultGanadores->users->name }}</span>
+                                    <small>{{ $ultGanadores->created_at }}</small>
                                 </div>
                                 <div class="col-3 documento-ganador">
-                                    <span>65928421</span>
+                                    <span>{{ $ultGanadores->users->documento }}</span>
                                 </div>
                                 <div class="col-4 estado-ganador">
                                     <span class="estado-win">Articulo 1</span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-5 name-ganador">
-                                    <span>Alex Manda</span>
-                                    <small>Hoy 25/08/2024</small>
-                                </div>
-                                <div class="col-3 documento-ganador">
-                                    <span>65928421</span>
-                                </div>
-                                <div class="col-4 estado-ganador">
+                                    @if ($ultGanadores->ganador == 1)
+                                    <span class="estado-win">Articulo 1</span>
+                                    @else
                                     <span class="estado-lose">Articulo 1</span>
+                                    @endif
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-5 name-ganador">
-                                    <span>Alex Manda</span>
-                                    <small>Hoy 25/08/2024</small>
-                                </div>
-                                <div class="col-3 documento-ganador">
-                                    <span>65928421</span>
-                                </div>
-                                <div class="col-4 estado-ganador">
-                                    <span class="estado-win">Articulo 1</span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-5 name-ganador">
-                                    <span>Alex Manda</span>
-                                    <small>Hoy 25/08/2024</small>
-                                </div>
-                                <div class="col-3 documento-ganador">
-                                    <span>65928421</span>
-                                </div>
-                                <div class="col-4 estado-ganador">
-                                    <span class="estado-win">Articulo 1</span>
-                                </div>
-                            </div>
-                           
+                            @endforeach
                         </div>
 
                         <div class="w-100 d-flex justify-content-end mt-4">
@@ -302,15 +224,15 @@
     <script>
         const data = [{
             "name": "Visitas",
-            "value": 673,
+            "value": {{ $project["NroVistas"] }},
             color: '#3AAAE3'
         }, {
             "name": "Participantes",
-            "value": 486,
+            "value": {{ $project["NroParticipantes"] }},
             color: '#3762D0'
         }, {
             "name": "Ganadores",
-            "value": 183,
+            "value": {{ $project["NroGanadores"] }},
             color: '#E62020'
         }];
 
@@ -365,7 +287,6 @@
             ctx.fillText(data[i].value, x + 10, 60);
         }
     </script>
-
 @endsection
 
 @section('script')
@@ -375,8 +296,12 @@
     // Get context with jQuery - using jQuery's .get() method.
     var areaChartCanvas = document.querySelector('#areaChart').getContext('2d')
 
+    var meses = '{{ $project["meses"] }}';
+    var vistas = '{{ $project["vistas"] }}';
+    var participantes = '{{ $project["participantes"] }}';
+
     var areaChartData = {
-    labels  : ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio'],
+    labels  : meses.split('|'),
     datasets: [
         {
         label               : 'Digital Goods',
@@ -387,7 +312,7 @@
         pointStrokeColor    : 'rgba(60,141,188,1)',
         pointHighlightFill  : '#fff',
         pointHighlightStroke: 'rgba(60,141,188,1)',
-        data                : [28, 48, 40, 19, 86, 27, 90]
+        data                : participantes.split('|')
         },
         {
         label               : 'Electronics',
@@ -399,7 +324,7 @@
         pointStrokeColor    : '#c1c7d1',
         pointHighlightFill  : '#fff',
         pointHighlightStroke: 'rgba(220,220,220,1)',
-        data                : [65, 59, 80, 81, 56, 55, 40]
+        data                : vistas.split('|')
         },
     ]
     }

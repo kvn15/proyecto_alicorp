@@ -16,6 +16,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+    <link rel="stylesheet" href="{{ asset('backend/assets/css/icheck-bootstrap.min.css') }}">
     <link href="{{ asset('backend/css/admin/adminlte.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('backend/css/admin/adminAlicorp.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('backend/css/admin/showAlicorp.css') }}" rel="stylesheet" type="text/css" />
@@ -42,7 +43,6 @@
     </div>
 
     @livewireScripts
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/browser/overlayscrollbars.browser.es6.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script> 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>

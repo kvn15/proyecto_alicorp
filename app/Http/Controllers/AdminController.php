@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
@@ -15,7 +17,19 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        return view('admin.pages.inicio.inicio');
+        $projects = Project::limit(3)->orderBy('created_at', 'desc')->get();
+        $landing = Project::where('project_type_id', 1)->orderBy('created_at', 'desc')->get();
+        $web = Project::where('project_type_id', 2)->orderBy('created_at', 'desc')->get();
+        $campana = Project::where('project_type_id', 3)->orderBy('created_at', 'desc')->get();
+
+        $inicio = [
+            "projects" => $projects,
+            "landing" => $landing,
+            "web" => $web,
+            "campana" => $campana,
+        ];
+
+        return view('admin.pages.inicio.inicio', compact('inicio'));
     }
 
     public function inicio(){

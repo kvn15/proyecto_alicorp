@@ -1,7 +1,7 @@
 @extends('admin.pages.inicio.layout')
 
 @section('header_left')
-  <span>Landing Promocional > <b>Nueva Proyecto Landing</b></span>
+  <span>Landing Promocional > <b>{{ $landing->nombre_promocion }}</b></span>
 @endsection
 
 @section('header_center')
@@ -10,9 +10,15 @@
 @endsection
 
 @section('header_right')
+@if ($landing->status)
+<button type="button" class="btn btn-inactivo">
+    Activo
+</button>
+@else
 <button type="button" class="btn btn-inactivo">
     Inactivo
 </button>
+@endif
 @endsection
 
 @section('inicio_dash')
@@ -21,6 +27,9 @@
     <div class="body-right">
         <h3>Participantes</h3>
 
+        <div class="row">
+            <livewire:paticipante-table />
+        </div>
     </div>
 </div>
 @endsection

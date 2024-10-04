@@ -449,7 +449,7 @@ hr {
     margin: 0px 10px;
 }
 
-.modal-backdrop {
+/* .modal-backdrop {
     z-index: 1300 !important;
 }
 
@@ -459,10 +459,10 @@ hr {
 
 .app-header {
     z-index: 1334 !important;
-}
+} */
 
  /* Progressbar */
- .progressbar {
+ .modal .progressbar {
     position: relative;
     display: flex;
     justify-content: space-between;
@@ -472,25 +472,25 @@ hr {
     margin: 1rem auto 2.5rem auto;
   }
   
-  .progressbar::before,
-  .progress {
+  .modal .progressbar::before,
+  .modal .progress {
     content: "";
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
+    /* transform: translateY(-50%); */
     height: 4px;
     width: 100%;
     background-color: #dcdcdc;
     z-index: 1;
   }
   
-  .progress {
+  .modal .progress {
     background-color: #78B928;
     width: 0%;
     transition: 0.3s;
   }
   
-  .progress-step {
+  .modal .progress-step {
     width: 2.1875rem;
     height: 2.1875rem;
     background-color: #dcdcdc;
@@ -501,12 +501,12 @@ hr {
     z-index: 2;
   }
   
-  .progress-step::before {
+  .modal .progress-step::before {
     counter-increment: step;
     content: counter(step);
   }
   
-  .progress-step::after {
+  .modal .progress-step::after {
     content: attr(data-title);
     position: absolute;
     top: calc(100% + 0.5rem);
@@ -514,17 +514,17 @@ hr {
     color: #666;
   }
   
-  .progress-step-active {
+  .modal .progress-step-active {
     background-color: #78B928;
     color: #f3f3f3;
   }
 
-  .progress-step-active::after {
+  .modal .progress-step-active::after {
     color: #78B928;
   }
 
   /* Form */
-  .form {
+  .modal .form {
     width: clamp(320px, 30%, 430px);
     margin: 0 auto;
     border: 1px solid #ccc;
@@ -532,13 +532,13 @@ hr {
     padding: 1.5rem;
   }
   
-  .form-step {
+  .modal .form-step {
     display: none;
     transform-origin: top;
     animation: animate 0.5s;
   }
   
-  .form-step-active {
+  .modal .form-step-active {
     display: block;
   }
   

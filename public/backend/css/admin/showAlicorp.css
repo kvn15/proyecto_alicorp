@@ -298,3 +298,50 @@ canvas {
 .imagen-draw-fav small b {
     color: #027A48 !important;
 }
+
+.collapse-filtro{
+    position: absolute;
+    top: 50px;
+    right: 0;
+    width: 360px;
+    padding: 24px 21px;
+    border-radius: 12px;
+    background-color: #fff;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+[class*=icheck-]>input:first-child+input[type=hidden]+label::before, [class*=icheck-]>input:first-child+label::before {
+    border-radius: 8px !important;
+    border-color: #CFD3D4 !important;
+}
+
+[class*=icheck-]>label {
+   color: #83898C !important;
+   font-weight: 400 !important;
+   font-size: 14px !important;
+}
+
+.icheck-primary>input:first-child:checked+input[type=hidden]+label::before, .icheck-primary>input:first-child:checked+label::before {
+    background-color: #ED1B2F !important;
+}
+
+.collapse-filtro {
+    display: none;
+}
+
+#checkFilter:checked ~ .collapse-filtro {
+    display: block !important;
+}
+
+.badge-alicorp .text-bg-success {
+    background-color: #ECFDF3 !important;
+    color: #027A48 !important;
+    font-weight: 500 !important;
+    font-size: 12px !important;
+}
+.badge-alicorp .text-bg-secondary {
+    background-color: #F2F4F7 !important;
+    color: var(--black) !important;
+    font-weight: 500 !important;
+    font-size: 12px !important;
+}

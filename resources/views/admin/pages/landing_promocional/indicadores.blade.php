@@ -1,7 +1,7 @@
 @extends('admin.pages.inicio.layout')
 
 @section('header_left')
-  <span>Landing Promocional > <b>Nueva Proyecto Landing</b></span>
+  <span>Landing Promocional > <b>{{ $project["landing"]->nombre_promocion }}</b></span>
 @endsection
 
 @section('header_center')
@@ -10,9 +10,15 @@
 @endsection
 
 @section('header_right')
+@if ($project["landing"]->status)
+<button type="button" class="btn btn-inactivo">
+    Activo
+</button>
+@else
 <button type="button" class="btn btn-inactivo">
     Inactivo
 </button>
+@endif
 @endsection
 
 @section('inicio_dash')
@@ -41,14 +47,15 @@
                     <div class="info-box-content"> 
                         <span class="info-box-text">Vistas</span> 
                         <span class="info-box-number">
-                            15,000
+                            {{ $project["NroVistas"] }}
                         </span> 
                     </div>
                 </div>
             </div>
             <div class="col-12 col-sm-6 col-md-3">
                 <div class="info-box"> 
-                    <div class="info-box-content"> <span class="info-box-text">Participantes</span> <span class="info-box-number">3,500</span> </div>
+                    <div class="info-box-content"> <span class="info-box-text">Participantes</span> <span class="info-box-number">
+                        {{ $project["NroParticipantes"] }}</span> </div>
                     <span class="info-box-icon"> 
                         <svg width="64" height="46" viewBox="0 0 64 46" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="58.0737" y="45.5704" width="45.5705" height="5.33286" rx="2.66643" transform="rotate(-90 58.0737 45.5704)" fill="#E9EDF7"/>
@@ -80,7 +87,7 @@
                             </defs>
                         </svg>
                     </span>
-                    <div class="info-box-content"> <span class="info-box-text">Ganadores</span> <span class="info-box-number">25</span> </div>
+                    <div class="info-box-content"> <span class="info-box-text">Ganadores</span> <span class="info-box-number">{{ $project["NroGanadores"] }}</span> </div>
                 </div>
             </div>
             <div class="col-12 col-sm-6 col-md-3">
@@ -98,7 +105,7 @@
                             </defs>
                         </svg>
                     </span>
-                    <div class="info-box-content"> <span class="info-box-text">Días promoción</span> <span class="info-box-number">42</span> </div>
+                    <div class="info-box-content"> <span class="info-box-text">Días promoción</span> <span class="info-box-number">{{ $project["diasPromocion"] }}</span> </div>
                 </div>
             </div>
         </div>
@@ -147,7 +154,7 @@
                         <div>
                             <span class="progress-titulo">Visitas últimos 7 días</span>
                             <br>
-                            <span class="progress-cantidad">1,243</span>
+                            <span class="progress-cantidad">{{ $project["total7Dias"] }}</span>
                         </div>
                         <div>
                             <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -165,48 +172,18 @@
                     </div>
                     <div class="indicador-progress">
                         <div class="text-center d-flex justify-content-between">
+                            @foreach ($project["ultimos7Dias"] as $ultimos7Dias)
+                            @php
+                                $porcentaje = ($ultimos7Dias / 2000) * 100;
+                                $porcentaje = $porcentaje > 100 ? 100 : $porcentaje;
+                            @endphp
                             <div class="progress vertical">
-                                <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0"
-                                    aria-valuemax="100" style="height: 50%">
-                                    <span class="sr-only">50%</span>
+                                <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="{{ $porcentaje }}" aria-valuemin="0"
+                                    aria-valuemax="100" style="height: {{ $porcentaje }}%">
+                                    <span class="sr-only">{{ $porcentaje }}%</span>
                                 </div>
                             </div>
-                            <div class="progress vertical">
-                                <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0"
-                                    aria-valuemax="100" style="height: 35%">
-                                    <span class="sr-only">35%</span>
-                                </div>
-                            </div>
-                            <div class="progress vertical">
-                                <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0"
-                                    aria-valuemax="100" style="height: 85%">
-                                    <span class="sr-only">85%</span>
-                                </div>
-                            </div>
-                            <div class="progress vertical">
-                                <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0"
-                                    aria-valuemax="100" style="height: 45%">
-                                    <span class="sr-only">45%</span>
-                                </div>
-                            </div>
-                            <div class="progress vertical">
-                                <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0"
-                                    aria-valuemax="100" style="height: 60%">
-                                    <span class="sr-only">60%</span>
-                                </div>
-                            </div>
-                            <div class="progress vertical">
-                                <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0"
-                                    aria-valuemax="100" style="height: 92%">
-                                    <span class="sr-only">92%</span>
-                                </div>
-                            </div>
-                            <div class="progress vertical">
-                                <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0"
-                                    aria-valuemax="100" style="height: 15%">
-                                    <span class="sr-only">15%</span>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -311,8 +288,12 @@
     // Get context with jQuery - using jQuery's .get() method.
     var areaChartCanvas = document.querySelector('#areaChart').getContext('2d')
 
+    var meses = '{{ $project["meses"] }}';
+    var vistas = '{{ $project["vistas"] }}';
+    var participantes = '{{ $project["participantes"] }}';
+
     var areaChartData = {
-    labels  : ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio'],
+    labels  : meses.split('|'),
     datasets: [
         {
         label               : 'Digital Goods',
@@ -323,7 +304,7 @@
         pointStrokeColor    : 'rgba(60,141,188,1)',
         pointHighlightFill  : '#fff',
         pointHighlightStroke: 'rgba(60,141,188,1)',
-        data                : [28, 48, 40, 19, 86, 27, 90]
+        data                : participantes.split('|')
         },
         {
         label               : 'Electronics',
@@ -335,7 +316,7 @@
         pointStrokeColor    : '#c1c7d1',
         pointHighlightFill  : '#fff',
         pointHighlightStroke: 'rgba(220,220,220,1)',
-        data                : [65, 59, 80, 81, 56, 55, 40]
+        data                : vistas.split('|')
         },
     ]
     }
@@ -373,14 +354,16 @@
 <script>
     const ctx = document.getElementById('myChart').getContext('2d');
 
+    var meses = '{{ $project["meses"] }}';
+    var participantes = '{{ $project["participantes"] }}';
     // Datos del gráfico
     const data = {
-        labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        labels: meses.split('|'),
         datasets: [{
             label: 'Ventas',
-            data: [50, 60, 70, 80, 90, 100, 80, 70, 60, 50, 40, 30], // Datos para cada mes
+            data: participantes.split('|'), // Datos para cada mes
             backgroundColor: [
-                '#E9EDF7', '#E9EDF7', '#E9EDF7', '#E9EDF7', '#E9EDF7', '#FD000D', 
+                '#E9EDF7', '#E9EDF7', '#E9EDF7', '#E9EDF7', '#E9EDF7', '#E9EDF7', 
                 '#E9EDF7', '#E9EDF7', '#E9EDF7', '#E9EDF7', '#E9EDF7', '#E9EDF7'
             ],
             borderWidth: 1,
@@ -398,7 +381,7 @@
             scales: {
                 y: {
                     beginAtZero: true,
-                    max: 120, // Máximo del eje Y para ajustar la escala
+                    max: 100, // Máximo del eje Y para ajustar la escala
                     grid: {
                         display: false // Desactivar las cuadrículas en el eje Y
                     },
@@ -415,13 +398,13 @@
                     annotations: {
                         line1: {
                             type: 'line',
-                            display: true, // Mostrar la línea al inicio
+                            display: false, // Mostrar la línea al inicio
                             borderColor: '#FD000D', // Color de la línea
                             borderWidth: 2,
                             borderDash: [5, 5],
                             label: {
                                 enabled: true, // Habilitar la etiqueta
-                                content: '100', // Contenido de la etiqueta
+                                content: '0', // Contenido de la etiqueta
                                 position: 'end',
                                 color: '#FD000D', // Color de la etiqueta
                                 backgroundColor: 'rgba(0,0,0,0)',
