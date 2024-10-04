@@ -9,7 +9,7 @@ class Project extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['project_type_id', 'nombre_promocion', 'desc_promocion', 'game_id', 'marcas'];
+    protected $fillable = ['project_type_id', 'nombre_promocion', 'desc_promocion', 'game_id', 'marcas', 'admin_id', 'fecha_ini_proyecto'];
 
     // Relacion categoria - Uno a Uno
     public function project_type() {

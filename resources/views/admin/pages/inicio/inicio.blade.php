@@ -165,5 +165,5 @@
         </div>
     </div>
 
-    <livewire:modal-project />
+    <livewire:modal-project :pageActual="Route::currentRouteName()" />
 @endsection

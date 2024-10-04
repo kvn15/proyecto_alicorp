@@ -4,10 +4,14 @@ namespace App\Http\Livewire;
 
 use App\Models\Game;
 use App\Models\Project;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Request;
 use Livewire\Component;
 
 class ModalProject extends Component
 {
+
+    public $pageActual = '';
 
     public $tipo_promocion = '1', $game, $nombre_promocion, $desc_promocion, $marcas, $game_select, $gameText;
     public $tipoProyecto;
@@ -21,6 +25,8 @@ class ModalProject extends Component
         $proyecto->desc_promocion = $this->desc_promocion;
         $proyecto->marcas = $this->marcas;
         $proyecto->game_id = $this->game_select;
+        $proyecto->admin_id  = auth()->id();
+        $proyecto->fecha_ini_proyecto = Carbon::now();;
 
         $proyecto->save();
 
@@ -57,12 +63,18 @@ class ModalProject extends Component
         }
 
         $this->tipo_promocion = '';
+        $this->tipoProyecto = '';
 
         return redirect()->route($routeProyecto, ['id' => $this->idProyecto]);
     }
 
-    public function mount() 
+    public function cerrarModal() {
+        return redirect()->route($this->pageActual);
+    }
+
+    public function mount($pageActual) 
     {
+        $this->pageActual = $pageActual;
         $this->game = Game::all();
     }
 

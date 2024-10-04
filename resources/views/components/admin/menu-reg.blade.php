@@ -14,11 +14,13 @@
                     Indicadores
                 </a>
             </li>
+            @if ($ruta == 'juego_campana')
             <li class="item-menu">
                 <a href="{{ route($ruta.'.show.asignacion', 1) }}" class="link-menu {{ request()->routeIs('*.show.asignacion') ? 'active' : '' }}">
                     Asignanciones
                 </a>
             </li>
+            @endif
             <li class="item-menu">
                 <a href="{{ route($ruta.'.show.participantes', 1) }}" class="link-menu {{ request()->routeIs('*.show.participantes') ? 'active' : '' }}">
                     Participantes

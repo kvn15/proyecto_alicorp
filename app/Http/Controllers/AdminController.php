@@ -17,10 +17,10 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        $projects = Project::limit(3)->get();
-        $landing = Project::where('project_type_id', 1)->get();
-        $web = Project::where('project_type_id', 2)->get();
-        $campana = Project::where('project_type_id', 3)->get();
+        $projects = Project::limit(3)->orderBy('created_at', 'desc')->get();
+        $landing = Project::where('project_type_id', 1)->orderBy('created_at', 'desc')->get();
+        $web = Project::where('project_type_id', 2)->orderBy('created_at', 'desc')->get();
+        $campana = Project::where('project_type_id', 3)->orderBy('created_at', 'desc')->get();
 
         $inicio = [
             "projects" => $projects,
