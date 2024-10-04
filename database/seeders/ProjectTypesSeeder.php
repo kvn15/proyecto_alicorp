@@ -15,13 +15,16 @@ class ProjectTypesSeeder extends Seeder
     public function run()
     {
         ProyectType::create([
-            'name' => 'Landing Promocional'
+            'name' => 'Landing Promocional',
+            'ruta_name' => 'landing_promocional',
         ]);
         ProyectType::create([
-            'name' => 'Juego Web'
+            'name' => 'Juego Web',
+            'ruta_name' => 'juego_web',
         ]);
         ProyectType::create([
-            'name' => 'Juego Campaña'
+            'name' => 'Juego Campaña',
+            'ruta_name' => 'juego_campana',
         ]);
     }
 }

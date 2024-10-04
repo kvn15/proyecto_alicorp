@@ -340,6 +340,8 @@ hr {
     border: 4px solid #EFF0EF;
     border-radius: 14px;
     gap: 0.5em;
+    text-decoration: none;
+    color: var(--black);
 }
 
 .card-promo-header .img-promo {

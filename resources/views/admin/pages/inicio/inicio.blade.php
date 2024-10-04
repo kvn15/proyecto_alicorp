@@ -10,11 +10,14 @@
     
                 <div class="w-100">
                     @foreach ($inicio['projects'] as $project)
+                    @php
+                        $ruta = $project
+                    @endphp
                     <div class="card-w-full">
                         <div class="info-container">
-                            <a href="{{ route('landing_promocional.show.overview', $project->id ) }}"><img class="img-fluid" src="{{asset('backend/img/thumbnail.png')}}" alt=""></a>
+                            <a href="{{ route($project->project_type->ruta_name.'.show.overview', $project->id ) }}"><img class="img-fluid" src="{{asset('backend/img/thumbnail.png')}}" alt=""></a>
                             <div class="info-card">
-                                <p class="title-card"><a href="{{ route('landing_promocional.show.overview', $project->id) }}">{{ $project->nombre_promocion }}</a></p>
+                                <p class="title-card"><a href="{{ route($project->project_type->ruta_name.'.show.overview', $project->id) }}">{{ $project->nombre_promocion }}</a></p>
                                 <p>{{ $project->project_type->name }}</p>
                                 <p><small>Ultima actualización: {{ $project->updated_at }}</small></p>
                                 <p><small>Fecha creación: {{ $project->created_at }}</small></p>
@@ -94,6 +97,9 @@
                             @slot('status_promo')
                                 {{ $landing->status }}
                             @endslot
+                            @slot('ruta_name')
+                                {{ route($landing->project_type->ruta_name.'.show.overview', $landing->id ) }}
+                            @endslot
                         @endcomponent
                         @endforeach
                     </div>
@@ -125,6 +131,9 @@
                             @slot('status_promo')
                                 {{ $web->status }}
                             @endslot
+                            @slot('ruta_name')
+                                {{ route($web->project_type->ruta_name.'.show.overview', $web->id ) }}
+                            @endslot
                         @endcomponent
                         @endforeach
                     </div>
@@ -155,6 +164,9 @@
                             @endslot
                             @slot('status_promo')
                                 {{ $campana->status }}
+                            @endslot
+                            @slot('ruta_name')
+                                {{ route($campana->project_type->ruta_name.'.show.overview', $campana->id ) }}
                             @endslot
                         @endcomponent
                         @endforeach

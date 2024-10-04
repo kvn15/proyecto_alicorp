@@ -55,6 +55,26 @@ Route::prefix('admin')->group(function () {
         Route::get('show/{id}/configuracion',[LandingPromocionalController::class, 'configuracion'])->name('landing_promocional.show.configuracion');
     });
 
+    Route::prefix('juego_web')->group(function () {
+        Route::get('/', [AdminController::class, 'landing'])->name('juego_web.index');
+        // landing promocional asignacion
+        Route::get('show/{id}/overview',[LandingPromocionalController::class, 'show'])->name('juego_web.show.overview');
+        Route::get('show/{id}/indicadores',[LandingPromocionalController::class, 'indicador'])->name('juego_web.show.indicadores');
+        Route::get('show/{id}/participantes',[LandingPromocionalController::class, 'participante'])->name('juego_web.show.participantes');
+        Route::get('show/{id}/ganadores',[LandingPromocionalController::class, 'ganador'])->name('juego_web.show.ganadores');
+        Route::get('show/{id}/configuracion',[LandingPromocionalController::class, 'configuracion'])->name('juego_web.show.configuracion');
+    });
+    
+    Route::prefix('juego_campana')->group(function () {
+        Route::get('/', [AdminController::class, 'landing'])->name('juego_campana.index');
+        // landing promocional asignacion
+        Route::get('show/{id}/overview',[LandingPromocionalController::class, 'show'])->name('juego_campana.show.overview');
+        Route::get('show/{id}/indicadores',[LandingPromocionalController::class, 'indicador'])->name('juego_campana.show.indicadores');
+        Route::get('show/{id}/participantes',[LandingPromocionalController::class, 'participante'])->name('juego_campana.show.participantes');
+        Route::get('show/{id}/ganadores',[LandingPromocionalController::class, 'ganador'])->name('juego_campana.show.ganadores');
+        Route::get('show/{id}/configuracion',[LandingPromocionalController::class, 'configuracion'])->name('juego_campana.show.configuracion');
+    });
+
 });
 
 Route::group(['middleware' => 'auth'], function() {
