@@ -1,7 +1,7 @@
 @extends('admin.pages.inicio.layout')
 
 @section('header_left')
-  <span>Landing Promocional > <b>{{ $landing->nombre_promocion }}</b></span>
+  <span>{{ $project->project_type->name }} > <b>{{ $project->nombre_promocion }}</b></span>
 @endsection
 
 @section('header_center')
@@ -10,7 +10,7 @@
 @endsection
 
 @section('header_right')
-@if ($landing->status)
+@if ($project->status)
 <button type="button" class="btn btn-inactivo">
     Activo
 </button>
@@ -23,7 +23,7 @@
 
 @section('inicio_dash')
 <div class="row-show">
-    <x-admin.menu-reg ruta="landing_promocional" />
+    <x-admin.menu-reg ruta="{{$project->project_type->ruta_name}}" id="{{ $project->id }}" />
     <div class="body-right">
         <h3>Configuración</h3>
 
@@ -40,9 +40,12 @@
                 </div>
             </nav>
             <div class="tab-content p-3" id="nav-tabContent">
+                <input type="hidden" name="id" id="id" value="{{ $project->id }}">
                 {{-- Proyecto --}}
                 <div class="tab-pane fade active show" id="nav-proyecto" role="tabpanel" aria-labelledby="nav-proyecto-tab">
-                    <form action="" class="row">
+                    <form method="POST" class="row" id="form-info-pro" action="{{ route('project.config.proyecto', $project->id) }}">
+                        @csrf
+                        @method('PUT')
                         <div class="col-12 d-flex justify-content-between mb-4">
                             <div>
                                 <h5>Información del Proyecto</h5>
@@ -50,7 +53,7 @@
                             </div>
                             <div class="d-flex" style="gap: 0.7rem">
                                 <button type="button" class="btn btn-outline-secondary" style="align-self: center">Cancelar</button>
-                                <button type="submit" class="btn btn-alicorp" style="align-self: center">Guardar</button>
+                                <button type="submit" class="btn btn-alicorp" style="align-self: center" id="btn-info-pro">Guardar</button>
                             </div>
                         </div>
                         <div class="col-12 row border-bottom pb-3 mb-4">
@@ -58,7 +61,7 @@
                                 <label for="tipo_promocion"><small><b>Tipo de Promoción</b></small></label>
                             </div>
                             <div class="col-12 col-md-6 col-lg-5">
-                                <input type="text" name="tipo_promocion" id="tipo_promocion" class="form-control w-100">
+                                <input type="text" name="tipo_promocion" id="tipo_promocion" class="form-control w-100" value="{{ $project->project_type->name }}" disabled>
                             </div>
                         </div>
                         <div class="col-12 row border-bottom pb-3 mb-4">
@@ -66,7 +69,7 @@
                                 <label for="id_promo"><small><b>ID de Promoción</b></small></label>
                             </div>
                             <div class="col-12 col-md-6 col-lg-5">
-                                <input type="text" name="id_promo" id="id_promo" class="form-control w-100">
+                                <input type="text" name="id_promo" id="id_promo" class="form-control w-100" value="{{ $project->id }}" disabled>
                             </div>
                         </div>
                         <div class="col-12 row border-bottom pb-3 mb-4">
@@ -74,7 +77,15 @@
                                 <label for="fecha_reg"><small><b>Fecha de creación</b></small></label>
                             </div>
                             <div class="col-12 col-md-6 col-lg-5">
-                                <input type="text" name="fecha_reg" id="fecha_reg" class="form-control w-100">
+                                <input type="text" name="fecha_reg" id="fecha_reg" class="form-control w-100" value="{{ $project->created_at }}" disabled>
+                            </div>
+                        </div>
+                        <div class="col-12 row border-bottom pb-3 mb-4">
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label for="name_promo"><small><b>Nombre del promoción</b></small></label>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-5">
+                                <input type="text" name="name_promo" id="name_promo" class="form-control w-100" value="{{ $project->nombre_promocion }}">
                             </div>
                         </div>
                         <div class="col-12 row border-bottom pb-3 mb-4">
@@ -82,7 +93,7 @@
                                 <label for="desc_promo"><small><b>Descripción del promoción</b></small></label>
                             </div>
                             <div class="col-12 col-md-6 col-lg-5">
-                                <input type="text" name="desc_promo" id="desc_promo" class="form-control w-100">
+                                <input type="text" name="desc_promo" id="desc_promo" class="form-control w-100" value="{{ $project->desc_promocion }}">
                             </div>
                         </div>
                         <div class="col-12 row border-bottom pb-3">
@@ -120,7 +131,9 @@
                     </form>
                 </div>
                 <div class="tab-pane fade" id="nav-dominio" role="tabpanel" aria-labelledby="nav-dominio-tab">
-                    <form action="" class="row">
+                    <form method="POST" class="row" id="form-dominio" action="{{ route('project.config.dominio', $project->id) }}">
+                        @csrf
+                        @method('PUT')
                         <div class="col-12 d-flex justify-content-between mb-4">
                             <div>
                                 <h5>Dominio</h5>
@@ -133,12 +146,12 @@
                         </div>
                         <div class="col-12 row border-bottom pb-3 mb-4">
                             <div class="col-12 col-md-6 col-lg-3">
-                                <label for="tipo_promocion"><small><b>URL Dominio</b></small></label>
+                                <label for="dominio"><small><b>URL Dominio</b></small></label>
                             </div>
                             <div class="col-12 col-md-6 col-lg-7">
                                 <div class="input-group w-100">
                                     <span class="input-group-text" id="basic-addon3" style="color: #667085;">http://</span>
-                                    <input type="text" class="form-control" id="url" value="aclasesconinteligencia.pe">
+                                    <input type="text" class="form-control" id="dominio" name="dominio" value="{{ $project->dominio }}">
                                   </div>
                             </div>
                         </div>
@@ -146,7 +159,9 @@
                 </div>
                 <div class="tab-pane fade" id="nav-vigencia" role="tabpanel" aria-labelledby="nav-vigencia-tab">
                     
-                    <form action="" class="row">
+                    <form method="POST" action="{{ route('project.config.vigencia', $project->id) }}" class="row" id="form-vigencia">
+                        @csrf
+                        @method('PUT')
                         <div class="col-12 d-flex justify-content-between mb-4">
                             <div>
                                 <h5>Vigencia</h5>
@@ -159,40 +174,42 @@
                         </div>
                         <div class="col-12 row border-bottom pb-3 mb-4">
                             <div class="col-12 col-md-6 col-lg-3">
-                                <label for="fecha_ini_pro"><small><b>Fecha de Inicio proyecto</b></small></label>
+                                <label for="fecha_ini_proyecto"><small><b>Fecha de Inicio proyecto</b></small></label>
                             </div>
                             <div class="col-12 col-md-6 col-lg-5">
-                                <input type="date" name="fecha_ini_pro" id="fecha_ini_pro" class="form-control w-100">
+                                <input type="date" name="fecha_ini_proyecto" id="fecha_ini_proyecto" class="form-control w-100" value="{{ $project->fecha_ini_proyecto }}">
                             </div>
                         </div>
                         <div class="col-12 row border-bottom pb-3 mb-4">
                             <div class="col-12 col-md-6 col-lg-3">
-                                <label for="fecha_fin_pro"><small><b>Fecha de finalización proyecto</b></small></label>
+                                <label for="fecha_fin_proyecto"><small><b>Fecha de finalización proyecto</b></small></label>
                             </div>
                             <div class="col-12 col-md-6 col-lg-5">
-                                <input type="date" name="fecha_fin_pro" id="fecha_fin_pro" class="form-control w-100">
+                                <input type="date" name="fecha_fin_proyecto" id="fecha_fin_proyecto" class="form-control w-100" value="{{ $project->fecha_fin_proyecto }}">
                             </div>
                         </div>
                         <div class="col-12 row border-bottom pb-3 mb-4">
                             <div class="col-12 col-md-6 col-lg-3">
-                                <label for="fecha_ini_par"><small><b>Fecha de Inicio para participar</b></small></label>
+                                <label for="fecha_ini_participar"><small><b>Fecha de Inicio para participar</b></small></label>
                             </div>
                             <div class="col-12 col-md-6 col-lg-5">
-                                <input type="date" name="fecha_ini_par" id="fecha_ini_par" class="form-control w-100">
+                                <input type="date" name="fecha_ini_participar" id="fecha_ini_participar" class="form-control w-100" value="{{ $project->fecha_ini_participar }}">
                             </div>
                         </div>
                         <div class="col-12 row border-bottom pb-3 mb-4">
                             <div class="col-12 col-md-6 col-lg-3">
-                                <label for="fecha_fin_par"><small><b>Fecha de finalización para participar</b></small></label>
+                                <label for="fecha_fin_participar"><small><b>Fecha de finalización para participar</b></small></label>
                             </div>
                             <div class="col-12 col-md-6 col-lg-5">
-                                <input type="date" name="fecha_fin_par" id="fecha_fin_par" class="form-control w-100">
+                                <input type="date" name="fecha_fin_participar" id="fecha_fin_participar" class="form-control w-100" value="{{ $project->fecha_fin_participar }}">
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="tab-pane fade" id="nav-estilos" role="tabpanel" aria-labelledby="nav-estilos-tab">
-                    <form action="" class="row">
+                    <form method="POST" action="{{ route('project.config.estilo', $project->id) }}" class="row" id="form-estilo" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
                         <div class="col-12 d-flex justify-content-between mb-4">
                             <div>
                                 <h5>Estilos</h5>
@@ -218,7 +235,7 @@
                                 <label for="titulo_pestana"><small><b>Titulo Pestaña de navegador</b></small></label>
                             </div>
                             <div class="col-12 col-md-6 col-lg-5">
-                                <input type="text" name="titulo_pestana" id="titulo_pestana" class="form-control w-100">
+                                <input type="text" name="titulo_pestana" id="titulo_pestana" class="form-control w-100" value="{{ $project->titulo_pestana }}">
                             </div>
                         </div>
                         <div class="col-12 row pb-3 mb-4">
@@ -226,8 +243,8 @@
                                 <label><small><b>Imagen del Fav Icon</b></small></label>
                             </div>
                             <div class="col-12 col-md-6 col-lg-5">
-                                <input hidden type="file" name="img_fav" id="img_fav">
-                                <label for="img_fav" class="d-flex flex-column align-items-center imagen-draw-fav" style="gap: 0.3rem">
+                                <input hidden type="file" name="imagen" id="imagen">
+                                <label for="imagen" class="d-flex flex-column align-items-center imagen-draw-fav" style="gap: 0.3rem">
                                     <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <rect x="3" y="3" width="40" height="40" rx="20" fill="#F2F4F7"/>
                                         <rect x="3" y="3" width="40" height="40" rx="20" stroke="#F9FAFB" stroke-width="6"/>
@@ -249,7 +266,10 @@
                     </form>
                 </div>
                 <div class="tab-pane fade" id="nav-premios" role="tabpanel" aria-labelledby="nav-premios-tab">
-                    <form action="" class="row">
+                    <input type="hidden" name="urlPremios" id="urlPremios" value="{{ route('project.config.premio.get', $project->id) }}">
+                    <form method="POST" action="{{ route('project.config.premio', $project->id) }}" class="row" id="form-premio">
+                        @csrf
+                        @method('PUT')
                         <div class="col-12 d-flex justify-content-between mb-4">
                             <div>
                                 <h5>Premios</h5>
@@ -262,50 +282,29 @@
                         </div>
                         <div class="col-12 row border-bottom pb-3 mb-4">
                             <div class="col-12 col-md-6 col-lg-3">
-                                <label for="n_premio"><small><b>Número de Premios</b></small></label>
+                                <label for="cantidad_premio"><small><b>Número de Premios</b></small></label>
                             </div>
                             <div class="col-12 col-md-6 col-lg-5">
-                                <select name="n_premio" id="n_premio" class="form-select w-100">
+                                <select name="cantidad_premio" id="cantidad_premio" class="form-select w-100">
+                                    <option value="">-- Seleccione --</option>
                                     <option value="1">1</option>
-                                    <option value="2" selected>2</option>
+                                    <option value="2">2</option>
                                     <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-12 row border-bottom pb-3 mb-4">
-                            <div class="col-12 col-md-6 col-lg-3">
-                                <label for=""><small><b>Premio 1</b></small></label>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-5">
-                                <input type="text" name="nombre_premio_1" id="nombre_premio_1" class="form-control w-100 mb-3" value="Nombre del Premio 1">
-
-                                <input type="text" name="stock_premio_1" id="stock_premio_1" class="form-control w-100 mb-3" value="Stock">
-
-                                <select name="probabilidad_premio_1" id="probabilidad_premio_1" class="form-select w-100">
-                                    <option value="2" selected>Probabildad</option>
-                                </select>
-                            </div>
+                        <div class="col-12" id="content_premio">
                         </div>
                         <div class="col-12 row border-bottom pb-3 mb-4">
                             <div class="col-12 col-md-6 col-lg-3">
-                                <label for=""><small><b>Premio 2</b></small></label>
+                                <label for="prob_no_premio"><small><b>No Premio</b></small></label>
                             </div>
                             <div class="col-12 col-md-6 col-lg-5">
-                                <input type="text" name="nombre_premio_2" id="nombre_premio_2" class="form-control w-100 mb-3" value="Nombre del Premio 2">
-
-                                <input type="text" name="stock_premio_2" id="stock_premio_2" class="form-control w-100 mb-3" value="Stock">
-
-                                <select name="probabilidad_premio_2" id="probabilidad_premio_2" class="form-select w-100">
-                                    <option value="2" selected>Probabildad</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-12 row border-bottom pb-3 mb-4">
-                            <div class="col-12 col-md-6 col-lg-3">
-                                <label for="no_premio"><small><b>No Premio</b></small></label>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-5">
-                                <select name="no_premio" id="no_premio" class="form-select w-100">
+                                <select name="prob_no_premio" id="prob_no_premio" class="form-select w-100">
                                     <option value="2" selected>Probabildad</option>
                                 </select>
                             </div>
@@ -314,7 +313,9 @@
                 </div>
                 <div class="tab-pane fade" id="nav-estado" role="tabpanel" aria-labelledby="nav-estado-tab">
                     
-                    <form action="" class="row">
+                    <form method="POST" action="{{ route('project.config.estado', $project->id) }}" class="row" id="form-estado">
+                        @csrf
+                        @method('PUT')
                         <div class="col-12 d-flex justify-content-between mb-4">
                             <div>
                                 <h5>Estados</h5>
@@ -327,20 +328,22 @@
                         </div>
                         <div class="col-12 row border-bottom pb-3 mb-4">
                             <div class="col-12 col-md-6 col-lg-3">
-                                <label for="estado"><small><b>Estado del proyecto</b></small></label>
+                                <label for="status"><small><b>Estado del proyecto</b></small></label>
                             </div>
                             <div class="col-12 col-md-6 col-lg-5">
-                                <select name="estado" id="estado" class="form-select w-100">
-                                    <option value="Inactivo" selected>Inactivo</option>
+                                <select name="status" id="status" class="form-select w-100">
+                                    <option value="0">Inactivo</option>
+                                    <option value="1">Activo</option>
+                                    <option value="2">Finalizado</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-12 row border-bottom pb-3 mb-4">
                             <div class="col-12 col-md-6 col-lg-3">
-                                <label for="fecha_fin_participa"><small><b>Fecha de finalización para participar</b></small></label>
+                                <label for="fecha_fin_participar"><small><b>Fecha de finalización para participar</b></small></label>
                             </div>
                             <div class="col-12 col-md-6 col-lg-5">
-                                <input type="date" name="fecha_fin_participa" id="fecha_fin_participa" class="form-control w-100">
+                                <input type="date" name="fecha_fin_participar" id="fecha_fin_participar" class="form-control w-100" value="{{ $project->fecha_fin_participar }}">
                             </div>
                         </div>
                     </form>
@@ -361,5 +364,16 @@
             closeOnSelect: false,
             dropdownParent: $( '#small-bootstrap-class-multiple-field' ).parent(),
         } );
+
+        var marcas = '{{ $project->marcas }}'
+        $( '#small-bootstrap-class-multiple-field' ).val(marcas.split(", ")).trigger('change')
+
+        // Setear valores
+        var numeroPremios = document.querySelector("#cantidad_premio");
+        numeroPremios.value = "{{ $project->cantidad_premio }}"
+
+        var estado = document.querySelector("#status");
+        estado.value = "{{ $project->status }}"
     </script>
+    <script src="{{ asset('backend/js/admin/configuracionLanding.js') }}"></script>
 @endsection

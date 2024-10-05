@@ -100,6 +100,9 @@
                 @slot('status_promo')
                     {{ $project->status }}
                 @endslot
+                @slot('ruta_name')
+                    {{ route($project->project_type->ruta_name.'.show.overview', $project->id ) }}
+                @endslot
             @endcomponent
         </div>
         @endforeach

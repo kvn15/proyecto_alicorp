@@ -1,7 +1,7 @@
 @extends('admin.pages.inicio.layout')
 
 @section('header_left')
-  <span>Landing Promocional > <b>{{ $landing->nombre_promocion }}</b></span>
+  <span>{{ $landing->project_type->name }} > <b>{{ $landing->nombre_promocion }}</b></span>
 @endsection
 
 @section('header_center')
@@ -23,7 +23,7 @@
 
 @section('inicio_dash')
 <div class="row-show">
-    <x-admin.menu-reg ruta="landing_promocional" />
+    <x-admin.menu-reg ruta="{{$landing->project_type->ruta_name}}"  id="{{ $landing->id }}" />
     <div class="body-right">
         <h3>Participantes</h3>
 

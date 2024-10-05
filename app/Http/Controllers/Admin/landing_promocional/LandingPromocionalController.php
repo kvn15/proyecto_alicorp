@@ -7,6 +7,7 @@ use App\Models\Participant;
 use App\Models\Project;
 use App\Models\ViewProject;
 use Carbon\Carbon;
+use DateTime;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -29,8 +30,7 @@ class LandingPromocionalController extends Controller
     
     public function show($id)
     {
-        $landing = Project::where('project_type_id', 1)
-                            ->where('id', $id)
+        $landing = Project::where('id', $id)
                             ->first();
         $NroVistas = ViewProject::where('project_id', $id)->count();
         $NroParticipantes = Participant::where('project_id', $id)->count();
@@ -76,9 +76,7 @@ class LandingPromocionalController extends Controller
 
     public function indicador($id)
     {
-        $landing = Project::where('project_type_id', 1)
-                            ->where('id', $id)
-                            ->first();
+        $landing = Project::where('id', $id)->first();
         // Obtener los meses
         $startDate = Carbon::parse($landing->fecha_ini_proyecto);
         $endDate = Carbon::now()->endOfYear(); // O puedes usar otra fecha como '2024-12-31'
@@ -131,26 +129,30 @@ class LandingPromocionalController extends Controller
 
     public function participante($id)
     {
-        $landing = Project::where('project_type_id', 1)
-                            ->where('id', $id)
+        $landing = Project::where('id', $id)
                             ->first();
         return view('admin.pages.landing_promocional.participantes', compact('landing'));
     }
     
     public function ganador($id)
     {
-        $landing = Project::where('project_type_id', 1)
-                            ->where('id', $id)
+        $landing = Project::where('id', $id)
                             ->first();
         return view('admin.pages.landing_promocional.ganadores', compact('landing'));
     }
 
     public function configuracion($id)
     {
-        $landing = Project::where('project_type_id', 1)
-                            ->where('id', $id)
+        $project = Project::where('id', $id)
                             ->first();
-        return view('admin.pages.landing_promocional.configuracion', compact('landing'));
+        if($project){
+            $project->fecha_ini_proyecto = Carbon::parse($project->fecha_ini_proyecto)->format('Y-m-d');
+            $project->fecha_fin_proyecto = $project->fecha_fin_proyecto ? Carbon::parse($project->fecha_fin_proyecto)->format('Y-m-d') : null;
+            $project->fecha_ini_participar = $project->fecha_ini_participar ? Carbon::parse($project->fecha_ini_participar)->format('Y-m-d') : null;
+            $project->fecha_fin_participar = $project->fecha_fin_participar ? Carbon::parse($project->fecha_fin_participar)->format('Y-m-d') : null;
+        }
+
+        return view('admin.pages.landing_promocional.configuracion', compact('project'));
     }
 
     // metodos

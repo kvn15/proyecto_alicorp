@@ -48,6 +48,36 @@ class AdminController extends Controller
         return view('admin.pages.inicio.juegosCamp');
     }
 
+    public function dashboardMio()
+    {
+        $projects = Project::limit(3)->orderBy('created_at', 'desc')->where('admin_id',auth()->id())->get();
+        $landing = Project::where('project_type_id', 1)->orderBy('created_at', 'desc')->where('admin_id',auth()->id())->get();
+        $web = Project::where('project_type_id', 2)->orderBy('created_at', 'desc')->where('admin_id',auth()->id())->get();
+        $campana = Project::where('project_type_id', 3)->orderBy('created_at', 'desc')->where('admin_id',auth()->id())->get();
+
+        $inicio = [
+            "projects" => $projects,
+            "landing" => $landing,
+            "web" => $web,
+            "campana" => $campana,
+        ];
+
+        return view('admin.pages.inicio.inicio', compact('inicio'));
+    }
+
+    public function landingMio(){
+        return view('admin.pages.inicio.landing');
+    }
+
+    public function juegosWebMio(){
+        return view('admin.pages.inicio.juegosWeb');
+    }
+
+    public function juegosCampMio(){
+        return view('admin.pages.inicio.juegosCamp');
+    }
+
+
     public function configuracion(){
         return view('admin.pages.inicio.configuracion');
     }

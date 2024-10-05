@@ -1,5 +1,12 @@
 @extends('admin.pages.inicio.layout')
 
+@section('header_center')
+<div class="d-flex">
+  <a href="{{ route('admin.dashboard') }}" class="btn-proyecto btn-proyectos-left {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">Todo los Proyectos</a>
+  <a href="{{ route('admin.dashboard.mio') }}" class="btn-proyecto btn-proyectos-right {{ request()->routeIs('admin.dashboard.mio') ? 'active' : '' }}">Mis Proyectos</a>
+</div>
+@endsection
+
 @section('inicio_dash')
 
     <div class="container-fluid m-auto" style="width: 95%">
@@ -61,9 +68,9 @@
                             <div class="item-accion">
                                 <span class="title-accion"><b>Acciones</b></span>
                                 <div class="body-accion">
-                                    <button class="btn btn-outline-secondary">Configurar</button>
-                                    <button class="btn btn-outline-secondary">Personalizar</button>
-                                    <button class="btn btn-alicorp">Publicar</button>
+                                    <a href="{{ route($project->project_type->ruta_name.'.show.configuracion', $project->id ) }}" class="btn btn-outline-secondary" style="font-size: 13px;">Configurar</a>
+                                    <button class="btn btn-outline-secondary" style="font-size: 13px;">Personalizar</button>
+                                    <button class="btn btn-alicorp" style="font-size: 13px;">Publicar</button>
                                 </div>
                             </div>
                         </div>

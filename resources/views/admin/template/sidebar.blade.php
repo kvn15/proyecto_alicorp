@@ -16,7 +16,7 @@
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
                
                 <li class="nav-item"> 
-                    <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"> 
+                    <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') || request()->routeIs('admin.*.*') ? 'active' : '' }}"> 
                         <i class='nav-icon bx bx-home-alt'></i>
                         <p>Inicio</p>
                     </a> 
@@ -28,13 +28,13 @@
                     </a> 
                 </li>
                 <li class="nav-item"> 
-                    <a href="{{ route('admin.dashboard.juegosWeb') }}" class="nav-link {{ request()->routeIs('admin.dashboard.juegosWeb') ? 'active' : '' }}"> 
+                    <a href="{{ route('admin.dashboard.juegosWeb') }}" class="nav-link {{ request()->routeIs('admin.dashboard.juegosWeb') || request()->routeIs('juego_web.*.*') ? 'active' : '' }}"> 
                         <i class="nav-icon bi bi-controller"></i>
                         <p>Juegos Web</p>
                     </a> 
                 </li>
                 <li class="nav-item"> 
-                    <a href="{{ route('admin.dashboard.juegosCamp') }}" class="nav-link {{ request()->routeIs('admin.dashboard.juegosCamp') ? 'active' : '' }}"> 
+                    <a href="{{ route('admin.dashboard.juegosCamp') }}" class="nav-link {{ request()->routeIs('admin.dashboard.juegosCamp') || request()->routeIs('juego_campana.*.*') ? 'active' : '' }}"> 
                         <i class="nav-icon bi bi-megaphone"></i>
                         <p>Juego Campaña</p>
                     </a> 

@@ -8,15 +8,17 @@ class MenuReg extends Component
 {
 
     public $ruta;
+    public $id;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($ruta)
+    public function __construct($ruta, $id)
     {
         $this->ruta = $ruta;
+        $this->id = $id;
     }
 
     /**

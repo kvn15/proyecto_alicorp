@@ -17,7 +17,7 @@
 
 @section('inicio_dash')
 <div class="row-show">
-    <x-admin.menu-reg ruta="landing_promocional" />
+    <x-admin.menu-reg ruta="landing_promocional"  id="1" />
     <div class="body-right">
         <h3>Asignaciones</h3>
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\landing_promocional\LandingPromocionalController;
 use App\Http\Controllers\Admin\Auth\ForgotPasswordController;
 use App\Http\Controllers\Admin\Auth\ResetPasswordController;
+use App\Http\Controllers\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,8 +46,14 @@ Route::prefix('admin')->group(function () {
     Route::get('/dashboard/juegosCamp', [AdminController::class, 'juegosCamp'])->name('admin.dashboard.juegosCamp');
     Route::get('/dashboard/configuracion', [AdminController::class, 'configuracion'])->name('admin.dashboard.configuracion');
 
+    // mis proyectos
+    Route::get('/dashboard/mis-proyectos', [AdminController::class, 'dashboardMio'])->name('admin.dashboard.mio');
+    Route::get('/dashboard/juegosWeb/mis-proyectos', [AdminController::class, 'juegosWebMio'])->name('admin.dashboard.juegosWeb.mio');
+    Route::get('/dashboard/juegosCamp/mis-proyectos', [AdminController::class, 'juegosCampMio'])->name('admin.dashboard.juegosCamp.mio');
+
     Route::prefix('landing_promocional')->group(function () {
         Route::get('/', [AdminController::class, 'landing'])->name('landing_promocional.index');
+        Route::get('/mio', [AdminController::class, 'landingMio'])->name('landing_promocional.index.mio');
         // landing promocional asignacion
         Route::get('show/{id}/overview',[LandingPromocionalController::class, 'show'])->name('landing_promocional.show.overview');
         Route::get('show/{id}/indicadores',[LandingPromocionalController::class, 'indicador'])->name('landing_promocional.show.indicadores');
@@ -73,8 +80,17 @@ Route::prefix('admin')->group(function () {
         Route::get('show/{id}/participantes',[LandingPromocionalController::class, 'participante'])->name('juego_campana.show.participantes');
         Route::get('show/{id}/ganadores',[LandingPromocionalController::class, 'ganador'])->name('juego_campana.show.ganadores');
         Route::get('show/{id}/configuracion',[LandingPromocionalController::class, 'configuracion'])->name('juego_campana.show.configuracion');
+        Route::get('show/{id}/asignacion',[LandingPromocionalController::class, 'configuracion'])->name('juego_campana.show.asignacion');
     });
 
+    // registros
+    Route::put('/proyecto/{id}', [ProjectController::class, 'guardarDatosInfoProyecto'])->name('project.config.proyecto');
+    Route::put('/dominio/{id}', [ProjectController::class, 'guardarDatosDominio'])->name('project.config.dominio');
+    Route::put('/vigencia/{id}', [ProjectController::class, 'guardarDatosVigencia'])->name('project.config.vigencia');
+    Route::put('/estilo/{id}', [ProjectController::class, 'guardarDatosEstilos'])->name('project.config.estilo');
+    Route::put('/premio/{id}', [ProjectController::class, 'guardarDatosPremios'])->name('project.config.premio');
+    Route::get('/premio/{id}', [ProjectController::class, 'obtenerPremio'])->name('project.config.premio.get');
+    Route::put('/estado/{id}', [ProjectController::class, 'guardarDatosEstado'])->name('project.config.estado');
 });
 
 Route::group(['middleware' => 'auth'], function() {
@@ -90,6 +106,5 @@ Route::group(['middleware' => 'auth'], function() {
 
 require __DIR__.'/auth.php';
 
-Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
