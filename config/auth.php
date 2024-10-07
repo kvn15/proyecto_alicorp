@@ -40,10 +40,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-    'admin' => [
-        'driver' => 'session',
-        'provider' => 'admins',
-    ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+        'xplorer' => [
+            'driver' => 'session',
+            'provider' => 'xplorers',
+        ],
     ],
 
     /*
@@ -68,10 +72,14 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-    'admins' => [
-        'driver' => 'eloquent',
-        'model' => App\Models\Admin::class,
-    ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
+        'xplorers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Xplorer::class,
+        ],
 
         // 'users' => [
         //     'driver' => 'database',
