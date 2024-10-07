@@ -45,7 +45,7 @@
                     </a> 
                 </li>
                 <li class="nav-item"> 
-                    <a href="{{ route('admin.logout') }}" class="nav-link"> 
+                    <a href="{{ route('xplorer.logout') }}" class="nav-link"> 
                         <i class="nav-icon bi bi-box-arrow-right"></i>
                         <p>Cerrar Sesión</p>
                     </a> 

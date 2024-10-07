@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
+use App\Models\Admin;
+
 class AdminController extends Controller
 {
     public function __construct()
@@ -79,18 +81,51 @@ class AdminController extends Controller
 
 
     public function configuracion(){
-        return view('admin.pages.inicio.configuracion');
+        $id = Auth::user()->id;
+        $adminData = Admin::find($id);
+        return view('admin.pages.inicio.configuracion',compact('adminData'));
+    }
+
+    public function EditProfile(){
+
+        $id = Auth::user()->id;
+        $editData = Admin::find($id);
+        return view('admin.pages.inicio.configuracion_editar',compact('editData'));  
+    }
+
+    public function StoreProfile(Request $request){
+        $id = Auth::user()->id;
+        $data = Admin::find($id);
+        $data->name = $request->name;
+        $data->email = $request->email;
+
+        if ($request->file('profile_image')) {
+           $file = $request->file('profile_image');
+
+           $filename = date('YmdHi').$file->getClientOriginalName();
+           $file->move(public_path('img/upload/admin_images'),$filename);
+           $data['profile_image'] = $filename;
+        }
+        $data->save();
+
+        $notification = array(
+            'message' => 'Perfil de Administrador Actualizado Satisfactoriamente', 
+            'alert-type' => 'info'
+        );
+
+        return redirect()->route('dashboard.configuracion')->with($notification);
+
     }
     
     public function destroy(Request $request)
     {
-        Auth::guard('web')->logout();
+        Auth::guard('admin')->logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/admin/login');
     }
     
 }

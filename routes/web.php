@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\landing_promocional\LandingPromocionalController;
 use App\Http\Controllers\Admin\Auth\ForgotPasswordController;
 use App\Http\Controllers\Admin\Auth\ResetPasswordController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\XplorerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,7 +45,10 @@ Route::prefix('admin')->group(function () {
     Route::get('/dashboard/inicio', [AdminController::class, 'inicio'])->name('admin.dashboard.inicio');
     Route::get('/dashboard/juegosWeb', [AdminController::class, 'juegosWeb'])->name('admin.dashboard.juegosWeb');
     Route::get('/dashboard/juegosCamp', [AdminController::class, 'juegosCamp'])->name('admin.dashboard.juegosCamp');
-    Route::get('/dashboard/configuracion', [AdminController::class, 'configuracion'])->name('admin.dashboard.configuracion');
+    Route::get('/dashboard/configuracion', [AdminController::class, 'configuracion'])->name('dashboard.configuracion');
+    Route::get('/dashboard/editar/Perfil', [AdminController::class, 'EditProfile'])->name('dashboard.editar.perfil');
+    Route::post('/dashboard/grabar/Perfil', [AdminController::class, 'StoreProfile'])->name('dashboard.grabar.perfil');
+ 
 
     // mis proyectos
     Route::get('/dashboard/mis-proyectos', [AdminController::class, 'dashboardMio'])->name('admin.dashboard.mio');
@@ -101,8 +105,17 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/cliente/profile/update', [alicorpController::class, 'UpdateProfile'])->name('cliente.update.user');
 });
 
+Route::controller(XplorerController::class)->group(function () {
+    Route::get('xplorer/login', 'loginForm')->name('xplorer.login');
+    Route::post('xplorer/login','login');
+    Route::get('xplorer/logout','logout')->name('xplorer.logout');
+});
 
-
+Route::middleware('auth:xplorer')->group(function () {
+    Route::get('/xplorer/dashboard', function () {
+        return view('xplorer.dashboard');
+    });
+});
 
 require __DIR__.'/auth.php';
 

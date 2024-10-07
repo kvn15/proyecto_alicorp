@@ -24,9 +24,11 @@ class XplorerController extends Controller
         return back()->withErrors(['email' => 'Las credenciales no son correctas']);
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
         Auth::guard('xplorer')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         return redirect('/xplorer/login');
     }
 }
