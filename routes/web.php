@@ -28,6 +28,7 @@ Route::controller(alicorpController::class)->group(function () {
     Route::get('/contacto', 'contacto')->name('contacto');
     Route::get('/reclamacion', 'reclamacion')->name('reclamacion');
     Route::get('/promocion', 'promocion')->name('promocion');
+    Route::get('/calendario', 'calendario')->name('calendario');
 
 });
 
@@ -48,7 +49,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/dashboard/configuracion', [AdminController::class, 'configuracion'])->name('dashboard.configuracion');
     Route::get('/dashboard/editar/Perfil', [AdminController::class, 'EditProfile'])->name('dashboard.editar.perfil');
     Route::post('/dashboard/grabar/Perfil', [AdminController::class, 'StoreProfile'])->name('dashboard.grabar.perfil');
- 
+    Route::post('/dashboard/password/Perfil', [AdminController::class, 'UpdatePassword'])->name('dashboard.password.perfil');
 
     // mis proyectos
     Route::get('/dashboard/mis-proyectos', [AdminController::class, 'dashboardMio'])->name('admin.dashboard.mio');

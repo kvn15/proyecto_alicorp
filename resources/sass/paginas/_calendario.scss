@@ -1,0 +1,84 @@
+
+.calendario{
+    .imagen-oscura {
+        filter: brightness(0.4); /* Reduce el brillo al 50% */
+    }
+
+    .buscar-btn{
+        position: relative;
+        /* Estilo básico para el contenedor del botón */
+        .search-btn {
+            margin-top: 3rem;
+            width: 27rem; /* Ajusta el tamaño según tus necesidades */
+            height: 3.5rem; /* Ajusta el tamaño según tus necesidades */
+            border: none;
+            cursor: pointer;
+            border-radius: 5rem;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Sombra alrededor del botón */
+            transition: all 0.3s ease; /* Transición suave para el hover */
+        }
+
+        /* Cambia la imagen al hacer hover */
+        .search-btn:hover {
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.5); /* Sombra más fuerte en hover */
+        }
+
+        /* Cambia la imagen al hacer clic */
+        .search-btn:active {
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3); /* Sombra reducida al hacer clic */
+        }
+    }
+
+    .fa-search,
+    .fa-times{
+        font-size: 2rem;
+    }
+
+    .ico-buscar{
+        position: absolute;
+        right: 35rem;
+        top: 10.8rem;
+    }
+    .ico-salir{
+        position: absolute;
+        right: 12rem;
+        top: 10.8rem;
+    }
+
+    .card-text{
+        font-size: 2.5rem;
+        font-family: 'CoprAltBlack', sans-serif;
+        text-align: center;
+        color: $color-terciario;       
+    }
+
+    .calen-card{
+        position: relative;
+        box-shadow: -10px 10px 5px -2px rgba(0,0,0,0.26);
+    }
+
+    .calendario-fecha{
+        position: absolute;
+        top: 6rem;
+        left: 11rem;
+        font-size: 7rem;
+        color: white;
+        font-weight: 500;
+        line-height: 5rem;
+    }
+
+    .botn-calendario{
+        display: flex;
+        justify-content: center;
+    }
+
+    .btn-card-cal{
+        background-color: $color-principal;
+        width: 60%;
+        font-family: 'CoprAltBlack', sans-serif;
+        font-size: 1.8rem;
+        color: white;
+        border-radius: 2rem;
+        border: 0rem
+    }
+}

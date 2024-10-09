@@ -116,6 +116,30 @@ class AdminController extends Controller
         return redirect()->route('dashboard.configuracion')->with($notification);
 
     }
+
+    public function UpdatePassword(Request $request){
+
+        $validateData = $request->validate([
+            'oldpassword' => 'required',
+            'newpassword' => 'required',
+            'confirm_password' => 'required|same:newpassword',
+
+        ]);
+
+        $hashedPassword = Auth::user()->password;
+        if (Hash::check($request->oldpassword,$hashedPassword )) {
+            $users = Admin::find(Auth::id());
+            $users->password = bcrypt($request->newpassword);
+            $users->save();
+
+            session()->flash('message','La clave fue cambiado con éxito');
+            return redirect()->back();
+        } else{
+            session()->flash('message','Las claves no conuerdan');
+            return redirect()->back();
+        }
+
+    }
     
     public function destroy(Request $request)
     {

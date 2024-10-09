@@ -102,5 +102,9 @@ class alicorpController extends Controller
         }
     }
 
+    public function Calendario(){
+        return view('calendario');
+    }
+
 }
 

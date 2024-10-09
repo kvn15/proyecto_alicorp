@@ -2,7 +2,7 @@
 <aside class="app-sidebar bg-nav-alicorp shadow" data-bs-theme="dark"> 
     <div class="sidebar-brand"> 
         <a href="../index.html" class="brand-link">
-            <img src="{{ asset('backend/assets/images/users/avatar-1.jpg') }}" alt="" class="brand-image">
+            <img src="{{ !empty($adminData->profile_image) ? url('img/upload/admin_images/' . $adminData->profile_image) : url('img/upload/no_image.jpg') }}" alt="" class="brand-image">
             <span class="brand-text fw-light">
                 <b>{{ Auth::user()->name }}</b>  <br>
                 <span>ADMINISTRADOR</span><br>
@@ -40,7 +40,7 @@
                     </a> 
                 </li>
                 <li class="nav-item"> 
-                    <a href="{{ route('admin.dashboard.configuracion') }}" class="nav-link {{ request()->routeIs('admin.dashboard.configuracion') ? 'active' : '' }}"> 
+                    <a href="{{ route('dashboard.configuracion') }}" class="nav-link {{ request()->routeIs('dashboard.configuracion') ? 'active' : '' }}"> 
                         <i class='nav-icon bx bx-cog'></i>
                         <p>Configuración</p>
                     </a> 
@@ -50,12 +50,12 @@
         <nav class="mt-auto"> 
             <hr style="width: 100%">
             <ul class="nav sidebar-menu flex-column mt-2" data-lte-toggle="treeview" role="menu" data-accordion="false">
-                <li class="nav-item"> 
+                {{-- <li class="nav-item"> 
                     <a href="" class="nav-link"> 
                         <i class='nav-icon bx bx-cog'></i>
                         <p>Configuración</p>
                     </a> 
-                </li>
+                </li> --}}
                 <li class="nav-item"> 
                     <a href="{{ route('admin.logout') }}" class="nav-link"> 
                         <i class="nav-icon bi bi-box-arrow-right"></i>

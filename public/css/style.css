@@ -4,7 +4,7 @@
 }
 
 .juegos {
-  background-color: #E41E1E;
+  background-color: #FD000D;
 }
 .juegos .bloque-1 {
   margin-top: 5rem;
@@ -35,7 +35,7 @@
   transition: background-color 0.3s ease;
   width: 27.5rem;
   height: 3.6rem;
-  color: #E41E1E;
+  color: #FD000D;
   font-weight: 800;
 }
 .juegos .button--perfil-2:hover {
@@ -60,7 +60,7 @@
 }
 
 .promociones {
-  background-color: #E41E1E;
+  background-color: #FD000D;
 }
 .promociones .fondo-blanco {
   background-color: white !important;
@@ -100,18 +100,18 @@
   border-radius: 15px;
 }
 .promociones .card-body {
-  background-color: #EAEAEA;
+  background-color: #868686;
 }
 .promociones .card-text {
   font-size: 3.5rem;
   font-family: "CoprAltBlack", sans-serif;
   text-align: center;
-  color: #626262;
+  color: #ED1B2F;
 }
 .promociones .card-text2 {
   font-size: 2.5rem;
   text-align: center;
-  color: #626262;
+  color: #ED1B2F;
 }
 .promociones .logos-marcas {
   bottom: -10rem;
@@ -122,7 +122,7 @@
 }
 
 .dashboard {
-  background: #E41E1E;
+  background: #FD000D;
 }
 .dashboard .margenT25 {
   margin-top: 2.5rem;
@@ -202,7 +202,7 @@
   transition: background-color 0.3s ease;
   width: 27.5rem;
   height: 7.6rem;
-  color: #E41E1E;
+  color: #FD000D;
   font-size: 2rem;
   font-family: "CoprAltMed";
   font-weight: 800;
@@ -268,7 +268,7 @@
 .dashboard .card-horizontal .card-content h3 {
   font-family: "CoprAltBlack";
   font-size: 2.4rem;
-  color: #E41E1E;
+  color: #FD000D;
 }
 .dashboard .card-horizontal .card-content p {
   font-family: "CoprAltBlack";
@@ -289,7 +289,7 @@
   transition: background-color 0.3s ease;
   font-size: 1.4rem;
   border-radius: 1.5rem;
-  background-color: #E41E1E;
+  background-color: #FD000D;
   position: relative;
   left: 62px;
   top: 1rem;
@@ -304,7 +304,7 @@
   font-family: "CoprAltMed";
   font-size: 2.4rem;
   font-weight: 800;
-  color: #E41E1E;
+  color: #FD000D;
 }
 .dashboard .card .card-text {
   font-family: "CoprAltMed";
@@ -340,7 +340,7 @@
 }
 
 .pie_dashboard {
-  background: #E41E1E;
+  background: #FD000D;
   height: 7.4rem;
 }
 .pie_dashboard p {
@@ -358,7 +358,7 @@
   src: url("../fonts/Gotham-Black.otf") format("opentype");
 }
 .configuracion {
-  background-color: #E41E1E;
+  background-color: #FD000D;
 }
 .configuracion h2 {
   padding-top: 70px;
@@ -445,6 +445,78 @@
   font-size: 20px;
 }
 
+.calendario .imagen-oscura {
+  filter: brightness(0.4); /* Reduce el brillo al 50% */
+}
+.calendario .buscar-btn {
+  position: relative;
+  /* Estilo básico para el contenedor del botón */
+  /* Cambia la imagen al hacer hover */
+  /* Cambia la imagen al hacer clic */
+}
+.calendario .buscar-btn .search-btn {
+  margin-top: 3rem;
+  width: 27rem; /* Ajusta el tamaño según tus necesidades */
+  height: 3.5rem; /* Ajusta el tamaño según tus necesidades */
+  border: none;
+  cursor: pointer;
+  border-radius: 5rem;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Sombra alrededor del botón */
+  transition: all 0.3s ease; /* Transición suave para el hover */
+}
+.calendario .buscar-btn .search-btn:hover {
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.5); /* Sombra más fuerte en hover */
+}
+.calendario .buscar-btn .search-btn:active {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3); /* Sombra reducida al hacer clic */
+}
+.calendario .fa-search,
+.calendario .fa-times {
+  font-size: 2rem;
+}
+.calendario .ico-buscar {
+  position: absolute;
+  right: 35rem;
+  top: 10.8rem;
+}
+.calendario .ico-salir {
+  position: absolute;
+  right: 12rem;
+  top: 10.8rem;
+}
+.calendario .card-text {
+  font-size: 2.5rem;
+  font-family: "CoprAltBlack", sans-serif;
+  text-align: center;
+  color: #868686;
+}
+.calendario .calen-card {
+  position: relative;
+  box-shadow: -10px 10px 5px -2px rgba(0, 0, 0, 0.26);
+}
+.calendario .calendario-fecha {
+  position: absolute;
+  top: 6rem;
+  left: 11rem;
+  font-size: 7rem;
+  color: white;
+  font-weight: 500;
+  line-height: 5rem;
+}
+.calendario .botn-calendario {
+  display: flex;
+  justify-content: center;
+}
+.calendario .btn-card-cal {
+  background-color: #FD000D;
+  width: 60%;
+  font-family: "CoprAltBlack", sans-serif;
+  font-size: 1.8rem;
+  color: white;
+  border-radius: 2rem;
+  border: 0rem;
+}
+
 @font-face {
   font-family: "CBlack";
   src: url("../fonts/CorporativeBlack.otf") format("opentype");
@@ -482,7 +554,7 @@ html {
 }
 
 .bg-principal {
-  background-color: #E41E1E !important;
+  background-color: #FD000D !important;
 }
 
 .cabecera {
@@ -498,11 +570,11 @@ html {
   height: auto;
 }
 .cabecera li a:hover {
-  color: #E41E1E !important;
+  color: #FD000D !important;
 }
 
 .cabecera2 {
-  background-color: #E41E1E;
+  background-color: #FD000D;
 }
 .cabecera2 .container-fluid {
   padding-left: 0;
@@ -683,15 +755,15 @@ li.submenu:hover ul {
 }
 
 .dropdown li a:hover {
-  color: #E41E1E !important;
+  color: #FD000D !important;
 }
 
 .dropdown-btn.active,
 .dropdown1-btn.active {
-  color: #E41E1E;
+  color: #FD000D;
   font-family: "CBold";
   font-weight: bolder;
-  text-decoration: underline #E41E1E;
+  text-decoration: underline #FD000D;
 }
 .dropdown-btn.active .icono,
 .dropdown1-btn.active .icono {
@@ -719,7 +791,7 @@ li.submenu:hover ul {
 }
 
 .dropdown1 li a:hover {
-  color: #E41E1E !important;
+  color: #FD000D !important;
 }
 
 .content {
@@ -740,9 +812,9 @@ li.submenu:hover ul {
 }
 .perfil .btn-primary {
   background-color: white;
-  color: #E41E1E;
+  color: #FD000D;
   border-radius: 1rem;
-  border-color: #E41E1E;
+  border-color: #FD000D;
   font-size: 1.5rem;
 }
 .perfil i {
@@ -831,7 +903,7 @@ li.submenu:hover ul {
 
 /*contacto*/
 .contacto {
-  background-color: #E41E1E;
+  background-color: #FD000D;
   display: flex;
   height: 100vh;
   align-items: center;
@@ -895,7 +967,7 @@ li.submenu:hover ul {
 
 /*perfil*/
 .perfil2 {
-  background-color: #E41E1E;
+  background-color: #FD000D;
   display: flex;
   height: 100vh;
   align-items: center;
