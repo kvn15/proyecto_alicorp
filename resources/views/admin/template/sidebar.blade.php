@@ -1,3 +1,8 @@
+@php
+$adminData = App\Models\Admin::find(1);
+@endphp
+
+
 
 <aside class="app-sidebar bg-nav-alicorp shadow" data-bs-theme="dark"> 
     <div class="sidebar-brand"> 

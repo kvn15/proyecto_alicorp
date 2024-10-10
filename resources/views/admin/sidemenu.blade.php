@@ -5,7 +5,7 @@
         <!-- User details -->
         <div class="user-profile text-center mt-3 user_details">
             <div class="">
-                <img src="{{asset('backend/assets/images/users/avatar-1.jpg')}}" alt="" class="avatar-md rounded-circle">
+                <img src="{{ !empty($adminData->profile_image) ? url('img/upload/admin_images/' . $adminData->profile_image) : url('img/upload/no_image.jpg') }}" alt="" class="avatar-md rounded-circle">
             </div>
             <div class="mt-3 d-flex flex-column align-items-md-start">
                 <h4 class="font-size-13 mb-1 poppins-regular">{{ Auth::user()->name }}</h4>

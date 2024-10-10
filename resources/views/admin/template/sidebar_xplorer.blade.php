@@ -2,7 +2,7 @@
 <aside class="app-sidebar bg-nav-alicorp shadow" data-bs-theme="dark"> 
     <div class="sidebar-brand"> 
         <a href="../index.html" class="brand-link">
-            <img src="{{ asset('backend/assets/images/users/avatar-1.jpg') }}" alt="" class="brand-image">
+            <img src="{{ !empty($adminData->profile_image) ? url('img/upload/admin_images/' . $adminData->profile_image) : url('img/upload/no_image.jpg') }}" alt="" class="brand-image">
             <span class="brand-text fw-light">
                 <b>{{ Auth::user()->name }}</b>  <br>
                 <span>ADMINISTRADOR</span><br>
