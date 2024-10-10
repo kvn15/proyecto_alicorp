@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\landing_promocional\LandingPromocionalController;
 use App\Http\Controllers\Admin\Auth\ForgotPasswordController;
 use App\Http\Controllers\Admin\Auth\ResetPasswordController;
+use App\Http\Controllers\Admin\ViewLandingController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\XplorerController;
 
@@ -117,6 +118,15 @@ Route::middleware('auth:xplorer')->group(function () {
     Route::get('/xplorer/dashboard', function () {
         return view('xplorer.dashboard');
     });
+});
+
+
+
+Route::prefix('landing')->group(function () {
+    // View
+    Route::get('/{hub}', [ViewLandingController::class, 'index'])->name('landing.view');
+    Route::post('/{id}/post', [ViewLandingController::class, 'store'])->name('landing.post');
+    Route::post('/{id}/postHtml', [ViewLandingController::class, 'storeHtml'])->name('landing.post.html');
 });
 
 require __DIR__.'/auth.php';
