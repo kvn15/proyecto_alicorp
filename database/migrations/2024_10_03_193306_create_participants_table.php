@@ -21,6 +21,7 @@ class CreateParticipantsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users'); 
             $table->boolean('terminos_condiciones')->default(false);
             $table->string('codigo')->nullable();
+            $table->text('file_producto')->nullable();
             $table->boolean('codigo_valido')->default(false);
             $table->unsignedBigInteger('award_project_id')->nullable();
             $table->foreign('award_project_id')->references('id')->on('award_projects');
