@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\landing_promocional\LandingPromocionalController;
 use App\Http\Controllers\Admin\Auth\ForgotPasswordController;
 use App\Http\Controllers\Admin\Auth\ResetPasswordController;
+use App\Http\Controllers\Admin\GameMemoriaController;
 use App\Http\Controllers\Admin\ViewLandingController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\XplorerController;
@@ -139,6 +140,12 @@ Route::prefix('landing')->group(function () {
     Route::get('/{hub}', [ViewLandingController::class, 'index'])->name('landing.view');
     Route::post('/{id}/post', [ViewLandingController::class, 'store'])->name('landing.post');
     Route::post('/{id}/postHtml', [ViewLandingController::class, 'storeHtml'])->name('landing.post.html');
+});
+
+Route::prefix('game_memoria')->group(function () {
+    Route::get('/{hub}/registro', [GameMemoriaController::class, 'index'])->name('juego.view.registro');
+    Route::post('/{id}/registro', [GameMemoriaController::class, 'store'])->name('juego.post.registro');
+    Route::get('/{hub}', [GameMemoriaController::class, 'show'])->name('juego.view.memoria');
 });
 
 require __DIR__.'/auth.php';

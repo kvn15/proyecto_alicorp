@@ -9,6 +9,17 @@ class Participant extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['project_id',
+    'user_id',
+    'terminos_condiciones',
+    'codigo',
+    'file_producto',
+    'codigo_valido',
+    'award_project_id ',
+    'fecha_premio',
+    'punto_entrega',
+    'ganador',
+    'participaciones'];
     
     // Relacion categoria - Uno a Uno
     public function user() {
