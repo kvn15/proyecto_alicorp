@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\ViewLandingController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\XplorerController;
+use App\Http\Controllers\AdminPanel\AdminPanelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,10 +38,10 @@ Route::prefix('admin')->group(function () {
     Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
     Route::post('/login', [AdminLoginController::class, 'login'])->name('admin.login.submit');
 
-    Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
-    Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
-    Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
-    Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
+    //Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+    //Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+    //Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+    //Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
     
     Route::get('/logout', [AdminController::class, 'destroy'])->name('admin.logout');
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
@@ -120,7 +121,18 @@ Route::middleware('auth:xplorer')->group(function () {
     });
 });
 
+Route::controller(AdminPanelController::class)->group(function () {
+    Route::get('/adminPanel/login','showLoginForm')->name('adminPanel.login');
+    Route::post('/adminPanel/login','login')->name('adminPanel.login.submit');
+    Route::get('adminPanel/logout','logout')->name('adminPanel.logout');
+    Route::get('/adminPanel/dashboard', 'dashboard')->name('adminPanel.dashboard');
+});
 
+// Route::middleware('auth:adminPanel')->group(function () {
+//     Route::get('/adminPanel/dashboard', function () {
+//         return view('adminPanel.dashboard');
+//     });
+// });
 
 Route::prefix('landing')->group(function () {
     // View

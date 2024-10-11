@@ -48,6 +48,11 @@ return [
             'driver' => 'session',
             'provider' => 'xplorers',
         ],
+        'adminPanel' => [
+            'driver' => 'session',
+            'provider' => 'adminPanels',
+        ],
+        
     ],
 
     /*
@@ -79,6 +84,10 @@ return [
         'xplorers' => [
             'driver' => 'eloquent',
             'model' => App\Models\Xplorer::class,
+        ],
+        'adminPanels' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\AdminPanel::class,
         ],
 
         // 'users' => [

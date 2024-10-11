@@ -21,7 +21,7 @@
                 <ul class="metismenu list-unstyled" id="side-menu">
 
                     <li>
-                        <a href="{{route('admin.dashboard.inicio')}}" class="waves-effect">
+                        <a href="{{route('adminPanel.inicio.slider')}}" class="waves-effect">
                             <i class="ri-home-3-line"></i>
                             <span>Inicio</span>
                         </a>

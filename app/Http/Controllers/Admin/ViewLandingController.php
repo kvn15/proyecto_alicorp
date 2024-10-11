@@ -47,7 +47,6 @@ class ViewLandingController extends Controller
             'navegacion_4' => $request->navegacion_4,
             'direccionar_4' => $request->direccionar_4,
         ];
-
         $pagina_principal = [
             'distribucion' => $request["distribucion"],
             'banner_subir' => '',
@@ -151,7 +150,7 @@ class ViewLandingController extends Controller
             $rutaLogo = $request->file('logo-subir')->store('logos', 'public'); // Almacena en storage/app/public/imagenes
         }
 
-        $encabezadoLogo = json_decode($existLanding->encabezado, true);
+        $encabezadoLogo = isset($existLanding) && json_decode($existLanding->encabezado, true);
         $encabezado["logo_subir"] = isset($existLanding) && isset($encabezadoLogo) && !empty($encabezadoLogo["logo_subir"]) && !$request->hasFile('logo-subir') ? $encabezadoLogo["logo_subir"] : $rutaLogo;
 
         /// banner_subir
@@ -172,7 +171,7 @@ class ViewLandingController extends Controller
 
             $rutaBanner = $request->file('banner-subir')->store('banner', 'public'); // Almacena en storage/app/public/imagenes
         }
-        $principalBanner= json_decode($existLanding->pagina_principal, true);
+        $principalBanner= isset($existLanding) &&  json_decode($existLanding->pagina_principal, true);
         $pagina_principal["banner_subir"] = isset($existLanding) && isset($principalBanner) && !empty($principalBanner["banner_subir"] ) && !$request->hasFile('banner-subir') ? $principalBanner["banner_subir"] : $rutaBanner;
 
         /// imagen-subir
@@ -194,7 +193,7 @@ class ViewLandingController extends Controller
             $rutaImagen = $request->file('imagen-subir')->store('imagen_principal', 'public'); // Almacena en storage/app/public/imagenes
         }
 
-        $principalImagen= json_decode($existLanding->pagina_principal, true);
+        $principalImagen= isset($existLanding) &&  json_decode($existLanding->pagina_principal, true);
         $pagina_principal["imagen-subir"] = isset($existLanding) && isset($principalImagen) && !empty($principalImagen["imagen-subir"]) && !$request->hasFile('imagen-subir') ? $principalImagen["imagen-subir"] : $rutaImagen;
 
         /// participar_1
@@ -215,7 +214,7 @@ class ViewLandingController extends Controller
 
             $rutaParticipar1 = $request->file('participar_1')->store('participar', 'public'); // Almacena en storage/app/public/imagenes
         }
-        $participarImagen= json_decode($existLanding->como_participar, true);
+        $participarImagen= isset($existLanding) && json_decode($existLanding->como_participar, true);
 
         $como_participar["participar_1"] = isset($existLanding) && isset($participarImagen) && !empty($participarImagen["participar_1"]) && !$request->hasFile('participar_1') ? $participarImagen["participar_1"] : $rutaParticipar1;
 
