@@ -5,13 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Landing;
 use App\Models\Project;
+use App\Models\ViewProject;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ViewLandingController extends Controller
 {
     //
     public function index($hub) {
-        $project = Project::where('dominio',$hub)->first();
+        $project = Project::where('dominio',$hub)->where('status', 1)->first();
         
         if(!isset($project)){
             return back();
@@ -23,6 +25,12 @@ class ViewLandingController extends Controller
             'project' => $project,
             'landing' => $landing,
         ];
+
+        // Vista Proyecto
+        ViewProject::create([
+            'project_id' => $project->id,
+            'codigo' => Str::random(10)
+        ]);
 
         return view('admin.pages.landing_public.viewlanding', compact('landingPage'));
     }

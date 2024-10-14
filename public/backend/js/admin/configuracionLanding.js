@@ -1,6 +1,8 @@
 
 $(document).ready(function() {
 
+    var arrayProbabilidad = [0, 10 , 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100];
+
     $('#form-info-pro').on('submit', function(event) {
         event.preventDefault();
 
@@ -193,7 +195,11 @@ $(document).ready(function() {
                         <input type="text" name="stock_premio_1[]" id="stock_premio_1[]" class="form-control w-100 mb-3" value="${premio.stock}" min="1" required>
 
                         <select name="probabilidad_premio_1[]" id="probabilidad_premio_1[]" class="form-select w-100" required>
-                            <option value="2" selected>Probabildad</option>
+                            ${
+                                arrayProbabilidad.map(a => (
+                                    `<option value="${a}" ${premio.probabilidad == a ? 'selected' : ''} >${a}</option>`
+                                ))
+                            }
                         </select>
                     </div>
                 </div>
@@ -214,8 +220,12 @@ $(document).ready(function() {
             url: url,
             success: function (response) {
                 if (response) {
-                    lPremio = response.premios ?? []
-                    agregarPremio(lPremio)
+                    if (response?.data != undefined || response?.data != null) {
+                        console.log(response)
+                        lPremio = response.data.premio ?? []
+                        $("#prob_no_premio").val(response.data.project.prob_no_premio);
+                        agregarPremio(lPremio)
+                    }
                 }
             }
         });

@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class ViewProject extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['project_id', 'codigo'];
 }

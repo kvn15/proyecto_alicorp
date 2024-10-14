@@ -298,6 +298,20 @@ hr {
     font-size: 13px;
 }
 
+.btn-activo {
+    background-color: #fff;
+    border: 1px solid #78B928;
+    color: #78B928;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.btn-activo:hover {
+    background-color: #fff;
+    border: 1px solid #78B928;
+    color: #78B928;
+}
+
 .btn-inactivo {
     background-color: #fff;
     border: 1px solid #868686;

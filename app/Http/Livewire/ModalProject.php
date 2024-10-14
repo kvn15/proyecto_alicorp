@@ -17,6 +17,8 @@ class ModalProject extends Component
     public $tipoProyecto;
     public $idProyecto, $nombreProyectoCreado;
 
+    protected $listeners = ['hallChanged' => 'change'];
+
     public function submit() {
         
         $proyecto = new Project();
@@ -81,5 +83,11 @@ class ModalProject extends Component
     public function render()
     {
         return view('livewire.modal-project');
+    }
+
+    public function change()
+    {
+        $game = Game::where('id', $this->game_select)->first();
+        $this->gameText = $game->name;
     }
 }

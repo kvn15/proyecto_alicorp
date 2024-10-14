@@ -33,6 +33,7 @@ class CreateProjectsTable extends Migration
             $table->text('ruta_fav')->nullable();
             $table->integer('cantidad_premio')->nullable();
             $table->string('prob_no_premio')->default(1);
+            $table->integer('status')->default(0);
             $table->unsignedBigInteger('admin_id')->nullable();
             $table->foreign('admin_id')->references('id')->on('admins');
             $table->timestamps();

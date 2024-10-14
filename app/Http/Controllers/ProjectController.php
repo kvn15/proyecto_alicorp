@@ -93,12 +93,14 @@ class ProjectController extends Controller
 
         // Almacenar la imagen en el directorio deseado
         if ($request->hasFile('imagen')) {
-            // Obtener la ruta de la imagen
-            $rutaFav = public_path($project->ruta_fav); // Suponiendo que la ruta está almacenada en 'ruta'
+            if(isset($project->ruta_fav) && !empty($project->ruta_fav)){
+                // Obtener la ruta de la imagen
+                $rutaFav = public_path($project->ruta_fav); // Suponiendo que la ruta está almacenada en 'ruta'
 
-            // Eliminar el archivo del sistema
-            if (file_exists($rutaFav)) {
-                unlink($rutaFav); // Eliminar el archivo
+                // Eliminar el archivo del sistema
+                if (file_exists($rutaFav)) {
+                    unlink($rutaFav); // Eliminar el archivo
+                }
             }
 
             $ruta = $request->file('imagen')->store('imagenes', 'public'); // Almacena en storage/app/public/imagenes
@@ -144,7 +146,7 @@ class ProjectController extends Controller
             $orden = $value[0];
             $name = $value[1];
             $stock = $value[2];
-            $probabilidad = $value[2];
+            $probabilidad = $value[3];
 
             AwardProject::create([
                 'project_id' => $id, 
@@ -161,6 +163,7 @@ class ProjectController extends Controller
     public function obtenerPremio($id) {
 
         $premio = AwardProject::where('project_id', $id)->get();
+        $project = Project::findOrFail($id);
         
         $premios = $premio->map(function ($pre) {
             return [
@@ -171,7 +174,12 @@ class ProjectController extends Controller
             ];
         });
 
-        return response()->json(compact('premios'));
+        $data = [
+            'premio' => $premio,
+            'project' => $project,
+        ];
+
+        return response()->json(compact('data'));
     }
 
     public function guardarDatosEstado(Request $request, $id) {

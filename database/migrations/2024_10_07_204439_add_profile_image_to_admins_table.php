@@ -25,8 +25,6 @@ class AddProfileImageToAdminsTable extends Migration
      */
     public function down()
     {
-        Schema::table('admins', function (Blueprint $table) {
-            $table->string('profile_image')->nullable();
-        });
+        Schema::dropIfExists('profile_image');
     }
 }

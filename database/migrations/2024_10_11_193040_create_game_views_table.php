@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAwardProjectsTable extends Migration
+class CreateGameViewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,16 @@ class CreateAwardProjectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('award_projects', function (Blueprint $table) {
+        Schema::create('game_views', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('project_id')->nullable();
             $table->foreign('project_id')->references('id')->on('projects');
-            $table->integer('orden')->nullable();
-            $table->string('nombre_premio')->nullable();
-            $table->string('stock')->nullable();
-            $table->text('imagen')->nullable();
-            $table->string('probabilidad');
+            $table->text('principal');
+            $table->text('premio');
+            $table->text('premio_img');
+            $table->text('html_preview');
+            $table->text('html_origin');
+            $table->text('html_end');
             $table->timestamps();
         });
     }
@@ -33,6 +34,6 @@ class CreateAwardProjectsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('award_projects');
+        Schema::dropIfExists('game_views');
     }
 }

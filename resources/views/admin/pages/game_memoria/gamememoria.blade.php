@@ -7,7 +7,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/25bfdd98ec.js" crossorigin="anonymous"></script>
-    <title>Document</title>
+    <title>{{ $data["project"]->titulo_pestana }}</title>
+    <link rel="icon" href="{{ '/storage/'.$data["project"]->ruta_fav }}" type="image/x-icon">
 </head>
 <style>
     body {
@@ -104,56 +105,68 @@
                 </div>
                 <div class="col-12 col-lg-8 ps-5 d-flex flex-column justify-content-center">
                     <h1 class="w-75 text-white border-bottom mb-5" style="font-weight: 700">REGISTRATE</h1>
+                    <div class="col-12">
+                        @if(session('mensaje'))
+                        <div class="alert alert-warning">
+                            {{ session('mensaje') }}
+                        </div>
+                        @endif
+                    </div>
                     <div action="" class="row">
                         <div class="col-12 col-lg-6 mb-2">
                             <label for="name">Nombre</label>
                             <input type="text" name="name" id="name" class="form-registro" value="{{ $data["user"]->name }}">
                         </div>
                         <div class="col-12 col-lg-6 mb-2">
-                            <label for="name">Apellido</label>
-                            <input type="text" name="apellido" id="apellido" class="form-registro">
+                            <label for="apellido">Apellido</label>
+                            <input type="text" name="apellido" id="apellido" class="form-registro" value="{{ $data["user"]->apellido }}">
                         </div>
                         <div class="col-12 col-lg-6 mb-2">
-                            <label for="name">Tipo de documento</label>
-                            <input type="text" name="tipo_doc" id="tipo_doc" class="form-registro">
+                            <label for="tipo_doc">Tipo de documento</label>
+                            {{-- <input type="text" name="tipo_doc" id="tipo_doc" class="form-registro"> --}}
+                            <select name="tipo_doc" id="tipo_doc" class="form-registro">
+                                <option value="DNI" {{ $data["user"]->tipo_documento == 'DNI' ? 'selected' : '' }}>DNI</option>
+                                <option value="C.EXT" {{ $data["user"]->tipo_documento == 'C.EXT' ? 'selected' : '' }}>C.EXT</option>
+                                <option value="PASAPORTE" {{ $data["user"]->tipo_documento == 'PASAPORTE' ? 'selected' : '' }}>PASAPORTE</option>
+                            </select>
                         </div>
                         <div class="col-12 col-lg-6 mb-2">
-                            <label for="name">N° de documento</label>
+                            <label for="documento">N° de documento</label>
                             <input type="text" name="documento" id="documento" class="form-registro" value="{{ $data["user"]->documento }}">
                         </div>
                         <div class="col-12 col-lg-6 mb-2">
-                            <label for="name">Edad (*Mayores de 18 años)</label>
-                            <input type="text" name="edad" id="edad" class="form-registro">
+                            <label for="edad">Edad (*Mayores de 18 años)</label>
+                            <input type="number" name="edad" id="edad" class="form-registro" min="18" value="{{ $data["user"]->edad }}">
                         </div>
                         <div class="col-12 col-lg-6 mb-2">
-                            <label for="name">N° telefónico</label>
+                            <label for="telefono">N° telefónico</label>
                             <input type="text" name="telefono" id="telefono" class="form-registro" value="{{ $data["user"]->telefono }}">
                         </div>
                         <div class="col-12 col-lg-6 mb-2">
-                            <label for="name">Correo electronico</label>
-                            <input type="email" name="email" id="email" class="form-registro" value="{{ $data["user"]->email }}">
+                            <label for="email">Correo electronico</label>
+                            <input type="email" name="email" id="email" class="form-registro" value="{{ $data["user"]->email }}" readonly>
                         </div>
                         <div class="col-12 col-lg-6 mb-2">
-                            <label for="name">N° de LOTE + foto de producto</label>
+                            <label for="codigo">N° de LOTE + foto de producto</label>
                             <input type="text" name="codigo" id="codigo" class="form-registro">
 
                             <input type="file" name="imagen" id="imagen" class="form-control mt-2">
                         </div>
                         <div class="col-12 d-flex justify-content-between my-2">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="1" name="checkTerminos" id="checkTerminos">
+                                <input class="form-check-input" type="checkbox" value="1" name="checkTerminos" id="checkTerminos" checked>
                                 <label class="form-check-label" for="checkTerminos">
                                   Acepto terminos y condiciones
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="1" name="checkDatos" id="checkDatos">
+                                <input class="form-check-input" type="checkbox" value="1" name="checkDatos" id="checkDatos" checked>
                                 <label class="form-check-label" for="checkDatos">
                                   Deseo usar mis datos para crear un usuario en plataforma web
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="1" name="checkPoliticas" id="checkPoliticas">
+                                <input class="form-check-input" type="checkbox" value="1" name="checkPoliticas" id="checkPoliticas" checked>
                                 <label class="form-check-label" for="checkPoliticas">
                                   Acepto politca de prvacidad de datos
                                 </label>
@@ -218,6 +231,11 @@
 
                 if (!nombre || !apellido || !tipo_doc || !documento || !edad || !telefono || !email || !lote || !file) {
                     alert("Debe completar todos los campos para continuar");
+                    return;
+                }
+
+                if (edad < 18) {
+                    alert("Deben ser mayores de edad para continuar.");
                     return;
                 }
 

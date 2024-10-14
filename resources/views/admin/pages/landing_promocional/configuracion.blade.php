@@ -104,26 +104,15 @@
                                 {{-- <input type="text" name="tipo_promocion" id="tipo_promocion" class="form-control w-100"> --}}
                                 <div class="w-100">
                                     <select class="form-select" id="small-bootstrap-class-multiple-field" data-placeholder="Escoja las marcas" multiple>
-                                        <option>Christmas Island</option>
-                                        <option>South Sudan</option>
-                                        <option>Jamaica</option>
-                                        <option>Kenya</option>
-                                        <option>French Guiana</option>
-                                        <option>Mayotta</option>
-                                        <option>Liechtenstein</option>
-                                        <option>Denmark</option>
-                                        <option>Eritrea</option>
-                                        <option>Gibraltar</option>
-                                        <option>Saint Helena, Ascension and Tristan da Cunha</option>
-                                        <option>Haiti</option>
-                                        <option>Namibia</option>
-                                        <option>South Georgia and the South Sandwich Islands</option>
-                                        <option>Vietnam</option>
-                                        <option>Yemen</option>
-                                        <option>Philippines</option>
-                                        <option>Benin</option>
-                                        <option>Czech Republic</option>
-                                        <option>Russia</option>
+                                        <option>Marca 1</option>
+                                        <option>Marca 2</option>
+                                        <option>Marca 3</option>
+                                        <option>Marca 4</option>
+                                        <option>Marca 5</option>
+                                        <option>Marca 6</option>
+                                        <option>Marca 8</option>
+                                        <option>Marca 7</option>
+                                        <option>Marca 9</option>
                                     </select>
                                 </div>
                             </div>
@@ -150,7 +139,7 @@
                             </div>
                             <div class="col-12 col-md-6 col-lg-7">
                                 <div class="input-group w-100">
-                                    <span class="input-group-text" id="basic-addon3" style="color: #667085;">http://</span>
+                                    <span class="input-group-text" id="basic-addon3" style="color: #667085;">http://.../</span>
                                     <input type="text" class="form-control" id="dominio" name="dominio" value="{{ $project->dominio }}">
                                   </div>
                             </div>
@@ -305,7 +294,26 @@
                             </div>
                             <div class="col-12 col-md-6 col-lg-5">
                                 <select name="prob_no_premio" id="prob_no_premio" class="form-select w-100">
-                                    <option value="2" selected>Probabildad</option>
+                                    <option value="0" selected>0</option>
+                                    <option value="10" selected>10</option>
+                                    <option value="15" selected>15</option>
+                                    <option value="20" selected>20</option>
+                                    <option value="25" selected>25</option>
+                                    <option value="30" selected>30</option>
+                                    <option value="35" selected>35</option>
+                                    <option value="40" selected>40</option>
+                                    <option value="45" selected>45</option>
+                                    <option value="50" selected>50</option>
+                                    <option value="55" selected>55</option>
+                                    <option value="60" selected>60</option>
+                                    <option value="65" selected>65</option>
+                                    <option value="70" selected>70</option>
+                                    <option value="75" selected>75</option>
+                                    <option value="80" selected>80</option>
+                                    <option value="85" selected>85</option>
+                                    <option value="90" selected>90</option>
+                                    <option value="95" selected>95</option>
+                                    <option value="100" selected>100</option>
                                 </select>
                             </div>
                         </div>
