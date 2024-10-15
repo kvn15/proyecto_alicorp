@@ -3,6 +3,7 @@
     $gameRaspaGana = $data["gameRaspaGana"]; 
     $projectPremio = $data["projectPremio"]; 
     $premioSelect = $data["premio"]; 
+    $idParticipante = $data["idParticipante"]; 
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -233,7 +234,12 @@
         }
 </style>
 <body>
-    
+    <form action="{{ route('juego.ganador.raspagana', $project->id) }}" method="POST" id="form_ganador">
+        @csrf
+        @method('POST')
+        <input type="hidden" id="idParticipante" name="idParticipante" value="{{ $idParticipante }}">
+        <input type="hidden" id="premio_id" name="premio_id" value="{{ $premioSelect['premio_id'] }}">
+    </form>
 
     <div id="juego_casino_raspa" style="background-image: url('{{ $fondo }}'); background-size: cover; height: 100vh; position: relative;">
         <div id="card-raspa">
@@ -265,111 +271,6 @@
             </div>
         </div>
     </div>
-
-
-    <script>
-        let canvas = document.getElementById("scratch");
-        let context = canvas.getContext("2d");
-    
-        const init = () => {
-            var background = new Image();
-            background.src = "{{ $imagen_raspar }}";
-        //   let gradientColor = context.createLinearGradient(0, 0, 135, 135);
-        //   gradientColor.addColorStop(0, "#c3a3f1");
-        //   gradientColor.addColorStop(1, "#6414e9");
-        //   context.fillStyle = gradientColor;
-        //   context.fillRect(0, 0, 200, 200);
-            // Make sure the image is loaded first otherwise nothing will draw.
-            canvas.width = canvas.parentElement.clientWidth;
-            canvas.height = canvas.parentElement.clientHeight;
-            background.onload = function(){
-                context.drawImage(background,0,0,canvas.width,450);   
-            }
-        };
-    
-        //initially mouse X and mouse Y positions are 0
-        let mouseX = 0;
-        let mouseY = 0;
-        let isDragged = false;
-    
-        //Events for touch and mouse
-        let events = {
-        mouse: {
-            down: "mousedown",
-            move: "mousemove",
-            up: "mouseup",
-        },
-        touch: {
-            down: "touchstart",
-            move: "touchmove",
-            up: "touchend",
-        },
-        };
-    
-        let deviceType = "";
-    
-        //Detech touch device
-        const isTouchDevice = () => {
-        try {
-            //We try to create TouchEvent. It would fail for desktops and throw error.
-            document.createEvent("TouchEvent");
-            deviceType = "touch";
-            return true;
-        } catch (e) {
-            deviceType = "mouse";
-            return false;
-        }
-        };
-    
-        //Get left and top of canvas
-        let rectLeft = canvas.getBoundingClientRect().left;
-        let rectTop = canvas.getBoundingClientRect().top;
-    
-        //Exact x and y position of mouse/touch
-        const getXY = (e) => {
-        mouseX = (!isTouchDevice() ? e.pageX : e.touches[0].pageX) - rectLeft;
-        mouseY = (!isTouchDevice() ? e.pageY : e.touches[0].pageY) - rectTop;
-        };
-    
-        isTouchDevice();
-        //Start Scratch
-        canvas.addEventListener(events[deviceType].down, (event) => {
-        isDragged = true;
-        //Get x and y position
-        getXY(event);
-        scratch(mouseX, mouseY);
-        });
-    
-        //mousemove/touchmove
-        canvas.addEventListener(events[deviceType].move, (event) => {
-            if (!isTouchDevice()) {
-                event.preventDefault();
-            }
-            if (isDragged) {
-                const continar_casino = document.getElementById('continar_casino')
-                continar_casino.classList.remove('d-none')
-                getXY(event);
-                scratch(mouseX, mouseY);
-            }
-        });
-    
-        //stop drawing
-        canvas.addEventListener(events[deviceType].up, () => {
-        isDragged = false;
-        });
-    
-    
-        const scratch = (x, y) => {
-        //destination-out draws new shapes behind the existing canvas content
-        context.globalCompositeOperation = "destination-out";
-        context.beginPath();
-        //arc makes circle - x,y,radius,start angle,end angle
-        context.arc(x, y, 22,-20, 0);
-        context.fill();
-        };
-    
-        window.onload = init();
-    </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
@@ -380,6 +281,142 @@
 </body>
 </html>
 
+<script>
+    let canvas = document.getElementById("scratch");
+    let context = canvas.getContext("2d");
+
+    const init = () => {
+        var background = new Image();
+        background.src = "{{ $imagen_raspar }}";
+    //   let gradientColor = context.createLinearGradient(0, 0, 135, 135);
+    //   gradientColor.addColorStop(0, "#c3a3f1");
+    //   gradientColor.addColorStop(1, "#6414e9");
+    //   context.fillStyle = gradientColor;
+    //   context.fillRect(0, 0, 200, 200);
+        // Make sure the image is loaded first otherwise nothing will draw.
+        canvas.width = canvas.parentElement.clientWidth;
+        canvas.height = canvas.parentElement.clientHeight;
+        background.onload = function(){
+            context.drawImage(background,0,0,canvas.width,450);   
+        }
+    };
+
+    //initially mouse X and mouse Y positions are 0
+    let mouseX = 0;
+    let mouseY = 0;
+    let isDragged = false;
+
+    //Events for touch and mouse
+    let events = {
+    mouse: {
+        down: "mousedown",
+        move: "mousemove",
+        up: "mouseup",
+    },
+    touch: {
+        down: "touchstart",
+        move: "touchmove",
+        up: "touchend",
+    },
+    };
+
+    let deviceType = "";
+
+    //Detech touch device
+    const isTouchDevice = () => {
+    try {
+        //We try to create TouchEvent. It would fail for desktops and throw error.
+        document.createEvent("TouchEvent");
+        deviceType = "touch";
+        return true;
+    } catch (e) {
+        deviceType = "mouse";
+        return false;
+    }
+    };
+
+    //Get left and top of canvas
+    let rectLeft = canvas.getBoundingClientRect().left;
+    let rectTop = canvas.getBoundingClientRect().top;
+
+    //Exact x and y position of mouse/touch
+    const getXY = (e) => {
+    mouseX = (!isTouchDevice() ? e.pageX : e.touches[0].pageX) - rectLeft;
+    mouseY = (!isTouchDevice() ? e.pageY : e.touches[0].pageY) - rectTop;
+    };
+
+    isTouchDevice();
+    //Start Scratch
+    canvas.addEventListener(events[deviceType].down, (event) => {
+    isDragged = true;
+    //Get x and y position
+    getXY(event);
+    scratch(mouseX, mouseY);
+    });
+
+    //mousemove/touchmove
+    canvas.addEventListener(events[deviceType].move, (event) => {
+        if (!isTouchDevice()) {
+            event.preventDefault();
+        }
+        if (isDragged) {
+            const continar_casino = document.getElementById('continar_casino')
+        
+            if (continar_casino.classList.contains('d-none')) {
+                // Ejcutar ajax
+                ganador();
+            }
+
+            continar_casino.classList.remove('d-none')
+            getXY(event);
+            scratch(mouseX, mouseY);
+        }
+    });
+
+    //stop drawing
+    canvas.addEventListener(events[deviceType].up, () => {
+    isDragged = false;
+    });
+
+
+    const scratch = (x, y) => {
+    //destination-out draws new shapes behind the existing canvas content
+    context.globalCompositeOperation = "destination-out";
+    context.beginPath();
+    //arc makes circle - x,y,radius,start angle,end angle
+    context.arc(x, y, 22,-20, 0);
+    context.fill();
+    };
+
+    window.onload = init();
+
+    function ganador() { 
+        $('#form_ganador').submit();
+    }
+
+    $('#form_ganador').submit(function (e) { 
+        e.preventDefault();
+        
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: $(this).attr('action'), // URL de la ruta
+            method: 'POST',
+            data: formData,
+            contentType: false, // Para enviar los datos como FormData
+            processData: false, // No procesar los datos
+            success: function(data) {
+                // Procesar los datos devueltos
+                console.log(data)
+                $("#img-header-premio").remove();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
+                toastr.error('Ocurrió un error al procesar la solicitud.');
+            }
+        });
+    });
+</script>
 <script>
     $('#continar_casino').on('click', function () {
         $("#card-premio").removeClass("d-none").addClass('d-block');

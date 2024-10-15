@@ -9,6 +9,7 @@ use App\Models\Participant;
 use App\Models\Project;
 use App\Models\User;
 use App\Models\ViewProject;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -78,7 +79,7 @@ class GameMemoriaController extends Controller
 
         $uuid = Str::uuid()->toString();
 
-        return redirect()->route('juego.view.memoria', $project->dominio)->with('claveMemoria', $uuid);
+        return redirect()->route('juego.view.memoria', $project->dominio)->with('claveMemoria', $participant->id);
     }
 
     public function show($hub) {
@@ -92,10 +93,12 @@ class GameMemoriaController extends Controller
             return redirect()->route('juego.view.registro', $hub);
         }
 
+        $idParticipante = session('claveMemoria');
         $game = GameView::where('project_id', $project->id)->first();
         $premio = $this->obtenerPremio($project->id);
 
         $data = [
+            'idParticipante' => $idParticipante,
             'project' => $project,
             'gameMemoria' => $game,
             'premio' => $premio
@@ -334,5 +337,29 @@ class GameMemoriaController extends Controller
                 ];
             }
         }
+    }
+    
+    // Verificar ganador
+    public function updateGanador(Request $request, $id) {
+        
+        $premio = AwardProject::where('id', $request->premio_id)->first();
+
+        $participante = Participant::where('id', $request->idParticipante)->first();
+
+        if (!isset($premio)) { // No gano
+            $participante->update([
+                'ganador' => 0,
+            ]);
+        }else { // Gano
+            $participante->update([
+                'ganador' => 1,
+                'award_project_id ' => $request->premio_id,
+                'fecha_premio' => Carbon::now()
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'success'
+        ]);
     }
 }

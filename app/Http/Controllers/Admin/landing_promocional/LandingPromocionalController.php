@@ -309,14 +309,6 @@ class LandingPromocionalController extends Controller
         // Crear un array acumulativo para la probabilidad
         $acumulado = [];
         $total = 0;
-
-        $acumulado[] = [
-            'id' => 0,
-            'nombre' => 'Sigue intentando',
-            'imagen' => '',
-            'prob_acum' => $total + $project->prob_no_premio
-        ];
-    
     
         foreach ($premios as $premio) {
             $total += $premio->probabilidad;
@@ -327,6 +319,13 @@ class LandingPromocionalController extends Controller
                 'prob_acum' => $total
             ];
         }
+        $total += $project->prob_no_premio;
+        $acumulado[] = [
+            'id' => 0,
+            'nombre' => 'Sigue intentando',
+            'imagen' => '',
+            'prob_acum' => $total
+        ];
     
         // Generar un número aleatorio entre 1 y 100
         $random = rand(1, $total);

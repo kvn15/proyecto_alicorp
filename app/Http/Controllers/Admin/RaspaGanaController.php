@@ -4,11 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\AwardProject;
+use App\Models\Participant;
 use App\Models\Project;
 use App\Models\RaspaGana;
+use App\Models\User;
 use App\Models\ViewProject;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class RaspaGanaController extends Controller
 {
@@ -176,24 +180,125 @@ class RaspaGanaController extends Controller
             return redirect()->route('index');
         }
 
+        if (!session()->has('claveRaspaGana')) {
+            return redirect()->route('juego.post.registro.raspagana', $hub);
+        }
+
+        $idParticipante = session('claveRaspaGana');
+
         $gameRaspaGana = RaspaGana::where('project_id', $project->id)->first();
         $projectPremio = AwardProject::where('project_id', $project->id)->get();
         $premio = $this->obtenerPremio($project->id);
 
         $data = [
+            'idParticipante' => $idParticipante,
             'project' => $project,
             'gameRaspaGana' => $gameRaspaGana,
             'projectPremio' => $projectPremio,
             'premio' => $premio
         ];
-
         // Vista Proyecto
         ViewProject::create([
             'project_id' => $project->id,
             'codigo' => Str::random(10)
         ]);
 
+        // Borrar la sesión
+        session()->forget('claveRaspaGana');
+
         return view('admin.pages.game_raspa_gana.viewraspagana', compact('data'));
+    }
+
+    public function index($hub) {
+        
+        // Obtener proyecto
+        $project = Project::where('dominio', $hub)->where('status', 1)->where('game_id', 1)->first();
+
+        if(!isset($project)){
+            return redirect()->route('index');
+        }
+
+        if (!isset(Auth::user()->id)) {
+            return redirect()->route('login');
+        }
+        
+        $user = User::find(Auth::user()->id);
+        $gameRaspaGana = RaspaGana::where('project_id', $project->id)->first();
+
+        $data = [
+            'project' => $project,
+            'user' => $user,
+            'gameRaspaGana' => $gameRaspaGana
+        ];
+
+        return view('admin.pages.game_raspa_gana.gameraspagana', compact('data'));
+    }
+
+    public function store(Request $request, $id) {
+
+        $project = Project::where('id', $id)->first();
+
+        // Almacenar la imagen en el directorio deseado
+        $ruta = '';
+        if ($request->hasFile('imagen')) {
+            $ruta = $request->file('imagen')->store('game_raspa_gana', 'public'); // Almacena en storage/app/public/imagenes
+        }
+
+        // Verificar si el codigo ya existe
+        $isCodigo = Participant::where('project_id', $id)->where('codigo', $request->codigo)->first();
+
+        if (isset($isCodigo)) {
+            return redirect()->route('juego.view.registro.raspagana', $project->dominio)->with('mensaje', 'El N° de LOTE ya existe.');;
+        }
+        
+        $participant = new Participant();
+        $participant->project_id = $id;
+        $participant->user_id = Auth::user()->id;
+        $participant->terminos_condiciones = 1;
+        $participant->codigo = $request->codigo;
+        $participant->participaciones = 1;
+        $participant->file_producto = $ruta;
+        $participant->save();
+
+        $user= User::findOrFail(Auth::user()->id);
+
+        // Actualizar usuario
+        $user->update([
+            'name' => $request->name,
+            'apellido' => $request->apellido,
+            'tipo_documento' => $request->tipo_doc,
+            'documento' => $request->documento,
+            'edad' => $request->edad,
+            'telefono' => $request->telefono
+        ]);
+
+        $uuid = Str::uuid()->toString();
+
+        return redirect()->route('juego.view.raspagana', $project->dominio)->with('claveRaspaGana', $participant->id);
+    }
+
+    // Verificar ganador
+    public function updateGanador(Request $request, $id) {
+        
+        $premio = AwardProject::where('id', $request->premio_id)->first();
+
+        $participante = Participant::where('id', $request->idParticipante)->first();
+
+        if (!isset($premio)) { // No gano
+            $participante->update([
+                'ganador' => 0,
+            ]);
+        }else { // Gano
+            $participante->update([
+                'ganador' => 1,
+                'award_project_id ' => $request->premio_id,
+                'fecha_premio' => Carbon::now()
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'success'
+        ]);
     }
 
     public function obtenerPremio($projectId) {
@@ -204,14 +309,6 @@ class RaspaGanaController extends Controller
         // Crear un array acumulativo para la probabilidad
         $acumulado = [];
         $total = 0;
-
-        $acumulado[] = [
-            'id' => 0,
-            'nombre' => 'Sigue intentando',
-            'imagen' => '',
-            'prob_acum' => $total + $project->prob_no_premio
-        ];
-    
     
         foreach ($premios as $premio) {
             $total += $premio->probabilidad;
@@ -222,6 +319,13 @@ class RaspaGanaController extends Controller
                 'prob_acum' => $total
             ];
         }
+        $total += $project->prob_no_premio;
+        $acumulado[] = [
+            'id' => 0,
+            'nombre' => 'Sigue intentando',
+            'imagen' => '',
+            'prob_acum' => $total
+        ];
     
         // Generar un número aleatorio entre 1 y 100
         $random = rand(1, $total);

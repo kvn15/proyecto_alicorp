@@ -28,7 +28,7 @@
         <h3>Ganadores</h3>
 
         <div class="row">
-            <livewire:ganadores-table />
+            <livewire:ganadores-table  :projectId="$landing->id"/>
         </div>
     </div>
 </div>

@@ -153,11 +153,15 @@ Route::prefix('game_memoria')->group(function () {
     Route::get('/{hub}', [GameMemoriaController::class, 'show'])->name('juego.view.memoria');
     Route::post('/{id}/registroPersonalizar', [GameMemoriaController::class, 'storePersonalizar'])->name('juego.post.registro.personalizar');
     Route::post('/{id}/postHtml', [GameMemoriaController::class, 'storeHtml'])->name('memoria.post.html');
+    Route::post('/{id}/updateGanador', [GameMemoriaController::class, 'updateGanador'])->name('juego.ganador.memoria');
 });
 
 Route::prefix('game_raspa_gana')->group(function () {
     Route::get('/{hub}', [RaspaGanaController::class, 'show'])->name('juego.view.raspagana');
+    Route::get('/{hub}/registro', [RaspaGanaController::class, 'index'])->name('juego.view.registro.raspagana');
+    Route::post('/{hub}/registro', [RaspaGanaController::class, 'store'])->name('juego.post.registro.raspagana');
     Route::post('/{id}/registroPersonalizar', [RaspaGanaController::class, 'storePersonalizar'])->name('juego2.post.registro.personalizar');
+    Route::post('/{id}/updateGanador', [RaspaGanaController::class, 'updateGanador'])->name('juego.ganador.raspagana');
 });
 
 require __DIR__.'/auth.php';

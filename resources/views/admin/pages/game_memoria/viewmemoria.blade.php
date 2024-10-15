@@ -2,6 +2,7 @@
     $project = $data["project"]; 
     $gameMemoria = $data["gameMemoria"]; 
     $premioSelect = $data["premio"]; 
+    $idParticipante = $data["idParticipante"]; 
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -243,6 +244,12 @@
     @endphp
     
 
+    <form action="{{ route('juego.ganador.memoria', $project->id) }}" method="POST" id="form_ganador">
+        @csrf
+        @method('POST')
+        <input type="hidden" id="idParticipante" name="idParticipante" value="{{ $idParticipante }}">
+        <input type="hidden" id="premio_id" name="premio_id" value="{{ $premioSelect['premio_id'] }}">
+    </form>
     <div class="juego_memorio_content" id="juego_memorio_content" style="{{ $bgMemoria }} background-size: cover;">
         <div class="contenido_juego d-block" id="contenido_juego">
             <p class="{{ $styleAlineacion }} {{ $styleTamano }} w-100 mt-0 mb-0 pt-2 {{ $styleBold }} {{ $italicTitulo }}" id="parrafo-header" style="color: {{ $color }};">{{ $tituloTexto }}</p>
@@ -286,7 +293,8 @@
     </div>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" defer
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
@@ -295,7 +303,7 @@
 </body>
 </html>
 
-<script defer>
+<script>
 
     let itemCard = [
         {
@@ -484,6 +492,7 @@
                 selectors.contenido_juego.classList.add('d-none')
                 selectors.win.classList.remove('d-none')
                 selectors.win.classList.add('d-block')
+                ganador()
 
                 clearInterval(state.loop)
             }, 1000)
@@ -507,4 +516,31 @@
     document.getElementsByClassName('turno')[0].innerHTML = `TURNOS: ${maxTurno}`;
     generateGame()
     attachEventListeners()
+
+    function ganador() { 
+        $('#form_ganador').submit();
+    }
+
+    $('#form_ganador').submit(function (e) { 
+        e.preventDefault();
+        
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: $(this).attr('action'), // URL de la ruta
+            method: 'POST',
+            data: formData,
+            contentType: false, // Para enviar los datos como FormData
+            processData: false, // No procesar los datos
+            success: function(data) {
+                // Procesar los datos devueltos
+                console.log(data)
+                $("#img-header-premio").remove();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
+                toastr.error('Ocurrió un error al procesar la solicitud.');
+            }
+        });
+    });
 </script>
