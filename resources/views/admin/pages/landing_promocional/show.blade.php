@@ -11,11 +11,11 @@
 
 @section('header_right')
 @if ($project["landing"]->status)
-<button type="button" class="btn btn-inactivo">
+<button type="button" class="btn btn-activo btn_proyecto">
     Activo
 </button>
 @else
-<button type="button" class="btn btn-inactivo">
+<button type="button" class="btn btn-inactivo btn_proyecto">
     Inactivo
 </button>
 @endif
@@ -78,9 +78,19 @@
                         <div class="accion-card">
                             <div class="item-accion">
                                 <span class="title-accion"><b>Acciones</b></span>
-                                <div class="body-accion">
-                                    <a href="{{route('landing_promocional.show.personalizarLanding', $project["landing"]->id )}}" class="btn btn-outline-secondary">Personalizar</a>
-                                    <button class="btn btn-alicorp">Publicar</button>
+                                <div class="body-accion d-flex">
+                                    @php
+                                        $ruta = empty($project["landing"]->game_id) ? 'landing_promocional.show.personalizarLanding' : ($project["landing"]->game_id == 3 ? 'juego_campana.show.personalizarJuego' : ($project["landing"]->game_id == 1 ? 'juego_campana.show.personalizarJuego.raspagana' : 'landing_promocional.show.personalizarLanding'))
+                                    @endphp
+                                    <a href="{{route($ruta, $project["landing"]->id )}}" class="btn btn-outline-secondary me-2" style="align-self: flex-start;font-size: 14px;">Personalizar</a>
+                                    @if ($project["landing"]->status == '0')
+                                    <form id="publicar" action="{{ route('juego_web.show.publicar',$project["landing"]->id ) }}" method="POST">
+                                        @csrf
+                                        @method('POST')
+                                        <input type="hidden" id="status" name="status" value="1">
+                                        <button type="submit" class="btn btn-alicorp" id="btn_publicar">Publicar</button>
+                                    </form>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -355,5 +365,44 @@
     data: areaChartData,
     options: areaChartOptions
     })
+</script>
+@endsection
+
+@section('script_jquery')
+<script>
+    $(document).ready(function () {
+        $("#publicar").on('submit', function (e) {
+            e.preventDefault();
+
+            var formData = new FormData(this);
+            $.ajax({
+                url: $(this).attr('action'), // URL de la ruta
+                method: 'POST',
+                data: formData,
+                contentType: false, // Para enviar los datos como FormData
+                processData: false, // No procesar los datos
+                success: function(data) {
+                    // Procesar los datos devueltos
+                    // toastr.success(data.message); 
+                    if (data) {
+                        if ($("#status").val() == '1') {
+                            $("#status").val('2');
+                            $("#publicar").remove();
+                            $(".btn_proyecto").removeClass('btn-inactivo').addClass('btn-activo')
+                            $(".btn_proyecto").html("Activo")
+                        } 
+                    }
+                    console.log(data)
+                    // if (data) {
+                    //     toastr.success('Cambios guadados correctamente'); 
+                    // }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
+                    toastr.error('Ocurrió un error al procesar la solicitud.');
+                }
+            });
+        });
+    });
 </script>
 @endsection

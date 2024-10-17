@@ -15,7 +15,14 @@ class PaticipanteTable extends Component
     public $sortColumnName = "participants.id";
 
     public $sortDirection = "desc";
+
+    public $projectId;
  
+    public function mount($projectId) 
+    {
+        $this->projectId = $projectId;
+    }
+
     public function search()
     {
         $this->resetPage();
@@ -23,7 +30,8 @@ class PaticipanteTable extends Component
 
     public function render()
     {
-        $participant = Participant::search($this->search)
+        $participant = Participant::search($this->search, $this->projectId)
+            ->where('project_id', $this->projectId)
             ->with('user')
             ->join('users', 'users.id', '=', 'participants.user_id')
             ->select('participants.*', 'users.name', 'users.telefono', 'users.email', 'users.documento')

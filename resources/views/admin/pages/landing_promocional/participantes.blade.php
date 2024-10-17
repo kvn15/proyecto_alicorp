@@ -28,7 +28,7 @@
         <h3>Participantes</h3>
 
         <div class="row">
-            <livewire:paticipante-table />
+            <livewire:paticipante-table :projectId="$landing->id"/>
         </div>
     </div>
 </div>

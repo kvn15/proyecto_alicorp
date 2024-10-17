@@ -8,11 +8,16 @@ use App\Http\Controllers\Admin\landing_promocional\LandingPromocionalController;
 use App\Http\Controllers\Admin\Auth\ForgotPasswordController;
 use App\Http\Controllers\Admin\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\GameMemoriaController;
+use App\Http\Controllers\Admin\RaspaGanaController;
 use App\Http\Controllers\Admin\ViewLandingController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\XplorerController;
 use App\Http\Controllers\AdminPanel\AdminPanelController;
+<<<<<<< HEAD
 use App\Http\Controllers\AdminPanel\HomeInicioController;
+=======
+use App\Http\Controllers\VistaController;
+>>>>>>> 17f0e14a143cd7c929769d21e0423609e6e02649
 
 /*
 |--------------------------------------------------------------------------
@@ -76,10 +81,13 @@ Route::prefix('admin')->group(function () {
         Route::get('/', [AdminController::class, 'landing'])->name('juego_web.index');
         // landing promocional asignacion
         Route::get('show/{id}/overview',[LandingPromocionalController::class, 'show'])->name('juego_web.show.overview');
+        Route::post('show/{id}/publicar',[LandingPromocionalController::class, 'publicar'])->name('juego_web.show.publicar');
         Route::get('show/{id}/indicadores',[LandingPromocionalController::class, 'indicador'])->name('juego_web.show.indicadores');
         Route::get('show/{id}/participantes',[LandingPromocionalController::class, 'participante'])->name('juego_web.show.participantes');
         Route::get('show/{id}/ganadores',[LandingPromocionalController::class, 'ganador'])->name('juego_web.show.ganadores');
         Route::get('show/{id}/configuracion',[LandingPromocionalController::class, 'configuracion'])->name('juego_web.show.configuracion');
+        Route::get('show/{id}/personalizar/game/memoria',[LandingPromocionalController::class, 'personalizarJuego'])->name('juego_campana.show.personalizarJuego');
+        Route::get('show/{id}/personalizar/game/raspa_gana',[LandingPromocionalController::class, 'personalizarJuegoRaspaGana'])->name('juego_campana.show.personalizarJuego.raspagana');
     });
     
     Route::prefix('juego_campana')->group(function () {
@@ -160,6 +168,17 @@ Route::prefix('game_memoria')->group(function () {
     Route::get('/{hub}/registro', [GameMemoriaController::class, 'index'])->name('juego.view.registro');
     Route::post('/{id}/registro', [GameMemoriaController::class, 'store'])->name('juego.post.registro');
     Route::get('/{hub}', [GameMemoriaController::class, 'show'])->name('juego.view.memoria');
+    Route::post('/{id}/registroPersonalizar', [GameMemoriaController::class, 'storePersonalizar'])->name('juego.post.registro.personalizar');
+    Route::post('/{id}/postHtml', [GameMemoriaController::class, 'storeHtml'])->name('memoria.post.html');
+    Route::post('/{id}/updateGanador', [GameMemoriaController::class, 'updateGanador'])->name('juego.ganador.memoria');
+});
+
+Route::prefix('game_raspa_gana')->group(function () {
+    Route::get('/{hub}', [RaspaGanaController::class, 'show'])->name('juego.view.raspagana');
+    Route::get('/{hub}/registro', [RaspaGanaController::class, 'index'])->name('juego.view.registro.raspagana');
+    Route::post('/{hub}/registro', [RaspaGanaController::class, 'store'])->name('juego.post.registro.raspagana');
+    Route::post('/{id}/registroPersonalizar', [RaspaGanaController::class, 'storePersonalizar'])->name('juego2.post.registro.personalizar');
+    Route::post('/{id}/updateGanador', [RaspaGanaController::class, 'updateGanador'])->name('juego.ganador.raspagana');
 });
 
 require __DIR__.'/auth.php';

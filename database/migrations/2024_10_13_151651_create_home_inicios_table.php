@@ -27,6 +27,10 @@ class CreateHomeIniciosTable extends Migration
      */
     public function down()
     {
+<<<<<<< HEAD:database/migrations/2024_10_13_151651_create_home_inicios_table.php
         Schema::dropIfExists('home_inicios');
+=======
+        Schema::dropIfExists('profile_image');
+>>>>>>> 17f0e14a143cd7c929769d21e0423609e6e02649:database/migrations/2024_10_07_204439_add_profile_image_to_admins_table.php
     }
 }

@@ -21,7 +21,7 @@
         background-repeat: no-repeat;
         background-size: 100% 100%;
         background-position:  center;
-        background-image: url({{ asset('img/games/fondo_memoria_1.jpg') }});
+        background-image: url({{ '/storage/'.$data["gameRaspaGana"]->fondo }});
     }
     .h-100-vh {
         height: 100vh;
@@ -49,7 +49,7 @@
 
     .btn-jugar {
         font-size: 2.2em;
-        color: #d5542e;
+        color: #005adc;
         background-color: #eff0f1;
         border-radius: 45px;
         padding: 0.1em 0.5em;
@@ -59,8 +59,8 @@
 
     .content_politicas_terminos {
         width: 100%;
-        background-color: #ffffffbd;
-        color: #d5542e !important;
+        background-color: #ffffffec;
+        color: #005adc !important;
         border-radius: 25px;
     }
 
@@ -68,7 +68,7 @@
         font-weight: 700;
         padding-bottom: 0.3em;
         font-size: 3em;
-        border-bottom: 2px solid #d5542e;
+        border-bottom: 2px solid #005adc;
     } 
 
     .content_politicas_terminos p {
@@ -77,7 +77,7 @@
     }
 
     .btn_politicas {
-        background-color: #d5542e;
+        background-color: #005adc;
         color: #fff;
         border: 0;
         font-size: 1.5em;
@@ -92,16 +92,12 @@
 </style>
 <body>
 
-    <form method="POST" action="{{ route("juego.post.registro", $data["project"]->id) }}" enctype="multipart/form-data" class="content-game" id="form_registro_game">
+    <form method="POST" action="{{ route("juego.post.registro.raspagana", $data["project"]->id) }}" enctype="multipart/form-data" class="content-game" id="form_registro_game">
         @csrf
         @method('POST')
         <div class="container h-100-vh ">
             <div class="row h-100" id="form-registro">
                 <div class="col-12 col-lg-4 d-flex flex-column justify-content-center">
-                    <img class="img-fluid" src="{{ asset('img/games/HAZ MATCH 2.png') }}" alt="">
-                    <br>
-                    <br>
-                    <img class="img-fluid" src="{{ asset('img/games/LOGOS_memoria.png') }}" alt="">
                 </div>
                 <div class="col-12 col-lg-8 ps-5 d-flex flex-column justify-content-center">
                     <h1 class="w-75 text-white border-bottom mb-5" style="font-weight: 700">REGISTRATE</h1>

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin\landing_promocional;
 
 use App\Http\Controllers\Controller;
+use App\Models\AwardProject;
+use App\Models\GameView;
 use App\Models\Participant;
 use App\Models\Project;
+use App\Models\RaspaGana;
 use App\Models\ViewProject;
 use Carbon\Carbon;
 use DateTime;
@@ -72,6 +75,19 @@ class LandingPromocionalController extends Controller
             'ultGanadores' => $ultGanadores
         ];
         return view('admin.pages.landing_promocional.show', compact('project'));
+    }
+
+    public function publicar(Request $request, $id) {
+
+        $project = Project::findOrFail($id);
+
+        $project->update([
+            'status' => $request->status
+        ]);
+
+        return response()->json([
+            'message' => 'Se actualizo el estado del proyecto.'
+        ]);
     }
 
     public function indicador($id)
@@ -247,5 +263,82 @@ class LandingPromocionalController extends Controller
         $project = Project::where('id', $id)
                             ->first();
         return view('admin.pages.landing_promocional.personalizarLanding', compact('project'));
+    }
+
+    public function personalizarJuego($id) {
+        
+        $project = Project::where('id', $id)
+                            ->first();
+        $gameMemoria = GameView::where('project_id', $id)->first();
+        $projectPremio = AwardProject::where('project_id', $id)->get();
+        $premio = $this->obtenerPremio($id);
+
+        $data = [
+            'project' => $project,
+            'gameMemoria' => $gameMemoria,
+            'projectPremio' => $projectPremio,
+            'premio' => $premio
+        ];
+
+        return view('admin.pages.landing_promocional.personalizarMemoria', compact('data'));
+    }
+
+    public function personalizarJuegoRaspaGana($id) {
+        
+        $project = Project::where('id', $id)
+                            ->first();
+        $gameRaspaGana = RaspaGana::where('project_id', $id)->first();
+        $projectPremio = AwardProject::where('project_id', $id)->get();
+        $premio = $this->obtenerPremio($id);
+
+        $data = [
+            'project' => $project,
+            'gameRaspaGana' => $gameRaspaGana,
+            'projectPremio' => $projectPremio,
+            'premio' => $premio
+        ];
+
+        return view('admin.pages.landing_promocional.personalizarRaspaGana', compact('data'));
+    }
+
+    public function obtenerPremio($projectId) {
+        // Obtener todos los premios con su probabilidad
+        $premios = AwardProject::where('project_id', $projectId)->get();
+        $project = Project::findOrFail($projectId);
+    
+        // Crear un array acumulativo para la probabilidad
+        $acumulado = [];
+        $total = 0;
+    
+        foreach ($premios as $premio) {
+            $total += $premio->probabilidad;
+            $acumulado[] = [
+                'id' => $premio->id,
+                'nombre' => $premio->nombre_premio,
+                'imagen' => $premio->imagen,
+                'prob_acum' => $total
+            ];
+        }
+        $total += $project->prob_no_premio;
+        $acumulado[] = [
+            'id' => 0,
+            'nombre' => 'Sigue intentando',
+            'imagen' => '',
+            'prob_acum' => $total
+        ];
+    
+        // Generar un número aleatorio entre 1 y 100
+        $random = rand(1, $total);
+    
+        // Buscar el premio que corresponde al número aleatorio
+        foreach ($acumulado as $item) {
+            if ($random <= $item['prob_acum']) {
+                return [
+                    'premio_id' => $item['id'],
+                    'premio_nombre' => $item['nombre'],
+                    'imagen' => $item['imagen']
+                ];
+            }
+        }
     }
 }

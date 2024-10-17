@@ -19,7 +19,8 @@ class Participant extends Model
     'fecha_premio',
     'punto_entrega',
     'ganador',
-    'participaciones'];
+    'participaciones',
+    ];
     
     // Relacion categoria - Uno a Uno
     public function user() {
@@ -27,7 +28,7 @@ class Participant extends Model
     }
 
     public static function search($search) {
-        return empty($search) ? static::query() 
+        return empty($search) ? static::query()
             : static::query()
                 ->with(['user'])
                 ->where('participants.id', 'like', '%'.$search.'%')

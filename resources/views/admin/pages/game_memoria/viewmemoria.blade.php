@@ -1,3 +1,9 @@
+@php
+    $project = $data["project"]; 
+    $gameMemoria = $data["gameMemoria"]; 
+    $premioSelect = $data["premio"]; 
+    $idParticipante = $data["idParticipante"]; 
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +13,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/25bfdd98ec.js" crossorigin="anonymous"></script>
+    <title>{{ $project->titulo_pestana }}</title>
+    <link rel="icon" href="{{ '/storage/'.$project->ruta_fav }}" type="image/x-icon">
 </head>
 <style>
     .juego_memorio_content {
@@ -170,11 +178,83 @@
     }
 </style>
 <body>
+    @php
+    
+        //imagenes
+        $principal = isset($gameMemoria) ? $gameMemoria->principal : '';
+        $premio = isset($gameMemoria) ? $gameMemoria->premio : '';
+        $principalData = json_decode($principal, true);
+        $premioData = json_decode($premio, true);
+        $imgNulo = asset('backend/svg/img-null.svg');
+    
+        // Principal
+        $bgMemoria = isset($principalData["banner"]) && !empty($principalData["banner"]) ? "background-image: url('".'/storage/'.$principalData["banner"]."');" : "background-color: #EFF2F6;" ;
+        $imgLogo = isset($principalData["logo-subir"]) && !empty($principalData["logo-subir"]) ? $principalData["logo-subir"] : $imgNulo;
+    
+        // Premios
+        $imgLogoPremio = isset($premioData["gano-subir"])  && !empty($premioData["gano-subir"]) ? $premioData["gano-subir"] : $imgNulo;
+    
+        // array memorias
+        $jsonDataMemoria = json_decode($gameMemoria->premio_img, true);
+    
+        $img1 = isset($jsonDataMemoria[0]['img']) && !empty($jsonDataMemoria[0]['img']) ? "/storage/".$jsonDataMemoria[0]['img'] : $imgNulo;
+        $img2 = isset($jsonDataMemoria[1]['img']) && !empty($jsonDataMemoria[1]['img']) ? "/storage/".$jsonDataMemoria[1]['img'] : $imgNulo;
+        $img3 = isset($jsonDataMemoria[2]['img']) && !empty($jsonDataMemoria[2]['img']) ? "/storage/".$jsonDataMemoria[2]['img'] : $imgNulo;
+        $img4 = isset($jsonDataMemoria[3]['img']) && !empty($jsonDataMemoria[3]['img']) ? "/storage/".$jsonDataMemoria[3]['img'] : $imgNulo;
+        $img5 = isset($jsonDataMemoria[4]['img']) && !empty($jsonDataMemoria[4]['img']) ? "/storage/".$jsonDataMemoria[4]['img'] : $imgNulo;
+        $img6 = isset($jsonDataMemoria[5]['img']) && !empty($jsonDataMemoria[5]['img']) ? "/storage/".$jsonDataMemoria[5]['img'] : $imgNulo;
+    
+        // valores
+        $boldTitulo = isset($principalData["bold-titulo-parrafo"]) ? ($principalData["bold-titulo-parrafo"] == 1 ? "checked" : "") : "";
+        $italicTitulo = isset($principalData["italic-titulo-parrafo"]) ? ($principalData["italic-titulo-parrafo"] == 1 ? "checked" : "") : "";
+        $tituloTexto = isset($principalData["texto-header"]) ? $principalData["texto-header"]  : "";
+        
+        $tamanoTexto = isset($principalData["tamanoTexto"]) ? $principalData["tamanoTexto"] : "";
+        $tamano1 = $tamanoTexto == 1 ? 'checked' : "";
+        $tamano2 = $tamanoTexto == 2 ? 'checked' : "";
+        $tamano3 = $tamanoTexto == 3 ? 'checked' : "";
+        
+        $alineacion = isset($principalData["alineacionTexto"]) ? $principalData["alineacionTexto"] : "";
+        $alineacion1 = $alineacion == 1 ? 'checked' : "";
+        $alineacion2 = $alineacion == 2 ? 'checked' : "";
+        $alineacion3 = $alineacion == 3 ? 'checked' : "";
+    
+        $color = isset($principalData["color-texto-input"]) ? $principalData["color-texto-input"] : "#FFFFFF";
+    
+        // fw-bold
+        $styleBold = isset($principalData["bold-titulo-parrafo"]) ? ($principalData["bold-titulo-parrafo"] == 1 ? "fw-bold" : "") : "";
+        $italicTitulo = isset($principalData["italic-titulo-parrafo"]) ? ($principalData["italic-titulo-parrafo"] == 1 ? "fst-italic" : "") : "";
+    
+        $styleTamano = $tamanoTexto == 1 ? "fs-6" : ($tamanoTexto == 2 ? "fs-3"  :  ($tamanoTexto == 3 ? "fs-1"  : ""));
+        $styleAlineacion = $alineacion == 1 ? "text-start" : ($alineacion == 2 ? "text-center"  :  ($alineacion == 3 ? "text-end"  : "text-center"));
+    
+    
+        // Premios BOTONES
+        $verBotones = isset($premioData["verBoton"]) ? $premioData["verBoton"] : "";
+        $verBotones1 = $verBotones == 1 ? 'checked' : "";
+        $verBotones2 = $verBotones == 2 ? 'checked' : "";
+        $styleBotones =  $verBotones == 1 ? 'd-none' : 'd-flex';
+    
+        $btnBg = isset($premioData["color-btn-bg-input"]) ? $premioData["color-btn-bg-input"] : "#fff";
+        $btnColor = isset($premioData["color-texto-btn"]) ? $premioData["color-texto-btn"] : "#d5542e";
+        // premios img
+        $imgPremio = isset($premioSelect["imagen"]) && !empty($premioSelect["imagen"]) ? "/storage/".$premioSelect["imagen"] : $imgNulo;
+        $namePremio = isset($premioSelect["premio_nombre"]) && !empty($premioSelect["premio_nombre"]) ? $premioSelect["premio_nombre"] : '';
+        
+    @endphp
+    
 
-    <div class="juego_memorio_content" style="background-image: url('{{ asset('backend/img/banner_memoria.jpg') }}'); background-size: cover;">
-        <div class="contenido_juego d-block">
+    <form action="{{ route('juego.ganador.memoria', $project->id) }}" method="POST" id="form_ganador">
+        @csrf
+        @method('POST')
+        <input type="hidden" id="idParticipante" name="idParticipante" value="{{ $idParticipante }}">
+        <input type="hidden" id="premio_id" name="premio_id" value="{{ $premioSelect['premio_id'] }}">
+    </form>
+    <div class="juego_memorio_content" id="juego_memorio_content" style="{{ $bgMemoria }} background-size: cover;">
+        <div class="contenido_juego d-block" id="contenido_juego">
+            <p class="{{ $styleAlineacion }} {{ $styleTamano }} w-100 mt-0 mb-0 pt-2 {{ $styleBold }} {{ $italicTitulo }}" id="parrafo-header" style="color: {{ $color }};">{{ $tituloTexto }}</p>
             <div class="d-flex justify-content-center pt-4">
-                <img class="img-fluid" src="{{ asset('backend/img/titulo_memoria.png') }}" alt="">
+                <img class="img-fluid" id="logo_memoria" src="{{ '/storage/'.$imgLogo }}" alt="">
             </div>
             <div class="game">
                 <div class="controls">
@@ -196,23 +276,25 @@
                 </div>
             </div>
         </div>
-        <div class="win-game d-none">
-            <div class="d-flex justify-content-center pt-4 w-100">
-                <img class="img-fluid" src="{{ asset('backend/img/ganastes.png') }}" alt="">
+        <div class="win-game d-none" id="win-game">
+            <div class="d-flex justify-content-center pt-4 w-100 mb-3">
+                <img class="img-fluid" src="{{ '/storage/'.$imgLogoPremio }}" alt="" id="img-header-premio">
             </div>
             <div class="d-flex flex-column align-items-center justify-content-center w-100">
-                <img class="img-fluid" src="{{ asset('backend/img/ticket-2.png') }}" alt="">
-                <h4 class="text-white" style="font-weight: 700;">2 ENTRADAS AL CINE</h4>
+                <img class="img-fluid" src="{{ $imgPremio }}" alt="">
+                <h4 class="text-white" style="font-weight: 700;">{{ $namePremio }}</h4>
             </div>
-            <div class="d-flex justify-content-center">
-                <a href="" class="btn-memoria">IR A REGISTRO</a>
-                <a href="" class="btn-memoria">IR A HOME</a>
-                <a href="" class="btn-memoria">VOLVER A JUGAR</a>
+            <div class="{{ $styleBotones }} justify-content-center" id="btn_content">
+                <a href="" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }};">IR A REGISTRO</a>
+                <a href="" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }};">IR A HOME</a>
+                <a href="" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }};">VOLVER A JUGAR</a>
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" defer
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
@@ -221,39 +303,36 @@
 </body>
 </html>
 
-<script defer>
+<script>
+
     let itemCard = [
         {
             valor: 1,
-            img: 'https://plazavea.vteximg.com.br/arquivos/ids/17161034-512-512/20020503-5.jpg'
+            img: '{{ $img1 }}'
         },
         {
             valor: 2,
-            img: 'https://dojiw2m9tvv09.cloudfront.net/75518/product/13110391128.png'
+            img: '{{ $img2 }}'
         },
         {
             valor: 3,
-            img: 'https://unomasuno.pe/wp-content/uploads/2020/10/dento-natural-80-gr.png'
+            img: '{{ $img3 }}'
         },
         {
             valor: 4,
-            img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv8C-JqMcr1Sy8d8ohb9CBK_srViInAsiMuw&s'
+            img: '{{ $img4 }}'
         },
         {
             valor: 5,
-            img: 'https://wongfood.vtexassets.com/arquivos/ids/562174/Aceite-Vegetal-Primor-Cl-sico-900ml-3-4524.jpg?v=637932563577630000'
+            img: '{{ $img5 }}'
         },
         {
             valor: 6,
-            img: 'https://plazavea.vteximg.com.br/arquivos/ids/22277486-512-512/1020791002.jpg'
-        },
-        {
-            valor: 7,
-            img: 'https://dojiw2m9tvv09.cloudfront.net/75518/product/07326237028.jpg'
+            img: '{{ $img6 }}'
         }
     ]
 
-    const maxTurno = 3;
+    const maxTurno = 1;
     let nErrores = 0;
 
     const selectors = {
@@ -315,7 +394,7 @@
                     <div class="card" data-attr-valor="${item.valor}">
                         <div class="card-front"></div>
                         <div class="card-back">
-                            <img src="${item.img}" class="img-card" />
+                            <img src="${item.img}" class="img-card imagen_${item.valor}" />
                         </div>
                     </div>
                 `).join('')}
@@ -329,7 +408,7 @@
 
     const startGame = () => {
         state.gameStarted = true
-        selectors.start.classList.add('disabled')
+        // selectors.start.classList.add('disabled')
 
         state.loop = setInterval(() => {
             state.totalTime++
@@ -413,6 +492,7 @@
                 selectors.contenido_juego.classList.add('d-none')
                 selectors.win.classList.remove('d-none')
                 selectors.win.classList.add('d-block')
+                ganador()
 
                 clearInterval(state.loop)
             }, 1000)
@@ -423,11 +503,12 @@
         document.addEventListener('click', event => {
             const eventTarget = event.target
             const eventParent = eventTarget.parentElement
-
-            if (eventTarget.className.includes('card') && !eventParent.className.includes('flipped')) {
-                flipCard(eventParent)
-            } else if (eventTarget.nodeName === 'BUTTON' && !eventTarget.className.includes('disabled')) {
-                startGame()
+            if (event.target.classList.contains('card-front')) {
+                if (eventTarget.className.includes('card') && !eventParent.className.includes('flipped')) {
+                    flipCard(eventParent)
+                } else if (eventTarget.nodeName === 'BUTTON' && !eventTarget.className.includes('disabled')) {
+                    startGame()
+                }
             }
         })
     }
@@ -435,4 +516,31 @@
     document.getElementsByClassName('turno')[0].innerHTML = `TURNOS: ${maxTurno}`;
     generateGame()
     attachEventListeners()
+
+    function ganador() { 
+        $('#form_ganador').submit();
+    }
+
+    $('#form_ganador').submit(function (e) { 
+        e.preventDefault();
+        
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: $(this).attr('action'), // URL de la ruta
+            method: 'POST',
+            data: formData,
+            contentType: false, // Para enviar los datos como FormData
+            processData: false, // No procesar los datos
+            success: function(data) {
+                // Procesar los datos devueltos
+                console.log(data)
+                $("#img-header-premio").remove();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
+                toastr.error('Ocurrió un error al procesar la solicitud.');
+            }
+        });
+    });
 </script>
