@@ -32,9 +32,4 @@ class AdminPanelController extends Controller
         return redirect('/adminPanel/login');
     }
 
-    public function dashboard(){
-        $dash = AdminPanel::find(1);
-        return view('adminPanel.dashboard',compact('dash'));
-    }
-
 }

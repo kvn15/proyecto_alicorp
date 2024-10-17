@@ -1,7 +1,10 @@
 @include('cabecera/header')
 
-{{-- {{Auth::check() }}
-{{Auth::user()->role}} --}}
+@php
+    $sliders = App\Models\HomeInicio::all();    
+    $promos = App\Models\HomePromociones::all();  
+@endphp
+
   <section class="carusel">
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-indicators">
@@ -13,15 +16,18 @@
           aria-label="Slide 3"></button>
       </div>
       <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="img/fondo.png" class="d-block w-100 " alt="...">
+        @foreach ($sliders as  $key=> $slide)            
+            <div class="carousel-item {{$key == 0 ? 'active':''}}">
+              <img src="{{asset('storage/'.$slide->home_slide)}}" class="d-block w-100 " alt="...">
+            </div>
+        @endforeach
+        
+        {{-- <div class="carousel-item">
+          <img src="" class="d-block w-100 " alt="...">
         </div>
         <div class="carousel-item">
-          <img src="img/carru1.jpg" class="d-block w-100 " alt="...">
-        </div>
-        <div class="carousel-item">
-          <img src="img/mano.png" class="d-block w-100 " alt="...">
-        </div>
+          <img src="" class="d-block w-100 " alt="...">
+        </div> --}}
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
         data-bs-slide="prev">
@@ -53,13 +59,10 @@
           <div class="owl-carousel owl-theme owl-loaded">
             <div class="owl-stage-outer">
               <div class="owl-stage">
-                <div class="owl-item"><img src="img/IMG_0683.PNG" height="250px"></div>
-                <div class="owl-item"><img src="img/IMG_0684.PNG" height="250px" alt=""></div>
-                <div class="owl-item"><img src="img/IMG_0683.PNG" height="250px"></div>
-                <div class="owl-item"><img src="img/IMG_0684.PNG" height="250px" alt=""></div>
-                <div class="owl-item"><img src="img/IMG_0683.PNG" height="250px"></div>
-                <div class="owl-item"><img src="img/IMG_0684.PNG" height="250px" alt=""></div>
-                <div class="owl-item"><img src="img/IMG_0684.PNG" height="250px" alt=""></div>
+                @foreach ($promos as $promo)
+                <div class="owl-item"><img src="{{asset('storage/'.$promo->home_promos)}}" height="250px"></div>
+                @endforeach
+                
               </div>
               <div class="owl-nav position-relative botones">
                 <div class="owl-prev"><i class="fa fa-chevron-left" aria-hidden="true"></i></div>

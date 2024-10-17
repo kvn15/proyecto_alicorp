@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\ViewLandingController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\XplorerController;
 use App\Http\Controllers\AdminPanel\AdminPanelController;
+use App\Http\Controllers\AdminPanel\HomeInicioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -126,7 +127,20 @@ Route::controller(AdminPanelController::class)->group(function () {
     Route::get('/adminPanel/login','showLoginForm')->name('adminPanel.login');
     Route::post('/adminPanel/login','login')->name('adminPanel.login.submit');
     Route::get('adminPanel/logout','logout')->name('adminPanel.logout');
-    Route::get('/adminPanel/dashboard', 'dashboard')->name('adminPanel.dashboard');
+});
+
+Route::controller(HomeInicioController::class)->group(function () {
+    Route::get('/adminPanel/inicio/dashboard', 'dashboard')->name('adminPanel.dashboard');
+    Route::post('adminPanel/store/slider', 'StoreSlider')->name('adminPanel.store.slider');
+    Route::post('/adminPanel/update/slider','UpdateSlider')->name('adminPanel.update.slider');
+
+    Route::get('/adminPanel/dashboard', 'AllSlide')->name('adminPanel.dashboard');
+    Route::get('/adminPanel/edit/slider/{id}', 'EditSlide')->name('adminPanel.edit.slide');
+    Route::get('/adminPanel/delete/slide/{id}', 'DeleteSlider')->name('adminPanel.delete.slide');
+
+    Route::get('/adminPanel/inicio/promociones', 'AllPromo')->name('adminPanel.inicio.sec_promo');
+    Route::post('adminPanel/inicio/store/promo', 'StorePromociones')->name('adminPanel.inicio.store.promo');
+    Route::get('/adminPanel/inicio/delete/promo/{id}', 'DeletePromos')->name('adminPanel.inicio.delete.promo');
 });
 
 // Route::middleware('auth:adminPanel')->group(function () {

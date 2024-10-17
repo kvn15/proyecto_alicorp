@@ -1,12 +1,18 @@
+@php
+    // $id = HomeInicio::user()->id;
+    // $adminData = App\Models\User::find($id);
+    $adminData = App\Models\AdminPanel::find(1);
+    //@dd($adminData)
+@endphp
 
 <aside class="app-sidebar bg-nav-alicorp shadow" data-bs-theme="dark"> 
     <div class="sidebar-brand"> 
         <a href="../index.html" class="brand-link">
             <img src="{{ !empty($adminData->profile_image) ? url('img/upload/admin_images/' . $adminData->profile_image) : url('img/upload/no_image.jpg') }}" alt="" class="brand-image">
             <span class="brand-text fw-light">
-                <b>{{ $dash->name }}</b>  <br>
+                <b>{{ $adminData->name }}</b>  <br>
                 <span>ADMINISTRADOR</span><br>
-                <span>{{ $dash->email }}</span>
+                <span>{{ $adminData->email }}</span>
             </span> 
         </a> 
     </div>
@@ -16,11 +22,22 @@
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
                
                 <li class="nav-item"> 
-                    <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') || request()->routeIs('admin.*.*') ? 'active' : '' }}"> 
+                    <a href="#" class="nav-link {{ request()->routeIs('adminPanel.dashboard') || request()->routeIs('adminPanel.*.*') ? 'active' : '' }}"> 
                         <i class='nav-icon bx bx-home-alt'></i>
-                        <p>Inicio</p>
-                    </a> 
+                        <p>Inicio
+                            <i class="nav-arrow bi bi-chevron-right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item"> <a href="{{ route('adminPanel.dashboard') }}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                <p>Sliders</p>
+                            </a> </li>
+                        <li class="nav-item"> <a href="{{route('adminPanel.inicio.sec_promo')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                <p>promociones</p>
+                            </a> </li>
+                    </ul>           
                 </li>
+                  
                 <li class="nav-item"> 
                     <a href="{{ route('landing_promocional.index') }}" class="nav-link {{ request()->routeIs('landing_promocional.*') || request()->routeIs('landing_promocional.*.*') ? 'active' : '' }}"> 
                         <i class="nav-icon bi bi-window"></i>
