@@ -13,11 +13,11 @@ use App\Http\Controllers\Admin\ViewLandingController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\XplorerController;
 use App\Http\Controllers\AdminPanel\AdminPanelController;
-<<<<<<< HEAD
 use App\Http\Controllers\AdminPanel\HomeInicioController;
-=======
+use App\Http\Controllers\AdminPanel\CalendarioController;
+
 use App\Http\Controllers\VistaController;
->>>>>>> 17f0e14a143cd7c929769d21e0423609e6e02649
+
 
 /*
 |--------------------------------------------------------------------------
@@ -149,6 +149,19 @@ Route::controller(HomeInicioController::class)->group(function () {
     Route::get('/adminPanel/inicio/promociones', 'AllPromo')->name('adminPanel.inicio.sec_promo');
     Route::post('adminPanel/inicio/store/promo', 'StorePromociones')->name('adminPanel.inicio.store.promo');
     Route::get('/adminPanel/inicio/delete/promo/{id}', 'DeletePromos')->name('adminPanel.inicio.delete.promo');
+
+    
+});
+
+Route::controller(CalendarioController::class)->group(function () {
+    Route::get('/adminPanel/calendario/slider', 'AllSlideC')->name('adminPanel.calendario.slider');
+    Route::post('/adminPanel/calendario/store/slider', 'StoreSliderC')->name('adminPanel.calendario.store.slider');
+    Route::get('/adminPanel/calendario/delete/slide/{id}', 'DeleteSlideC')->name('adminPanel.calendario.delete.slide');    
+
+    Route::get('/adminPanel/calendario/cards', 'AllCards')->name('adminPanel.calendario.cards'); 
+    Route::post('/adminPanel/calendario/store/cards', 'storeCards')->name('adminPanel.calendario.item.store');
+    Route::post('/adminPanel/calendario/update/card/{id}', 'UpdateCard')->name('adminPanel.calendario.item.update');
+    Route::get('/adminPanel/calendario/delete/card/{id}', 'DeleteCard')->name('adminPanel.calendario.delete.card');
 });
 
 // Route::middleware('auth:adminPanel')->group(function () {
