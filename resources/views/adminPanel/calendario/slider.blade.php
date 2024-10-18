@@ -1,4 +1,4 @@
-@extends('adminPanel.template.layout')
+ @extends('adminPanel.template.layout')
 
 @section('contenido')
     {{-- @php
@@ -29,12 +29,12 @@
                                             {{ $error }}
                                         </div>
                                     @endforeach
-                                    <!-- end row -->
+                                   
                                     <button type="submit">Subir Imágenes</button>
                                 </form>
                             </div>
                         </div>
-                    </div> <!-- end col -->
+                    </div> 
                 </div>
 
                 <div class="row mt-4">
@@ -65,8 +65,7 @@
                                                         style="width: 60px; height: 50px;"> </td>
 
                                                 <td>
-                                                    {{-- <a href="{{ route('adminPanel.edit.slide', $item->id) }}" class="btn btn-info sm"
-                                                        title="Edit Data"> <i class="fas fa-edit"></i> </a> --}}
+                                                   
 
                                                     <a href="{{ route('adminPanel.calendario.delete.slide', $item->id) }}"
                                                         class="btn btn-danger sm" title="Delete Data" id="delete"> <i
@@ -82,7 +81,7 @@
 
                             </div>
                         </div>
-                    </div> <!-- end col -->
+                    </div> 
                 </div>
             </div>
         </div>
@@ -99,4 +98,4 @@
                 });
             });
         </script>
-@endsection
+@endsection --}}

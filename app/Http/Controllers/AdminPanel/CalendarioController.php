@@ -192,67 +192,62 @@ class CalendarioController extends Controller
 
     // }
 
-    // app/Http/Controllers/CalendarioController.php
+    public function UpdateCard(Request $request, $id)
+    {
+        $request->validate([
+            'text' => 'required|string',
+            'event_date' => 'required|date',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
-public function UpdateCard(Request $request, $id)
-{
-    $request->validate([
-        'text' => 'required|string',
-        'event_date' => 'required|date',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    ]);
+        try {
+            $calendarioCard = CalendarioCard::findOrFail($id);
+            $calendarioCard->text = $request->text;
+            $calendarioCard->event_date = $request->event_date;
 
-    try {
-        $calendarioCard = CalendarioCard::findOrFail($id);
-        $calendarioCard->text = $request->text;
-        $calendarioCard->event_date = $request->event_date;
+            if ($request->hasFile('image')) {
+                $img = Image::make($request->file('image')->getRealPath());
+                $img->resize(292, 322, function ($constraint) {
+                    $constraint->upsize();
+                });
 
-        if ($request->hasFile('image')) {
-            $img = Image::make($request->file('image')->getRealPath());
-            $img->resize(292, 322, function ($constraint) {
-                $constraint->upsize();
-            });
+                $imagePath = 'calendario/' . uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
+                $img->save(public_path('storage/' . $imagePath));
 
-            $imagePath = 'calendario/' . uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
-            $img->save(public_path('storage/' . $imagePath));
+                if ($calendarioCard->image_path && file_exists(public_path('storage/' . $calendarioCard->image_path))) {
+                    unlink(public_path('storage/' . $calendarioCard->image_path));
+                }
 
+                $calendarioCard->image_path = $imagePath;
+            }
+
+            $calendarioCard->save();
+
+            return back()->with('success', 'Card actualizada correctamente');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Hubo un error al actualizar la Card: ' . $e->getMessage());
+        }
+    }
+
+    public function DeleteCard($id)
+    {
+        try {
+            // Buscar la Card a eliminar
+            $calendarioCard = CalendarioCard::findOrFail($id);
+
+            // Eliminar la imagen asociada si existe
             if ($calendarioCard->image_path && file_exists(public_path('storage/' . $calendarioCard->image_path))) {
                 unlink(public_path('storage/' . $calendarioCard->image_path));
             }
 
-            $calendarioCard->image_path = $imagePath;
+            // Eliminar la Card de la base de datos
+            $calendarioCard->delete();
+
+            return back()->with('success', 'Card eliminada correctamente');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Hubo un error al eliminar la Card: ' . $e->getMessage());
         }
-
-        $calendarioCard->save();
-
-        return back()->with('success', 'Card actualizada correctamente');
-    } catch (\Exception $e) {
-        return back()->with('error', 'Hubo un error al actualizar la Card: ' . $e->getMessage());
     }
-}
-
-// app/Http/Controllers/CalendarioController.php
-
-public function DeleteCard($id)
-{
-    try {
-        // Buscar la Card a eliminar
-        $calendarioCard = CalendarioCard::findOrFail($id);
-
-        // Eliminar la imagen asociada si existe
-        if ($calendarioCard->image_path && file_exists(public_path('storage/' . $calendarioCard->image_path))) {
-            unlink(public_path('storage/' . $calendarioCard->image_path));
-        }
-
-        // Eliminar la Card de la base de datos
-        $calendarioCard->delete();
-
-        return back()->with('success', 'Card eliminada correctamente');
-    } catch (\Exception $e) {
-        return back()->with('error', 'Hubo un error al eliminar la Card: ' . $e->getMessage());
-    }
-}
-
 
 
 }
