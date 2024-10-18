@@ -21,6 +21,7 @@ class CreateAwardProjectsTable extends Migration
             $table->string('nombre_premio')->nullable();
             $table->string('stock')->nullable();
             $table->text('imagen')->nullable();
+            $table->text('imagen_premio')->nullable();
             $table->string('probabilidad');
             $table->timestamps();
         });
