@@ -19,7 +19,7 @@
 @endsection
 
 @section('header_right')
-<button type="submit" class="btn btn-alicorp" id="guardar-raspa-gana">
+<button type="submit" class="btn btn-alicorp" id="guardar-ruleta">
     Guardar
 </button>
 @endsection
@@ -237,10 +237,85 @@
         }
 </style>
 
+@php
+    $gameRuleta = $data["gameRuleta"];
+    $principalData = json_decode($gameRuleta["titulo_inicio"], true);
+    $principalData2 = json_decode($gameRuleta["titulo_juego"], true);
+    $principalData3 = json_decode($gameRuleta["boton_premio"], true);
+    
+    // titulo
+    // valores
+    $boldTitulo = isset($principalData["bold-titulo-parrafo"]) ? ($principalData["bold-titulo-parrafo"] == 1 ? "checked" : "") : "";
+    $italicTitulo = isset($principalData["italic-titulo-parrafo"]) ? ($principalData["italic-titulo-parrafo"] == 1 ? "checked" : "") : "";
+    $tituloTexto = isset($principalData["texto-header"]) ? $principalData["texto-header"]  : "";
+    
+    $tamanoTexto = isset($principalData["tamanoTexto"]) ? $principalData["tamanoTexto"] : "";
+    $tamano1 = $tamanoTexto == 1 ? 'checked' : "";
+    $tamano2 = $tamanoTexto == 2 ? 'checked' : "";
+    $tamano3 = $tamanoTexto == 3 ? 'checked' : "";
+    
+    $alineacion = isset($principalData["alineacionTexto"]) ? $principalData["alineacionTexto"] : "";
+    $alineacion1 = $alineacion == 1 ? 'checked' : "";
+    $alineacion2 = $alineacion == 2 ? 'checked' : "";
+    $alineacion3 = $alineacion == 3 ? 'checked' : "";
+
+    $color = isset($principalData["color-texto-input"]) ? $principalData["color-texto-input"] : "#FFFFFF";
+
+    // fw-bold
+    $styleBold = isset($principalData["bold-titulo-parrafo"]) ? ($principalData["bold-titulo-parrafo"] == 1 ? "fw-bold" : "") : "";
+    $italicTitulo = isset($principalData["italic-titulo-parrafo"]) ? ($principalData["italic-titulo-parrafo"] == 1 ? "fst-italic" : "") : "";
+
+    $styleTamano = $tamanoTexto == 1 ? "fs-6" : ($tamanoTexto == 2 ? "fs-3"  :  ($tamanoTexto == 3 ? "fs-0"  : ""));
+    $styleAlineacion = $alineacion == 1 ? "text-start" : ($alineacion == 2 ? "text-center"  :  ($alineacion == 3 ? "text-end"  : "text-center"));
+
+    /// ========
+    // titulo
+    // valores
+    $boldTituloGame = isset($principalData2["bold-titulo-parrafo-game"]) ? ($principalData2["bold-titulo-parrafo-game"] == 1 ? "checked" : "") : "";
+    $italicTituloGame = isset($principalData2["italic-titulo-parrafo-game"]) ? ($principalData2["italic-titulo-parrafo-game"] == 1 ? "checked" : "") : "";
+    $tituloTextoGame = isset($principalData2["texto-header-game"]) ? $principalData2["texto-header-game"]  : "";
+    
+    $tamanoTextoGame = isset($principalData2["tamanoTextoGame"]) ? $principalData2["tamanoTextoGame"] : "";
+    $tamano1Game = $tamanoTextoGame == 1 ? 'checked' : "";
+    $tamano2Game = $tamanoTextoGame == 2 ? 'checked' : "";
+    $tamano3Game = $tamanoTextoGame == 3 ? 'checked' : "";
+    
+    $alineacionGame = isset($principalData2["alineacionTextoGame"]) ? $principalData2["alineacionTextoGame"] : "";
+    $alineacion1Game = $alineacionGame == 1 ? 'checked' : "";
+    $alineacion2Game = $alineacionGame == 2 ? 'checked' : "";
+    $alineacion3Game = $alineacionGame == 3 ? 'checked' : "";
+
+    $colorGame = isset($principalData2["color-texto-game"]) ? $principalData2["color-texto-game"] : "#FFFFFF";
+
+    // fw-bold
+    $styleBoldGame = isset($principalData2["bold-titulo-parrafo-game"]) ? ($principalData2["bold-titulo-parrafo-game"] == 1 ? "fw-bold" : "") : "";
+    $italicTituloGame = isset($principalData2["italic-titulo-parrafo-game"]) ? ($principalData2["italic-titulo-parrafo-game"] == 1 ? "fst-italic" : "") : "";
+
+    $styleTamanoGame = $tamanoTextoGame == 1 ? "fs-6" : ($tamanoTextoGame == 2 ? "fs-3"  :  ($tamanoTextoGame == 3 ? "fs-1"  : ""));
+    $styleAlineacionGame = $alineacionGame == 1 ? "text-start" : ($alineacionGame == 2 ? "text-center"  :  ($alineacionGame == 3 ? "text-end"  : "text-center"));
+
+    // ===
+    // Premios BOTONES
+    $verBotones = isset($principalData3["verBoton"]) ? $principalData3["verBoton"] : "";
+    $verBotones1 = $verBotones == 1 ? 'checked' : "";
+    $verBotones2 = $verBotones == 2 ? 'checked' : "";
+    $styleBotones =  $verBotones == 1 ? 'd-none' : 'd-flex';
+
+    $btnBg = isset($principalData3["color-btn-bg-input"]) ? $principalData3["color-btn-bg-input"] : "#F8B903";
+    $btnColor = isset($principalData3["color-texto-btn"]) ? $principalData3["color-texto-btn"] : "#000";
+
+    // Imagenes
+    $fondo = isset($gameRuleta["fondo"]) && !empty($gameRuleta["fondo"]) ? '/storage/'.$gameRuleta["fondo"] : $imgNulo;
+    $logo_inicio = isset($gameRuleta["logo_inicio"]) && !empty($gameRuleta["logo_inicio"]) ? '/storage/'.$gameRuleta["logo_inicio"] : $imgNulo;
+    $logo_juego = isset($gameRuleta["logo_juego"]) && !empty($gameRuleta["logo_juego"]) ? '/storage/'.$gameRuleta["logo_juego"] : $imgNulo;
+    $titulo_premio = isset($gameRuleta["titulo_premio"]) && !empty($gameRuleta["titulo_premio"]) ? '/storage/'.$gameRuleta["titulo_premio"] : $imgNulo;
+@endphp
+
 <div class="container-fluid">
     <div class="row">
-
-        <div class="col-3 border-end" style="overflow-y: scroll; height: 100vh;">
+        <form id="form-ruleta" action="{{ route("juego3.post.registro.personalizar", $project->id) }}" method="POST" enctype="multipart/form-data" class="col-3 border-end" style="overflow-y: scroll; height: 100vh;">
+            @csrf
+            @method('POST')
             <div class="d-block" id="menu_edit">
                 <div class="border-bottom py-2">
                     <span>Personalizar</span>
@@ -307,7 +382,7 @@
             </div>
             <div class="d-none" id="pagina_principal">
                 <div class="border-bottom py-2">
-                    <button class="border-0 w-100 text-start" style="background-color: #fff;" id="back_principal"><i class="fas fa-chevron-left"></i> Pagina Principal</button>
+                    <button type="button" class="border-0 w-100 text-start" style="background-color: #fff;" id="back_principal"><i class="fas fa-chevron-left"></i> Pagina Principal</button>
                 </div>
                 <div class="py-2 border-bottom">
                     <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneGame" aria-expanded="true" aria-controls="collapseOneGame">
@@ -344,7 +419,7 @@
                             <p class="mb-1">Texto</p>
                             <div class="d-flex justify-content-start mb-2" style="gap: 1.2em;">
                                 <div class="p-1 cursor bold">
-                                    <input hidden type="checkbox" name="bold-titulo-parrafo" id="bold-titulo-parrafo">
+                                    <input hidden type="checkbox" name="bold-titulo-parrafo" id="bold-titulo-parrafo" {{ $boldTitulo }}>
                                     <label for="bold-titulo-parrafo" class="d-flex align-items-center cursor">
                                         <svg width="11" height="14" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg" id="svg_bold_texto">
                                             <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="#98A2B3"/>
@@ -357,22 +432,22 @@
                                             <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="#98A2B3"/>
                                         </svg>
                                     </label>
-                                    <input hidden type="checkbox" name="italic-titulo-parrafo" id="italic-titulo-parrafo">
+                                    <input hidden type="checkbox" name="italic-titulo-parrafo" id="italic-titulo-parrafo" {{ $italicTitulo }}>
                                 </div>
                             </div>
-                            <input type="text" class="form-control p-2" id="texto-header" name="texto-header" value="GIRA Y GANA CON">
+                            <input type="text" class="form-control p-2" id="texto-header" name="texto-header" value="GIRA Y GANA CON" value="{{ $tituloTexto }}">
                         </li>
                         <li class="my-2">
                             <p class="my-1">Tamaño Texto</p>
                             
                             <div class="btn-group" role="group">
-                                <input type="radio" class="btn-check" name="tamanoTexto" id="tamanoTexto1" autocomplete="off">
+                                <input type="radio" class="btn-check" name="tamanoTexto" id="tamanoTexto1" autocomplete="off" value="1" {{ $tamano1 }}>
                                 <label class="btn btn-outline-text" for="tamanoTexto1"><small><b>Chico</b></small></label>
                               
-                                <input type="radio" class="btn-check" name="tamanoTexto" id="tamanoTexto2" autocomplete="off">
+                                <input type="radio" class="btn-check" name="tamanoTexto" id="tamanoTexto2" autocomplete="off" value="2" {{ $tamano2 }}>
                                 <label class="btn btn-outline-text" for="tamanoTexto2"><small><b>Mediano</b></small></label>
                               
-                                <input type="radio" class="btn-check" name="tamanoTexto" id="tamanoTexto3" autocomplete="off" checked>
+                                <input type="radio" class="btn-check" name="tamanoTexto" id="tamanoTexto3" autocomplete="off" value="3" {{ $tamano3 }}>
                                 <label class="btn btn-outline-text" for="tamanoTexto3"><small><b>Grande</b></small></label>
                             </div>
     
@@ -381,13 +456,13 @@
                             <p class="my-1">Alineación</p>
                             
                             <div class="btn-group" role="group">
-                                <input type="radio" class="btn-check" name="alineacionTexto" id="alineacionTexto1" autocomplete="off">
+                                <input type="radio" class="btn-check" name="alineacionTexto" id="alineacionTexto1" autocomplete="off" value="1" {{ $alineacion1 }}>
                                 <label class="btn btn-outline-text" for="alineacionTexto1"><small><b><i class="fas fa-align-left"></i></b></small></label>
                               
-                                <input type="radio" class="btn-check" name="alineacionTexto" id="alineacionTexto2" autocomplete="off" checked>
+                                <input type="radio" class="btn-check" name="alineacionTexto" id="alineacionTexto2" autocomplete="off" value="2" {{ $alineacion2 }}>
                                 <label class="btn btn-outline-text" for="alineacionTexto2"><small><b><i class="fas fa-align-center"></i></b></small></label>
                               
-                                <input type="radio" class="btn-check" name="alineacionTexto" id="alineacionTexto3" autocomplete="off">
+                                <input type="radio" class="btn-check" name="alineacionTexto" id="alineacionTexto3" autocomplete="off" value="3" {{ $alineacion3 }}>
                                 <label class="btn btn-outline-text" for="alineacionTexto3"><small><b><i class="fas fa-align-center"></i></b></small></label>
                             </div>
     
@@ -396,8 +471,8 @@
                             <p class="my-1">Color</p>
                             
                             <div class="d-flex" role="group" style="gap: 0.4em;">
-                                <input type="text" class="form-control" id="color-texto-input" name="color-texto-input" value="#FFFFFF">
-                                <input type="color" class="form-control form-control-color p-0" id="color-texto" value="#FFFFFF">
+                                <input type="text" class="form-control" id="color-texto-input" name="color-texto-input" value="{{ $color }}">
+                                <input type="color" class="form-control form-control-color p-0" id="color-texto" name="color-texto" value="{{ $color }}">
                             </div>
     
                         </li>
@@ -469,7 +544,7 @@
                             <p class="mb-1">Texto</p>
                             <div class="d-flex justify-content-start mb-2" style="gap: 1.2em;">
                                 <div class="p-1 cursor bold">
-                                    <input hidden type="checkbox" name="bold-titulo-parrafo-game" id="bold-titulo-parrafo-game">
+                                    <input hidden type="checkbox" name="bold-titulo-parrafo-game" id="bold-titulo-parrafo-game" {{ $boldTituloGame }}>
                                     <label for="bold-titulo-parrafo-game" class="d-flex align-items-center cursor">
                                         <svg width="11" height="14" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg" id="svg_bold_texto">
                                             <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="#98A2B3"/>
@@ -482,22 +557,22 @@
                                             <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="#98A2B3"/>
                                         </svg>
                                     </label>
-                                    <input hidden type="checkbox" name="italic-titulo-parrafo-game" id="italic-titulo-parrafo-game">
+                                    <input hidden type="checkbox" name="italic-titulo-parrafo-game" id="italic-titulo-parrafo-game" {{ $italicTituloGame }}>
                                 </div>
                             </div>
-                            <input type="text" class="form-control p-2" id="texto-header-game" name="texto-header-game" value="GIRA Y GANA CON">
+                            <input type="text" class="form-control p-2" id="texto-header-game" name="texto-header-game" value="GIRA Y GANA CON" value="{{ $tituloTextoGame }}">
                         </li>
                         <li class="my-2">
                             <p class="my-1">Tamaño Texto</p>
                             
                             <div class="btn-group" role="group">
-                                <input type="radio" class="btn-check" name="tamanoTextoGame" id="tamanoTextoGame1" autocomplete="off">
+                                <input type="radio" class="btn-check" name="tamanoTextoGame" id="tamanoTextoGame1" autocomplete="off" value="1" {{ $tamano1Game }}>
                                 <label class="btn btn-outline-text" for="tamanoTextoGame1"><small><b>Chico</b></small></label>
                               
-                                <input type="radio" class="btn-check" name="tamanoTextoGame" id="tamanoTextoGame2" autocomplete="off">
+                                <input type="radio" class="btn-check" name="tamanoTextoGame" id="tamanoTextoGame2" autocomplete="off" value="2" {{ $tamano2Game }}>
                                 <label class="btn btn-outline-text" for="tamanoTextoGame2"><small><b>Mediano</b></small></label>
                               
-                                <input type="radio" class="btn-check" name="tamanoTextoGame" id="tamanoTextoGame3" autocomplete="off" checked>
+                                <input type="radio" class="btn-check" name="tamanoTextoGame" id="tamanoTextoGame3" autocomplete="off" value="3" {{ $tamano3Game }}>
                                 <label class="btn btn-outline-text" for="tamanoTextoGame3"><small><b>Grande</b></small></label>
                             </div>
     
@@ -506,13 +581,13 @@
                             <p class="my-1">Alineación</p>
                             
                             <div class="btn-group" role="group">
-                                <input type="radio" class="btn-check" name="alineacionTextoGame" id="alineacionTextoGame1" autocomplete="off">
+                                <input type="radio" class="btn-check" name="alineacionTextoGame" id="alineacionTextoGame1" autocomplete="off" value="1" {{ $alineacion1Game }}>
                                 <label class="btn btn-outline-text" for="alineacionTextoGame1"><small><b><i class="fas fa-align-left"></i></b></small></label>
                               
-                                <input type="radio" class="btn-check" name="alineacionTextoGame" id="alineacionTextoGame2" autocomplete="off" checked>
+                                <input type="radio" class="btn-check" name="alineacionTextoGame" id="alineacionTextoGame2" autocomplete="off" value="2" {{ $alineacion2Game }}>
                                 <label class="btn btn-outline-text" for="alineacionTextoGame2"><small><b><i class="fas fa-align-center"></i></b></small></label>
                               
-                                <input type="radio" class="btn-check" name="alineacionTextoGame" id="alineacionTextoGame3" autocomplete="off">
+                                <input type="radio" class="btn-check" name="alineacionTextoGame" id="alineacionTextoGame3" autocomplete="off" value="3" {{ $alineacion3Game }}>
                                 <label class="btn btn-outline-text" for="alineacionTextoGame3"><small><b><i class="fas fa-align-center"></i></b></small></label>
                             </div>
     
@@ -521,8 +596,8 @@
                             <p class="my-1">Color</p>
                             
                             <div class="d-flex" role="group" style="gap: 0.4em;">
-                                <input type="text" class="form-control" id="color-texto-input-game" name="color-texto-input-game" value="#FFFFFF">
-                                <input type="color" class="form-control form-control-color p-0" id="color-texto-game" name="color-texto-game" value="#FFFFFF">
+                                <input type="text" class="form-control" id="color-texto-input-game" name="color-texto-input-game" value="{{ $colorGame }}">
+                                <input type="color" class="form-control form-control-color p-0" id="color-texto-game" name="color-texto-game" value="{{ $colorGame }}">
                             </div>
     
                         </li>
@@ -562,9 +637,11 @@
                     <ul class="list-unstyled ps-4 mt-2 collapse" id="collapseFourGame" data-bs-parent="#accordionExample">
                         @foreach ($projectPremio as $value)
                         <li class="mb-2">
-                            <form action="{{ route("juego3.registroPremio.img", $value->id) }}" method="POST" enctype="multipart/form-data" id="premio_{{ $value->orden }}">
-                                @csrf
-                                @method('POST')
+                            <div id="premio_{{ $value->orden }}">
+
+                                <input type="hidden" name="method" value="" class="method">
+                                <input type="hidden" name="ruta_img" value="{{ route("juego3.registroPremio.img", $value->id) }}" class="action">
+
                                 <input hidden type="text" value="{{ $value->orden }}" class="input_value">
                                 <p class="mb-2">Premio {{ $value->orden }} => {{ $value->nombre_premio }}</p>
                                 <div class="img-subir">
@@ -583,7 +660,7 @@
                                     <input hidden type="file" name="premio_subir" id="premio-subir-{{ $value->orden }}" class="premio_upload">
                                     <input type="hidden" name="premio_id_{{ $value->orden }}" id="premio_id_{{ $value->orden }}" value="{{ $value->orden }}|{{ $value->id }}">
                                 </div>
-                            </form>
+                            </div>
                         </li>
                         @endforeach
                     </ul>
@@ -629,10 +706,10 @@
                             <p class="mb-2">Ver Botones</p>
                             
                             <div class="btn-group" role="group">
-                                <input type="radio" class="btn-check" name="verBoton" id="verBoton1" autocomplete="off" >
+                                <input type="radio" class="btn-check" name="verBoton" id="verBoton1" autocomplete="off" value="1" {{ $verBotones1 }}>
                                 <label class="btn btn-outline-text" for="verBoton1"><small><b>No</b></small></label>
                               
-                                <input type="radio" class="btn-check" name="verBoton" id="verBoton2" autocomplete="off" checked>
+                                <input type="radio" class="btn-check" name="verBoton" id="verBoton2" autocomplete="off" value="2" {{ $verBotones2 }}>
                                 <label class="btn btn-outline-text" for="verBoton2"><small><b>Si</b></small></label>
                             </div>
     
@@ -641,8 +718,8 @@
                             <p class="my-1">Color</p>
                             
                             <div class="d-flex" role="group" style="gap: 0.4em;">
-                                <input type="text" class="form-control" id="color-texto-btn" name="color-texto-btn" value="#000">
-                                <input type="color" class="form-control form-control-color p-0" id="color-btn" value="#000">
+                                <input type="text" class="form-control" id="color-texto-btn" name="color-texto-btn" value="{{ $btnColor }}">
+                                <input type="color" class="form-control form-control-color p-0" id="color-btn" value="{{ $btnColor }}">
                             </div>
     
                         </li>
@@ -650,8 +727,8 @@
                             <p class="my-1">Color Fondo</p>
                             
                             <div class="d-flex" role="group" style="gap: 0.4em;">
-                                <input type="text" class="form-control" id="color-btn-bg-input" name="color-btn-bg-input" value="#F8B903">
-                                <input type="color" class="form-control form-control-color p-0" id="color-btn-bg" value="#F8B903">
+                                <input type="text" class="form-control" id="color-btn-bg-input" name="color-btn-bg-input" value="{{ $btnBg }}">
+                                <input type="color" class="form-control form-control-color p-0" id="color-btn-bg" name="color-btn-bg" value="{{ $btnBg }}">
                             </div>
     
                         </li>
@@ -665,9 +742,11 @@
                     <ul class="list-unstyled ps-4 mt-2 collapse" id="collapseFourGame" data-bs-parent="#accordionExample">
                         @foreach ($projectPremio as $value)
                         <li class="mb-2">
-                            <form action="{{ route("juego3.registroPremioFinal.img", $value->id) }}" method="POST" enctype="multipart/form-data" id="premio_final_{{ $value->orden }}">
-                                @csrf
-                                @method('POST')
+                            <div method="POST" id="premio_final_{{ $value->orden }}">
+                               
+                                <input type="hidden" name="method" value="" class="method">
+                                <input type="hidden" name="ruta_img" value="{{ route("juego3.registroPremioFinal.img", $value->id) }}" class="action">
+
                                 <input hidden type="text" value="{{ $value->orden }}" class="input_value">
                                 <p class="mb-2">Premio {{ $value->orden }} => {{ $value->nombre_premio }}</p>
                                 <div class="img-subir">
@@ -685,19 +764,19 @@
                                     </label>
                                     <input hidden type="file" name="subir_premio" id="subir-premio-{{ $value->orden }}" class="premio_upload_2">
                                 </div>
-                            </form>
+                            </div>
                         </li>
                         @endforeach
                     </ul>
                 </div>
             </div>
-        </div>
+        </form>
         <div class="col-9 p-0">
-            <div class="h-100" style="background-image: url({{ asset("backend/img/fondo.jpg") }}); background-size: cover;" id="juego_ruleta">
+            <div class="h-100" style="background-image: url({{ $fondo }}); background-size: cover;" id="juego_ruleta">
                 <div id="inicio_juego" class=" d-none">
                     <div class="text-center ctn-data">
-                        <h1 class="fs-0 mb-4" id="titulo_header" style="color: #fff;">GIRA Y GANA CON</h1>
-                        <img style="width: 300px;" src="{{ asset('backend/img/Recurso 1.png') }}" alt="" id="logo_header">
+                        <h1 class="{{ $styleTamano }} mb-4 {{ $styleBold }} {{ $italicTitulo }} {{ $styleAlineacion }}" id="titulo_header" style="color: #fff;">GIRA Y GANA CON</h1>
+                        <img style="width: 300px;" src="{{ $logo_inicio }}" alt="" id="logo_header">
                     </div>
                     <div class="w-100 d-flex justify-content-center">
                         <button class="btn-jugar" id="btn_header">JUGAR</button>
@@ -705,12 +784,12 @@
                 </div>
                 <div class="content-game" id="juego">
                     <div class="header text-center">
-                        <h1 class="fs-1" id="titulo_juego" style="color: #fff;">GIRA Y GANA CON</h1>
-                        <img style="width: 170px;" src="{{ asset('backend/img/Recurso 1.png') }}" alt="" id="logo_juego">
+                        <h1 class="{{ $styleTamanoGame }} {{ $styleBoldGame }} {{ $italicTituloGame }} {{ $styleAlineacionGame }}" id="titulo_juego" style="color: #fff;">GIRA Y GANA CON</h1>
+                        <img style="width: 170px;" src="{{ $logo_juego }}" alt="" id="logo_juego">
                         <p id="winner" class="d-none">NONE</p>
                     </div>
                     <div class="w-100 d-flex justify-content-center">
-                        <button type="button" class="mb-3 btn-girar" onclick="spin()">Girar</button>
+                        <button type="button" class="mb-3 btn-girar" id="btn_girar">Girar</button>
                     </div>
                     <div style="overflow: hidden;" class="text-center">
                         <div class="wheel">
@@ -723,15 +802,15 @@
                 </div>
                 <div id="fin_juego" class="d-none">
                     <div class="content_premio">
-                        <img class="img-fluid mb-3" src="{{ asset('backend/img/ganaste_2.png') }}" alt="" id="logo_ganaste">
+                        <img class="img-fluid mb-3" src="{{ $titulo_premio }}" alt="" id="logo_ganaste">
                         <div class="content_premio_img">
                             <img class="img-fluid" src="{{ asset('backend/img/Capa 8.png') }}" alt="" id="premio_first">
                         </div>
                         <h5>{{ $projectPremio[0]["nombre_premio"] }}</h5>
-                        <div class="d-flex justify-content-center" style="gap: 0.4em;" id="btn_content">
-                            <button type="button" class="btn_premio">IR A REGISTRO</button>
-                            <button type="button" class="btn_premio">IR A HOME</button>
-                            <button type="button" class="btn_premio">VOLVER A JUGAR</button>
+                        <div class="{{ $styleBotones }} justify-content-center" style="gap: 0.4em;" id="btn_content">
+                            <button type="button" class="btn_premio" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">IR A REGISTRO</button>
+                            <button type="button" class="btn_premio" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">IR A HOME</button>
+                            <button type="button" class="btn_premio" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">VOLVER A JUGAR</button>
                         </div>
                     </div>
                 </div>
@@ -1173,6 +1252,11 @@
         //     }
         // ]
 
+        data.push({
+            name: 'Sigue Intentando',
+            img: '{{ $imgNulo }}'
+        })
+
         function randomColor() {
             let r = Math.floor(Math.random() * 255);
             let g = Math.floor(Math.random() * 255);
@@ -1345,17 +1429,26 @@
             },2000);
         }
 
+        $("#btn_girar").click(function (e) { 
+            e.preventDefault();
+            spin();
+        });
 
         $(document).on('change','.premio_upload', function () {
             const orden = $(this).parent().parent().find(".input_value").val();
-            let formData = new FormData($(`#premio_${orden}`)[0]);
-            // Recorrer el FormData para ver sus valores
-            for (let [key, value] of formData.entries()) {
-            console.log(`${key}: ${value}`);
-            }
-            
+            const action = $(this).parent().parent().find(".action").val();
+            const token = $('input[name="_token"]').val();
+            const method = $('input[name="_method"]').val();
+
+            const imagen = $(`#premio-subir-${orden}`)[0];
+            const inputImage = imagen.files[0] ? imagen.files[0] : null;
+
+            const formData = new FormData();
+            formData.append("_token", token)
+            formData.append("_method", method)
+            formData.append("premio_subir", inputImage)
             $.ajax({
-                url: $(`#premio_${orden}`).attr('action'), // URL de la ruta
+                url: action, // URL de la ruta
                 method: 'POST',
                 data: formData,
                 contentType: false, // Para enviar los datos como FormData
@@ -1387,14 +1480,20 @@
 
         $(document).on('change','.premio_upload_2', function () {
             const orden = $(this).parent().parent().find(".input_value").val();
-            let formData = new FormData($(`#premio_final_${orden}`)[0]);
-            // Recorrer el FormData para ver sus valores
-            for (let [key, value] of formData.entries()) {
-            console.log(`${key}: ${value}`);
-            }
+            const action = $(this).parent().parent().find(".action").val();
+            const token = $('input[name="_token"]').val();
+            const method = $('input[name="_method"]').val();
+
+            const imagen = $(`#subir-premio-${orden}`)[0];
+            const inputImage = imagen.files[0] ? imagen.files[0] : null;
+
+            const formData = new FormData();
+            formData.append("_token", token)
+            formData.append("_method", method)
+            formData.append("subir_premio", inputImage)
             
             $.ajax({
-                url: $(`#premio_final_${orden}`).attr('action'), // URL de la ruta
+                url: action, // URL de la ruta
                 method: 'POST',
                 data: formData,
                 contentType: false, // Para enviar los datos como FormData
@@ -1406,7 +1505,6 @@
                     // if (data) {
                     //     toastr.success('Cambios guadados correctamente'); 
                     // }
-                    console.log(datas, data)
                     if (datas) {
                         const preview = document.getElementById(`premio-preview-${orden}`);
                         const upload = document.getElementById(`premio-upload-${orden}`)
@@ -1417,6 +1515,44 @@
                         preview.style.display = 'block'; // Muestra la imagen
                         upload.classList.add("d-none")
                     }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
+                    toastr.error('Ocurrió un error al procesar la solicitud.');
+                }
+            });
+        });
+
+
+        $("#guardar-ruleta").on('click', function () {
+            $("#form-ruleta").submit();
+        });
+        
+
+        $("#form-ruleta").on('submit', function (e) {
+            e.preventDefault();
+
+            var arrayPremiosValue = []
+
+            var formData = new FormData(this);
+            
+            // for (const [key, value] of formData.entries()) {
+            //     console.log(`${key}: ${value}`)
+            // }
+            $.ajax({
+                url: $(this).attr('action'), // URL de la ruta
+                method: 'POST',
+                data: formData,
+                contentType: false, // Para enviar los datos como FormData
+                processData: false, // No procesar los datos
+                success: function(data) {
+                    // Procesar los datos devueltos
+                    // toastr.success(data.message); 
+
+                    if (data) {
+                        toastr.success('Cambios guadados correctamente'); 
+                    }
+                    console.log(data)
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error('Error en la solicitud AJAX:', textStatus, errorThrown);

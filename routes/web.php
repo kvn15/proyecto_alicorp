@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\Auth\ForgotPasswordController;
 use App\Http\Controllers\Admin\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\GameMemoriaController;
 use App\Http\Controllers\Admin\RaspaGanaController;
+use App\Http\Controllers\Admin\RuletaController;
 use App\Http\Controllers\Admin\ViewLandingController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\XplorerController;
@@ -88,6 +89,7 @@ Route::prefix('admin')->group(function () {
         Route::get('show/{id}/configuracion',[LandingPromocionalController::class, 'configuracion'])->name('juego_web.show.configuracion');
         Route::get('show/{id}/personalizar/game/memoria',[LandingPromocionalController::class, 'personalizarJuego'])->name('juego_campana.show.personalizarJuego');
         Route::get('show/{id}/personalizar/game/raspa_gana',[LandingPromocionalController::class, 'personalizarJuegoRaspaGana'])->name('juego_campana.show.personalizarJuego.raspagana');
+        Route::get('show/{id}/personalizar/game/ruleta',[LandingPromocionalController::class, 'personalizarRuleta'])->name('juego_campana.show.personalizarJuego.ruleta');
     });
     
     Route::prefix('juego_campana')->group(function () {
@@ -193,6 +195,14 @@ Route::prefix('game_raspa_gana')->group(function () {
     Route::post('/{id}/registroPersonalizar', [RaspaGanaController::class, 'storePersonalizar'])->name('juego2.post.registro.personalizar');
     Route::post('/{id}/updateGanador', [RaspaGanaController::class, 'updateGanador'])->name('juego.ganador.raspagana');
 });
+
+Route::prefix('ruleta')->group(function () {
+    Route::post('/{id}/registroPersonalizar', [RuletaController::class, 'storePersonalizar'])->name('juego3.post.registro.personalizar');
+    Route::post('/registroImgPremio/{id}', [RuletaController::class, 'storeImgPremio'])->name("juego3.registroPremio.img");
+    Route::post('/registroImgPremioFinal/{id}', [RuletaController::class, 'storeImgPremioFinal'])->name("juego3.registroPremioFinal.img");
+    Route::get('/{hub}', [RuletaController::class, 'show'])->name('juego.view.ruleta');
+});
+
 
 require __DIR__.'/auth.php';
 

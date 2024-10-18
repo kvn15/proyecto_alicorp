@@ -125,11 +125,11 @@ class RaspaGanaController extends Controller
             $RaspaGana->update([
                 'project_id' => $id,
                 'fondo' => $rutaFondo,
-                'titulo' => $titulo,
+                'titulo' => json_encode($titulo, true),
                 'logo_principal' => $rutaLogoPrincipal,
                 'imagen_raspar' => $rutaImgRaspar,
                 'titulo_subir' => $rutaImgTitulo,
-                'boton_premios' => $boton_premios,
+                'boton_premios' => json_encode($boton_premios, true),
             ]);
         }
         
