@@ -376,6 +376,7 @@ html {
     }
 
     .owl-carousel {
+        position: relative;
         .owl-item {
             margin-left: 10px;
             margin-right: 10px
@@ -386,9 +387,29 @@ html {
     .owl-nav [class*=owl-]{
         color: #EFB810 !important;
         background: transparent;
-        font-size: 44px;
+        font-size: 10rem;
     }
    }
+
+   .owl-nav {
+    position: absolute;
+    top: 22rem;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+   }
+
+   .owl-dots {
+    position: absolute;
+    top: 34rem;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+   }
+
+
 
    .owl-next{
     background: transparent;
@@ -432,6 +453,7 @@ html {
             color: white;
             height: 8px;
             max-width: 250px;
+            opacity: 1;
         }
     }
 }
@@ -687,6 +709,21 @@ html {
         left: 332px;
         width: 413.80px;    
     }   
+}
+
+@media screen and (max-width: 576px){
+    .bloque2{
+        
+        .cliente-1{
+            width: 25rem;
+            height: auto;
+            margin-bottom: 2rem;
+        }
+        .sombras{
+            width: 40rem;
+        }
+        
+    }
 }
 
 @media screen and (min-width: 1400px) {

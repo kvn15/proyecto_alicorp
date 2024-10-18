@@ -39,16 +39,37 @@
                 </li>
                   
                 <li class="nav-item"> 
-                    <a href="{{ route('landing_promocional.index') }}" class="nav-link {{ request()->routeIs('landing_promocional.*') || request()->routeIs('landing_promocional.*.*') ? 'active' : '' }}"> 
+                    <a href="#" class="nav-link {{ request()->routeIs('landing_promocional.*') || request()->routeIs('landing_promocional.*.*') ? 'active' : '' }}"> 
                         <i class="nav-icon bi bi-window"></i>
-                        <p>Landing Promocional</p>
+                        <p>
+                            Calendario
+                            <i class="nav-arrow bi bi-chevron-right"></i>
+                        </p>
                     </a> 
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item"> <a href="{{ route('adminPanel.calendario.slider') }}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                            <p>Sliders</p>
+                        </a> </li>
+                    <li class="nav-item"> <a href="{{route('adminPanel.calendario.cards')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                            <p>Cards Promociones </p>
+                        </a> </li>
+                    </ul>
                 </li>
                 <li class="nav-item"> 
-                    <a href="{{ route('admin.dashboard.juegosWeb') }}" class="nav-link {{ request()->routeIs('admin.dashboard.juegosWeb') || request()->routeIs('juego_web.*.*') ? 'active' : '' }}"> 
-                        <i class="nav-icon bi bi-controller"></i>
-                        <p>Juegos Web</p>
+                    <a href="#" class="nav-link {{ request()->routeIs('admin.dashboard.juegosWeb') || request()->routeIs('juego_web.*.*') ? 'active' : '' }}"> 
+                        <i class="nav-icon bi bi-window"></i>
+                        <p>Promociones
+                            <i class="nav-arrow bi bi-chevron-right"></i>
+                        </p>
                     </a> 
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item"> <a href="{{ route('adminPanel.calendario.slider') }}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                            <p>Sliders</p>
+                        </a> </li>
+                    <li class="nav-item"> <a href="{{route('adminPanel.calendario.cards')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                            <p>Cards Promociones</p>
+                        </a> </li>
+                    </ul>
                 </li>
                 <li class="nav-item"> 
                     <a href="{{ route('admin.dashboard.juegosCamp') }}" class="nav-link {{ request()->routeIs('admin.dashboard.juegosCamp') || request()->routeIs('juego_campana.*.*') ? 'active' : '' }}"> 

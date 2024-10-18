@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHomeIniciosTable extends Migration
+class CreateCalendarioPagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateHomeIniciosTable extends Migration
      */
     public function up()
     {
-        Schema::create('home_inicios', function (Blueprint $table) {
+        Schema::create('calendario_pages', function (Blueprint $table) {
             $table->id();
-            $table->string('home_slide')->nullable();
+            $table->string('caledario_slide')->nullable();
             $table->timestamps();
         });
     }
@@ -27,7 +27,6 @@ class CreateHomeIniciosTable extends Migration
      */
     public function down()
     {
-
-        Schema::dropIfExists('home_inicios');
+        Schema::dropIfExists('calendario_pages');
     }
 }

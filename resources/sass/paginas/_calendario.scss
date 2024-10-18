@@ -2,6 +2,7 @@
 .calendario{
     .imagen-oscura {
         filter: brightness(0.4); /* Reduce el brillo al 50% */
+        border-radius: 2.5rem 2.5rem 0 0;
     }
 
     .buscar-btn{
@@ -55,6 +56,8 @@
     .calen-card{
         position: relative;
         box-shadow: -10px 10px 5px -2px rgba(0,0,0,0.26);
+        border-radius: 2.5rem 2.5rem 0 0;
+        
     }
 
     .calendario-fecha{

@@ -1,4 +1,8 @@
 @include('cabecera.header-2')
+@php
+    $sliders = App\Models\AdminPanel\CalendarioPage::all();    
+    $Allcards = App\Models\AdminPanel\CalendarioCard::all();  
+@endphp
 <section class="calendario">
     <div class="container">
         <div class="row mb-5">
@@ -32,14 +36,13 @@
                     </div>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="img/fondo.png" class="d-block w-100 " alt="...">
+                            @foreach ($sliders as  $key=> $slide)            
+                            <div class="carousel-item {{$key == 0 ? 'active':''}}">
+                              <img src="{{asset('storage/'.$slide->caledario_slide)}}" class="d-block w-100 " alt="...">
+                            </div>
+                        @endforeach
                         </div>
-                        <div class="carousel-item">
-                            <img src="img/carru1.jpg" class="d-block w-100 " alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="img/mano.png" class="d-block w-100 " alt="...">
-                        </div>
+                      
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
                         data-bs-slide="prev">
@@ -61,131 +64,24 @@
         <div class="imagen-fondo">            
             <div class="container-fluid grupo-promociones mt-5 mb-5 ">
                 <div class="row">
-                    <div class="col-md-3 col-12 d-md-flex justify-content-center">
+                    @foreach ($Allcards as $card)
+                    <div class="col-md-3 col-12 d-md-flex justify-content-center mb-5">                        
                         <div class="card calen-card" style="width: 35rem;">
-                            <img src="{{asset('img/promo_1.png')}}" class="card-img-top imagen-oscura" alt="...">
+                            <img src="{{asset('storage/'. $card->image_path)}}" class="card-img-top imagen-oscura" alt="...">
                             <div class="card-body">
-                                <p class="card-text">¡Ganate S/.1000 con Aval!</p>
+                                <p class="card-text">¡{{$card->text}}</p>
                                 <div class="calendario-fecha">
-                                    <p class="card-text2">SEP</p>
-                                    <p class="card-text2">30</p>
+                                    <p class="card-text2">{{ Carbon\Carbon::parse($card->event_date)->format('M') }}</p>
+                                    <p class="card-text2">{{ Carbon\Carbon::parse($card->event_date)->format('d') }}</p>
                                 </div>                                
                             </div>
                             <div class="botn-calendario mb-4">
                                 <button class="btn-card-cal">Supermercados</button>
                             </div>                            
                         </div>
-                    </div>
-                    <div class="col-md-3 col-12 d-md-flex justify-content-center">
-                        <div class="card calen-card" style="width: 35rem;">
-                            <img src="{{asset('img/promo_1.png')}}" class="card-img-top imagen-oscura" alt="...">
-                            <div class="card-body">
-                                <p class="card-text">¡Ganate S/.1000 con Aval!</p>
-                                <div class="calendario-fecha">
-                                    <p class="card-text2">SEP</p>
-                                    <p class="card-text2">30</p>
-                                </div>                                
-                            </div>
-                            <div class="botn-calendario mb-4">
-                                <button class="btn-card-cal">Supermercados</button>
-                            </div>                            
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 col-12 d-md-flex justify-content-center">
-                        <div class="card calen-card" style="width: 35rem;">
-                            <img src="{{asset('img/promo_1.png')}}" class="card-img-top imagen-oscura" alt="...">
-                            <div class="card-body">
-                                <p class="card-text">¡Ganate S/.1000 con Aval!</p>
-                                <div class="calendario-fecha">
-                                    <p class="card-text2">SEP</p>
-                                    <p class="card-text2">30</p>
-                                </div>                                
-                            </div>
-                            <div class="botn-calendario mb-4">
-                                <button class="btn-card-cal">Supermercados</button>
-                            </div>                            
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 col-12 d-md-flex justify-content-center">
-                        <div class="card calen-card" style="width: 35rem;">
-                            <img src="{{asset('img/promo_1.png')}}" class="card-img-top imagen-oscura" alt="...">
-                            <div class="card-body">
-                                <p class="card-text">¡Ganate S/.1000 con Aval!</p>
-                                <div class="calendario-fecha">
-                                    <p class="card-text2">SEP</p>
-                                    <p class="card-text2">30</p>
-                                </div>                                
-                            </div>
-                            <div class="botn-calendario mb-4">
-                                <button class="btn-card-cal">Supermercados</button>
-                            </div>                            
-                        </div>
-                    </div>
-                    
-                </div>
-                <div class="row mt-5 ">
-                    <div class="col-md-3 col-12 d-md-flex justify-content-center">
-                        <div class="card calen-card" style="width: 35rem;">
-                            <img src="{{asset('img/promo_1.png')}}" class="card-img-top imagen-oscura" alt="...">
-                            <div class="card-body">
-                                <p class="card-text">¡Ganate S/.1000 con Aval!</p>
-                                <div class="calendario-fecha">
-                                    <p class="card-text2">SEP</p>
-                                    <p class="card-text2">30</p>
-                                </div>                                
-                            </div>
-                            <div class="botn-calendario mb-4">
-                                <button class="btn-card-cal">Supermercados</button>
-                            </div>                            
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-12 d-md-flex justify-content-center">
-                        <div class="card calen-card" style="width: 35rem;">
-                            <img src="{{asset('img/promo_1.png')}}" class="card-img-top imagen-oscura" alt="...">
-                            <div class="card-body">
-                                <p class="card-text">¡Ganate S/.1000 con Aval!</p>
-                                <div class="calendario-fecha">
-                                    <p class="card-text2">SEP</p>
-                                    <p class="card-text2">30</p>
-                                </div>                                
-                            </div>
-                            <div class="botn-calendario mb-4">
-                                <button class="btn-card-cal">Supermercados</button>
-                            </div>                            
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-12 d-md-flex justify-content-center">
-                        <div class="card calen-card" style="width: 35rem;">
-                            <img src="{{asset('img/promo_1.png')}}" class="card-img-top imagen-oscura" alt="...">
-                            <div class="card-body">
-                                <p class="card-text">¡Ganate S/.1000 con Aval!</p>
-                                <div class="calendario-fecha">
-                                    <p class="card-text2">SEP</p>
-                                    <p class="card-text2">30</p>
-                                </div>                                
-                            </div>
-                            <div class="botn-calendario mb-4">
-                                <button class="btn-card-cal">Supermercados</button>
-                            </div>                            
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-12 d-md-flex justify-content-center">
-                        <div class="card calen-card" style="width: 35rem;">
-                            <img src="{{asset('img/promo_1.png')}}" class="card-img-top imagen-oscura" alt="...">
-                            <div class="card-body">
-                                <p class="card-text">¡Ganate S/.1000 con Aval!</p>
-                                <div class="calendario-fecha">
-                                    <p class="card-text2">SEP</p>
-                                    <p class="card-text2">30</p>
-                                </div>                                
-                            </div>
-                            <div class="botn-calendario mb-4">
-                                <button class="btn-card-cal">Supermercados</button>
-                            </div>                            
-                        </div>
-                    </div>
+                                              
+                    </div>     
+                    @endforeach                
                 </div>
             </div>          
         </div>

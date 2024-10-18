@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHomeIniciosTable extends Migration
+class CreateCalendarioCardsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateHomeIniciosTable extends Migration
      */
     public function up()
     {
-        Schema::create('home_inicios', function (Blueprint $table) {
+        Schema::create('calendario_cards', function (Blueprint $table) {
             $table->id();
-            $table->string('home_slide')->nullable();
+            $table->string('text');
+            $table->string('image_path');
+            $table->date('event_date');
             $table->timestamps();
         });
     }
@@ -27,7 +29,6 @@ class CreateHomeIniciosTable extends Migration
      */
     public function down()
     {
-
-        Schema::dropIfExists('home_inicios');
+        Schema::dropIfExists('calendario_cards');
     }
 }

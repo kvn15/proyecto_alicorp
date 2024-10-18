@@ -447,6 +447,7 @@
 
 .calendario .imagen-oscura {
   filter: brightness(0.4); /* Reduce el brillo al 50% */
+  border-radius: 2.5rem 2.5rem 0 0;
 }
 .calendario .buscar-btn {
   position: relative;
@@ -493,6 +494,7 @@
 .calendario .calen-card {
   position: relative;
   box-shadow: -10px 10px 5px -2px rgba(0, 0, 0, 0.26);
+  border-radius: 2.5rem 2.5rem 0 0;
 }
 .calendario .calendario-fecha {
   position: absolute;
@@ -838,6 +840,9 @@ li.submenu:hover ul {
 .bloque2 .botones {
   bottom: 250px;
 }
+.bloque2 .owl-carousel {
+  position: relative;
+}
 .bloque2 .owl-carousel .owl-item {
   margin-left: 10px;
   margin-right: 10px;
@@ -845,7 +850,23 @@ li.submenu:hover ul {
 .bloque2 .owl-theme .owl-nav [class*=owl-] {
   color: #EFB810 !important;
   background: transparent;
-  font-size: 44px;
+  font-size: 10rem;
+}
+.bloque2 .owl-nav {
+  position: absolute;
+  top: 22rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+.bloque2 .owl-dots {
+  position: absolute;
+  top: 34rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
 }
 .bloque2 .owl-next {
   background: transparent;
@@ -881,6 +902,7 @@ li.submenu:hover ul {
   color: white;
   height: 8px;
   max-width: 250px;
+  opacity: 1;
 }
 
 .carusel-nuevo .carusel-tamano {
@@ -1073,6 +1095,16 @@ li.submenu:hover ul {
   width: 413.8px;
 }
 
+@media screen and (max-width: 576px) {
+  .bloque2 .cliente-1 {
+    width: 25rem;
+    height: auto;
+    margin-bottom: 2rem;
+  }
+  .bloque2 .sombras {
+    width: 40rem;
+  }
+}
 @media screen and (min-width: 1400px) {
   .perfil2 .hola-perfil {
     bottom: -46px;

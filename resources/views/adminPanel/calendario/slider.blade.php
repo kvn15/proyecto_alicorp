@@ -6,32 +6,31 @@
     @endphp --}}
 
     <div class="page-content">
-
-        <div class="container-fluid mt-5">
-            <div class="row proyecto ">
+        <div class="container-fluid">
+            <div class="row proyecto mt-5">
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
 
-                                <h4 class="card-title">Promociones de Redes Sociales </h4>
-                                <form method="post" action="{{ route('adminPanel.inicio.store.promo') }}"
+                                <h4 class="card-title">Inicio Sección Slide Page </h4>
+                                <form method="post" action="{{ route('adminPanel.calendario.store.slider') }}"
                                     enctype="multipart/form-data">
                                     @csrf
 
                                     <div class="row mb-5"></div>
 
                                     <div class="row mb-3">
-                                        <label for="promos">Selecciona las imágenes de las Promociones:</label>
-                                        <input type="file" name="promos[]" multiple>
+                                        <label for="images">Selecciona las imágenes:</label>
+                                        <input type="file" name="images[]" multiple>
                                     </div>
                                     @foreach ($errors->all() as $error)
                                         <div class="alert alert-danger">
                                             {{ $error }}
                                         </div>
                                     @endforeach
-
-                                    <button type="submit">Subir Promociones</button>
+                                    <!-- end row -->
+                                    <button type="submit">Subir Imágenes</button>
                                 </form>
                             </div>
                         </div>
@@ -43,7 +42,7 @@
                         <div class="card">
                             <div class="card-body">
 
-                                <h4 class="card-title">Editar las Promociones</h4>
+                                <h4 class="card-title">Editar los Sliders</h4>
 
 
                                 <table id="datatable" class="table table-bordered dt-responsive nowrap"
@@ -51,21 +50,25 @@
                                     <thead>
                                         <tr>
                                             <th>Sl</th>
-                                            <th>Promoción</th>
+                                            <th>Slider</th>
                                             <th>Opción</th>
-                                        </tr>
+
                                     </thead>
+
 
                                     <tbody>
                                         @php($i = 1)
-                                        @foreach ($AllPromo as $item1)
+                                        @foreach ($AllSlideC as $item)
                                             <tr>
                                                 <td> {{ $i++ }} </td>
-                                                <td> <img src="{{ asset('storage/' . $item1->home_promos) }}"
+                                                <td> <img src="{{ asset('storage/' . $item->caledario_slide) }}"
                                                         style="width: 60px; height: 50px;"> </td>
 
                                                 <td>
-                                                    <a href="{{ route('adminPanel.inicio.delete.promo', $item1->id) }}"
+                                                    {{-- <a href="{{ route('adminPanel.edit.slide', $item->id) }}" class="btn btn-info sm"
+                                                        title="Edit Data"> <i class="fas fa-edit"></i> </a> --}}
+
+                                                    <a href="{{ route('adminPanel.calendario.delete.slide', $item->id) }}"
                                                         class="btn btn-danger sm" title="Delete Data" id="delete"> <i
                                                             class="fas fa-trash-alt"></i> </a>
 
@@ -83,17 +86,17 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#promos').change(function(e) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    $('#showpromos').attr('src', e.target.result);
-                }
-                reader.readAsDataURL(e.target.files['0']);
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#promos').change(function(e) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#showpromos').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(e.target.files['0']);
+                });
             });
-        });
-    </script>
+        </script>
 @endsection

@@ -21,13 +21,6 @@
               <img src="{{asset('storage/'.$slide->home_slide)}}" class="d-block w-100 " alt="...">
             </div>
         @endforeach
-        
-        {{-- <div class="carousel-item">
-          <img src="" class="d-block w-100 " alt="...">
-        </div>
-        <div class="carousel-item">
-          <img src="" class="d-block w-100 " alt="...">
-        </div> --}}
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
         data-bs-slide="prev">
@@ -62,33 +55,32 @@
                 @foreach ($promos as $promo)
                 <div class="owl-item"><img src="{{asset('storage/'.$promo->home_promos)}}" height="250px"></div>
                 @endforeach
-                
               </div>
-              <div class="owl-nav position-relative botones">
+              {{-- <div class="owl-nav position-relative botones">
                 <div class="owl-prev"><i class="fa fa-chevron-left" aria-hidden="true"></i></div>
                 <div class="owl-next"><i class="fa fa-chevron-right" aria-hidden="true"></i></div>
-            </div>
+              </div> --}}
             </div>
           </div>
         </div>
       </div>
 
-      <div class="container position-relative logos-marcas">
-        <div class="row justify-content-center align-items-center">
+      <div class="container position-relative logos-marcas mt-5">
+        <div class="row justify-content-md-center align-items-md-center">
           <div class="col-md-1"></div>
-          <div class="col-md-2">
+          <div class="col-md-2 col-xs-12">
             <img src="img/marsella.png">
           </div>
-          <div class="col-md-2">
+          <div class="col-md-2 col-sm-6">
             <img src="img/bolivar.png" alt="">
           </div>
-          <div class="col-md-2 me-3">
+          <div class="col-md-2 col-sm-6 me-3">
             <img src="img/amaras.png" alt="">
           </div>
-          <div class="col-md-2 ms-5">
+          <div class="col-md-2 col-sm-6 ms-5">
             <img src="img/dento.png" alt="">
           </div>
-          <div class="col-md-2">
+          <div class="col-md-2 col-sm-6">
             <img src="img/donvittorio.png" alt="">
           </div>
           <div class="col-md-1"></div>
