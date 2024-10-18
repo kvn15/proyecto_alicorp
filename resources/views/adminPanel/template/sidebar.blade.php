@@ -55,6 +55,7 @@
                         </a> </li>
                     </ul>
                 </li>
+                
                 <li class="nav-item"> 
                     <a href="#" class="nav-link {{ request()->routeIs('admin.dashboard.juegosWeb') || request()->routeIs('juego_web.*.*') ? 'active' : '' }}"> 
                         <i class="nav-icon bi bi-window"></i>
