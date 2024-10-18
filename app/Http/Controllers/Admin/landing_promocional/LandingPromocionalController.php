@@ -8,11 +8,13 @@ use App\Models\GameView;
 use App\Models\Participant;
 use App\Models\Project;
 use App\Models\RaspaGana;
+use App\Models\Roulette;
 use App\Models\ViewProject;
 use Carbon\Carbon;
 use DateTime;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LandingPromocionalController extends Controller
 {
@@ -299,6 +301,26 @@ class LandingPromocionalController extends Controller
         ];
 
         return view('admin.pages.landing_promocional.personalizarRaspaGana', compact('data'));
+    }
+
+    public function personalizarRuleta($id) {
+        
+        $project = Project::where('id', $id)
+                            ->first();
+        $gameRuleta = Roulette::where('project_id', $id)->first();
+        $projectPremio = AwardProject::where('project_id', $id)->get();
+        $premioRuleta = DB::table('award_projects')->where('project_id', $id)->select('nombre_premio as name', DB::raw("CONCAT('/storage/', imagen) AS img"))->get();
+        $premio = $this->obtenerPremio($id);
+
+        $data = [
+            'project' => $project,
+            'gameRuleta' => $gameRuleta,
+            'projectPremio' => $projectPremio,
+            'premio' => $premio,
+            'premioRuleta' => $premioRuleta
+        ];
+
+        return view('admin.pages.landing_promocional.personalizarRuleta', compact('data'));
     }
 
     public function obtenerPremio($projectId) {

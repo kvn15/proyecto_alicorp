@@ -80,7 +80,7 @@
                                 <span class="title-accion"><b>Acciones</b></span>
                                 <div class="body-accion d-flex">
                                     @php
-                                        $ruta = empty($project["landing"]->game_id) ? 'landing_promocional.show.personalizarLanding' : ($project["landing"]->game_id == 3 ? 'juego_campana.show.personalizarJuego' : ($project["landing"]->game_id == 1 ? 'juego_campana.show.personalizarJuego.raspagana' : 'landing_promocional.show.personalizarLanding'))
+                                        $ruta = empty($project["landing"]->game_id) ? 'landing_promocional.show.personalizarLanding' : ($project["landing"]->game_id == 3 ? 'juego_campana.show.personalizarJuego' : ($project["landing"]->game_id == 1 ? 'juego_campana.show.personalizarJuego.raspagana' : 'juego_campana.show.personalizarJuego.ruleta'))
                                     @endphp
                                     <a href="{{route($ruta, $project["landing"]->id )}}" class="btn btn-outline-secondary me-2" style="align-self: flex-start;font-size: 14px;">Personalizar</a>
                                     @if ($project["landing"]->status == '0')
