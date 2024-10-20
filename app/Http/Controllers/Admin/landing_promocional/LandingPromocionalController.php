@@ -158,6 +158,13 @@ class LandingPromocionalController extends Controller
                             ->first();
         return view('admin.pages.landing_promocional.ganadores', compact('landing'));
     }
+    
+    public function asignacion($id)
+    {
+        $landing = Project::where('id', $id)
+                            ->first();
+        return view('admin.pages.landing_promocional.asingnacion', compact('landing'));
+    }
 
     public function configuracion($id)
     {

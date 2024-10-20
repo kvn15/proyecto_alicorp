@@ -15,7 +15,7 @@ class Xplorer extends Authenticatable
     protected $guard = 'xplorer';
 
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'documento'
     ];
 
     protected $hidden = [

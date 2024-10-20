@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AsignacionProjectsExport;
 use App\Exports\GanadoresExport;
 use App\Exports\ParticipantsExport;
 use App\Models\Participant;
@@ -33,6 +34,11 @@ class ParticipantController extends Controller
     public function exportGanador($id)
     {
         return Excel::download(new GanadoresExport($id), 'ganadores.xlsx');
+    }
+
+    public function exportAsignacion($id)
+    {
+        return Excel::download(new AsignacionProjectsExport($id), 'asignaciones.xlsx');
     }
 
 }

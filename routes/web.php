@@ -100,7 +100,7 @@ Route::prefix('admin')->group(function () {
         Route::get('show/{id}/participantes',[LandingPromocionalController::class, 'participante'])->name('juego_campana.show.participantes');
         Route::get('show/{id}/ganadores',[LandingPromocionalController::class, 'ganador'])->name('juego_campana.show.ganadores');
         Route::get('show/{id}/configuracion',[LandingPromocionalController::class, 'configuracion'])->name('juego_campana.show.configuracion');
-        Route::get('show/{id}/asignacion',[LandingPromocionalController::class, 'configuracion'])->name('juego_campana.show.asignacion');
+        Route::get('show/{id}/asignacion',[LandingPromocionalController::class, 'asignacion'])->name('juego_campana.show.asignacion');
     });
 
     // registros
@@ -111,6 +111,8 @@ Route::prefix('admin')->group(function () {
     Route::put('/premio/{id}', [ProjectController::class, 'guardarDatosPremios'])->name('project.config.premio');
     Route::get('/premio/{id}', [ProjectController::class, 'obtenerPremio'])->name('project.config.premio.get');
     Route::put('/estado/{id}', [ProjectController::class, 'guardarDatosEstado'])->name('project.config.estado');
+    Route::put('/condicion/{id}', [ProjectController::class, 'guardarDatosCondicion'])->name('project.config.condicion');
+    Route::get('/condicion/{id}', [ProjectController::class, 'obtenerCondicion'])->name('project.config.condicion.get');
 });
 
 Route::group(['middleware' => 'auth'], function() {
@@ -208,6 +210,7 @@ Route::prefix('ruleta')->group(function () {
 Route::post('game/ganador/{id}', [ParticipantController::class, 'ganador'])->name('post.ganador');
 Route::get('/export-participante/{id}', [ParticipantController::class, 'export'])->name("export.participante");
 Route::get('/export-ganador/{id}', [ParticipantController::class, 'exportGanador'])->name("export.ganadores");
+Route::get('/export-asignacion/{id}', [ParticipantController::class, 'exportAsignacion'])->name("export.asignacion");
 
 
 require __DIR__.'/auth.php';

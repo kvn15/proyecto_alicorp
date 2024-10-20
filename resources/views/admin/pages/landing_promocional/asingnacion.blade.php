@@ -1,7 +1,7 @@
 @extends('admin.pages.inicio.layout')
 
 @section('header_left')
-  <span>Landing Promocional > <b>Nueva Proyecto Landing</b></span>
+  <span>{{ $landing->project_type->name }} > <b>{{ $landing->nombre_promocion }}</b></span>
 @endsection
 
 @section('header_center')
@@ -10,19 +10,25 @@
 @endsection
 
 @section('header_right')
+@if ($landing->status)
+<button type="button" class="btn btn-inactivo">
+    Activo
+</button>
+@else
 <button type="button" class="btn btn-inactivo">
     Inactivo
 </button>
+@endif
 @endsection
 
 @section('inicio_dash')
 <div class="row-show">
-    <x-admin.menu-reg ruta="landing_promocional"  id="1" />
+    <x-admin.menu-reg ruta="{{$landing->project_type->ruta_name}}"  id="{{ $landing->id }}" />
     <div class="body-right">
         <h3>Asignaciones</h3>
 
         <div class="row">
-            <livewire:asignacion-table />
+            <livewire:asignacion-table  :projectId="$landing->id"/>
         </div>
     </div>
 </div>

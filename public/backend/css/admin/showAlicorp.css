@@ -345,3 +345,17 @@ canvas {
     font-weight: 500 !important;
     font-size: 12px !important;
 }
+
+.btn-outline-dark {
+    background-color: #fff;
+    color: var(--black);
+    border: 1px solid var(--black);
+}
+
+.input-group-tabla {
+    height: 40px;
+}
+
+.input-group-tabla .input-group-text, .input-group-tabla  .form-table {
+    border-color: var(--black) !important;
+}

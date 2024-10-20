@@ -36,6 +36,10 @@
                     <button class="nav-link" id="nav-vigencia-tab" data-bs-toggle="tab" data-bs-target="#nav-vigencia" type="button" role="tab" aria-controls="nav-vigencia" aria-selected="false">Vigencia</button>
                     <button class="nav-link" id="nav-estilos-tab" data-bs-toggle="tab" data-bs-target="#nav-estilos" type="button" role="tab" aria-controls="nav-estilos" aria-selected="false">Estilos</button>
                     <button class="nav-link" id="nav-premios-tab" data-bs-toggle="tab" data-bs-target="#nav-premios" type="button" role="tab" aria-controls="nav-premios" aria-selected="false">Premios</button>
+                    @if ($project->project_type->id == 3)
+                    <button class="nav-link" id="nav-condicion-tab" data-bs-toggle="tab" data-bs-target="#nav-condicion" type="button" role="tab" aria-controls="nav-condicion" aria-selected="false">Condicionales</button>
+                    <button class="nav-link" id="nav-asignacion-tab" data-bs-toggle="tab" data-bs-target="#nav-asignacion" type="button" role="tab" aria-controls="nav-asignacion" aria-selected="false">Asignaciones PDV</button>
+                    @endif
                     <button class="nav-link" id="nav-estado-tab" data-bs-toggle="tab" data-bs-target="#nav-estado" type="button" role="tab" aria-controls="nav-estado" aria-selected="false">Estado</button>
                 </div>
             </nav>
@@ -319,6 +323,49 @@
                         </div>
                     </form>
                 </div>
+                @if ($project->project_type->id == 3)
+                <div class="tab-pane fade" id="nav-condicion" role="tabpanel" aria-labelledby="nav-condicion-tab">
+                    <form method="POST" action="{{ route('project.config.condicion', $project->id) }}" class="row" id="form-condicion">
+                        @csrf
+                        @method('PUT')
+                        <div class="col-12 d-flex justify-content-between mb-4">
+                            <div>
+                                <h5>Condicionales</h5>
+                                <small>Actualiza las Restricciones del proyecto</small>
+                            </div>
+                            <div class="d-flex" style="gap: 0.7rem">
+                                <button type="button" class="btn btn-outline-secondary" style="align-self: center">Cancelar</button>
+                                <button type="submit" class="btn btn-alicorp" style="align-self: center">Guardar</button>
+                            </div>
+                        </div>
+                        <div class="col-12 row border-bottom pb-3 mb-4">
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label for="cantidad_condicion"><small><b>Número de Condicionales</b></small></label>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-5">
+                                <select name="cantidad_condicion" id="cantidad_condicion" class="form-select w-100">
+                                    <option value="0">-- Seleccione --</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="content_condicion">
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="nav-asignacion" role="tabpanel" aria-labelledby="nav-asignacion-tab">
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-between mb-4">
+                            <div>
+                                <h5>Asignación PDV</h5>
+                                <small>Actualiza las Asignaciones de PDV a Xplorers</small>
+                            </div>
+                        </div>
+                    </div>
+                    <livewire:asignacion :projectId="$project->id"/>
+                </div>
+                @endif
                 <div class="tab-pane fade" id="nav-estado" role="tabpanel" aria-labelledby="nav-estado-tab">
                     
                     <form method="POST" action="{{ route('project.config.estado', $project->id) }}" class="row" id="form-estado">
@@ -384,4 +431,150 @@
         estado.value = "{{ $project->status }}"
     </script>
     <script src="{{ asset('backend/js/admin/configuracionLanding.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var array = []
+            var data = {
+                id: '',
+                tipo_condicion: "",
+                tipo_producto: "",
+                cantidad_condicion: "",
+            };
+
+            $("#cantidad_condicion").on('change', function () {
+                const n = +$(this).val();
+
+                if (array.length > 0 && array.length > n) {
+                    array.splice(n)
+                }
+
+                for (let i = 0; i < n; i++) {
+                    const dataArray = array[i];
+                    if (!dataArray) {
+                        const datos = {...data};
+                        datos.id = uuid.v4();
+                        array[i] = datos
+                    }
+                }
+                
+                arrayAddCondicion(array)
+            });
+
+            function arrayAddCondicion(array) {
+                var html = ``;
+                array.forEach((element, index) => {
+                    html += `
+                            <div class="col-12 row border-bottom pb-3 mb-4">
+                                <input type="hidden" value="${element.id}" class="id"/>
+                                <div class="col-12 col-md-6 col-lg-3">
+                                    <label for=""><small><b>Condición ${index + 1}</b></small></label>
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-5">
+                                    <div class="w-100 mb-3">
+                                        <select class="form-select w-100 tipo_condicion" id="tipo_condicion" name="tipo_condicion">
+                                            <option value="" ${element.tipo_condicion == "" ? 'selected' : ''}>-- Seleccione --</option>
+                                            <option value="Imagen" ${element.tipo_condicion == "Imagen" ? 'selected' : ''}>Imagen</option>
+                                            <option value="Texto" ${element.tipo_condicion == "Texto" ? 'selected' : ''}>Texto</option>
+                                        </select>
+                                    </div>
+                                    <div class="w-100 mb-3">
+                                        <select class="form-select w-100 tipo_producto" id="tipo_producto" name="tipo_producto">
+                                            <option value="" ${element.tipo_producto == "" ? 'selected' : ''}>-- Seleccione --</option>
+                                            <option value="Empaque" ${element.tipo_producto == "Empaque" ? 'selected' : ''}>Empaque</option>
+                                            <option value="Fecha Vencimiento" ${element.tipo_producto == "Fecha Vencimiento" ? 'selected' : ''}>Fecha Vencimiento</option>
+                                        </select>
+                                    </div>
+                                    <div class="w-100">
+                                        <select class="form-select w-100 cantidad_condicion" id="cantidad_condicion" name="cantidad_condicion">
+                                            <option value="" ${element.cantidad_condicion == "" ? 'selected' : ''}>-- Seleccione --</option>
+                                            <option value="Número de imágenes" ${element.cantidad_condicion == "Número de imágenes" ? 'selected' : ''}>Número de imágenes</option>
+                                            <option value="Nro de Caracteres" ${element.cantidad_condicion == "Nro de Caracteres" ? 'selected' : ''}>Nro de Caracteres</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                    `;
+                });
+                $("#content_condicion").html(html);
+            }
+
+            $(document).on('change', '.tipo_condicion', function () {
+                const valor = $(this).val();
+                const id = $(this).parent().parent().parent().find(".id").val();
+
+                const dataArray = array.find(a => a.id == id)
+                dataArray.tipo_condicion = valor;
+                console.log(array)
+            });
+
+            $(document).on('change', '.tipo_producto', function () {
+                const valor = $(this).val();
+                const id = $(this).parent().parent().parent().find(".id").val();
+
+                const dataArray = array.find(a => a.id == id)
+                dataArray.tipo_producto = valor;
+                console.log(array)
+            });
+
+            $(document).on('change', '.cantidad_condicion', function () {
+                const valor = $(this).val();
+                const id = $(this).parent().parent().parent().find(".id").val();
+
+                const dataArray = array.find(a => a.id == id)
+                dataArray.cantidad_condicion = valor;
+                console.log(array)
+            });
+
+            $('#form-condicion').on('submit', function(event) {
+                event.preventDefault();
+
+                var condicion_str = array.map(a => {
+                    return [ a.tipo_condicion, a.tipo_producto, a.cantidad_condicion ]
+                })
+
+                var formData = new FormData(this);
+                formData.append('condicion_str', JSON.stringify(condicion_str))
+
+                $.ajax({
+                    url: $(this).attr('action'), // URL de la ruta
+                    method: 'POST',
+                    data: formData,
+                    contentType: false, // Para enviar los datos como FormData
+                    processData: false, // No procesar los datos
+                    success: function(data) {
+                        // Procesar los datos devueltos
+                        toastr.success(data.message); 
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
+                        toastr.error('Ocurrió un error al procesar la solicitud.');
+                    }
+                });
+            });
+
+            function obtenerCondiciones() {
+                $.ajax({
+                    type: "GET",
+                    url: '{{ route("project.config.condicion.get", $project->id) }}',
+                    success: function (response) {
+                        if (response) {
+                            response.forEach(res => {
+                                array.push({
+                                    id: uuid.v4(),
+                                    tipo_condicion: res.tipo_condicion,
+                                    tipo_producto: res.tipo_producto,
+                                    cantidad_condicion: res.cantidad_condicion,
+                                })
+                            })
+                            $("#cantidad_condicion").val(array.length);
+                            arrayAddCondicion(array)
+                        }
+                    }
+                });
+            }
+            obtenerCondiciones()
+        });
+    </script>
 @endsection

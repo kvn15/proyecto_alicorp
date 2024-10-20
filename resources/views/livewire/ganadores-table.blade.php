@@ -1,11 +1,41 @@
 <div>
     <div class="col-12 d-flex justify-content-between">
-        <div class="col-12 col-lg-4 d-flex justify-content-start" style="gap: 0.7em">
-            <div class="filtro-select-btn">
-                <span>PDV: Bodega Lucky</span>
-                <span class="cursor-pointer"><i class="bi bi-x-lg"></i></span>
+        <div class="col-12 col-lg-4 d-flex justify-content-start position-relative" style="gap: 0.7em">
+            <div class="filtro-select-btn d-none" id="premios_ctn">
+                <span>Premio: <span id="premio_text"></span></span>
+                <span class="cursor-pointer" wire:click="removePremio"><i class="bi bi-x-lg"></i></span>
             </div>
-            <button class="btn btn-filtro" style="align-self: baseline;" class="ms-3"><i class="bi bi-filter"></i> Filtros</button>
+            
+            <label for="checkFilter" class="btn btn-filtro" style="align-self: baseline;" id="btnFiltro">
+                <i class="bi bi-filter"></i> Filtros
+            </label>
+            <input hidden type="checkbox" id="checkFilter">
+            <div class="collapse-filtro">
+                <h5 class="mb-4">Filtros</h5>
+                <form class="row" style="max-width: 550px;">
+                    <div class="col-12 mb-2">
+                        <label for="premios_filtro" class="form-label">Premios</label>
+                        <select name="premios_filtro" id="premios_filtro" class="form-select" wire:model="premios_filtro">
+                            <option value="">-- Seleccione --</option>
+                            @foreach ($premiosList as $item)
+                            <option value="{{ $item->id }}">{{ $item->nombre_premio }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-6 mb-2">
+                        <label for="fecha_ini" class="form-label">Fch. Premio Inicio</label>
+                        <input type="date" name="fecha_ini" id="fecha_ini" class="form-control" wire:model="fecha_ini">
+                    </div>
+                    <div class="col-12 col-md-6 mb-2">
+                        <label for="fecha_fin" class="form-label">Fch. Premio Fin</label>
+                        <input type="date" name="fecha_fin" id="fecha_fin" class="form-control" wire:model="fecha_fin">
+                    </div>
+        
+                    <div class="col-12">
+                        <button type="button" class="btn btn-alicorp w-100" wire:click="filter">Filtrar</button>
+                    </div>
+                </form>
+            </div>
         </div>
         <div class="col-12 col-lg-4 d-flex" style="gap: 0.7rem">
             <div class="input-group mb-3 w-100">
@@ -57,4 +87,19 @@
             {{ $participant->links() }}
         </div>
     </div>
+
+    <script>
+        document.addEventListener('livewire:load', function () {
+            Livewire.on('premio', function (data) {
+                if (data != "") {
+                    const premios_ctn = document.getElementById("premios_ctn");
+                    const premio_text = document.getElementById("premio_text");
+                    console.log(data)
+                    premios_ctn.classList.remove("d-none")
+                    premios_ctn.classList.add("d-block")
+                    premio_text.textContent = data
+                }
+            });
+        });
+    </script>
 </div>

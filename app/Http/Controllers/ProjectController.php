@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AwardProject;
+use App\Models\Conditional;
 use App\Models\Project;
 use Illuminate\Http\Request;
 
@@ -193,5 +194,36 @@ class ProjectController extends Controller
         $project->update($request->all());
 
         return response()->json(['success' => true, 'message' => 'Cambios guardados correctamente.']);
+    }
+
+    public function guardarDatosCondicion(Request $request, $id) {
+
+        $arrayCondicion = json_decode($request->condicion_str, true);
+
+        $condicional = Conditional::where('project_id', $id);
+
+        $condicional->delete();
+
+        foreach ($arrayCondicion as $key => $value) {
+            $tipo_condicion = $value[0];
+            $tipo_producto = $value[1];
+            $cantidad_condicion = $value[2];
+
+            Conditional::create([
+                'project_id' => $id, 
+                'tipo_condicion' => $tipo_condicion, 
+                'tipo_producto' => $tipo_producto, 
+                'cantidad_condicion' => $cantidad_condicion
+            ]);
+        }
+        
+        return response()->json(['success' => true, 'message' => 'Cambios guardados correctamente.']);
+    }
+
+    public function obtenerCondicion($id) {
+        
+        $condicional = Conditional::where('project_id', $id)->get();
+
+        return response()->json($condicional);
     }
 }

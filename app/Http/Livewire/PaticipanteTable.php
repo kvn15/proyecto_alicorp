@@ -17,7 +17,13 @@ class PaticipanteTable extends Component
     public $sortDirection = "desc";
 
     public $projectId;
+
+    // Filtro formulario
+    public $fecha_ini = '', $fecha_fin = '', $tyc_filtro = '', $codigo_filtro = '';
  
+    // Filtro consulta
+    public $fechaIni = '', $fechaFin = '', $tyc = '', $codigo = '';
+
     public function mount($projectId) 
     {
         $this->projectId = $projectId;
@@ -34,9 +40,22 @@ class PaticipanteTable extends Component
             ->where('project_id', $this->projectId)
             ->with('user')
             ->join('users', 'users.id', '=', 'participants.user_id')
-            ->select('participants.*', 'users.name', 'users.telefono', 'users.email', 'users.documento')
-            ->orderBy($this->sortColumnName, $this->sortDirection)
-            ->simplePaginate(10);
+            ->select('participants.*', 'users.name', 'users.telefono', 'users.email', 'users.documento');
+        
+        if (!empty($this->fechaIni) && !empty($this->fechaFin)) {
+            $participant->whereBetween('participants.created_at', [$this->fechaIni, $this->fechaFin]);
+        }
+        if (!empty($this->tyc) || $this->tyc == "0") {
+            $participant->where('participants.terminos_condiciones', $this->tyc);
+            $this->emit('terminosCondiciones');
+        }
+        if (!empty($this->codigo) || $this->codigo == "0") {
+            $participant->where('participants.codigo_valido', $this->codigo);
+            $this->emit('codigos');
+        }
+
+        $participant = $participant->orderBy($this->sortColumnName, $this->sortDirection)->simplePaginate(10);
+            
         return view('livewire.paticipante-table', compact('participant'));
     }
 
@@ -54,5 +73,28 @@ class PaticipanteTable extends Component
     public function swapSortDirection() 
     {
         return $this->sortDirection === 'asc' ? 'desc' : 'asc';
+    }
+
+    public function filter() {
+        if (!empty($this->fecha_ini) && !empty($this->fecha_fin)) {
+            $this->fechaIni = $this->fecha_ini;
+            $this->fechaFin = $this->fecha_fin;
+        }
+        if (!empty($this->tyc_filtro) || $this->tyc_filtro == "0") {
+            $this->tyc = $this->tyc_filtro;
+        }
+        if (!empty($this->codigo_filtro) || $this->codigo_filtro == "0") {
+            $this->codigo = $this->codigo_filtro;
+        }
+    }
+
+    public function removeCorrecto() {
+        $this->codigo_filtro = "";
+        $this->codigo = "";
+    }
+
+    public function removeTermino() {
+        $this->tyc_filtro = "";
+        $this->tyc = "";
     }
 }

@@ -17,7 +17,10 @@ class XplorerSeeder extends Seeder
         Xplorer::create([
             'name' => 'Xplorer',
             'email' => 'xplorer@xplora.net',
-            'password' => bcrypt('usuario1$')
+            'password' => bcrypt('usuario1$'),
+            'documento' => '123456789'
         ]);
+
+        Xplorer::factory()->count(10)->create(); // Crea 10 usuarios
     }
 }
