@@ -197,11 +197,6 @@ class RaspaGanaController extends Controller
             'projectPremio' => $projectPremio,
             'premio' => $premio
         ];
-        // Vista Proyecto
-        ViewProject::create([
-            'project_id' => $project->id,
-            'codigo' => Str::random(10)
-        ]);
 
         // Borrar la sesión
         session()->forget('claveRaspaGana');
@@ -221,6 +216,11 @@ class RaspaGanaController extends Controller
         if (!isset(Auth::user()->id)) {
             return redirect()->route('login');
         }
+        // Vista Proyecto
+        ViewProject::create([
+            'project_id' => $project->id,
+            'codigo' => Str::random(10)
+        ]);
         
         $user = User::find(Auth::user()->id);
         $gameRaspaGana = RaspaGana::where('project_id', $project->id)->first();
@@ -256,6 +256,7 @@ class RaspaGanaController extends Controller
         $participant->user_id = Auth::user()->id;
         $participant->terminos_condiciones = 1;
         $participant->codigo = $request->codigo;
+        $participant->codigo_valido = 1;
         $participant->participaciones = 1;
         $participant->file_producto = $ruta;
         $participant->save();

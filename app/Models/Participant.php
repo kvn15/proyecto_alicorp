@@ -15,7 +15,7 @@ class Participant extends Model
     'codigo',
     'file_producto',
     'codigo_valido',
-    'award_project_id ',
+    'award_project_id',
     'fecha_premio',
     'punto_entrega',
     'ganador',
@@ -25,6 +25,11 @@ class Participant extends Model
     // Relacion categoria - Uno a Uno
     public function user() {
         return $this->belongsTo(User::class, 'user_id');
+    }
+    
+    // Relacion categoria - Uno a Uno
+    public function award_project() {
+        return $this->belongsTo(AwardProject::class, 'award_project_id');
     }
 
     public static function search($search) {

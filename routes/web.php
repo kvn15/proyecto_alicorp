@@ -16,7 +16,7 @@ use App\Http\Controllers\XplorerController;
 use App\Http\Controllers\AdminPanel\AdminPanelController;
 use App\Http\Controllers\AdminPanel\HomeInicioController;
 use App\Http\Controllers\AdminPanel\CalendarioController;
-
+use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\VistaController;
 
 
@@ -201,7 +201,13 @@ Route::prefix('ruleta')->group(function () {
     Route::post('/registroImgPremio/{id}', [RuletaController::class, 'storeImgPremio'])->name("juego3.registroPremio.img");
     Route::post('/registroImgPremioFinal/{id}', [RuletaController::class, 'storeImgPremioFinal'])->name("juego3.registroPremioFinal.img");
     Route::get('/{hub}', [RuletaController::class, 'show'])->name('juego.view.ruleta');
+    Route::get('/{hub}/registro', [RuletaController::class, 'index'])->name('juego.view.registro.ruleta');
+    Route::post('/{hub}/registro', [RuletaController::class, 'store'])->name('juego.post.registro.ruleta');
 });
+
+Route::post('game/ganador/{id}', [ParticipantController::class, 'ganador'])->name('post.ganador');
+Route::get('/export-participante/{id}', [ParticipantController::class, 'export'])->name("export.participante");
+Route::get('/export-ganador/{id}', [ParticipantController::class, 'exportGanador'])->name("export.ganadores");
 
 
 require __DIR__.'/auth.php';

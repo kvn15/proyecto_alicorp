@@ -12,7 +12,7 @@
                 <span class="input-group-text" id="basic-addon1" style="background-color: transparent; border-right: 0"><i class="bi bi-search"></i></span>
                 <input wire:model.debounce.300ms="search" type="text" class="form-control" placeholder="Buscar" style="border-left: 0">
             </div>
-            <button class="btn btn-filtro d-flex" style="align-self: baseline;"><i class="bi bi-download"></i> <span class="ms-2">Descargar</span></button>
+            <a href="{{ route("export.ganadores", $projectId) }}" class="btn btn-filtro d-flex" style="align-self: baseline;"><i class="bi bi-download"></i> <span class="ms-2">Descargar</span></a>
         </div>
     </div>
 
@@ -44,7 +44,7 @@
                         <td>{{ $value->participaciones }}</td>
                         <td class="badge-alicorp">
                             <span class="badge text-bg-success">
-                                Articulo 1 {{ $value->award_project_id  }}
+                                {{ $value->award_project->nombre_premio  }}
                             </span>
                         </td>
                         <td>

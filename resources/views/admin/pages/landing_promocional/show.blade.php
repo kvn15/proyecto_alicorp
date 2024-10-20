@@ -1,7 +1,10 @@
 @extends('admin.pages.inicio.layout')
 
 @section('header_left')
-  <span>{{ $project["landing"]->project_type->name }} > <b>{{ $project["landing"]->nombre_promocion }}</b></span>
+    @php
+        $ruta = $project["landing"]->project_type->id == 1 ? "landing_promocional.index" : ($project["landing"]->project_type->id == 2 ? "admin.dashboard.juegosWeb" : "admin.dashboard.juegosCamp");
+    @endphp
+  <span><a href="{{ route($ruta) }}">{{ $project["landing"]->project_type->name }}</a> > <b>{{ $project["landing"]->nombre_promocion }}</b></span>
 @endsection
 
 @section('header_center')
@@ -71,7 +74,7 @@
                             <div class="item-etapa">
                                 <span class="title-etapa"><b>Participantes</b></span>
                                 <div class="body-etapa">
-                                    <span>0</span>
+                                    <span>{{ $project["NroParticipantes"] }}</span>
                                 </div>
                             </div>
                         </div>
@@ -149,7 +152,7 @@
                         </div>
 
                         <div class="w-100 d-flex justify-content-end mt-4">
-                            <a href="" class="ver_mas">
+                            <a href="{{ route("landing_promocional.show.participantes", $project["landing"]->id) }}" class="ver_mas">
                                 Ver más <i class="bi bi-arrow-right"></i>
                             </a>
                         </div>
@@ -200,16 +203,15 @@
                             @foreach ($project["ultGanadores"] as $ultGanadores)
                             <div class="row">
                                 <div class="col-5 name-ganador">
-                                    <span>{{ $ultGanadores->users->name }}</span>
+                                    <span>{{ $ultGanadores->user->name }}</span>
                                     <small>{{ $ultGanadores->created_at }}</small>
                                 </div>
                                 <div class="col-3 documento-ganador">
-                                    <span>{{ $ultGanadores->users->documento }}</span>
+                                    <span>{{ $ultGanadores->user->documento }}</span>
                                 </div>
                                 <div class="col-4 estado-ganador">
-                                    <span class="estado-win">Articulo 1</span>
                                     @if ($ultGanadores->ganador == 1)
-                                    <span class="estado-win">Articulo 1</span>
+                                    <span class="estado-win">{{ $ultGanadores->award_project->nombre_premio }}</span>
                                     @else
                                     <span class="estado-lose">Articulo 1</span>
                                     @endif
@@ -219,7 +221,7 @@
                         </div>
 
                         <div class="w-100 d-flex justify-content-end mt-4">
-                            <a href="" class="ver_mas">
+                            <a href="{{ route("landing_promocional.show.ganadores", $project["landing"]->id) }}" class="ver_mas">
                                 Ver más <i class="bi bi-arrow-right"></i>
                             </a>
                         </div>

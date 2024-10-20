@@ -4,10 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\AwardProject;
+use App\Models\Participant;
 use App\Models\Project;
 use App\Models\Roulette;
+use App\Models\User;
+use App\Models\ViewProject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class RuletaController extends Controller
 {
@@ -208,22 +213,35 @@ class RuletaController extends Controller
     }
 
     public function show($hub) {
-        
     
         // Obtener proyecto
         $project = Project::where('dominio', $hub)->where('status', 1)->where('game_id', 2)->first();
+        
+        if(!isset($project)){
+            return redirect()->route('index');
+        }
+
+        if (!session()->has('claveRuleta')) {
+            return redirect()->route('juego.view.registro.ruleta', $hub);
+        }
+        $idParticipante = session('claveRuleta');
+        
         $gameRuleta = Roulette::where('project_id', $project->id)->first();
         $projectPremio = AwardProject::where('project_id', $project->id)->get();
-        $premioRuleta = DB::table('award_projects')->where('project_id', $project->id)->select('nombre_premio as name', DB::raw("CONCAT('/storage/', imagen) AS img"))->get();
+        $premioRuleta = DB::table('award_projects')->where('project_id', $project->id)->select('id', 'nombre_premio as name', DB::raw("CONCAT('/storage/', imagen) AS img"))->get();
         $premio = $this->obtenerPremio($project->id);
 
         $data = [
+            'idParticipante' => $idParticipante,
             'project' => $project,
             'gameRuleta' => $gameRuleta,
             'projectPremio' => $projectPremio,
             'premio' => $premio,
             'premioRuleta' => $premioRuleta
         ];
+
+        // Borrar la sesión
+        session()->forget('claveRuleta');
 
         return view('admin.pages.ruleta.ruleta', compact('data'));
     }
@@ -267,5 +285,80 @@ class RuletaController extends Controller
                 ];
             }
         }
+    }
+
+    // 
+    public function index($hub) {
+        
+        // Obtener proyecto
+        $project = Project::where('dominio', $hub)->where('status', 1)->where('game_id', 2)->first();
+
+        if(!isset($project)){
+            return redirect()->route('index');
+        }
+
+        if (!isset(Auth::user()->id)) {
+            return redirect()->route('login');
+        }
+        // Vista Proyecto
+        ViewProject::create([
+            'project_id' => $project->id,
+            'codigo' => Str::random(10)
+        ]);
+        
+        $user = User::find(Auth::user()->id);
+        $gameRuleta = Roulette::where('project_id', $project->id)->first();
+
+        $data = [
+            'project' => $project,
+            'user' => $user,
+            'gameRuleta' => $gameRuleta
+        ];
+
+        return view('admin.pages.ruleta.registroruleta', compact('data'));
+    }
+
+    public function store(Request $request, $id) {
+
+        $project = Project::where('id', $id)->first();
+
+        // Almacenar la imagen en el directorio deseado
+        $ruta = '';
+        if ($request->hasFile('imagen')) {
+            $ruta = $request->file('imagen')->store('ruleta', 'public'); // Almacena en storage/app/public/imagenes
+        }
+
+        // Verificar si el codigo ya existe
+        $isCodigo = Participant::where('project_id', $id)->where('codigo', $request->codigo)->first();
+
+        if (isset($isCodigo)) {
+            return redirect()->route('juego.view.registro.ruleta', $project->dominio)->with('mensaje', 'El N° de LOTE ya existe.');;
+        }
+        
+        $participant = new Participant();
+        $participant->project_id = $id;
+        $participant->user_id = Auth::user()->id;
+        $participant->terminos_condiciones = 1;
+        $participant->codigo = $request->codigo;
+        $participant->codigo_valido = 1;
+        $participant->participaciones = 1;
+        $participant->file_producto = $ruta;
+        $participant->save();
+
+        $user= User::findOrFail(Auth::user()->id);
+
+        // Actualizar usuario
+        $user->update([
+            'name' => $request->name,
+            'apellido' => $request->apellido,
+            'tipo_documento' => $request->tipo_doc,
+            'documento' => $request->documento,
+            'edad' => $request->edad,
+            'telefono' => $request->telefono
+        ]);
+
+        $uuid = Str::uuid()->toString();
+
+        return redirect()->route('juego.view.ruleta', $project->dominio)->with('claveRuleta', $participant->id);
     }
 }

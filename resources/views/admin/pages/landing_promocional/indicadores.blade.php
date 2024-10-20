@@ -360,7 +360,7 @@
     const data = {
         labels: meses.split('|'),
         datasets: [{
-            label: 'Ventas',
+            label: 'Participantes',
             data: participantes.split('|'), // Datos para cada mes
             backgroundColor: [
                 '#E9EDF7', '#E9EDF7', '#E9EDF7', '#E9EDF7', '#E9EDF7', '#E9EDF7', 

@@ -42,8 +42,8 @@ class LandingPromocionalController extends Controller
         $NroGanadores = Participant::where('project_id', $id)->where('ganador', 1)->count();
 
         // Obtener ultimos ganadores
-        $ultParticipantes = Participant::where('project_id', $id)->orderBy('created_at', 'desc')->get();
-        $ultGanadores = Participant::where('project_id', $id)->where('ganador', 1)->orderBy('created_at', 'desc')->get();
+        $ultParticipantes = Participant::where('project_id', $id)->orderBy('created_at', 'desc')->limit(8)->get();
+        $ultGanadores = Participant::where('project_id', $id)->where('ganador', 1)->orderBy('created_at', 'desc')->limit(8)->get();
         
         // Obtener los meses
         $startDate = Carbon::parse($landing->fecha_ini_proyecto);
@@ -309,7 +309,7 @@ class LandingPromocionalController extends Controller
                             ->first();
         $gameRuleta = Roulette::where('project_id', $id)->first();
         $projectPremio = AwardProject::where('project_id', $id)->get();
-        $premioRuleta = DB::table('award_projects')->where('project_id', $id)->select('nombre_premio as name', DB::raw("CONCAT('/storage/', imagen) AS img"))->get();
+        $premioRuleta = DB::table('award_projects')->where('project_id', $id)->select('id', 'nombre_premio as name', DB::raw("CONCAT('/storage/', imagen) AS img"))->get();
         $premio = $this->obtenerPremio($id);
 
         $data = [

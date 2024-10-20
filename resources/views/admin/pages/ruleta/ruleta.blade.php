@@ -4,6 +4,7 @@
     $projectPremio = $data["projectPremio"]; 
     $premioSelect = $data["premio"]; 
     $premioRuleta = $data["premioRuleta"];
+    $idParticipante = $data["idParticipante"];
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -204,10 +205,10 @@
         .content_premio_img img {
             position: absolute;
             left: 50%;
-            top: 5%;
+            top: 50%;
             width: 100%;
             max-width: 300px;
-            transform: translateX(-50%);
+            transform: translate(-50%, -50%);
         }
 
         .content_premio h5 {
@@ -224,6 +225,8 @@
             padding: 0.2em 0.8em;
             border-radius: 25px;
             border: 0;
+            display: block;
+            text-decoration: none;
         }
         #fin_juego {
             height: 100%;
@@ -343,13 +346,18 @@
                 </div>
                 <h5 id="title_premio">{{ $projectPremio[0]["nombre_premio"] }}</h5>
                 <div class="{{ $styleBotones }} justify-content-center" style="gap: 0.4em;" id="btn_content">
-                    <button type="button" class="btn_premio" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">IR A REGISTRO</button>
-                    <button type="button" class="btn_premio" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">IR A HOME</button>
-                    <button type="button" class="btn_premio" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">VOLVER A JUGAR</button>
+                    <a href="{{ route("juego.view.registro.ruleta", $project->dominio) }}" class="btn_premio" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">IR A REGISTRO</a>
+                    <a href="{{ route("index") }}" class="btn_premio" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">IR A HOME</a>
+                    {{-- <a href="" class="btn_premio" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">VOLVER A JUGAR</a> --}}
                 </div>
             </div>
         </div>
     </div>
+    <form action="{{ route("post.ganador", $idParticipante) }}" method="POST" id="ganador_form">
+        @csrf
+        @method('POST')
+        <input type="hidden" name="idPremio" id="idPremio" value="0">
+    </form>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" defer
@@ -394,8 +402,9 @@
         // ]
 
         data.push({
-            name: 'Sigue Intentando',
-            img: '{{ $imgNulo }}'
+            "id": 0,
+            "name": 'Sigue Intentando',
+            "img": '{{ $imgNulo }}'
         })
 
         let index = 0;
@@ -505,6 +514,7 @@
                 // // Check winner
                 if (startDeg % 360 < 360 && startDeg % 360 > 270 && endDeg % 360 > 0 && endDeg % 360 < 90) {
                     index = items[i]
+                    console.log(index)
                 }
             }
         }
@@ -526,7 +536,7 @@
             draw();
             window.requestAnimationFrame(animate);
         }
-//3174.0301937599493 3294.0301937599493
+        //3174.0301937599493 3294.0301937599493
         function spin() {
             if (speed != 0) {
                 return;
@@ -542,7 +552,7 @@
             window.requestAnimationFrame(animate);
             setTimeout(() => {
                 sectionRuletaSelect(index)
-            }, 14000);
+            }, 14500);
         }
 
         function spin2() {
@@ -582,11 +592,41 @@
 
         function sectionRuletaSelect(posicion) {  
             const premio = data.find(d => d.name == posicion);
-            $("#premio_first").attr('src', `${premio.img}`);
-            $("#title_premio").html(premio.name);
-            $("#fin_juego").removeClass('d-none');
-            $("#juego").removeClass('d-block');
-            $("#juego").addClass('d-none');
+            // Agregar id
+            $("#idPremio").val(premio.id);
+            if (premio.name == "Sigue Intentando") {
+                alert("Sigue intentado.")
+                location.reload(true);
+            } else {
+                $("#premio_first").attr('src', `${premio.img}`);
+                $("#title_premio").html(premio.name);
+                $("#fin_juego").removeClass('d-none');
+                $("#juego").removeClass('d-block');
+                $("#juego").addClass('d-none');
+            }
+
+            $('#ganador_form').submit();
         }
+
+        $('#ganador_form').on('submit', function (e) {
+            e.preventDefault();
+
+            var formData = new FormData(this);
+
+            $.ajax({
+                url: $(this).attr('action'), // URL de la ruta
+                method: 'POST',
+                data: formData,
+                contentType: false, // Para enviar los datos como FormData
+                processData: false, // No procesar los datos
+                success: function(data) {
+                    console.log(data)
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
+                    toastr.error('Ocurrió un error al procesar la solicitud.');
+                }
+            });
+        });
     });
 </script>

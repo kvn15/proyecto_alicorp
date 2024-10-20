@@ -61,6 +61,7 @@ class GameMemoriaController extends Controller
         $participant->user_id = Auth::user()->id;
         $participant->terminos_condiciones = 1;
         $participant->codigo = $request->codigo;
+        $participant->codigo_valido = 1;
         $participant->participaciones = 1;
         $participant->file_producto = $ruta;
         $participant->save();
