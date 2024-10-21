@@ -128,7 +128,7 @@
     @php
         $tipoJuego = $data["project"]->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
     @endphp
-    <form method="POST" action="{{ route("juego.post.registro.raspagana", $data["project"]->id) }}" enctype="multipart/form-data" class="content-game" id="form_registro_game">
+    <form method="POST" action="{{ route($tipoJuego."juego.post.registro.raspagana", $data["project"]->id) }}" enctype="multipart/form-data" class="content-game" id="form_registro_game">
         @csrf
         @method('POST')
         <div class="container h-100-vh ">
