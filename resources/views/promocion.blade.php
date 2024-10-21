@@ -1,5 +1,8 @@
 @include('cabecera/header')
-
+@php
+    $sliders = App\Models\AdminPanel\PromocionesPage::all();    
+    $Allcards = App\Models\AdminPanel\PromocionesCard::all();
+@endphp
 <section class="carusel">
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
@@ -11,15 +14,11 @@
                 aria-label="Slide 3"></button>
         </div>
         <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="img/fondo.png" class="d-block w-100 " alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="img/carru1.jpg" class="d-block w-100 " alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="img/mano.png" class="d-block w-100 " alt="...">
-            </div>
+            @foreach ($sliders as  $key=> $slide)            
+                <div class="carousel-item {{$key == 0 ? 'active':''}}">
+                <img src="{{asset('storage/'.$slide->promociones_slide)}}" class="d-block w-100 " alt="...">
+                </div>
+             @endforeach
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
             data-bs-slide="prev">
@@ -48,66 +47,17 @@
         
     <div class="container-fluid grupo-promociones mt-5 ">
         <div class="row">
-            <div class="col-md-4 col-12 d-md-flex justify-content-center">
-                <div class="card" style="width: 35rem;">
-                    <img src="{{asset('img/promo_1.png')}}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">¡Gana un viaje!</p>
-                        <p class="card-text2">01/03/2024</p>
+            @foreach ($Allcards as $card)
+                <div class="col-md-4 col-12 d-md-flex justify-content-center mb-5">
+                    <div class="card" style="width: 35rem;">
+                        <img src="{{asset('storage/'. $card->image_path)}}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <p class="card-text">{{$card->text}}</p>
+                            <p class="card-text2">{{ Carbon\Carbon::parse($card->event_date)->format('d/m/y') }}</p>
+                        </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 col-12 d-md-flex justify-content-center">
-                <div class="card" style="width: 35rem;">
-                    <img src="{{asset('img/promo_2.png')}}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">¡Gana un viaje!</p>
-                        <p class="card-text2">01/03/2024</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 col-12 d-md-flex justify-content-center">
-                <div class="card" style="width: 35rem;">
-                    <img src="{{asset('img/promo_1.png')}}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">¡Gana un viaje!</p>
-                        <p class="card-text2">01/03/2024</p>
-                    </div>
-                </div>
-            </div>           
-        </div>
-        <div class="row mt-5 ">
-            <div class="col-md-4 col-12 d-md-flex justify-content-center">
-                <div class="card" style="width: 35rem;">
-                    <img src="{{asset('img/promo_3.png')}}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">¡Gana un viaje!</p>
-                        <p class="card-text2">01/03/2024</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 col-12 d-md-flex justify-content-center">
-                <div class="card" style="width: 35rem;">
-                    <img src="{{asset('img/promo_4.png')}}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">¡Gana un viaje!</p>
-                        <p class="card-text2">01/03/2024</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 col-12 d-md-flex justify-content-center">
-                <div class="card" style="width: 35rem;">
-                    <img src="{{asset('img/promo_3.png')}}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">¡Gana un viaje!</p>
-                        <p class="card-text2">01/03/2024</p>
-                    </div>
-                </div>
-            </div>
+                </div>           
+            @endforeach                      
         </div>
     </div>
 

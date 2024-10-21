@@ -64,15 +64,15 @@
                         </p>
                     </a> 
                     <ul class="nav nav-treeview">
-                        <li class="nav-item"> <a href="{{ route('adminPanel.calendario.slider') }}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                        <li class="nav-item"> <a href="{{ route('adminPanel.promociones.slider') }}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
                             <p>Sliders</p>
                         </a> </li>
-                    <li class="nav-item"> <a href="{{route('adminPanel.calendario.cards')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                    <li class="nav-item"> <a href="{{route('adminPanel.promociones.cards')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
                             <p>Cards Promociones</p>
                         </a> </li>
                     </ul>
                 </li>
-                <li class="nav-item"> 
+                {{-- <li class="nav-item"> 
                     <a href="{{ route('admin.dashboard.juegosCamp') }}" class="nav-link {{ request()->routeIs('admin.dashboard.juegosCamp') || request()->routeIs('juego_campana.*.*') ? 'active' : '' }}"> 
                         <i class="nav-icon bi bi-megaphone"></i>
                         <p>Juego Campaña</p>
@@ -83,7 +83,7 @@
                         <i class='nav-icon bx bx-cog'></i>
                         <p>Configuración</p>
                     </a> 
-                </li>
+                </li> --}}
             </ul>
         </nav>
         <nav class="mt-auto"> 

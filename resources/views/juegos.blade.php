@@ -1,6 +1,12 @@
 
 @include('cabecera/header-2')
 
+@php
+
+    //$dominio = App\Models\Project::where('dominio', $hub)->where('status', 1)->where('game_id', 1)->first();   
+    //$Allcards = App\Models\AdminPanel\PromocionesCard::all();
+@endphp
+
 <section class="juegos">
     <div class="container-fluid">
         <div class="row">
@@ -15,17 +21,23 @@
             <div class="col-1"></div>
             <div class="col-10 juego-card">
                 <div>
-                    <button class="button button--perfil-2">Haz match y gana</button>
+                    <a href="#">
+                        <button class="button button--perfil-2">Haz match y gana</button>
+                    </a>                    
                     <img src="{{asset('img/juego3.png')}}" alt="" >
                 </div>
                 
                 <div>
-                    <button class="button button--perfil-2">Raspa y Gang</button>
+                    <a href="{{route('juegoWeb.juego.view.raspagana/')}}">
+                        <button class="button button--perfil-2">Raspa y Gana</button>
+                    </a>                    
                     <img src="{{asset('img/juego2.png')}}" alt="" >
                 </div>
                 
                 <div>
-                    <button class="button button--perfil-2">Ruleta Casino</button>
+                    <a href="#">
+                        <button class="button button--perfil-2">Ruleta Casino</button>
+                    </a>                    
                     <img src="{{asset('img/juego1.png')}}" alt="" >
                 </div>                
             </div>
