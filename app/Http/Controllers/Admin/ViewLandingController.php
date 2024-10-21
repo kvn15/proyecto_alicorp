@@ -268,7 +268,7 @@ class ViewLandingController extends Controller
             $rutaParticipar2 = $request->file('participar_2')->store('participar', 'public'); // Almacena en storage/app/public/imagenes
         }
 
-        $como_participar["participar_2"] = isset($existLanding) && isset($participar2Img) && !empty($participar2Img["participar_2"]) && !$request->hasFile('participar_2')  ? $participar2Img["participar_2"] : $participar2Img;
+        $como_participar["participar_2"] = isset($existLanding) && isset($participar2Img) && !empty($participar2Img["participar_2"]) && !$request->hasFile('participar_2')  ? $participar2Img["participar_2"] : $rutaParticipar2;
 
         /// participar_3
         $rutaParticipar3 = '';
