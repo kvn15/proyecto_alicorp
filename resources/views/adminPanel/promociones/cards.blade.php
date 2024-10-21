@@ -48,7 +48,7 @@
             </script>
         
             <h1 class="mt-2">Sección de Cards de Promociones</h1>
-            <form action="{{ route('adminPanel.calendario.item.store') }}" method="POST" enctype="multipart/form-data" class="mt-5">               
+            <form action="{{ route('adminPanel.promociones.item.store') }}" method="POST" enctype="multipart/form-data" class="mt-5">               
                 @csrf
                 <div id="items-container"></div>
                 <button class="btn btn-primary" type="button" onclick="addItem()">Agregar Card</button>
@@ -93,14 +93,12 @@
                                             <td>{{$item1->text}}</td>
                                             <td>{{ Carbon\Carbon::parse($item1->event_date)->format('d-m-yy') }}</td>
                                             <td>
-                                                <a href="#" class="btn btn-info sm"
-                                                    title="Edit Data"> <i class="fas fa-edit"></i> </a>
+                                
+                                                <button title="Edit Data" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal" data-id="{{ $item1->id }}" data-text="{{ $item1->text }}" data-event_date="{{ $item1->event_date }}">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
 
-                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal" data-id="{{ $item1->id }}" data-text="{{ $item1->text }}" data-event_date="{{ $item1->event_date }}">
-                                                        Editar
-                                                    </button>
-
-                                                <a href="{{ route('adminPanel.calendario.delete.card', $item1->id) }}"
+                                                <a href="{{ route('adminPanel.promociones.delete.card', $item1->id) }}"
                                                     class="btn btn-danger sm" title="Delete Data" id="delete"> <i
                                                         class="fas fa-trash-alt"></i> </a>
 
@@ -125,7 +123,7 @@
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('adminPanel.calendario.item.update', $item1->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('adminPanel.promociones.item.update', $item1->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('post')
                 <div class="modal-header">

@@ -14,7 +14,7 @@
                             <div class="card-body">
 
                                 <h4 class="card-title">Inicio Sección Slide Page </h4>
-                                <form method="post" action="{{ route('adminPanel.calendario.store.slider') }}"
+                                <form method="post" action="{{ route('adminPanel.promociones.store.slider') }}"
                                     enctype="multipart/form-data">
                                     @csrf
 
@@ -58,17 +58,17 @@
 
                                     <tbody>
                                         @php($i = 1)
-                                        @foreach ($AllSlideC as $item)
+                                        @foreach ($AllSlideP as $item)
                                             <tr>
                                                 <td> {{ $i++ }} </td>
-                                                <td> <img src="{{ asset('storage/' . $item->caledario_slide) }}"
+                                                <td> <img src="{{ asset('storage/' . $item->promociones_slide) }}"
                                                         style="width: 60px; height: 50px;"> </td>
 
                                                 <td>
                                                     {{-- <a href="{{ route('adminPanel.edit.slide', $item->id) }}" class="btn btn-info sm"
                                                         title="Edit Data"> <i class="fas fa-edit"></i> </a> --}}
 
-                                                    <a href="{{ route('adminPanel.calendario.delete.slide', $item->id) }}"
+                                                    <a href="{{ route('adminPanel.promociones.delete.slide', $item->id) }}"
                                                         class="btn btn-danger sm" title="Delete Data" id="delete"> <i
                                                             class="fas fa-trash-alt"></i> </a>
 

@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Admin\Asignancion;
 use Illuminate\Database\Seeder;
+use App\Models\Xplorer;
+use App\Models\SalesPoint;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,5 +21,7 @@ class DatabaseSeeder extends Seeder
         Asignancion::factory(35)->create();
         $this->call(ProjectTypesSeeder::class);
         $this->call(GameSeeder::class);
+        $this->call(XplorerSeeder::class);
+        $this->call(PointSaleSeeder::class);
     }
 }

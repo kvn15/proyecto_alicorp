@@ -15,6 +15,7 @@ class CreatePromocionesPagesTable extends Migration
     {
         Schema::create('promociones_pages', function (Blueprint $table) {
             $table->id();
+            $table->string('promociones_slide')->nullable();
             $table->timestamps();
         });
     }

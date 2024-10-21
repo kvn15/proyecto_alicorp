@@ -35,6 +35,7 @@ class alicorpController extends Controller
 
     public function Juegos(){
         $juegos = 'juegos';
+        //modelo proyects , tipo de juego y status
         return view('juegos',compact($juegos));
     }
 
