@@ -4,6 +4,9 @@
     $ganadoresArray = $landingPage["ganadores"];
     // dd($ganadores);
 @endphp
+@php
+    $imgNulo = asset('backend/svg/img-null.svg');
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 <head>
