@@ -1396,7 +1396,7 @@
 
             $color_icon_redes = $redes_sociales && $redes_sociales["color-icon-redes"] ? $redes_sociales["color-icon-redes"] : '#fbbb01';
 
-            $redes_sociales_array = $redes_sociales && $redes_sociales["redes_sociales"] ? $redes_sociales["redes_sociales"] : '[]';
+            $redes_sociales_array = $redes_sociales && $redes_sociales["redes_sociales"] ? $redes_sociales["redes_sociales"] : [];
             
         @endphp
         <div class="d-none" id="redes-section">
