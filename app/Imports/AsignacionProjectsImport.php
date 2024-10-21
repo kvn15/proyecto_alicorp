@@ -50,7 +50,7 @@ class AsignacionProjectsImport implements ToModel, WithHeadingRow
 
         $asignacionRepeat = AsignacionProject::where('xplorer_id', $xplorer->id)->where('sales_point_id', $sales_point->id)->where('award_project_id', $award_project->id)->get();
 
-        if ($asignacionRepeat) {
+        if (count($asignacionRepeat) > 0) {
             throw new \Exception($xplorer->name.' ya se encuentra asignado a '.$row['punto_venta'].' con este premio: '.$row['premio']);
         }
         
