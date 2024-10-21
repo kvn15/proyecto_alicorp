@@ -244,6 +244,28 @@ $respuesta3 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta3"] ? $pr
 $pregunta4 = $preguntas_frecuentes && $preguntas_frecuentes["pregunta4"] ? $preguntas_frecuentes["pregunta4"] : '';
 $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $preguntas_frecuentes["respuesta4"] : '';
 @endphp
+@php
+    $redes_sociales = isset($landing->redes_sociales) && !empty($landing->redes_sociales) ? json_decode($landing->redes_sociales, true) : null;
+
+    $bold_titulo_redes = $redes_sociales && $redes_sociales["bold-titulo-redes"] == 1 ? "checked" : "";
+    $bold_titulo_redes_style = $redes_sociales && $redes_sociales["bold-titulo-redes"] == 1 ? "fw-bold" : "";
+    $italic_titulo_redes = $redes_sociales && $redes_sociales["italic-titulo-redes"] == 1 ? "checked" : "";
+    $italic_titulo_redes_style = $redes_sociales && $redes_sociales["italic-titulo-redes"] == 1 ? "fst-italic" : "";
+
+    $input_titulo_redes = $redes_sociales && $redes_sociales["input-titulo-redes"] ? $redes_sociales["input-titulo-redes"] : 'Redes Sociales';
+
+    $tamanoTituloRedes1 = $redes_sociales && $redes_sociales["tamanoTituloRedes"] == 1 ? 'checked' : '';
+    $tamanoTituloRedes2 = $redes_sociales && $redes_sociales["tamanoTituloRedes"] == 2 ? 'checked' : '';
+    $tamanoTituloRedes3 = $redes_sociales && $redes_sociales["tamanoTituloRedes"] == 2 ? 'checked' : '';
+    $styletamanoTituloRedes = $redes_sociales && $redes_sociales["tamanoTituloRedes"]  == 1 ? "fs-6" : ($redes_sociales && $redes_sociales["tamanoTituloRedes"]  == 2 ? "fs-3"  :  ($redes_sociales && $redes_sociales["tamanoTituloRedes"]  == 3 ? "fs-1"  : ""));
+
+    $color_titulo_redes = $redes_sociales && $redes_sociales["color-titulo-redes"] ? $redes_sociales["color-titulo-redes"] : '#fbbb01';
+
+    $color_icon_redes = $redes_sociales && $redes_sociales["color-icon-redes"] ? $redes_sociales["color-icon-redes"] : '#fbbb01';
+
+    $redes_sociales_array = $redes_sociales && $redes_sociales["redes_sociales"] ? $redes_sociales["redes_sociales"] : '[]';
+    
+@endphp
 <body>
     
     <style>
@@ -758,29 +780,49 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
                 </section>
             </div>
             <div class="w-100 pb-5" id="redes">
-            <footer>
-                <h1 class="text-center title-participar mb-5">Redes Sociales</h1>
-                <div class="d-flex justify-content-center">
-                    <a href="">
-                        <img class="img-fluid" src="{{asset('backend/svg/facebook-svgrepo-com.svg')}}" alt="">
-                    </a>
-                    <a href="">
-                        <img class="img-fluid" src="{{asset('backend/svg/instagram-svgrepo-com.svg')}}" alt="">
-                    </a>
-                    <a href="">
-                        <img class="img-fluid" src="{{asset('backend/svg/linkedin-linked-in-svgrepo-com.svg')}}" alt="">
-                    </a>
-                </div>
-            </footer>
+                <footer>
+                    <h1 class="text-center title-participar mb-5 {{ $styletamanoTituloRedes }} {{ $bold_titulo_redes_style }} {{ $italic_titulo_redes_style }}" id="redes-title" style="color: {{ $color_titulo_redes }} !important;">{{ $input_titulo_redes }}</h1>
+                    <div class="d-flex justify-content-center" id="landing_redes">
+                        {{-- <a href=""> --}}
+                            {{-- <i class="fab fa-facebook" style="font-size: 3.2rem;color: #fbbb01 !important;"></i>
+                            <i class="fab fa-instagram" style="font-size: 3.2rem;color: #fbbb01 !important;"></i>
+                            <i class="fab fa-linkedin" style="font-size: 3.2rem;color: #fbbb01 !important;"></i>
+                            <i class="fab fa-twitter" style="font-size: 3.2rem;color: #fbbb01 !important;"></i>
+                            <i class="fab fa-google" style="font-size: 3.2rem;color: #fbbb01 !important;"></i>
+                            <i class="fab fa-youtube" style="font-size: 3.2rem;color: #fbbb01 !important;"></i> --}}
+                        {{-- </a> --}}
+                    </div>
+                </footer>
             </div>
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
     integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
     integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
+</script>
+<script>
+    $(document).ready(function () {
+        var arrayRedes = {!! json_encode($redes_sociales_array) !!};
+        function addRedesLanding() {
+
+            var html = ``;
+
+            arrayRedes.forEach(a => {
+                html += `
+                    <a href="${a.enlace}">
+                        <i class="fab fa-${a.name} redes_icon" style="font-size: 3.2rem;color: {{ $color_icon_redes }};"></i>
+                    </a>
+                `;
+            })
+
+            $("#landing_redes").html(html)
+        }
+        addRedesLanding();
+    });
 </script>
 </body>
 </html>

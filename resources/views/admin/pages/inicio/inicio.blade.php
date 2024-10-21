@@ -68,9 +68,19 @@
                             <div class="item-accion">
                                 <span class="title-accion"><b>Acciones</b></span>
                                 <div class="body-accion">
+                                    @php
+                                        $ruta = empty($project->game_id) ? 'landing_promocional.show.personalizarLanding' : ($project->game_id == 3 ? 'juego_campana.show.personalizarJuego' : ($project->game_id == 1 ? 'juego_campana.show.personalizarJuego.raspagana' : 'juego_campana.show.personalizarJuego.ruleta'))
+                                    @endphp
                                     <a href="{{ route($project->project_type->ruta_name.'.show.configuracion', $project->id ) }}" class="btn btn-outline-secondary" style="font-size: 13px;">Configurar</a>
-                                    <a href="{{route('landing_promocional.show.personalizarLanding',  $project->id )}}" class="btn btn-outline-secondary" style="font-size: 13px;">Personalizar</a>
-                                    <button class="btn btn-alicorp" style="font-size: 13px;">Publicar</button>
+                                    <a href="{{route($ruta, $project->id )}}" class="btn btn-outline-secondary me-2" style="align-self: flex-start;font-size: 14px;">Personalizar</a>
+                                    @if ($project->status == '0')
+                                    <form class="publicar" action="{{ route('juego_web.show.publicar',$project->id ) }}" method="POST">
+                                        @csrf
+                                        @method('POST')
+                                        <input type="hidden" id="status" name="status" value="1">
+                                        <button type="button" class="btn btn-alicorp btn_publicar">Publicar</button>
+                                    </form>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -185,4 +195,45 @@
     </div>
 
     <livewire:modal-project :pageActual="Route::currentRouteName()" />
+@endsection
+
+@section('script_jquery2')
+<script>
+    $(document).ready(function () {
+        $(document).on('click','.btn_publicar', function (e) {
+            e.preventDefault();
+            console.log('sdsd')
+            var form = $(this).parent().parent().find('.publicar');
+
+            var formData = new FormData(form[0]);
+
+            // for (const [key, value] of formData.entries()) {
+            //     console.log(`${key}: ${value}`)
+            // }
+            // console.log($(form).attr('action'))
+            $.ajax({
+                url: $(form).attr('action'), // URL de la ruta
+                method: 'POST',
+                data: formData,
+                contentType: false, // Para enviar los datos como FormData
+                processData: false, // No procesar los datos
+                success: function(data) {
+                    // Procesar los datos devueltos
+                    // toastr.success(data.message); 
+                    if (data) {
+                        location.reload();
+                    }
+                    // if (data) {
+                    //     toastr.success('Cambios guadados correctamente'); 
+                    // }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
+                    toastr.error('Ocurrió un error al procesar la solicitud.');
+                }
+            });
+
+        });
+    });
+</script>
 @endsection

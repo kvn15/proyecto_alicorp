@@ -47,7 +47,7 @@ class ViewLandingController extends Controller
     }
 
     public function store(Request $request, $id) {
-
+        
         // Creamos el json para el encabezado
         $encabezado = [
             'color_menu' => $request['color-menu'],
@@ -138,7 +138,7 @@ class ViewLandingController extends Controller
             'bold-titulo-pregunta' => isset($request['bold-titulo-pregunta']) ? 1 : 0,
             'italic-titulo-pregunta' => isset($request['italic-titulo-pregunta']) ? 1 : 0,
             'input-titulo-pregunta' => $request["input-titulo-pregunta"],
-            'tamanoTituloPregunta' => $request["tamanoTituloPregunta"],
+            'tamanoTituloPregunta' => isset($request["tamanoTituloPregunta"]) ? $request["tamanoTituloPregunta"] : '',
             'color-titulo-pregunta' => $request["color-titulo-pregunta"],
             'color-text-pregunta' => $request["color-text-pregunta"],
             'color-borde-pregunta' => $request["color-borde-pregunta"],
@@ -150,6 +150,16 @@ class ViewLandingController extends Controller
             'respuesta3' => $request["respuesta3"],
             'pregunta4' => $request["pregunta4"],
             'respuesta4' => $request["respuesta4"],
+        ];
+
+        $redes_sociales = [
+            'input-titulo-redes' => $request["input-titulo-redes"],
+            'color-titulo-redes' => $request["color-titulo-input-redes"],
+            'bold-titulo-redes' => isset($request['bold-titulo-redes']) ? 1 : 0,
+            'italic-titulo-redes' => isset($request['italic-titulo-redes']) ? 1 : 0,
+            'tamanoTituloRedes' => $request["tamanoTituloRedes"],
+            'color-icon-redes' => $request["color-icon-redes"],
+            'redes_sociales' => json_decode($request['redes_sociales'], true)
         ];
 
         $existLanding = Landing::where('project_id', $id)->first();
@@ -291,7 +301,7 @@ class ViewLandingController extends Controller
             $landing->formulario_participar = json_encode($formulario, true);
             $landing->ganadores = json_encode($ganador, true);
             $landing->preguntas_frecuentes = json_encode($pregunta, true);
-            $landing->redes_sociales = '';
+            $landing->redes_sociales = json_encode($redes_sociales, true);
             $landing->html_preview = '';
             $landing->html_origin = '';
             $landing->html_end = '';
@@ -305,7 +315,7 @@ class ViewLandingController extends Controller
                 'formulario_participar' => json_encode($formulario, true),
                 'ganadores' => json_encode($ganador, true),
                 'preguntas_frecuentes' => json_encode($pregunta, true),
-                'redes_sociales' => '',
+                'redes_sociales' => json_encode($redes_sociales, true),
                 'html_preview' => '',
                 'html_origin' => '',
                 'html_end' => '',

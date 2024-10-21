@@ -1234,7 +1234,7 @@
 <script>
     $(document).ready(function () {
 
-        var data = {!! json_encode($premioRuleta) !!};;
+        var data = {!! json_encode($premioRuleta) !!};
         // var data = [
         //     {
         //         name: '2 entradas',

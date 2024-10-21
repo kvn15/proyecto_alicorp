@@ -249,7 +249,7 @@ class RuletaController extends Controller
 
     public function obtenerPremio($projectId) {
         // Obtener todos los premios con su probabilidad
-        $premios = AwardProject::where('project_id', $projectId)->get();
+        $premios = AwardProject::where('project_id', $projectId)->where('stock','>',0)->get();
         $project = Project::findOrFail($projectId);
     
         // Crear un array acumulativo para la probabilidad

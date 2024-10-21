@@ -318,7 +318,7 @@ class GameMemoriaController extends Controller
 
     public function obtenerPremio($projectId) {
         // Obtener todos los premios con su probabilidad
-        $premios = AwardProject::where('project_id', $projectId)->get();
+        $premios = AwardProject::where('project_id', $projectId)->where('stock','>',0)->get();
         $project = Project::findOrFail($projectId);
     
         // Crear un array acumulativo para la probabilidad
@@ -373,6 +373,12 @@ class GameMemoriaController extends Controller
                 'ganador' => 1,
                 'award_project_id ' => $request->premio_id,
                 'fecha_premio' => Carbon::now()
+            ]);
+
+            // Reducir el stock del premio
+            $premio = AwardProject::findOrFail($request->premio_id);
+            $premio->update([
+                "stock" =>  $premio->stock - 1
             ]);
         }
 

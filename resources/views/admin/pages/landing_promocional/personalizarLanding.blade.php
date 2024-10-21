@@ -1226,7 +1226,7 @@
             $italic_titulo_pregunta = $preguntas_frecuentes && $preguntas_frecuentes["italic-titulo-pregunta"] == 1 ? "checked" : "";
             $italic_titulo_pregunta_style = $preguntas_frecuentes && $preguntas_frecuentes["italic-titulo-pregunta"] == 1 ? "fst-italic" : "";
 
-            $input_titulo_pregunta = $preguntas_frecuentes && $preguntas_frecuentes["input-titulo-pregunta"] ? $preguntas_frecuentes["input-titulo-pregunta"] : 'preguntas_frecuentes';
+            $input_titulo_pregunta = $preguntas_frecuentes && $preguntas_frecuentes["input-titulo-pregunta"] ? $preguntas_frecuentes["input-titulo-pregunta"] : 'Preguntas Frecuentes';
 
             $tamanoTituloPregunta1 = $preguntas_frecuentes && $preguntas_frecuentes["tamanoTituloPregunta"] == 1 ? 'checked' : '';
             $tamanoTituloPregunta2 = $preguntas_frecuentes && $preguntas_frecuentes["tamanoTituloPregunta"] == 2 ? 'checked' : '';
@@ -1372,6 +1372,108 @@
                             <p>Respuesta</p>
                             <textarea class="form-control" name="respuesta4" id="respuesta4">{{ $respuesta4 }}</textarea>
                             <hr>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        @php
+            $redes_sociales = isset($landing->redes_sociales) && !empty($landing->redes_sociales) ? json_decode($landing->redes_sociales, true) : null;
+
+            $bold_titulo_redes = $redes_sociales && $redes_sociales["bold-titulo-redes"] == 1 ? "checked" : "";
+            $bold_titulo_redes_style = $redes_sociales && $redes_sociales["bold-titulo-redes"] == 1 ? "fw-bold" : "";
+            $italic_titulo_redes = $redes_sociales && $redes_sociales["italic-titulo-redes"] == 1 ? "checked" : "";
+            $italic_titulo_redes_style = $redes_sociales && $redes_sociales["italic-titulo-redes"] == 1 ? "fst-italic" : "";
+
+            $input_titulo_redes = $redes_sociales && $redes_sociales["input-titulo-redes"] ? $redes_sociales["input-titulo-redes"] : 'Redes Sociales';
+
+            $tamanoTituloRedes1 = $redes_sociales && $redes_sociales["tamanoTituloRedes"] == 1 ? 'checked' : '';
+            $tamanoTituloRedes2 = $redes_sociales && $redes_sociales["tamanoTituloRedes"] == 2 ? 'checked' : '';
+            $tamanoTituloRedes3 = $redes_sociales && $redes_sociales["tamanoTituloRedes"] == 2 ? 'checked' : '';
+            $styletamanoTituloRedes = $redes_sociales && $redes_sociales["tamanoTituloRedes"]  == 1 ? "fs-6" : ($redes_sociales && $redes_sociales["tamanoTituloRedes"]  == 2 ? "fs-3"  :  ($redes_sociales && $redes_sociales["tamanoTituloRedes"]  == 3 ? "fs-1"  : ""));
+        
+            $color_titulo_redes = $redes_sociales && $redes_sociales["color-titulo-redes"] ? $redes_sociales["color-titulo-redes"] : '#fbbb01';
+
+            $color_icon_redes = $redes_sociales && $redes_sociales["color-icon-redes"] ? $redes_sociales["color-icon-redes"] : '#fbbb01';
+
+            $redes_sociales_array = $redes_sociales && $redes_sociales["redes_sociales"] ? $redes_sociales["redes_sociales"] : '[]';
+            
+        @endphp
+        <div class="d-none" id="redes-section">
+            <div class="border-bottom py-2">
+                <button type="button" class="border-0 w-100 text-start" style="background-logo_subir: #fff;" id="back_redes"><i class="fas fa-chevron-left"></i> Redes Sociales</button>
+            </div>
+            <div class="py-2 border-bottom">
+                <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneRedees" aria-expanded="true" aria-controls="collapseOneRedees">
+                    <p class="mb-0"><b><img src="{{asset('backend/svg/text.svg')}}" alt="svg seccion"> <small>Titulo</small></b></p>
+                </button>
+                <ul class="list-unstyled ps-4 mt-2 collapse" id="collapseOneRedees" data-bs-parent="#accordionExample">
+                    <li class="my-2">
+                        <p class="my-1">Texto</p>
+                        <div class="d-flex justify-content-start mb-2" style="gap: 1.2em;">
+                            <div class="p-1 cursor bold">
+                                <input hidden type="checkbox" name="bold-titulo-redes" id="bold-titulo-redes" {{ $bold_titulo_redes }}>
+                                <label for="bold-titulo-redes" class="d-flex align-items-center cursor">
+                                    <svg width="11" height="14" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg" id="svg_bold_redes">
+                                        <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="#98A2B3"/>
+                                    </svg>
+                                </label>
+                            </div>
+                            <div class="p-1 cursor italic">
+                                <label for="italic-titulo-redes" class="d-flex align-items-center cursor">
+                                    <svg width="12" height="14" viewBox="0 0 12 14" xmlns="http://www.w3.org/2000/svg" id="svg_italic_redes">
+                                        <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="#98A2B3"/>
+                                    </svg>
+                                </label>
+                                <input hidden type="checkbox" name="italic-titulo-redes" id="italic-titulo-redes" {{ $italic_titulo_redes }}>
+                            </div>
+                        </div>
+                        <input type="text" class="form-control p-2" name="input-titulo-redes" id="input-titulo-redes" value="{{ $input_titulo_redes }}">
+                    </li>
+                    <li class="my-2">
+                        <p class="my-1">Tamaño Texto</p>
+                        
+                        <div class="btn-group" role="group">
+                            <input type="radio" class="btn-check" name="tamanoTituloRedes" id="tamanoTituloRedes1" autocomplete="off" value="1" {{ $tamanoTituloRedes1 }}>
+                            <label class="btn btn-outline-text" for="tamanoTituloRedes1"><small><b>Chico</b></small></label>
+                          
+                            <input type="radio" class="btn-check" name="tamanoTituloRedes" id="tamanoTituloRedes2" autocomplete="off" value="2" {{ $tamanoTituloRedes2 }}>
+                            <label class="btn btn-outline-text" for="tamanoTituloRedes2"><small><b>Mediano</b></small></label>
+                          
+                            <input type="radio" class="btn-check" name="tamanoTituloRedes" id="tamanoTituloRedes3" autocomplete="off" {{ $tamanoTituloRedes3 }} value="3">
+                            <label class="btn btn-outline-text" for="tamanoTituloRedes3"><small><b>Grande</b></small></label>
+                        </div>
+
+                    </li>
+                    <li class="my-2">
+                        <p class="my-1">Color</p>
+                        
+                        <div class="d-flex" role="group" style="gap: 0.4em;">
+                            <input type="text" class="form-control" id="color-titulo-input-redes" name="color-titulo-input-redes" value="{{ $color_titulo_redes }}">
+                            <input type="color" class="form-control form-control-color p-0" name="color-titulo-redes" id="color-titulo-redes" value="{{ $color_titulo_redes }}">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="py-2 border-bottom">
+                <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoRedees" aria-expanded="true" aria-controls="collapseTwoRedees">
+                    <p class="mb-0"><b><img src="{{asset('backend/svg/text.svg')}}" alt="svg seccion"> <small>Redes</small></b></p>
+                </button>
+                <ul class="list-unstyled ps-4 mt-2 collapse" id="collapseTwoRedees" data-bs-parent="#accordionExample">
+                    <li class="my-2">
+                        <p class="my-1">Color Redes</p>
+                        
+                        <div class="d-flex" role="group" style="gap: 0.4em;">
+                            <input type="text" class="form-control" id="color-icon-input-redes" name="color-icon-input-redes" value="{{ $color_icon_redes }}">
+                            <input type="color" class="form-control form-control-color p-0" name="color-icon-redes" id="color-icon-redes" value="{{ $color_icon_redes }}">
+                        </div>
+                    </li>
+                    <li class="my-2">
+
+                        <button type="button" class="btn btn-alicorp w-100 my-2" id="add_redes">Agregar Redes</button>
+
+                        <div id="content_redes">
+
                         </div>
                     </li>
                 </ul>
@@ -1544,7 +1646,7 @@
             footer a {
                 display: block;
                 width: 50px;
-                margin: 0px 2em;
+                margin: 0px 1em;
             }
 
 
@@ -1910,19 +2012,18 @@
                         </div>
                     </section>
                 </div>
-                <div class="w-100 mb-5" id="redes">
+                <div class="w-100 pb-5" id="redes">
                 <footer>
-                    <h1 class="text-center title-participar mb-5">Redes Sociales</h1>
-                    <div class="d-flex justify-content-center">
-                        <a href="">
-                            <img class="img-fluid" src="{{asset('backend/svg/facebook-svgrepo-com.svg')}}" alt="">
-                        </a>
-                        <a href="">
-                            <img class="img-fluid" src="{{asset('backend/svg/instagram-svgrepo-com.svg')}}" alt="">
-                        </a>
-                        <a href="">
-                            <img class="img-fluid" src="{{asset('backend/svg/linkedin-linked-in-svgrepo-com.svg')}}" alt="">
-                        </a>
+                    <h1 class="text-center title-participar mb-5 {{ $styletamanoTituloRedes }} {{ $bold_titulo_redes_style }} {{ $italic_titulo_redes_style }}" id="redes-title" style="color: {{ $color_titulo_redes }} !important;">{{ $input_titulo_redes }}</h1>
+                    <div class="d-flex justify-content-center" id="landing_redes">
+                        {{-- <a href=""> --}}
+                            {{-- <i class="fab fa-facebook" style="font-size: 3.2rem;color: #fbbb01 !important;"></i>
+                            <i class="fab fa-instagram" style="font-size: 3.2rem;color: #fbbb01 !important;"></i>
+                            <i class="fab fa-linkedin" style="font-size: 3.2rem;color: #fbbb01 !important;"></i>
+                            <i class="fab fa-twitter" style="font-size: 3.2rem;color: #fbbb01 !important;"></i>
+                            <i class="fab fa-google" style="font-size: 3.2rem;color: #fbbb01 !important;"></i>
+                            <i class="fab fa-youtube" style="font-size: 3.2rem;color: #fbbb01 !important;"></i> --}}
+                        {{-- </a> --}}
                     </div>
                 </footer>
                 </div>
@@ -2030,6 +2131,21 @@
     back_pregunta.addEventListener('click', () => {
         preguntas_section.classList.remove('d-block'); 
         preguntas_section.classList.add('d-none'); 
+        retornoMenuEdit();
+    })
+    
+    const redes_section = document.getElementById('redes-section')
+    const back_redes = document.getElementById('back_redes')
+    const redes_menu = document.getElementById('redes-menu')
+    
+    redes_menu.addEventListener('click', function() {
+        retornoMenuEditNone();
+        redes_section.classList.add('d-block'); 
+        redes_section.classList.remove('d-none'); 
+    })
+    back_redes.addEventListener('click', () => {
+        redes_section.classList.remove('d-block'); 
+        redes_section.classList.add('d-none'); 
         retornoMenuEdit();
     })
 
@@ -3213,8 +3329,271 @@
 
 
 </script>
+<script>
+    // estilo texto
+    const bold_titulo_redes = document.getElementById('bold-titulo-redes')
+    const italic_titulo_redes = document.getElementById('italic-titulo-redes')
+    const redes_title = document.getElementById("redes-title");
+
+    bold_titulo_redes.addEventListener('change', function(event) {
+        const svg_bold = document.querySelector('#svg_bold_redes path')
+        if (this.checked) {
+            redes_title.classList.add('fw-bold')
+            svg_bold.setAttribute('fill', '#000');
+        } else {
+            redes_title.classList.remove('fw-bold')
+            svg_bold.setAttribute('fill', '#98A2B3');
+        }
+    })
+
+    italic_titulo_redes.addEventListener('change', function(event) {
+        const svg_italic = document.querySelector('#svg_italic_redes path')
+        if (this.checked) {
+            redes_title.classList.add('fst-italic')
+            svg_italic.setAttribute('fill', '#000');
+        } else {
+            redes_title.classList.remove('fst-italic')
+            svg_italic.setAttribute('fill', '#98A2B3');
+        }
+    })
+
+    const input_redes = document.getElementById('input-titulo-redes')
+
+    input_redes.addEventListener('input' , function(event) {
+        redes_title.innerHTML = event.target.value
+    })
+
+
+    // tamaño titulo
+    const tamanoTituloRedes1 = document.getElementById("tamanoTituloRedes1")
+    const tamanoTituloRedes2 = document.getElementById("tamanoTituloRedes2")
+    const tamanoTituloRedes3 = document.getElementById("tamanoTituloRedes3")
+
+    tamanoTituloRedes1.addEventListener("change", function() {
+        redes_title.classList.remove('fs-1')
+        redes_title.classList.remove('fs-3')
+        redes_title.classList.add('fs-6')
+    })
+    tamanoTituloRedes2.addEventListener("change", function() {
+        redes_title.classList.remove('fs-1')
+        redes_title.classList.add('fs-3')
+        redes_title.classList.remove('fs-6')
+    })
+    tamanoTituloRedes3.addEventListener("change", function() {
+        redes_title.classList.add('fs-1')
+        redes_title.classList.remove('fs-3')
+        redes_title.classList.remove('fs-6')
+    })
+
+    const color_titulo_input_redes = document.getElementById("color-titulo-input-redes");
+    const color_titulo_redes = document.getElementById("color-titulo-redes");
+
+    color_titulo_input_redes.addEventListener("input", function(event) {
+        color_titulo_redes.value = event.target.value
+        redes_title.style.color = event.target.value
+    })
+
+    color_titulo_redes.addEventListener('input', function(event) {
+        color_titulo_input_redes.value = this.value
+        redes_title.style.color = this.value
+    })
+</script>
 @endsection
 
 @section('script_jquery')
 <script src="{{ asset('backend/js/admin/landing.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
+
+<script>
+
+    $(document).ready(function() {
+        var arrayRedes = {!! json_encode($redes_sociales_array) !!};
+        var dataRedes = {
+            "id": '',
+            "name": '',
+            'enlace': ''
+        }
+
+        $("#color-icon-input-redes").on('input', function (e) { 
+            e.preventDefault();
+            colorRedes($("#color-icon-input-redes").val())
+        });
+        
+        $("#color-icon-redes").on('input', function (e) { 
+            e.preventDefault();
+            colorRedes($("#color-icon-redes").val())
+        });
+
+        function colorRedes (valor) {  
+            var redes_icon = document.querySelectorAll(".redes_icon");
+            redes_icon.forEach(a => {
+                a.style.color = valor
+            })
+        }
+
+        $("#add_redes").click(function (e) { 
+            e.preventDefault();
+            
+            const data = {...dataRedes};
+            data.id = uuid.v4();
+            arrayRedes.push(data);
+
+            addRedes(arrayRedes);
+            addRedesLanding()
+        });
+
+        function addRedesLanding() {
+
+            var html = ``;
+
+            arrayRedes.forEach(a => {
+                html += `
+                    <a href="${a.enlace}">
+                        <i class="fab fa-${a.name} redes_icon" style="font-size: 3.2rem;color: {{ $color_icon_redes }};"></i>
+                    </a>
+                `;
+            })
+
+            $("#landing_redes").html(html)
+        }
+        
+        function addRedes(array) {
+            var html = ``;
+
+            array.forEach( (a, index) => {
+                html += `
+                <div class="d-flex flex-wrap pt-1 border-top" role="group">
+                    <input type="hidden" class="redes_id" value="${a.id}" />
+                    <div class="w-100">
+                        <label for="redes_select" class="form-label">Red ${index + 1}</label>
+                        <select name="redes_select" id="redes_select" class="form-select redes_select">
+                            <option value="">Seleccione</option>
+                            <option value="facebook" ${ a.name == 'facebook' ? 'selected' : ''}>Facebook</option>
+                            <option value="instagram" ${ a.name == 'instagram' ? 'selected' : ''}>Instagram</option>
+                            <option value="linkedin" ${ a.name == 'linkedin' ? 'selected' : ''}>Linkedin</option>
+                            <option value="twitter" ${ a.name == 'twitter' ? 'selected' : ''}>Twitter</option>
+                            <option value="gmail" ${ a.name == 'gmail' ? 'selected' : ''}>Gmail</option>
+                            <option value="youtube" ${ a.name == 'youtube' ? 'selected' : ''}>YouTube</option>
+                            <option value="tiktok" ${ a.name == 'tiktok' ? 'selected' : ''}>TikTok</option>
+                        </select>
+                    </div>
+                    <div class="w-100">
+                        <label for="enlace_select" class="form-label">Enlace ${index + 1}</label>
+                        <input type="text" name="enlace_select" id="enlace_select" class="form-control enlace_select" value="${a.enlace}">
+                    </div>
+                    <button type="button" class="btn btn-alicorp my-2 btn_borrar_red">Borrar</button>
+                </div>
+                `;
+            })
+
+            $("#content_redes").html(html);
+        }
+
+        $(document).on('click','.btn_borrar_red', function () {
+            var id = $(this).parent().find('.redes_id').val();
+
+            arrayRedes = arrayRedes.filter(a => a.id != id);
+
+            addRedes(arrayRedes);
+            addRedesLanding()
+        });
+
+        $(document).on('change','.redes_select', function () {
+            var id = $(this).parent().parent().find('.redes_id').val();
+            var valor = $(this).val();
+
+            arrayRedes.find(a => a.id == id).name = valor;
+            addRedesLanding()
+        });
+
+        $(document).on('change','.enlace_select', function () {
+            var id = $(this).parent().parent().find('.redes_id').val();
+            var valor = $(this).val();
+
+            arrayRedes.find(a => a.id == id).enlace = valor;
+            addRedesLanding()
+        });
+
+        addRedesLanding()
+        addRedes(arrayRedes);
+        
+        $("#guardar-landing").on("click", function() {
+            $("#form-landing").submit();
+        })
+
+        $('#form-landing').on('submit', function(event) {
+            event.preventDefault(); 
+
+            var formData = new FormData(this);
+            formData.append('redes_sociales', JSON.stringify(arrayRedes))
+            
+            // // Mostrar los datos en la consola (opcional)
+            // for (const [key, value] of formData.entries()) {
+            //     console.log(`${key}: ${value}`);
+            // }
+            $.ajax({
+                url: $(this).attr('action'), // URL de la ruta
+                method: 'POST',
+                data: formData,
+                contentType: false, // Para enviar los datos como FormData
+                processData: false, // No procesar los datos
+                success: function(data) {
+                    // Procesar los datos devueltos
+                    // toastr.success(data.message); 
+                    if (data) {
+                        if (data.encabezado.logo_subir) {
+                            $("#logo-nav").attr('src', `/storage/${data.encabezado.logo_subir}`);
+                        }
+                        if (data.pagina_principal.banner_subir) {
+                            $("#header").css('background-image', `url(/storage/${data.pagina_principal.banner_subir})`);
+                        }
+                        if (data.pagina_principal["imagen-subir"]) {
+                            $("#imagen-header").attr('src', `/storage/${data.pagina_principal["imagen-subir"]}`);
+                        }
+                        if (data.como_participar.participar_1) {
+                            $("#item_participar_1").attr('src', `/storage/${data.como_participar.participar_1}`);
+                        }
+                        if (data.como_participar.participar_2) {
+                            $("#item_participar_2").attr('src', `/storage/${data.como_participar.participar_2}`);
+                        }
+                        if (data.como_participar.participar_3) {
+                            $("#item_participar_3").attr('src', `/storage/${data.como_participar.participar_3}`);
+                        }
+                    }
+
+                    $("#form_html").submit();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
+                    toastr.error('Ocurrió un error al procesar la solicitud.');
+                }
+            });
+        });
+
+        $("#form_html").on("submit", function(event) {
+            event.preventDefault(); 
+            const html = $('#landing_page').html();
+
+            // Ajax para actualizar data
+            var formData2 = new FormData(this);
+            formData2.append('html', html)
+                    
+            $.ajax({
+                url: $(this).attr('action'), // URL de la ruta
+                method: 'POST',
+                data: formData2,
+                contentType: false, // Para enviar los datos como FormData
+                processData: false, // No procesar los datos
+                success: function(data) {
+                    // Procesar los datos devueltos
+                    toastr.success('Cambios guadados correctamente'); 
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
+                    toastr.error('Ocurrió un error al procesar la solicitud.');
+                }
+            });
+        })
+    });
+</script>
 @endsection

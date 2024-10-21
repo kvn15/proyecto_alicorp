@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\AsignacionProjectsExport;
 use App\Exports\GanadoresExport;
 use App\Exports\ParticipantsExport;
+use App\Models\AwardProject;
 use App\Models\Participant;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -22,6 +23,14 @@ class ParticipantController extends Controller
             "fecha_premio" => Carbon::now(),
             "award_project_id" => $request->idPremio == 0 ? null : $request->idPremio
         ]);
+
+        if ($request->idPremio > 0) {
+            // Reducir el stock del premio
+            $premio = AwardProject::findOrFail($request->idPremio);
+            $premio->update([
+                "stock" =>  $premio->stock - 1
+            ]);
+        }
 
         return response()->json(['message' => 'Se actualizo']);
     }
