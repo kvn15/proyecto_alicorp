@@ -182,6 +182,7 @@ Route::prefix('landing')->group(function () {
     Route::get('/{hub}', [ViewLandingController::class, 'index'])->name('landing.view');
     Route::post('/{id}/post', [ViewLandingController::class, 'store'])->name('landing.post');
     Route::post('/{id}/postHtml', [ViewLandingController::class, 'storeHtml'])->name('landing.post.html');
+    Route::post('/{id}/registro', [ViewLandingController::class, 'register'])->name('landing.post.register');
 });
 
 Route::prefix('juegoWeb')->group(function () {

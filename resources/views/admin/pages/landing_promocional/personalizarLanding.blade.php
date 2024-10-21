@@ -1,3 +1,7 @@
+@php
+    $project = $data["project"];
+    $landing = $data["landing"];
+@endphp
 @extends('admin.pages.inicio.layout')
 
 
@@ -22,6 +26,9 @@
     cursor: pointer;
 }
 </style>
+@php
+    $imgNulo = asset('backend/svg/img-null.svg');
+@endphp
 <div class="row p-0 ps-1 w-100">
     <form id="form_html" action="{{ route('landing.post.html', $project->id) }}" method="POST">
         @csrf
@@ -171,6 +178,36 @@
                 </ul>
             </div>
         </div>
+        @php
+            $encabezado = isset($landing->encabezado) && !empty($landing->encabezado) ? json_decode($landing->encabezado) : null;
+            $color_menu = $encabezado ? $encabezado->color_menu : '#000000';
+            $logo_subir = $encabezado ? '/storage/'.$encabezado->logo_subir : $imgNulo;
+
+            $bold_menu = $encabezado && $encabezado->bold_menu == 1 ? "checked" : "";
+            $bold_menu_style = $encabezado && $encabezado->bold_menu == 1 ? "fw-bold" : "";
+            $italic_menu = $encabezado && $encabezado->italic_menu == 1 ? "checked" : "";
+            $italic_menu_style = $encabezado && $encabezado->italic_menu == 1 ? "fst-italic" : "";
+
+            $tamanoMenu1 = $encabezado && $encabezado->tamanoMenu == 1 ? 'checked' : '';
+            $tamanoMenu2 = $encabezado && $encabezado->tamanoMenu == 2 ? 'checked' : '';
+            $tamanoMenu3 = $encabezado && $encabezado->tamanoMenu == 2 ? 'checked' : '';
+            $styleTamanoMenu = $encabezado && $encabezado->tamanoMenu  == 1 ? "fs-6" : ($encabezado && $encabezado->tamanoMenu  == 2 ? "fs-3"  :  ($encabezado && $encabezado->tamanoMenu  == 3 ? "fs-1"  : ""));
+            
+            $color_navegacion = $encabezado && $encabezado->color_navegacion ? $encabezado->color_navegacion : '#ffffff';
+            $color_navegacion_input_hover = $encabezado && $encabezado->color_navegacion_input_hover ? $encabezado->color_navegacion_input_hover : '#fbbb01';
+
+            $navegacion_1 = $encabezado && $encabezado->navegacion_1 ? $encabezado->navegacion_1 : '¿CÓMO PARTICIPAR?';
+            $direccionar_1 = $encabezado && $encabezado->direccionar_1 ? $encabezado->direccionar_1 : '#participar';
+            
+            $navegacion_2 = $encabezado && $encabezado->navegacion_2 ? $encabezado->navegacion_2 : 'PREGUNTAS FRECUENTES';
+            $direccionar_2 = $encabezado && $encabezado->direccionar_2 ? $encabezado->direccionar_2 : '#preguntas-frecuentes';
+            
+            $navegacion_3 = $encabezado && $encabezado->navegacion_3 ? $encabezado->navegacion_3 : 'TÉRMINOS Y CONDICIONES';
+            $direccionar_3 = $encabezado && $encabezado->direccionar_3 ? $encabezado->direccionar_3 : '#terminos_condiciones';
+            
+            $navegacion_4 = $encabezado && $encabezado->navegacion_4 ? $encabezado->navegacion_4 : 'VER GANADORES';
+            $direccionar_4 = $encabezado && $encabezado->direccionar_4 ? $encabezado->direccionar_4 : '#ganadores';
+        @endphp
         <div  class="d-none" id="encabezado">
             <div class="border-bottom py-2">
                 <button type="button" class="border-0 w-100 text-start" style="background-color: #fff;" id="back_encabezado"><i class="fas fa-chevron-left"></i> Encabezado</button>
@@ -201,8 +238,8 @@
                         <p class="my-1">Color Menú</p>
                         
                         <div class="d-flex" role="group" style="gap: 0.4em;">
-                            <input type="text" class="form-control" id="color-menu-input" name="color-menu-input" value="#000000">
-                            <input type="color" class="form-control form-control-color p-0" name="color-menu" id="color-menu" value="#000000">
+                            <input type="text" class="form-control" id="color-menu-input" name="color-menu-input" value="{{ $color_menu }}">
+                            <input type="color" class="form-control form-control-color p-0" name="color-menu" id="color-menu" value="{{ $color_menu }}">
                         </div>
                     </li>
                 </ul>
@@ -242,7 +279,7 @@
                         <div class="d-flex justify-content-start my-2" style="gap: 1.2em;">
                             <div class="d-flex justify-content-start mb-2" style="gap: 1.2em;">
                                 <div class="p-1 cursor bold">
-                                    <input hidden type="checkbox" name="bold-menu" id="bold-menu" value="1">
+                                    <input hidden type="checkbox" name="bold-menu" id="bold-menu" value="1" {{ $bold_menu }}>
                                     <label for="bold-menu" class="d-flex align-items-center cursor">
                                         <svg width="11" height="14" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg" id="svg_bold_menu">
                                             <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="#98A2B3"/>
@@ -255,88 +292,149 @@
                                             <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="#98A2B3"/>
                                         </svg>
                                     </label>
-                                    <input hidden type="checkbox" name="italic-menu" id="italic-menu" value="1">
+                                    <input hidden type="checkbox" name="italic-menu" id="italic-menu" value="1" {{ $italic_menu }}>
                                 </div>
                             </div>
                         </div>
                         <div class="btn-group mb-2" role="group">
-                            <input type="radio" class="btn-check" name="tamanoMenu" id="tamanoMenu1" autocomplete="off" checked value="1">
+                            <input type="radio" class="btn-check" name="tamanoMenu" id="tamanoMenu1" autocomplete="off" {{ $tamanoMenu1 }} value="1">
                             <label class="btn btn-outline-text" for="tamanoMenu1"><small><b>Chico</b></small></label>
                             
-                            <input type="radio" class="btn-check" name="tamanoMenu" id="tamanoMenu2" autocomplete="off" value="2">
+                            <input type="radio" class="btn-check" name="tamanoMenu" id="tamanoMenu2" autocomplete="off" {{ $tamanoMenu2 }} value="2">
                             <label class="btn btn-outline-text" for="tamanoMenu2"><small><b>Mediano</b></small></label>
                             
-                            <input type="radio" class="btn-check" name="tamanoMenu" id="tamanoMenu3" autocomplete="off" value="3">
+                            <input type="radio" class="btn-check" name="tamanoMenu" id="tamanoMenu3" autocomplete="off" {{ $tamanoMenu3 }} value="3">
                             <label class="btn btn-outline-text" for="tamanoMenu3"><small><b>Grande</b></small></label>
                         </div>
                         
                         <p class="my-1">Color Navegación</p>
                         <div class="d-flex my-2" role="group" style="gap: 0.4em;">
-                            <input type="text" class="form-control" id="color_navegacion_input" name="color_navegacion_input" value="#FFFFFF">
-                            <input type="color" class="form-control form-control-color p-0" name="color_navegacion" id="color_navegacion" value="#FFFFFF">
+                            <input type="text" class="form-control" id="color_navegacion_input" name="color_navegacion_input" value="{{ $color_navegacion }}">
+                            <input type="color" class="form-control form-control-color p-0" name="color_navegacion" id="color_navegacion" value="{{ $color_navegacion }}">
                         </div>
                         
                         <p class="my-1">Color Navegación Activo</p>
                         <div class="d-flex my-2" role="group" style="gap: 0.4em;">
-                            <input type="text" class="form-control" id="color_navegacion_input_hover" name="color_navegacion_input_hover" value="#fbbb01">
-                            <input type="color" class="form-control form-control-color p-0" name="color_navegacion_hover" id="color_navegacion_hover" value="#fbbb01">
+                            <input type="text" class="form-control" id="color_navegacion_input_hover" name="color_navegacion_input_hover" value="{{ $color_navegacion_input_hover }}">
+                            <input type="color" class="form-control form-control-color p-0" name="color_navegacion_hover" id="color_navegacion_hover" value="{{ $color_navegacion_input_hover }}">
                         </div>
                     </li>
-
-
 
                     <li class="my-2">
                         <p class="my-2"><b>Navegación 1</b></p>
                         <p class="my-1">Texto</p>
-                        <input type="text" class="form-control p-2" name="navegacion_1" id="navegacion_1" value="¿CÓMO PARTICIPAR?">
+                        <input type="text" class="form-control p-2" name="navegacion_1" id="navegacion_1" value="{{ $navegacion_1 }}">
                         <p class="my-1">Direccionar</p>
                         <select class="form-select" name="direccionar_1" id="direccionar_1">
-                            <option value="#participar" selected>Como Participar</option>
-                            <option value="#formulario-participar">Formulario Participar</option>
-                            <option value="#ganadores">Ganadores</option>
-                            <option value="#preguntas-frecuentes">Preguntas Frecuentes</option>
+                            <option value="#participar" {{ $direccionar_1 == '#participar' ? 'selected' : '' }}>Como Participar</option>
+                            <option value="#formulario-participar" {{ $direccionar_1 == '#formulario-participar' ? 'selected' : '' }}>Formulario Participar</option>
+                            <option value="#ganadores" {{ $direccionar_1 == '#ganadores' ? 'selected' : '' }}>Ganadores</option>
+                            <option value="#preguntas-frecuentes" {{ $direccionar_1 == '#preguntas-frecuentes' ? 'selected' : '' }}>Preguntas Frecuentes</option>
                             <option value="">Términos y condiciones</option>
                         </select>
                     </li>
                     <li class="my-2">
                         <p class="my-2"><b>Navegación 2</b></p>
-                        <input type="text" class="form-control p-2" name="navegacion_2" id="navegacion_2" value="PREGUNTAS FRECUENTES">
+                        <input type="text" class="form-control p-2" name="navegacion_2" id="navegacion_2" value="{{ $navegacion_2 }}">
                         <p class="my-1">Direccionar</p>
                         <select class="form-select" name="direccionar_2" id="direccionar_2">
-                            <option value="#participar">Como Participar</option>
-                            <option value="#formulario-participar">Formulario Participar</option>
-                            <option value="#ganadores">Ganadores</option>
-                            <option value="#preguntas-frecuentes" selected>Preguntas Frecuentes</option>
+                            <option value="#participar" {{ $direccionar_2 == '#participar' ? 'selected' : '' }}>Como Participar</option>
+                            <option value="#formulario-participar" {{ $direccionar_2 == '#formulario-participar' ? 'selected' : '' }}>Formulario Participar</option>
+                            <option value="#ganadores" {{ $direccionar_2 == '#ganadores' ? 'selected' : '' }}>Ganadores</option>
+                            <option value="#preguntas-frecuentes" {{ $direccionar_2 == '#preguntas-frecuentes' ? 'selected' : '' }}>Preguntas Frecuentes</option>
                             <option value="">Términos y condiciones</option>
                         </select>
                     </li>
                     <li class="my-2">
                         <p class="my-2"><b>Navegación 3</b></p>
-                        <input type="text" class="form-control p-2" name="navegacion_3" id="navegacion_3" value="TÉRMINOS Y CONDICIONES">
+                        <input type="text" class="form-control p-2" name="navegacion_3" id="navegacion_3" value="{{ $navegacion_3 }}">
                         <p class="my-1">Direccionar</p>
                         <select class="form-select" name="direccionar_3" id="direccionar_3">
-                            <option value="#participar">Como Participar</option>
-                            <option value="#formulario-participar">Formulario Participar</option>
-                            <option value="#ganadores">Ganadores</option>
-                            <option value="#preguntas-frecuentes">Preguntas Frecuentes</option>
+                            <option value="#participar" {{ $direccionar_3 == '#participar' ? 'selected' : '' }}>Como Participar</option>
+                            <option value="#formulario-participar" {{ $direccionar_3 == '#formulario-participar' ? 'selected' : '' }}>Formulario Participar</option>
+                            <option value="#ganadores" {{ $direccionar_3 == '#ganadores' ? 'selected' : '' }}>Ganadores</option>
+                            <option value="#preguntas-frecuentes" {{ $direccionar_3 == '#preguntas-frecuentes' ? 'selected' : '' }}>Preguntas Frecuentes</option>
                             <option value="#terminos_condiciones" selected>Términos y condiciones</option>
                         </select>
                     </li>
                     <li class="my-2">
                         <p class="my-2"><b>Navegación 4</b></p>
-                        <input type="text" class="form-control p-2" name="navegacion_4" id="navegacion_4" value="VER GANADORES">
+                        <input type="text" class="form-control p-2" name="navegacion_4" id="navegacion_4" value="{{ $navegacion_4 }}">
                         <p class="my-1">Direccionar</p>
                         <select class="form-select" name="direccionar_4" id="direccionar_4">
-                            <option value="#participar">Como Participar</option>
-                            <option value="#formulario-participar">Formulario Participar</option>
-                            <option value="#ganadores" selected>Ganadores</option>
-                            <option value="#preguntas-frecuentes">Preguntas Frecuentes</option>
+                            <option value="#participar" {{ $direccionar_4 == '#participar' ? 'selected' : '' }}>Como Participar</option>
+                            <option value="#formulario-participar" {{ $direccionar_4 == '#formulario-participar' ? 'selected' : '' }}>Formulario Participar</option>
+                            <option value="#ganadores" {{ $direccionar_4 == '#ganadores' ? 'selected' : '' }}>Ganadores</option>
+                            <option value="#preguntas-frecuentes" {{ $direccionar_4 == '#preguntas-frecuentes' ? 'selected' : '' }}>Preguntas Frecuentes</option>
                             <option value="">Términos y condiciones</option>
                         </select>
                     </li>
                 </ul>
             </div>
         </div>
+        @php
+            $pagina_principal = isset($landing->pagina_principal) && !empty($landing->pagina_principal) ? json_decode($landing->pagina_principal, true) : null;
+            $banner_subir = $pagina_principal && !empty($pagina_principal["banner_subir"]) ? '/storage/'.$pagina_principal["banner_subir"] : $imgNulo;
+            $fondo_landing = $pagina_principal && !empty($pagina_principal["fondo_landing"]) ? $pagina_principal["fondo_landing"] : '#000000';
+            
+            $bold_titulo_header = $pagina_principal && $pagina_principal["bold-titulo-header"] == 1 ? "checked" : "";
+            $bold_titulo_header_style = $pagina_principal && $pagina_principal["bold-titulo-header"] == 1 ? "fw-bold" : "";
+            $italic_titulo_header = $pagina_principal && $pagina_principal["italic-titulo-header"] == 1 ? "checked" : "";
+            $italic_titulo_header_style = $pagina_principal && $pagina_principal["italic-titulo-header"] == 1 ? "fst-italic" : "";
+            $input_titulo_header = $pagina_principal && $pagina_principal["input-titulo-header"] ? $pagina_principal["input-titulo-header"] : '';
+
+            $tamanoTituloHeader1 = $pagina_principal && $pagina_principal["tamanoTitulo"] == 1 ? 'checked' : '';
+            $tamanoTituloHeader2 = $pagina_principal && $pagina_principal["tamanoTitulo"] == 2 ? 'checked' : '';
+            $tamanoTituloHeader3 = $pagina_principal && $pagina_principal["tamanoTitulo"] == 2 ? 'checked' : '';
+            $styleTamanoTituloHeader = $pagina_principal && $pagina_principal["tamanoTitulo"]  == 1 ? "fs-6" : ($pagina_principal && $pagina_principal["tamanoTitulo"]  == 2 ? "fs-3"  :  ($pagina_principal && $pagina_principal["tamanoTitulo"]  == 3 ? "fs-1"  : ""));
+            
+            $alineacionTitulo1 = $pagina_principal && $pagina_principal["alineacionTitulo"] == 1 ? 'checked' : '';
+            $alineacionTitulo2 = $pagina_principal && $pagina_principal["alineacionTitulo"] == 2 ? 'checked' : '';
+            $alineacionTitulo3 = $pagina_principal && $pagina_principal["alineacionTitulo"] == 2 ? 'checked' : '';
+            $stylealineacionTitulo = $pagina_principal && $pagina_principal["alineacionTitulo"]  == 1 ? "text-start" : ($pagina_principal && $pagina_principal["alineacionTitulo"]  == 2 ? "text-center"  :  ($pagina_principal && $pagina_principal["alineacionTitulo"]  == 3 ? "text-end"  : "text-center"));
+            
+            $color_titulo = $pagina_principal && $pagina_principal["color-titulo"] ? $pagina_principal["color-titulo"] : '#ffffff';
+
+            //PARRAFO
+            $bold_titulo_parrafo = $pagina_principal && $pagina_principal["bold-titulo-parrafo"] == 1 ? "checked" : "";
+            $bold_titulo_parrafo_style = $pagina_principal && $pagina_principal["bold-titulo-parrafo"] == 1 ? "fw-bold" : "";
+            $italic_titulo_parrafo = $pagina_principal && $pagina_principal["italic-titulo-parrafo"] == 1 ? "checked" : "";
+            $italic_titulo_parrafo_style = $pagina_principal && $pagina_principal["italic-titulo-parrafo"] == 1 ? "fst-italic" : "";
+
+            $input_texto_header = $pagina_principal && $pagina_principal["texto-header"] ? $pagina_principal["texto-header"] : '';
+
+            $tamanoTextoHeader1 = $pagina_principal && $pagina_principal["tamanoTexto"] == 1 ? 'checked' : '';
+            $tamanoTextoHeader2 = $pagina_principal && $pagina_principal["tamanoTexto"] == 2 ? 'checked' : '';
+            $tamanoTextoHeader3 = $pagina_principal && $pagina_principal["tamanoTexto"] == 2 ? 'checked' : '';
+            $styletamanoTextoHeader = $pagina_principal && $pagina_principal["tamanoTexto"]  == 1 ? "fs-6" : ($pagina_principal && $pagina_principal["tamanoTexto"]  == 2 ? "fs-3"  :  ($pagina_principal && $pagina_principal["tamanoTexto"]  == 3 ? "fs-1"  : ""));
+            
+            $alineacionTexto1 = $pagina_principal && $pagina_principal["alineacionTexto"] == 1 ? 'checked' : '';
+            $alineacionTexto2 = $pagina_principal && $pagina_principal["alineacionTexto"] == 2 ? 'checked' : '';
+            $alineacionTexto3 = $pagina_principal && $pagina_principal["alineacionTexto"] == 2 ? 'checked' : '';
+            $stylealineacionTexto = $pagina_principal && $pagina_principal["alineacionTexto"]  == 1 ? "text-start" : ($pagina_principal && $pagina_principal["alineacionTexto"]  == 2 ? "text-center"  :  ($pagina_principal && $pagina_principal["alineacionTexto"]  == 3 ? "text-end"  : "text-center"));
+        
+            $color_texto = $pagina_principal && $pagina_principal["color-texto"] ? $pagina_principal["color-texto"] : '#ffffff';
+
+            // imagen
+            $imagen_subir = $pagina_principal && $pagina_principal["imagen-subir"] ? '/storage/'.$pagina_principal["imagen-subir"] : $imgNulo;
+
+            // button
+            $direccionar_boton_header = $pagina_principal && $pagina_principal["direccionar_boton_header"] ? $pagina_principal["direccionar_boton_header"] : '#formulario-participar';
+
+            $bold_boton_parrafo = $pagina_principal && $pagina_principal["bold-boton-parrafo"] == 1 ? "checked" : "";
+            $bold_boton_parrafo_style = $pagina_principal && $pagina_principal["bold-boton-parrafo"] == 1 ? "fw-bold" : "";
+            $italic_boton_parrafo = $pagina_principal && $pagina_principal["italic-boton-header"] == 1 ? "checked" : "";
+            $italic_boton_parrafo_style = $pagina_principal && $pagina_principal["italic-boton-header"] == 1 ? "fst-italic" : "";
+
+            $tamanoBotonHeader1 = $pagina_principal && $pagina_principal["tamanoBotonHeader"] == 1 ? 'checked' : '';
+            $tamanoBotonHeader2 = $pagina_principal && $pagina_principal["tamanoBotonHeader"] == 2 ? 'checked' : '';
+            $tamanoBotonHeader3 = $pagina_principal && $pagina_principal["tamanoBotonHeader"] == 2 ? 'checked' : '';
+            $styletamanoBotonHeader = $pagina_principal && $pagina_principal["tamanoBotonHeader"]  == 1 ? "fs-6" : ($pagina_principal && $pagina_principal["tamanoBotonHeader"]  == 2 ? "fs-3"  :  ($pagina_principal && $pagina_principal["tamanoBotonHeader"]  == 3 ? "fs-1"  : ""));
+        
+            $color_boton_header = $pagina_principal && $pagina_principal["color-boton-header"] ? $pagina_principal["color-boton-header"] : '#ffffff';
+
+            $titulo_boton_header = $pagina_principal && isset($pagina_principal["titulo-boton-header"]) ? $pagina_principal["titulo-boton-header"] : 'PARTICIPAR';
+        @endphp
         <div class="d-none" id="pagina_principal">
             <div class="border-bottom py-2">
                 <button type="button" class="border-0 w-100 text-start" style="background-color: #fff;" id="back_principal"><i class="fas fa-chevron-left"></i> Pagina Principal</button>
@@ -385,8 +483,8 @@
                         <p class="my-1">Fondo Landing</p>
                         
                         <div class="d-flex" role="group" style="gap: 0.4em;">
-                            <input type="text" class="form-control" id="fondo_landing_input" name="fondo_landing_input" value="#000000">
-                            <input type="color" class="form-control form-control-color p-0" id="fondo_landing" name="fondo_landing" value="#000000">
+                            <input type="text" class="form-control" id="fondo_landing_input" name="fondo_landing_input" value="{{ $fondo_landing }}">
+                            <input type="color" class="form-control form-control-color p-0" id="fondo_landing" name="fondo_landing" value="{{ $fondo_landing }}">
                         </div>
 
                     </li>
@@ -402,7 +500,7 @@
                         <p class="mb-1">Texto</p>
                         <div class="d-flex justify-content-start mb-2" style="gap: 1.2em;">
                             <div class="p-1 cursor bold">
-                                <input hidden type="checkbox" name="bold-titulo-header" id="bold-titulo-header">
+                                <input hidden type="checkbox" name="bold-titulo-header" id="bold-titulo-header" {{ $bold_titulo_header }}>
                                 <label for="bold-titulo-header" class="d-flex align-items-center cursor">
                                     <svg width="11" height="14" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg" id="svg_bold">
                                         <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="#98A2B3"/>
@@ -415,22 +513,22 @@
                                         <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="#98A2B3"/>
                                     </svg>
                                 </label>
-                                <input hidden type="checkbox" name="italic-titulo-header" id="italic-titulo-header">
+                                <input hidden type="checkbox" name="italic-titulo-header" id="italic-titulo-header" {{ $italic_titulo_header }}>
                             </div>
                         </div>
-                        <input type="text" class="form-control p-2" id="input-titulo-header" name="input-titulo-header">
+                        <input type="text" class="form-control p-2" id="input-titulo-header" name="input-titulo-header" value="{{ $input_titulo_header }}">
                     </li>
                     <li class="my-2">
                         <p class="my-1">Tamaño Texto</p>
                         
                         <div class="btn-group" role="group">
-                            <input type="radio" class="btn-check" name="tamanoTitulo" id="tamanoTitulo1" autocomplete="off" value="1">
+                            <input type="radio" class="btn-check" name="tamanoTitulo" id="tamanoTitulo1" autocomplete="off" value="1" {{ $tamanoTituloHeader1 }}>
                             <label class="btn btn-outline-text" for="tamanoTitulo1"><small><b>Chico</b></small></label>
                             
-                            <input type="radio" class="btn-check" name="tamanoTitulo" id="tamanoTitulo2" autocomplete="off" value="2">
+                            <input type="radio" class="btn-check" name="tamanoTitulo" id="tamanoTitulo2" autocomplete="off" value="2" {{ $tamanoTituloHeader2 }}>
                             <label class="btn btn-outline-text" for="tamanoTitulo2"><small><b>Mediano</b></small></label>
                             
-                            <input type="radio" class="btn-check" name="tamanoTitulo" id="tamanoTitulo3" autocomplete="off" checked value="3">
+                            <input type="radio" class="btn-check" name="tamanoTitulo" id="tamanoTitulo3" autocomplete="off" {{ $tamanoTituloHeader3 }} value="3">
                             <label class="btn btn-outline-text" for="tamanoTitulo3"><small><b>Grande</b></small></label>
                         </div>
 
@@ -439,13 +537,13 @@
                         <p class="my-1">Alineación</p>
                         
                         <div class="btn-group" role="group">
-                            <input type="radio" class="btn-check" name="alineacionTitulo" id="alineacionTitulo1" autocomplete="off" value="1">
+                            <input type="radio" class="btn-check" name="alineacionTitulo" id="alineacionTitulo1" autocomplete="off" value="1" {{ $alineacionTitulo1 }}>
                             <label class="btn btn-outline-text" for="alineacionTitulo1"><small><b><i class="fas fa-align-left"></i></b></small></label>
                             
-                            <input type="radio" class="btn-check" name="alineacionTitulo" id="alineacionTitulo2" autocomplete="off" checked value="2">
+                            <input type="radio" class="btn-check" name="alineacionTitulo" id="alineacionTitulo2" autocomplete="off" {{ $alineacionTitulo2 }} value="2">
                             <label class="btn btn-outline-text" for="alineacionTitulo2"><small><b><i class="fas fa-align-center"></i></b></small></label>
                             
-                            <input type="radio" class="btn-check" name="alineacionTitulo" id="alineacionTitulo3" autocomplete="off" value="3">
+                            <input type="radio" class="btn-check" name="alineacionTitulo" id="alineacionTitulo3" autocomplete="off" value="3" {{ $alineacionTitulo3 }}>
                             <label class="btn btn-outline-text" for="alineacionTitulo3"><small><b><i class="fas fa-align-center"></i></b></small></label>
                         </div>
 
@@ -454,8 +552,8 @@
                         <p class="my-1">Color</p>
                         
                         <div class="d-flex" role="group" style="gap: 0.4em;">
-                            <input type="text" class="form-control" id="color-titulo-input" name="color-titulo-input" value="#FFFFFF">
-                            <input type="color" class="form-control form-control-color p-0" name="color-titulo" id="color-titulo" value="#FFFFFF">
+                            <input type="text" class="form-control" id="color-titulo-input" name="color-titulo-input" value="{{ $color_titulo }}">
+                            <input type="color" class="form-control form-control-color p-0" name="color-titulo" id="color-titulo" value="{{ $color_titulo }}">
                         </div>
 
                     </li>
@@ -470,7 +568,7 @@
                         <p class="mb-1">Texto</p>
                         <div class="d-flex justify-content-start mb-2" style="gap: 1.2em;">
                             <div class="p-1 cursor bold">
-                                <input hidden type="checkbox" name="bold-titulo-parrafo" id="bold-titulo-parrafo">
+                                <input hidden type="checkbox" name="bold-titulo-parrafo" id="bold-titulo-parrafo" {{ $bold_titulo_parrafo }}>
                                 <label for="bold-titulo-parrafo" class="d-flex align-items-center cursor">
                                     <svg width="11" height="14" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg" id="svg_bold_texto">
                                         <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="#98A2B3"/>
@@ -483,22 +581,22 @@
                                         <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="#98A2B3"/>
                                     </svg>
                                 </label>
-                                <input hidden type="checkbox" name="italic-titulo-parrafo" id="italic-titulo-parrafo">
+                                <input hidden type="checkbox" name="italic-titulo-parrafo" id="italic-titulo-parrafo" {{ $italic_titulo_parrafo }}>
                             </div>
                         </div>
-                        <input type="text" class="form-control p-2" name="texto-header" id="texto-header">
+                        <input type="text" class="form-control p-2" name="texto-header" id="texto-header" value="{{ $input_texto_header }}">
                     </li>
                     <li class="my-2">
                         <p class="my-1">Tamaño Texto</p>
                         
                         <div class="btn-group" role="group">
-                            <input type="radio" class="btn-check" name="tamanoTexto" id="tamanoTexto1" autocomplete="off" checked value="1">
+                            <input type="radio" class="btn-check" name="tamanoTexto" id="tamanoTexto1" autocomplete="off" {{ $tamanoTextoHeader1 }} value="1">
                             <label class="btn btn-outline-text" for="tamanoTexto1"><small><b>Chico</b></small></label>
                             
-                            <input type="radio" class="btn-check" name="tamanoTexto" id="tamanoTexto2" autocomplete="off" value="2">
+                            <input type="radio" class="btn-check" name="tamanoTexto" id="tamanoTexto2" autocomplete="off" value="2" {{ $tamanoTextoHeader2 }}>
                             <label class="btn btn-outline-text" for="tamanoTexto2"><small><b>Mediano</b></small></label>
                             
-                            <input type="radio" class="btn-check" name="tamanoTexto" id="tamanoTexto3" autocomplete="off" value="3">
+                            <input type="radio" class="btn-check" name="tamanoTexto" id="tamanoTexto3" autocomplete="off" value="3" {{ $tamanoTextoHeader3 }}>
                             <label class="btn btn-outline-text" for="tamanoTexto3"><small><b>Grande</b></small></label>
                         </div>
 
@@ -507,13 +605,13 @@
                         <p class="my-1">Alineación</p>
                         
                         <div class="btn-group" role="group">
-                            <input type="radio" class="btn-check" name="alineacionTexto" id="alineacionTexto1" autocomplete="off" value="1">
+                            <input type="radio" class="btn-check" name="alineacionTexto" id="alineacionTexto1" autocomplete="off" value="1" {{ $alineacionTexto1 }}>
                             <label class="btn btn-outline-text" for="alineacionTexto1"><small><b><i class="fas fa-align-left"></i></b></small></label>
                             
-                            <input type="radio" class="btn-check" name="alineacionTexto" id="alineacionTexto2" autocomplete="off" checked value="2">
+                            <input type="radio" class="btn-check" name="alineacionTexto" id="alineacionTexto2" autocomplete="off" {{ $alineacionTexto2 }} value="2">
                             <label class="btn btn-outline-text" for="alineacionTexto2"><small><b><i class="fas fa-align-center"></i></b></small></label>
                             
-                            <input type="radio" class="btn-check" name="alineacionTexto" id="alineacionTexto3" autocomplete="off" value="3">
+                            <input type="radio" class="btn-check" name="alineacionTexto" id="alineacionTexto3" autocomplete="off" value="3" {{ $alineacionTexto3 }}>
                             <label class="btn btn-outline-text" for="alineacionTexto3"><small><b><i class="fas fa-align-center"></i></b></small></label>
                         </div>
 
@@ -522,8 +620,8 @@
                         <p class="my-1">Color</p>
                         
                         <div class="d-flex" role="group" style="gap: 0.4em;">
-                            <input type="text" class="form-control" id="color-texto-input" name="color-texto-input" value="#FFFFFF">
-                            <input type="color" class="form-control form-control-color p-0" name="color-texto" id="color-texto" value="#FFFFFF">
+                            <input type="text" class="form-control" id="color-texto-input" name="color-texto-input" value="{{ $color_texto }}">
+                            <input type="color" class="form-control form-control-color p-0" name="color-texto" id="color-texto" value="{{ $color_texto }}">
                         </div>
 
                     </li>
@@ -561,16 +659,16 @@
                     <li class="my-2">
                         <p class="mb-1">Direccionar</p>
                         <select class="form-select" name="direccionar_boton_header" id="direccionar_boton_header">
-                            <option value="#formulario-participar">Formulario Participar</option>
-                            <option value="#ganadores">Ganadores</option>
-                            <option value="#preguntas-frecuentes">Preguntas Frecuentes</option>
+                            <option value="#formulario-participar" {{ $direccionar_boton_header == '#formulario-participar' ? 'selected' : '' }}>Formulario Participar</option>
+                            <option value="#ganadores" {{ $direccionar_boton_header == '#ganadores' ? 'selected' : '' }}>Ganadores</option>
+                            <option value="#preguntas-frecuentes" {{ $direccionar_boton_header == '#preguntas-frecuentes' ? 'selected' : '' }}>Preguntas Frecuentes</option>
                         </select>
                     </li>
                     <li class="my-2">
                         <p class="mb-1">Texto</p>
                         <div class="d-flex justify-content-start mb-2" style="gap: 1.2em;">
                             <div class="p-1 cursor bold">
-                                <input hidden type="checkbox" name="bold-boton-parrafo" id="bold-boton-header">
+                                <input hidden type="checkbox" name="bold-boton-parrafo" id="bold-boton-header" {{ $bold_boton_parrafo }}>
                                 <label for="bold-boton-header" class="d-flex align-items-center cursor">
                                     <svg width="11" height="14" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg" id="svg_bold_btn_header">
                                         <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="#98A2B3"/>
@@ -583,22 +681,22 @@
                                         <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="#98A2B3"/>
                                     </svg>
                                 </label>
-                                <input hidden type="checkbox" name="italic-boton-header" id="italic-boton-header">
+                                <input hidden type="checkbox" name="italic-boton-header" id="italic-boton-header" {{ $italic_boton_parrafo }}>
                             </div>
                         </div>
-                        <input type="text" class="form-control p-2" name="titulo-boton-header" id="titulo-boton-header" value="PARTICIPAR">
+                        <input type="text" class="form-control p-2" name="titulo-boton-header" id="titulo-boton-header" value="{{ $titulo_boton_header }}">
                     </li>
                     <li class="my-2">
                         <p class="my-1">Tamaño Texto</p>
                         
                         <div class="btn-group" role="group">
-                            <input type="radio" class="btn-check" name="tamanoBotonHeader" id="tamanoBotonHeader1" autocomplete="off" checked value="1">
+                            <input type="radio" class="btn-check" name="tamanoBotonHeader" id="tamanoBotonHeader1" autocomplete="off" {{ $tamanoBotonHeader1 }} value="1">
                             <label class="btn btn-outline-text" for="tamanoBotonHeader1"><small><b>Chico</b></small></label>
                             
-                            <input type="radio" class="btn-check" name="tamanoBotonHeader" id="tamanoBotonHeader2" autocomplete="off" value="2">
+                            <input type="radio" class="btn-check" name="tamanoBotonHeader" id="tamanoBotonHeader2" autocomplete="off" value="2" {{ $tamanoBotonHeader2 }}>
                             <label class="btn btn-outline-text" for="tamanoBotonHeader2"><small><b>Mediano</b></small></label>
                             
-                            <input type="radio" class="btn-check" name="tamanoBotonHeader" id="tamanoBotonHeader3" autocomplete="off" value="3">
+                            <input type="radio" class="btn-check" name="tamanoBotonHeader" id="tamanoBotonHeader3" autocomplete="off" value="3" {{ $tamanoBotonHeader3 }}>
                             <label class="btn btn-outline-text" for="tamanoBotonHeader3"><small><b>Grande</b></small></label>
                         </div>
 
@@ -607,14 +705,51 @@
                         <p class="my-1">Color</p>
                         
                         <div class="d-flex" role="group" style="gap: 0.4em;">
-                            <input type="text" class="form-control" id="color-boton-header-input" name="color-boton-header-input" value="#cd0a10">
-                            <input type="color" class="form-control form-control-color p-0" name="color-boton-header" id="color-boton-header" value="#cd0a10">
+                            <input type="text" class="form-control" id="color-boton-header-input" name="color-boton-header-input" value="{{ $color_boton_header  }}">
+                            <input type="color" class="form-control form-control-color p-0" name="color-boton-header" id="color-boton-header" value="{{ $color_boton_header  }}">
                         </div>
 
                     </li>
                 </ul>
             </div>
         </div>
+        @php
+            $como_participar = isset($landing->como_participar) && !empty($landing->como_participar) ? json_decode($landing->como_participar, true) : null;
+
+            $border_input_como = $como_participar && $como_participar["border-input-como"] ? $como_participar["border-input-como"] : '#fbbb01';
+
+            $bold_titulo_como = $como_participar && $como_participar["bold-titulo-como"] == 1 ? "checked" : "";
+            $bold_titulo_como_style = $como_participar && $como_participar["bold-titulo-como"] == 1 ? "fw-bold" : "";
+            $italic_titulo_como = $como_participar && $como_participar["italic-titulo-como"] == 1 ? "checked" : "";
+            $italic_titulo_como_style = $como_participar && $como_participar["italic-titulo-como"] == 1 ? "fst-italic" : "";
+
+            $input_titulo_como = $como_participar && $como_participar["input-titulo-como"] ? $como_participar["input-titulo-como"] : '¿Cómo participar?';
+
+            $tamanoTituloComo1 = $como_participar && $como_participar["tamanoTituloComo"] == 1 ? 'checked' : '';
+            $tamanoTituloComo2 = $como_participar && $como_participar["tamanoTituloComo"] == 2 ? 'checked' : '';
+            $tamanoTituloComo3 = $como_participar && $como_participar["tamanoTituloComo"] == 2 ? 'checked' : '';
+            $styletamanoTituloComo = $como_participar && $como_participar["tamanoTituloComo"]  == 1 ? "fs-6" : ($como_participar && $como_participar["tamanoTituloComo"]  == 2 ? "fs-3"  :  ($como_participar && $como_participar["tamanoTituloComo"]  == 3 ? "fs-1"  : ""));
+        
+            $color_titulo_como = $como_participar && $como_participar["color-titulo-como"] ? $como_participar["color-titulo-como"] : '#fbbb01 ';
+        
+            $participar_1 = $como_participar && $como_participar["participar_1"] ? '/storage/'.$como_participar["participar_1"] : $imgNulo;
+            $participar_2 = $como_participar && $como_participar["participar_2"] ? '/storage/'.$como_participar["participar_2"] : $imgNulo;
+            $participar_3 = $como_participar && $como_participar["participar_3"] ? '/storage/'.$como_participar["participar_3"] : $imgNulo;
+
+            $bold_boton_como = $como_participar && $como_participar["bold-boton-como"] == 1 ? "checked" : "";
+            $bold_boton_como_style = $como_participar && $como_participar["bold-boton-como"] == 1 ? "fw-bold" : "";
+            $italic_boton_como = $como_participar && $como_participar["italic-boton-como"] == 1 ? "checked" : "";
+            $italic_boton_como_style = $como_participar && $como_participar["italic-boton-como"] == 1 ? "fst-italic" : "";
+
+            $tamanoBotonComo1 = $como_participar && $como_participar["tamanoBotonComo"] == 1 ? 'checked' : '';
+            $tamanoBotonComo2 = $como_participar && $como_participar["tamanoBotonComo"] == 2 ? 'checked' : '';
+            $tamanoBotonComo3 = $como_participar && $como_participar["tamanoBotonComo"] == 2 ? 'checked' : '';
+            $styletamanoBotonComo = $como_participar && $como_participar["tamanoBotonComo"]  == 1 ? "fs-6" : ($como_participar && $como_participar["tamanoBotonComo"]  == 2 ? "fs-3"  :  ($como_participar && $como_participar["tamanoBotonComo"]  == 3 ? "fs-1"  : ""));
+        
+            $color_boton_como = $como_participar && $como_participar["color-boton-como"] ? $como_participar["color-boton-como"] : '#ffffff';
+
+            $input_buttom_como = $como_participar && isset($como_participar["input-boton-como"]) ? $como_participar["input-boton-como"] : 'VER TÉRMINOS Y CONDICIONES';
+        @endphp
         <div class="d-none" id="como_participar">
             <div class="border-bottom py-2">
                 <button type="button" class="border-0 w-100 text-start" style="background-color: #fff;" id="back_como_participa"><i class="fas fa-chevron-left"></i> Como Participar</button>
@@ -628,8 +763,8 @@
                         <p class="my-1">Color Borde</p>
                         
                         <div class="d-flex" role="group" style="gap: 0.4em;">
-                            <input type="text" class="form-control" id="border-input-como" name="border-input-como" value="#fbbb01">
-                            <input type="color" class="form-control form-control-color p-0" id="border-como" value="#fbbb01">
+                            <input type="text" class="form-control" id="border-input-como" name="border-input-como" value="{{ $border_input_como }}">
+                            <input type="color" class="form-control form-control-color p-0" id="border-como" value="{{ $border_input_como }}">
                         </div>
                     </li>
                 </ul>
@@ -643,7 +778,7 @@
                         <p class="my-1">Texto</p>
                         <div class="d-flex justify-content-start mb-2" style="gap: 1.2em;">
                             <div class="p-1 cursor bold">
-                                <input hidden type="checkbox" name="bold-titulo-como" id="bold-titulo-como">
+                                <input hidden type="checkbox" name="bold-titulo-como" id="bold-titulo-como" {{ $bold_titulo_como }}>
                                 <label for="bold-titulo-como" class="d-flex align-items-center cursor">
                                     <svg width="11" height="14" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg" id="svg_bold_como">
                                         <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="#98A2B3"/>
@@ -656,22 +791,22 @@
                                         <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="#98A2B3"/>
                                     </svg>
                                 </label>
-                                <input hidden type="checkbox" name="italic-titulo-como" id="italic-titulo-como">
+                                <input hidden type="checkbox" name="italic-titulo-como" id="italic-titulo-como" {{ $italic_titulo_como }}>
                             </div>
                         </div>
-                        <input type="text" class="form-control p-2" name="input-titulo-como" id="input-titulo-como" value="¿Cómo participar?">
+                        <input type="text" class="form-control p-2" name="input-titulo-como" id="input-titulo-como" value="{{ $input_titulo_como }}">
                     </li>
                     <li class="my-2">
                         <p class="my-1">Tamaño Texto</p>
                         
                         <div class="btn-group" role="group">
-                            <input type="radio" class="btn-check" name="tamanoTituloComo" id="tamanoTituloComo1" autocomplete="off" value="1">
+                            <input type="radio" class="btn-check" name="tamanoTituloComo" id="tamanoTituloComo1" autocomplete="off" value="1" {{ $tamanoTituloComo1 }}>
                             <label class="btn btn-outline-text" for="tamanoTituloComo1"><small><b>Chico</b></small></label>
                           
-                            <input type="radio" class="btn-check" name="tamanoTituloComo" id="tamanoTituloComo2" autocomplete="off" value="2">
+                            <input type="radio" class="btn-check" name="tamanoTituloComo" id="tamanoTituloComo2" autocomplete="off" value="2" {{ $tamanoTituloComo2 }}>
                             <label class="btn btn-outline-text" for="tamanoTituloComo2"><small><b>Mediano</b></small></label>
                           
-                            <input type="radio" class="btn-check" name="tamanoTituloComo" id="tamanoTituloComo3" autocomplete="off" checked value="3">
+                            <input type="radio" class="btn-check" name="tamanoTituloComo" id="tamanoTituloComo3" autocomplete="off" {{ $tamanoTituloComo3 }} value="3">
                             <label class="btn btn-outline-text" for="tamanoTituloComo3"><small><b>Grande</b></small></label>
                         </div>
 
@@ -680,8 +815,8 @@
                         <p class="my-1">Color</p>
                         
                         <div class="d-flex" role="group" style="gap: 0.4em;">
-                            <input type="text" class="form-control" id="color-titulo-input-como" name="color-titulo-input-como" value="#fbbb01">
-                            <input type="color" class="form-control form-control-color p-0" name="color-titulo-como" id="color-titulo-como" value="#fbbb01">
+                            <input type="text" class="form-control" id="color-titulo-input-como" name="color-titulo-input-como" value="{{ $color_titulo_como }}">
+                            <input type="color" class="form-control form-control-color p-0" name="color-titulo-como" id="color-titulo-como" value="{{ $color_titulo_como }}">
                         </div>
                     </li>
                 </ul>
@@ -756,7 +891,7 @@
                         <p class="my-1">Texto</p>
                         <div class="d-flex justify-content-start mb-2" style="gap: 1.2em;">
                             <div class="p-1 cursor bold">
-                                <input hidden type="checkbox" name="bold-boton-como" id="bold-boton-como">
+                                <input hidden type="checkbox" name="bold-boton-como" id="bold-boton-como" {{ $bold_boton_como }}>
                                 <label for="bold-boton-como" class="d-flex align-items-center cursor">
                                     <svg width="11" height="14" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg" id="svg_bold_como_btn">
                                         <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="#98A2B3"/>
@@ -769,22 +904,22 @@
                                         <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="#98A2B3"/>
                                     </svg>
                                 </label>
-                                <input hidden type="checkbox" name="italic-boton-como" id="italic-boton-como">
+                                <input hidden type="checkbox" name="italic-boton-como" id="italic-boton-como" {{ $italic_boton_como }}>
                             </div>
                         </div>
-                        <input type="text" class="form-control p-2" name="input-boton-como" id="input-boton-como" value="VER TÉRMINOS Y CONDICIONES">
+                        <input type="text" class="form-control p-2" name="input-boton-como" id="input-boton-como" value="{{ $input_buttom_como }}">
                     </li>
                     <li class="my-2">
                         <p class="my-1">Tamaño Texto</p>
                         
                         <div class="btn-group" role="group">
-                            <input type="radio" class="btn-check" name="tamanoBotonComo" id="tamanoBotonComo1" autocomplete="off" checked value="1">
+                            <input type="radio" class="btn-check" name="tamanoBotonComo" id="tamanoBotonComo1" autocomplete="off" {{ $tamanoBotonComo1 }} value="1">
                             <label class="btn btn-outline-text" for="tamanoBotonComo1"><small><b>Chico</b></small></label>
                           
-                            <input type="radio" class="btn-check" name="tamanoBotonComo" id="tamanoBotonComo2" autocomplete="off" value="2">
+                            <input type="radio" class="btn-check" name="tamanoBotonComo" id="tamanoBotonComo2" autocomplete="off" {{ $tamanoBotonComo2 }} value="2">
                             <label class="btn btn-outline-text" for="tamanoBotonComo2"><small><b>Mediano</b></small></label>
                           
-                            <input type="radio" class="btn-check" name="tamanoBotonComo" id="tamanoBotonComo3" autocomplete="off" value="3">
+                            <input type="radio" class="btn-check" name="tamanoBotonComo" id="tamanoBotonComo3" autocomplete="off" {{ $tamanoBotonComo3 }} value="3">
                             <label class="btn btn-outline-text" for="tamanoBotonComo3"><small><b>Grande</b></small></label>
                         </div>
 
@@ -793,13 +928,48 @@
                         <p class="my-1">Fondo</p>
                         
                         <div class="d-flex" role="group" style="gap: 0.4em;">
-                            <input type="text" class="form-control" id="color-boton-input-como" name="color-boton-input-como" value="#cd0a10">
-                            <input type="color" class="form-control form-control-color p-0" name="color-boton-como" id="color-boton-como" value="#cd0a10">
+                            <input type="text" class="form-control" id="color-boton-input-como" name="color-boton-input-como" value="{{ $color_boton_como }}">
+                            <input type="color" class="form-control form-control-color p-0" name="color-boton-como" id="color-boton-como" value="{{ $color_boton_como }}">
                         </div>
                     </li>
                 </ul>
             </div>
         </div>
+        @php
+            $formulario_participar = isset($landing->formulario_participar) && !empty($landing->formulario_participar) ? json_decode($landing->formulario_participar, true) : null;
+
+            $border_formulario = $formulario_participar && $formulario_participar["border-formulario"] ? $formulario_participar["border-formulario"] : '#fbbb01';
+
+            $bold_titulo_formulario = $formulario_participar && $formulario_participar["bold-titulo-formulario"] == 1 ? "checked" : "";
+            $bold_titulo_formulario_style = $formulario_participar && $formulario_participar["bold-titulo-formulario"] == 1 ? "fw-bold" : "";
+            $italic_titulo_formulario = $formulario_participar && $formulario_participar["italic-titulo-formulario"] == 1 ? "checked" : "";
+            $italic_titulo_formulario_style = $formulario_participar && $formulario_participar["italic-titulo-formulario"] == 1 ? "fst-italic" : "";
+
+            $input_titulo_formulario = $formulario_participar && $formulario_participar["input-titulo-formulario"] ? $formulario_participar["input-titulo-formulario"] : '¿Cómo participar?';
+
+            $tamanoTituloFormulario1 = $formulario_participar && $formulario_participar["tamanoTituloFormulario"] == 1 ? 'checked' : '';
+            $tamanoTituloFormulario2 = $formulario_participar && $formulario_participar["tamanoTituloFormulario"] == 2 ? 'checked' : '';
+            $tamanoTituloFormulario3 = $formulario_participar && $formulario_participar["tamanoTituloFormulario"] == 2 ? 'checked' : '';
+            $styletamanoTituloFormulario = $formulario_participar && $formulario_participar["tamanoTituloFormulario"]  == 1 ? "fs-6" : ($formulario_participar && $formulario_participar["tamanoTituloFormulario"]  == 2 ? "fs-3"  :  ($formulario_participar && $formulario_participar["tamanoTituloFormulario"]  == 3 ? "fs-1"  : ""));
+        
+            $color_titulo_formulario = $formulario_participar && $formulario_participar["color-titulo-formulario"] ? $formulario_participar["color-titulo-formulario"] : '#fbbb01';
+
+            $color_label_formulario = $formulario_participar && $formulario_participar["color-label-formulario"] ? $formulario_participar["color-label-formulario"] : '#ffffff';
+
+            $bold_boton_formulario = $formulario_participar && $formulario_participar["bold-boton-formulario"] == 1 ? "checked" : "";
+            $bold_boton_formulario_style = $formulario_participar && $formulario_participar["bold-boton-formulario"] == 1 ? "fw-bold" : "";
+            $italic_boton_formulario = $formulario_participar && $formulario_participar["italic-boton-formulario"] == 1 ? "checked" : "";
+            $italic_boton_formulario_style = $formulario_participar && $formulario_participar["italic-boton-formulario"] == 1 ? "fst-italic" : "";
+
+            $tamanoBotonFormulario1 = $formulario_participar && $formulario_participar["tamanoBotonFormulario"] == 1 ? 'checked' : '';
+            $tamanoBotonFormulario2 = $formulario_participar && $formulario_participar["tamanoBotonFormulario"] == 2 ? 'checked' : '';
+            $tamanoBotonFormulario3 = $formulario_participar && $formulario_participar["tamanoBotonFormulario"] == 2 ? 'checked' : '';
+            $styletamanoBotonFormulario = $formulario_participar && $formulario_participar["tamanoBotonFormulario"]  == 1 ? "fs-6" : ($formulario_participar && $formulario_participar["tamanoBotonFormulario"]  == 2 ? "fs-3"  :  ($formulario_participar && $formulario_participar["tamanoBotonFormulario"]  == 3 ? "fs-1"  : ""));
+        
+            $color_boton_formulario = $formulario_participar && $formulario_participar["color-boton-formulario"] ? $formulario_participar["color-boton-formulario"] : '#ffffff';
+
+            $input_buttom_formulario = $formulario_participar && isset($formulario_participar["input-boton-formulario"]) ? $formulario_participar["input-boton-formulario"] : 'PARTICIPAR ';
+        @endphp
         <div class="d-none" id="form-participar">
             <div class="border-bottom py-2">
                 <button type="button" class="border-0 w-100 text-start" style="background-color: #fff;" id="back_form_participa"><i class="fas fa-chevron-left"></i> Formulario Participar</button>
@@ -813,8 +983,8 @@
                         <p class="my-1">Color Borde</p>
                         
                         <div class="d-flex" role="group" style="gap: 0.4em;">
-                            <input type="text" class="form-control" id="border-input-formulario" name="border-input-formulario" value="#fbbb01">
-                            <input type="color" class="form-control form-control-color p-0" name="border-formulario" id="border-formulario" value="#fbbb01">
+                            <input type="text" class="form-control" id="border-input-formulario" name="border-input-formulario" value="{{ $border_formulario }}">
+                            <input type="color" class="form-control form-control-color p-0" name="border-formulario" id="border-formulario" value="{{ $border_formulario }}">
                         </div>
                     </li>
                 </ul>
@@ -828,7 +998,7 @@
                         <p class="my-1">Texto</p>
                         <div class="d-flex justify-content-start mb-2" style="gap: 1.2em;">
                             <div class="p-1 cursor bold">
-                                <input hidden type="checkbox" name="bold-titulo-formulario" id="bold-titulo-formulario">
+                                <input hidden type="checkbox" name="bold-titulo-formulario" id="bold-titulo-formulario" {{ $bold_titulo_formulario }}>
                                 <label for="bold-titulo-formulario" class="d-flex align-items-center cursor">
                                     <svg width="11" height="14" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg" id="svg_bold_formulario">
                                         <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="#98A2B3"/>
@@ -841,22 +1011,22 @@
                                         <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="#98A2B3"/>
                                     </svg>
                                 </label>
-                                <input hidden type="checkbox" name="italic-titulo-formulario" id="italic-titulo-formulario">
+                                <input hidden type="checkbox" name="italic-titulo-formulario" id="italic-titulo-formulario" {{ $italic_titulo_formulario }}>
                             </div>
                         </div>
-                        <input type="text" class="form-control p-2" name="input-titulo-formulario" id="input-titulo-formulario" value="Formulario Participar">
+                        <input type="text" class="form-control p-2" name="input-titulo-formulario" id="input-titulo-formulario" value="{{ $input_titulo_formulario }}">
                     </li>
                     <li class="my-2">
                         <p class="my-1">Tamaño Texto</p>
                         
                         <div class="btn-group" role="group">
-                            <input type="radio" class="btn-check" name="tamanoTituloFormulario" id="tamanoTituloFormulario1" autocomplete="off" value="1">
+                            <input type="radio" class="btn-check" name="tamanoTituloFormulario" id="tamanoTituloFormulario1" autocomplete="off" value="1" {{ $tamanoTituloFormulario1 }}>
                             <label class="btn btn-outline-text" for="tamanoTituloFormulario1"><small><b>Chico</b></small></label>
                           
-                            <input type="radio" class="btn-check" name="tamanoTituloFormulario" id="tamanoTituloFormulario2" autocomplete="off" value="2">
+                            <input type="radio" class="btn-check" name="tamanoTituloFormulario" id="tamanoTituloFormulario2" autocomplete="off" value="2" {{ $tamanoTituloFormulario2 }}>
                             <label class="btn btn-outline-text" for="tamanoTituloFormulario2"><small><b>Mediano</b></small></label>
                           
-                            <input type="radio" class="btn-check" name="tamanoTituloFormulario" id="tamanoTituloFormulario3" autocomplete="off" checked value="3">
+                            <input type="radio" class="btn-check" name="tamanoTituloFormulario" id="tamanoTituloFormulario3" autocomplete="off" {{ $tamanoTituloFormulario3 }} value="3">
                             <label class="btn btn-outline-text" for="tamanoTituloFormulario3"><small><b>Grande</b></small></label>
                         </div>
 
@@ -865,8 +1035,8 @@
                         <p class="my-1">Color</p>
                         
                         <div class="d-flex" role="group" style="gap: 0.4em;">
-                            <input type="text" class="form-control" id="color-titulo-input-formulario" name="color-titulo-input-formulario" value="#fbbb01">
-                            <input type="color" class="form-control form-control-color p-0" name="color-titulo-formulario" id="color-titulo-formulario" value="#fbbb01">
+                            <input type="text" class="form-control" id="color-titulo-input-formulario" name="color-titulo-input-formulario" value="{{ $color_titulo_formulario }}">
+                            <input type="color" class="form-control form-control-color p-0" name="color-titulo-formulario" id="color-titulo-formulario" value="{{ $color_titulo_formulario }}">
                         </div>
                     </li>
                 </ul>
@@ -880,8 +1050,8 @@
                         <p class="my-1">Color Label Formulario</p>
                         
                         <div class="d-flex" role="group" style="gap: 0.4em;">
-                            <input type="text" class="form-control" id="color-label-input-formulario" name="color-label-input-formulario" value="#FFFFFF">
-                            <input type="color" class="form-control form-control-color p-0" name="color-label-formulario" id="color-label-formulario" value="#FFFFFF">
+                            <input type="text" class="form-control" id="color-label-input-formulario" name="color-label-input-formulario" value="{{ $color_label_formulario }}">
+                            <input type="color" class="form-control form-control-color p-0" name="color-label-formulario" id="color-label-formulario" value="{{ $color_label_formulario }}">
                         </div>
                     </li>
                 </ul>
@@ -895,7 +1065,7 @@
                         <p class="my-1">Texto</p>
                         <div class="d-flex justify-content-start mb-2" style="gap: 1.2em;">
                             <div class="p-1 cursor bold">
-                                <input hidden type="checkbox" name="bold-boton-formulario" id="bold-boton-formulario">
+                                <input hidden type="checkbox" name="bold-boton-formulario" id="bold-boton-formulario" {{ $bold_boton_formulario }}>
                                 <label for="bold-boton-formulario" class="d-flex align-items-center cursor">
                                     <svg width="11" height="14" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg" id="svg_bold_formulario_btn">
                                         <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="#98A2B3"/>
@@ -908,22 +1078,22 @@
                                         <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="#98A2B3"/>
                                     </svg>
                                 </label>
-                                <input hidden type="checkbox" name="italic-boton-formulario" id="italic-boton-formulario">
+                                <input hidden type="checkbox" name="italic-boton-formulario" id="italic-boton-formulario" {{ $italic_boton_formulario }}>
                             </div>
                         </div>
-                        <input type="text" class="form-control p-2" name="input-boton-formulario" id="input-boton-formulario" value="PARTICIPAR">
+                        <input type="text" class="form-control p-2" name="input-boton-formulario" id="input-boton-formulario" value="{{ $input_buttom_formulario }}">
                     </li>
                     <li class="my-2">
                         <p class="my-1">Tamaño Texto</p>
                         
                         <div class="btn-group" role="group">
-                            <input type="radio" class="btn-check" name="tamanoBotonFormulario" id="tamanoBotonFormulario1" autocomplete="off" checked value="1">
+                            <input type="radio" class="btn-check" name="tamanoBotonFormulario" id="tamanoBotonFormulario1" autocomplete="off" {{ $tamanoBotonFormulario1 }} value="1">
                             <label class="btn btn-outline-text" for="tamanoBotonFormulario1"><small><b>Chico</b></small></label>
                           
-                            <input type="radio" class="btn-check" name="tamanoBotonFormulario" id="tamanoBotonFormulario2" autocomplete="off" value="2">
+                            <input type="radio" class="btn-check" name="tamanoBotonFormulario" id="tamanoBotonFormulario2" autocomplete="off" value="2" {{ $tamanoBotonFormulario2 }}>
                             <label class="btn btn-outline-text" for="tamanoBotonFormulario2"><small><b>Mediano</b></small></label>
                           
-                            <input type="radio" class="btn-check" name="tamanoBotonFormulario" id="tamanoBotonFormulario3" autocomplete="off" value="3">
+                            <input type="radio" class="btn-check" name="tamanoBotonFormulario" id="tamanoBotonFormulario3" autocomplete="off" value="3" {{ $tamanoBotonFormulario3 }}>
                             <label class="btn btn-outline-text" for="tamanoBotonFormulario3"><small><b>Grande</b></small></label>
                         </div>
 
@@ -932,13 +1102,34 @@
                         <p class="my-1">Color</p>
                         
                         <div class="d-flex" role="group" style="gap: 0.4em;">
-                            <input type="text" class="form-control" id="color-boton-input-formulario" name="color-boton-input-formulario" value="#fbbb01">
-                            <input type="color" class="form-control form-control-color p-0" name="color-boton-formulario" id="color-boton-formulario" value="#fbbb01">
+                            <input type="text" class="form-control" id="color-boton-input-formulario" name="color-boton-input-formulario" value="{{ $color_boton_formulario }}">
+                            <input type="color" class="form-control form-control-color p-0" name="color-boton-formulario" id="color-boton-formulario" value="{{ $color_boton_formulario }}">
                         </div>
                     </li>
                 </ul>
             </div>
         </div>
+        @php
+            $ganadores = isset($landing->ganadores) && !empty($landing->ganadores) ? json_decode($landing->ganadores, true) : null;
+            
+            $border_ganador = $ganadores && $ganadores["border-ganador"] ? $ganadores["border-ganador"] : '#fbbb01';
+
+            $bold_titulo_ganador = $ganadores && $ganadores["bold-titulo-ganador"] == 1 ? "checked" : "";
+            $bold_titulo_ganador_style = $ganadores && $ganadores["bold-titulo-ganador"] == 1 ? "fw-bold" : "";
+            $italic_titulo_ganador = $ganadores && $ganadores["italic-titulo-ganador"] == 1 ? "checked" : "";
+            $italic_titulo_ganador_style = $ganadores && $ganadores["italic-titulo-ganador"] == 1 ? "fst-italic" : "";
+
+            $input_titulo_ganador = $ganadores && $ganadores["input-titulo-ganador"] ? $ganadores["input-titulo-ganador"] : 'Ganadores';
+
+            $tamanoTituloGanador1 = $ganadores && $ganadores["tamanoTituloGanador"] == 1 ? 'checked' : '';
+            $tamanoTituloGanador2 = $ganadores && $ganadores["tamanoTituloGanador"] == 2 ? 'checked' : '';
+            $tamanoTituloGanador3 = $ganadores && $ganadores["tamanoTituloGanador"] == 2 ? 'checked' : '';
+            $styletamanoTituloGanador = $ganadores && $ganadores["tamanoTituloGanador"]  == 1 ? "fs-6" : ($ganadores && $ganadores["tamanoTituloGanador"]  == 2 ? "fs-3"  :  ($ganadores && $ganadores["tamanoTituloGanador"]  == 3 ? "fs-1"  : ""));
+        
+            $color_titulo_ganador = $ganadores && $ganadores["color-titulo-ganador"] ? $ganadores["color-titulo-ganador"] : '#fbbb01';
+
+            $color_lista = $ganadores && $ganadores["color-lista-ganador"] ? $ganadores["color-lista-ganador"] : '#ffffff';
+        @endphp
         <div class="d-none" id="ganadores-section">
             <div class="border-bottom py-2">
                 <button type="button" class="border-0 w-100 text-start" style="background-color: #fff;" id="back_ganador"><i class="fas fa-chevron-left"></i> Ganadores</button>
@@ -952,8 +1143,8 @@
                         <p class="my-1">Color Borde</p>
                         
                         <div class="d-flex" role="group" style="gap: 0.4em;">
-                            <input type="text" class="form-control" id="border-input-ganador" name="border-input-ganador" value="#fbbb01">
-                            <input type="color" class="form-control form-control-color p-0" name="border-ganador" id="border-ganador" value="#fbbb01">
+                            <input type="text" class="form-control" id="border-input-ganador" name="border-input-ganador" value="{{ $border_ganador }}">
+                            <input type="color" class="form-control form-control-color p-0" name="border-ganador" id="border-ganador" value="{{ $border_ganador }}">
                         </div>
                     </li>
                 </ul>
@@ -967,7 +1158,7 @@
                         <p class="my-1">Texto</p>
                         <div class="d-flex justify-content-start mb-2" style="gap: 1.2em;">
                             <div class="p-1 cursor bold">
-                                <input hidden type="checkbox" name="bold-titulo-ganador" id="bold-titulo-ganador">
+                                <input hidden type="checkbox" name="bold-titulo-ganador" id="bold-titulo-ganador" {{ $bold_titulo_ganador }}>
                                 <label for="bold-titulo-ganador" class="d-flex align-items-center cursor">
                                     <svg width="11" height="14" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg" id="svg_bold_ganador">
                                         <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="#98A2B3"/>
@@ -980,22 +1171,22 @@
                                         <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="#98A2B3"/>
                                     </svg>
                                 </label>
-                                <input hidden type="checkbox" name="italic-titulo-ganador" id="italic-titulo-ganador">
+                                <input hidden type="checkbox" name="italic-titulo-ganador" id="italic-titulo-ganador" {{ $italic_titulo_ganador }}>
                             </div>
                         </div>
-                        <input type="text" class="form-control p-2" name="input-titulo-ganador" id="input-titulo-ganador" value="Ganadores">
+                        <input type="text" class="form-control p-2" name="input-titulo-ganador" id="input-titulo-ganador" value="{{ $input_titulo_ganador }}">
                     </li>
                     <li class="my-2">
                         <p class="my-1">Tamaño Texto</p>
                         
                         <div class="btn-group" role="group">
-                            <input type="radio" class="btn-check" name="tamanoTituloGanador" id="tamanoTituloGanador1" autocomplete="off" value="1">
+                            <input type="radio" class="btn-check" name="tamanoTituloGanador" id="tamanoTituloGanador1" autocomplete="off" value="1" {{ $tamanoTituloGanador1 }}>
                             <label class="btn btn-outline-text" for="tamanoTituloGanador1"><small><b>Chico</b></small></label>
                           
-                            <input type="radio" class="btn-check" name="tamanoTituloGanador" id="tamanoTituloGanador2" autocomplete="off" value="2">
+                            <input type="radio" class="btn-check" name="tamanoTituloGanador" id="tamanoTituloGanador2" autocomplete="off" value="2" {{ $tamanoTituloGanador2 }}>
                             <label class="btn btn-outline-text" for="tamanoTituloGanador2"><small><b>Mediano</b></small></label>
                           
-                            <input type="radio" class="btn-check" name="tamanoTituloGanador" id="tamanoTituloGanador3" autocomplete="off" checked value="3">
+                            <input type="radio" class="btn-check" name="tamanoTituloGanador" id="tamanoTituloGanador3" autocomplete="off" {{ $tamanoTituloGanador3 }} value="3">
                             <label class="btn btn-outline-text" for="tamanoTituloGanador3"><small><b>Grande</b></small></label>
                         </div>
 
@@ -1004,8 +1195,8 @@
                         <p class="my-1">Color</p>
                         
                         <div class="d-flex" role="group" style="gap: 0.4em;">
-                            <input type="text" class="form-control" id="color-titulo-input-ganador" name="color-titulo-input-ganador" value="#fbbb01">
-                            <input type="color" class="form-control form-control-color p-0" name="color-titulo-ganador" id="color-titulo-ganador" value="#fbbb01">
+                            <input type="text" class="form-control" id="color-titulo-input-ganador" name="color-titulo-input-ganador" value="{{ $color_titulo_ganador }}">
+                            <input type="color" class="form-control form-control-color p-0" name="color-titulo-ganador" id="color-titulo-ganador" value="{{ $color_titulo_ganador }}">
                         </div>
                     </li>
                 </ul>
@@ -1019,13 +1210,47 @@
                         <p class="my-1">Color Lista</p>
                         
                         <div class="d-flex" role="group" style="gap: 0.4em;">
-                            <input type="text" class="form-control" id="color-lista-input-ganador" name="color-lista-input-ganador" value="#FFFFFF">
-                            <input type="color" class="form-control form-control-color p-0" name="color-lista-ganador" id="color-lista-ganador" value="#FFFFFF">
+                            <input type="text" class="form-control" id="color-lista-input-ganador" name="color-lista-input-ganador" value="{{ $color_lista }}">
+                            <input type="color" class="form-control form-control-color p-0" name="color-lista-ganador" id="color-lista-ganador" value="{{ $color_lista }}">
                         </div>
                     </li>
                 </ul>
             </div>
         </div>
+        @php
+            $preguntas_frecuentes = isset($landing->preguntas_frecuentes) && !empty($landing->preguntas_frecuentes) ? json_decode($landing->preguntas_frecuentes, true) : null;
+            $border_pregunta = $preguntas_frecuentes && $preguntas_frecuentes["border-pregunta"] ? $preguntas_frecuentes["border-pregunta"] : '#fbbb01';
+
+            $bold_titulo_pregunta = $preguntas_frecuentes && $preguntas_frecuentes["bold-titulo-pregunta"] == 1 ? "checked" : "";
+            $bold_titulo_pregunta_style = $preguntas_frecuentes && $preguntas_frecuentes["bold-titulo-pregunta"] == 1 ? "fw-bold" : "";
+            $italic_titulo_pregunta = $preguntas_frecuentes && $preguntas_frecuentes["italic-titulo-pregunta"] == 1 ? "checked" : "";
+            $italic_titulo_pregunta_style = $preguntas_frecuentes && $preguntas_frecuentes["italic-titulo-pregunta"] == 1 ? "fst-italic" : "";
+
+            $input_titulo_pregunta = $preguntas_frecuentes && $preguntas_frecuentes["input-titulo-pregunta"] ? $preguntas_frecuentes["input-titulo-pregunta"] : 'preguntas_frecuentes';
+
+            $tamanoTituloPregunta1 = $preguntas_frecuentes && $preguntas_frecuentes["tamanoTituloPregunta"] == 1 ? 'checked' : '';
+            $tamanoTituloPregunta2 = $preguntas_frecuentes && $preguntas_frecuentes["tamanoTituloPregunta"] == 2 ? 'checked' : '';
+            $tamanoTituloPregunta3 = $preguntas_frecuentes && $preguntas_frecuentes["tamanoTituloPregunta"] == 2 ? 'checked' : '';
+            $styletamanoTituloPregunta = $preguntas_frecuentes && $preguntas_frecuentes["tamanoTituloPregunta"]  == 1 ? "fs-6" : ($preguntas_frecuentes && $preguntas_frecuentes["tamanoTituloPregunta"]  == 2 ? "fs-3"  :  ($preguntas_frecuentes && $preguntas_frecuentes["tamanoTituloPregunta"]  == 3 ? "fs-1"  : ""));
+        
+            $color_titulo_pregunta = $preguntas_frecuentes && $preguntas_frecuentes["color-titulo-pregunta"] ? $preguntas_frecuentes["color-titulo-pregunta"] : '#fbbb01';
+
+            $color_text_pregunta = $preguntas_frecuentes && $preguntas_frecuentes["color-text-pregunta"] ? $preguntas_frecuentes["color-text-pregunta"] : '#fbbb01';
+
+            $color_border_pregunta = $preguntas_frecuentes && $preguntas_frecuentes["color-borde-pregunta"] ? $preguntas_frecuentes["color-borde-pregunta"] : '#fbbb01';
+
+            $pregunta1 = $preguntas_frecuentes && $preguntas_frecuentes["pregunta1"] ? $preguntas_frecuentes["pregunta1"] : '';
+            $respuesta1 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta1"] ? $preguntas_frecuentes["respuesta1"] : '';
+
+            $pregunta2 = $preguntas_frecuentes && $preguntas_frecuentes["pregunta2"] ? $preguntas_frecuentes["pregunta2"] : '';
+            $respuesta2 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta2"] ? $preguntas_frecuentes["respuesta2"] : '';
+
+            $pregunta3 = $preguntas_frecuentes && $preguntas_frecuentes["pregunta3"] ? $preguntas_frecuentes["pregunta3"] : '';
+            $respuesta3 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta3"] ? $preguntas_frecuentes["respuesta3"] : '';
+
+            $pregunta4 = $preguntas_frecuentes && $preguntas_frecuentes["pregunta4"] ? $preguntas_frecuentes["pregunta4"] : '';
+            $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $preguntas_frecuentes["respuesta4"] : '';
+        @endphp
         <div class="d-none" id="preguntas-section">
             <div class="border-bottom py-2">
                 <button type="button" class="border-0 w-100 text-start" style="background-logo_subir: #fff;" id="back_pregunta"><i class="fas fa-chevron-left"></i> Preguntas Frecuentes</button>
@@ -1039,8 +1264,8 @@
                         <p class="my-1">Color Borde</p>
                         
                         <div class="d-flex" role="group" style="gap: 0.4em;">
-                            <input type="text" class="form-control" id="border-input-pregunta" name="border-input-pregunta" value="#fbbb01">
-                            <input type="color" class="form-control form-control-color p-0" name="border-pregunta" id="border-pregunta" value="#fbbb01">
+                            <input type="text" class="form-control" id="border-input-pregunta" name="border-input-pregunta" value="{{ $border_pregunta }}">
+                            <input type="color" class="form-control form-control-color p-0" name="border-pregunta" id="border-pregunta" value="{{ $border_pregunta }}">
                         </div>
                     </li>
                 </ul>
@@ -1054,7 +1279,7 @@
                         <p class="my-1">Texto</p>
                         <div class="d-flex justify-content-start mb-2" style="gap: 1.2em;">
                             <div class="p-1 cursor bold">
-                                <input hidden type="checkbox" name="bold-titulo-pregunta" id="bold-titulo-pregunta">
+                                <input hidden type="checkbox" name="bold-titulo-pregunta" id="bold-titulo-pregunta" {{ $bold_titulo_pregunta }}>
                                 <label for="bold-titulo-pregunta" class="d-flex align-items-center cursor">
                                     <svg width="11" height="14" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg" id="svg_bold_pregunta">
                                         <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="#98A2B3"/>
@@ -1067,22 +1292,22 @@
                                         <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="#98A2B3"/>
                                     </svg>
                                 </label>
-                                <input hidden type="checkbox" name="italic-titulo-pregunta" id="italic-titulo-pregunta">
+                                <input hidden type="checkbox" name="italic-titulo-pregunta" id="italic-titulo-pregunta" {{ $italic_titulo_pregunta }}>
                             </div>
                         </div>
-                        <input type="text" class="form-control p-2" name="input-titulo-pregunta" id="input-titulo-pregunta" value="Preguntas Frecuentes">
+                        <input type="text" class="form-control p-2" name="input-titulo-pregunta" id="input-titulo-pregunta" value="{{ $input_titulo_pregunta }}">
                     </li>
                     <li class="my-2">
                         <p class="my-1">Tamaño Texto</p>
                         
                         <div class="btn-group" role="group">
-                            <input type="radio" class="btn-check" name="tamanoTituloPregunta" id="tamanoTituloPregunta1" autocomplete="off" value="1">
+                            <input type="radio" class="btn-check" name="tamanoTituloPregunta" id="tamanoTituloPregunta1" autocomplete="off" value="1" {{ $tamanoTituloPregunta1 }}>
                             <label class="btn btn-outline-text" for="tamanoTituloPregunta1"><small><b>Chico</b></small></label>
                           
-                            <input type="radio" class="btn-check" name="tamanoTituloPregunta" id="tamanoTituloPregunta2" autocomplete="off" value="2">
+                            <input type="radio" class="btn-check" name="tamanoTituloPregunta" id="tamanoTituloPregunta2" autocomplete="off" value="2" {{ $tamanoTituloPregunta2 }}>
                             <label class="btn btn-outline-text" for="tamanoTituloPregunta2"><small><b>Mediano</b></small></label>
                           
-                            <input type="radio" class="btn-check" name="tamanoTituloPregunta" id="tamanoTituloPregunta3" autocomplete="off" checked value="3">
+                            <input type="radio" class="btn-check" name="tamanoTituloPregunta" id="tamanoTituloPregunta3" autocomplete="off" {{ $tamanoTituloPregunta3 }} value="3">
                             <label class="btn btn-outline-text" for="tamanoTituloPregunta3"><small><b>Grande</b></small></label>
                         </div>
 
@@ -1091,8 +1316,8 @@
                         <p class="my-1">Color</p>
                         
                         <div class="d-flex" role="group" style="gap: 0.4em;">
-                            <input type="text" class="form-control" id="color-titulo-input-pregunta" name="color-titulo-input-pregunta" value="#fbbb01">
-                            <input type="color" class="form-control form-control-color p-0" name="color-titulo-pregunta" id="color-titulo-pregunta" value="#fbbb01">
+                            <input type="text" class="form-control" id="color-titulo-input-pregunta" name="color-titulo-input-pregunta" value="{{ $color_titulo_pregunta }}">
+                            <input type="color" class="form-control form-control-color p-0" name="color-titulo-pregunta" id="color-titulo-pregunta" value="{{ $color_titulo_pregunta }}">
                         </div>
                     </li>
                 </ul>
@@ -1106,46 +1331,46 @@
                         <p class="my-1">Color Preguntas</p>
                         
                         <div class="d-flex" role="group" style="gap: 0.4em;">
-                            <input type="text" class="form-control" id="color-text-input-pregunta" name="color-text-input-pregunta" value="#fbbb01">
-                            <input type="color" class="form-control form-control-color p-0" name="color-text-pregunta" id="color-text-pregunta" value="#fbbb01">
+                            <input type="text" class="form-control" id="color-text-input-pregunta" name="color-text-input-pregunta" value="{{ $color_text_pregunta }}">
+                            <input type="color" class="form-control form-control-color p-0" name="color-text-pregunta" id="color-text-pregunta" value="{{ $color_text_pregunta }}">
                         </div>
                     </li>
                     <li class="my-2">
                         <p class="my-1">Color Preguntas Borde</p>
                         
                         <div class="d-flex" role="group" style="gap: 0.4em;">
-                            <input type="text" class="form-control" id="color-borde-input-pregunta" name="color-borde-input-pregunta" value="#fbbb01">
-                            <input type="color" class="form-control form-control-color p-0" name="color-borde-pregunta" id="color-borde-pregunta" value="#fbbb01">
+                            <input type="text" class="form-control" id="color-borde-input-pregunta" name="color-borde-input-pregunta" value="{{ $color_border_pregunta }}">
+                            <input type="color" class="form-control form-control-color p-0" name="color-borde-pregunta" id="color-borde-pregunta" value="{{ $color_border_pregunta }}">
                         </div>
                     </li>
                     <li class="my-2">
                         <p class="my-1"><b>Preguntas:</b> </p>
                         <div>
                             <p>Pregunta 1</p>
-                            <input type="text" class="form-control" name="pregunta1" id="pregunta1">
+                            <input type="text" class="form-control" name="pregunta1" id="pregunta1" value="{{ $pregunta1 }}">
                             <p>Respuesta</p>
-                            <textarea class="form-control" name="respuesta1" id="respuesta1"></textarea>
+                            <textarea class="form-control" name="respuesta1" id="respuesta1">{{ $respuesta1 }}</textarea>
                             <hr>
                         </div>
                         <div>
                             <p>Pregunta 2</p>
-                            <input type="text" class="form-control" name="pregunta2" id="pregunta2">
+                            <input type="text" class="form-control" name="pregunta2" id="pregunta2" value="{{ $pregunta2 }}">
                             <p>Respuesta</p>
-                            <textarea class="form-control" name="respuesta2" id="respuesta2"></textarea>
+                            <textarea class="form-control" name="respuesta2" id="respuesta2">{{ $respuesta2 }}</textarea>
                             <hr>
                         </div>
                         <div>
                             <p>Pregunta 3</p>
-                            <input type="text" class="form-control" name="pregunta3" id="pregunta3">
+                            <input type="text" class="form-control" name="pregunta3" id="pregunta3" value="{{ $pregunta3 }}">
                             <p>Respuesta</p>
-                            <textarea class="form-control" name="respuesta3" id="respuesta3"></textarea>
+                            <textarea class="form-control" name="respuesta3" id="respuesta3">{{ $respuesta3 }}</textarea>
                             <hr>
                         </div>
                         <div>
                             <p>Pregunta 4</p>
-                            <input type="text" class="form-control" name="pregunta4" id="pregunta4">
+                            <input type="text" class="form-control" name="pregunta4" id="pregunta4" value="{{ $pregunta4 }}">
                             <p>Respuesta</p>
-                            <textarea class="form-control" name="respuesta4" id="respuesta4"></textarea>
+                            <textarea class="form-control" name="respuesta4" id="respuesta4">{{ $respuesta4 }}</textarea>
                             <hr>
                         </div>
                     </li>
@@ -1158,14 +1383,14 @@
             @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
             :root {
-                --landing: #080808;
+                --landing: {{ $fondo_landing }};
                 --color-text1: #fff;
-                --color-active-nav: #fbbb01;
+                --color-active-nav: {{ $color_navegacion_input_hover }};
                 --popins: "Poppins", sans-serif;
                 --bg-nav: #080808;
                 --buttom-header: #cd0a10;
                 --color-buttom-header: #fff;
-                --border-participar: #fbbb01;
+                --border-participar: {{ $border_input_como }};
                 --title-participar: #fbbb01;
                 --buttom-participar: #fbbb01;
                 --buttom-vermas: #fbbb01;
@@ -1186,7 +1411,7 @@
             }
 
             .navbar a {
-                color: var(--color-text1);
+                color: {{ $color_navegacion }};
                 font-weight: 500;
             }
 
@@ -1428,17 +1653,17 @@
 
             .table > :not(caption) > * > * {
                 background-color: transparent;
-                color: #fff
+                color: {{ $color_lista }};
             }
         </style>
         <div class="landing_page position-relative">
-            <div class="w-100 nav-landing nav-position px-5" id="nav-landing">
+            <div class="w-100 nav-landing nav-position px-5" id="nav-landing" style="background-color: {{ $color_menu }} !important;">
                 <div class="row">
                     <div class="col-12">
                         <nav class="navbar navbar-expand-lg">
                             <div class="container-fluid">
                                 <a class="navbar-brand" href="#">
-                                    <img src="{{asset('backend/landing/img/Recurso 1.png')}}" alt="Bootstrap" id="logo-nav" style="width: 100px;">
+                                    <img src="{{$logo_subir}}" alt="Bootstrap" id="logo-nav" style="width: 100px;">
                                 </a>
                                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -1448,16 +1673,16 @@
                                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex" style="gap: 3rem;">
                                         <li class="nav-item">
-                                            <a class="nav-link active item_landing_menu" aria-current="page" href="#participar" id="navegacion_1_menu">¿CÓMO PARTICIPAR?</a>
+                                            <a class="nav-link active item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" aria-current="page" href="#participar" id="{{ $direccionar_1 }}">{{ $navegacion_1 }}</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link item_landing_menu" href="#preguntas-frecuentes" id="navegacion_2_menu">PREGUNTAS FRECUENTES</a>
+                                            <a class="nav-link item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" href="#preguntas-frecuentes" id="{{ $direccionar_2 }}">{{ $navegacion_2 }}</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link item_landing_menu" href="#" id="navegacion_3_menu">TÉRMINOS Y CONDICIONES</a>
+                                            <a class="nav-link item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" href="#" id="{{ $direccionar_3 }}">{{ $navegacion_3 }}</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link item_landing_menu" href="#ganadores" id="navegacion_4_menu">VER GANADORES</a>
+                                            <a class="nav-link item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" href="#ganadores" id="{{ $direccionar_4 }}">{{ $navegacion_4 }}</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -1467,43 +1692,43 @@
                 </div>
             </div>
             <div class="w-100">
-                <header id="header" class="w-100 d-flex flex-column justify-content-center align-items-center" style="gap: 1.2rem;background-image: url({{asset('backend/landing/img/fondo-header.jpg')}});">
-                    <img class="img-fluid" src="{{asset('backend/landing/img/Objeto inteligente vectorial.png')}}" alt="" id="imagen-header">
-                    <p class="text-center fs-1 w-100" id="titulo_header"></p>
-                    <p class="text-center fs-6 w-100" id="parrafo-header"></p>
-                    <a href="#formulario-participar" class="btns btn-landing mt-5" id="btn_participar_header">PARTICIPAR</a>
+                <header id="header" class="w-100 d-flex flex-column justify-content-center align-items-center" style="gap: 1.2rem;background-image: url({{$banner_subir}});">
+                    <img class="img-fluid" src="{{$imagen_subir}}" alt="" id="imagen-header">
+                    <p class="{{ $stylealineacionTitulo }} {{ $styleTamanoTituloHeader }} w-100 {{ $bold_titulo_header_style }} {{ $italic_titulo_header_style }}" id="titulo_header">{{ $input_titulo_header }}</p>
+                    <p class="{{ $stylealineacionTexto }} {{ $styletamanoTextoHeader }} w-100 {{ $bold_titulo_parrafo_style }} {{ $italic_titulo_parrafo_style }}" id="parrafo-header" style="color: {{ $color_texto }};">{{ $input_texto_header }}</p>
+                    <a href="{{ $direccionar_boton_header }}" class="btns btn-landing mt-5 {{ $styletamanoBotonHeader }} {{ $bold_boton_parrafo_style }} {{ $italic_boton_parrafo_style }}" id="btn_participar_header" style="background-color: {{ $color_boton_header }};">PARTICIPAR</a>
                 </header>
                 <div class="pt-5" id="participar">
                     <section>
-                        <h1 class="text-center title-participar" id="title_como">¿Cómo participar?</h1>
+                        <h1 class="text-center title-participar {{ $bold_titulo_como_style }} {{ $italic_titulo_como_style }} {{ $styletamanoTituloComo }}" id="title_como" style="color: {{ $color_titulo_como }} !important;">{{ $input_titulo_como }}</h1>
                         <div class="aside-row">
                             <aside class="col-12 col-md-6 col-lg-4 item-participar">
-                                <img class="img-fluid" src="{{asset('backend/landing/img/participar-1.png')}}" alt="" id="item_participar_1">
+                                <img class="img-fluid" src="{{$participar_1}}" alt="" id="item_participar_1">
                             </aside>
                             <aside class="col-12 col-md-6 col-lg-4 item-participar">
-                                <img class="img-fluid" src="{{asset('backend/landing/img/participar-2.png')}}" alt="" id="item_participar_2">
+                                <img class="img-fluid" src="{{$participar_2}}" alt="" id="item_participar_2">
                             </aside>
                             <aside class="col-12 col-md-6 col-lg-4 item-participar">
-                                <img class="img-fluid" src="{{asset('backend/landing/img/participar-3.png')}}" alt="" id="item_participar_3">
+                                <img class="img-fluid" src="{{$participar_3}}" alt="" id="item_participar_3">
                             </aside>
                         </div>
-                        <button class="btns btn-landing" id="btn-como">VER TÉRMINOS Y CONDICIONES</button>
+                        <button class="btns btn-landing {{ $styletamanoBotonComo }} {{ $bold_boton_como_style }} {{ $italic_boton_como_style }}" id="btn-como" style="background-color: {{ $color_boton_como }} !important;">{{ $input_buttom_como }}</button>
                     </section>
                 </div>
                 <div class="mt-5" id="formulario-participar">
-                    <section>
-                        <h1 class="text-center title-participar" id="title_formulario_participar">Formulario Participar</h1>
+                    <section style="border-color: {{ $border_formulario }} !important;">
+                        <h1 class="text-center title-participar {{ $styletamanoTituloFormulario }} {{ $bold_titulo_formulario_style }} {{ $italic_titulo_formulario_style }}" id="title_formulario_participar" style="color: {{ $color_titulo_formulario }};">{{ $input_titulo_formulario }}</h1>
                         <form class="row">
                             <div class="col-12 col-md-6 mb-3">
-                                <label for="name" class="label_form">Nombre</label>
+                                <label for="name" class="label_form" style="color: {{ $color_label_formulario }} !important;">Nombre</label>
                                 <input type="text" class="form-control input-text">
                             </div>
                             <div class="col-12 col-md-6 mb-3">
-                                <label for="name" class="label_form">Apellido</label>
+                                <label for="name" class="label_form" style="color: {{ $color_label_formulario }} !important;">Apellido</label>
                                 <input type="text" class="form-control input-text">
                             </div>
                             <div class="col-12 col-md-6 mb-3">
-                                <label for="name" class="label_form">Tipo de documento</label>
+                                <label for="name" class="label_form" style="color: {{ $color_label_formulario }} !important;">Tipo de documento</label>
                                 <input type="text" class="form-control input-text">
                             </div>
                             <div class="col-12 col-md-6 mb-3">
@@ -1511,19 +1736,19 @@
                                 <input type="text" class="form-control input-text">
                             </div>
                             <div class="col-12 col-md-6 mb-3">
-                                <label for="name" class="label_form">Edad (*Mayores de 18 años)</label>
+                                <label for="name" class="label_form" style="color: {{ $color_label_formulario }} !important;">Edad (*Mayores de 18 años)</label>
                                 <input type="text" class="form-control input-text">
                             </div>
                             <div class="col-12 col-md-6 mb-3">
-                                <label for="name" class="label_form">N° telefónico</label>
+                                <label for="name" class="label_form" style="color: {{ $color_label_formulario }} !important;">N° telefónico</label>
                                 <input type="text" class="form-control input-text">
                             </div>
                             <div class="col-12 col-md-6 mb-3">
-                                <label for="name" class="label_form">Correo Electronico</label>
+                                <label for="name" class="label_form" style="color: {{ $color_label_formulario }} !important;">Correo Electronico</label>
                                 <input type="email" class="form-control input-text">
                             </div>
                             <div class="col-12 col-md-6 mb-3">
-                                <label for="name" class="label_form">N° de LOTE + foto de producto</label>
+                                <label for="name" class="label_form" style="color: {{ $color_label_formulario }} !important;">N° de LOTE + foto de producto</label>
                                 <input type="text" class="form-control input-text">
                                 <input type="file" name="" id="" class="form-control mt-2">
                             </div>
@@ -1531,32 +1756,32 @@
                             <div class="col-12 row mt-3">
                                 <div class="form-check col-12 col-md-6 col-lg-4">
                                     <input class="form-check-input" type="checkbox" name="termino_condicion" id="termino_condicion">
-                                    <label class="form-check-label label_form" for="termino_condicion ">
+                                    <label class="form-check-label label_form" for="termino_condicion " style="color: {{ $color_label_formulario }} !important;">
                                         Acepto terminos y condiciones
                                     </label>
                                 </div>
                                 <div class="form-check col-12 col-md-6 col-lg-4">
                                     <input class="form-check-input" type="checkbox" name="datos_web" id="datos_web">
-                                    <label class="form-check-label label_form" for="datos_web">
+                                    <label class="form-check-label label_form" for="datos_web" style="color: {{ $color_label_formulario }} !important;">
                                         Deseo usar mis datos para crear un usuario en plataforma web
                                     </label>
                                 </div>
                                 <div class="form-check col-12 col-md-6 col-lg-4">
                                     <input class="form-check-input" type="checkbox" name="politica_privacidad" id="politica_privacidad">
-                                    <label class="form-check-label label_form" for="politica_privacidad">
+                                    <label class="form-check-label label_form" for="politica_privacidad" style="color: {{ $color_label_formulario }} !important;">
                                         Acepto política de privacidad de datos
                                     </label>
                                 </div>
                             </div>
                             <div class="col-12 mt-3 d-flex justify-content-center">
-                                <button type="submit" class="btns btn-participar" id="btn-formulario">PARTICIPAR</button>
+                                <button type="submit" class="btns btn-participar {{ $styletamanoBotonFormulario }} {{ $bold_boton_formulario_style }} {{ $italic_boton_formulario_style }}" id="btn-formulario" style="background-color: {{ $color_boton_formulario }} !important;">{{ $input_buttom_formulario }}</button>
                             </div>
                         </form>
                     </section>
                 </div>
                 <div class="mt-5"  id="ganadores">
-                    <section>
-                        <h1 class="text-center title-participar" id="ganador-title">Ganadores</h1>
+                    <section style="border-color: {{ $border_ganador }} !important;">
+                        <h1 class="text-center title-participar {{ $bold_titulo_ganador_style }} {{ $italic_titulo_ganador_style }} {{ $styletamanoTituloGanador }}" id="ganador-title" style="color: {{ $color_titulo_ganador }} !important;">{{ $input_titulo_ganador }}</h1>
                         <div class="w-100 table-responsive">
                             <table class="table table-borderless" id="lista_ganador">
                                 <thead>
@@ -1628,56 +1853,56 @@
                     </section>
                 </div>
                 <div class="mt-5" id="preguntas-frecuentes">
-                    <section>
-                        <h1 class="text-center title-participar" id="pregunta-title">Preguntas Frecuentes</h1>
+                    <section style="border-color: {{ $border_pregunta }} !important;">
+                        <h1 class="text-center title-participar {{ $bold_titulo_pregunta_style }} {{ $italic_titulo_pregunta_style }} {{ $styletamanoTituloPregunta }}" id="pregunta-title" style="color: {{ $color_titulo_pregunta }} !important;">{{ $input_titulo_pregunta }}</h1>
                         <div class="w-100">
                             <div class="accordion" id="accordionExample">
-                                <div class="accordion-item">
+                                <div class="accordion-item" style="border-color: {{ $color_border_pregunta }} !important;">
                                     <h2 class="accordion-header">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" 
-                                    id="pregunta-1-landing">
-                                        Accordion Item #1
+                                    id="pregunta-1-landing" style="color: {{ $color_text_pregunta }} !important;">
+                                    {{ $pregunta1 }}
                                     </button>
                                     </h2>
                                     <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                                     <div class="accordion-body" id="respuesta-1-landing">
-                                        <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                                        {{ $respuesta1 }}
                                     </div>
                                     </div>
                                 </div>
-                                <div class="accordion-item">
+                                <div class="accordion-item" style="border-color: {{ $color_border_pregunta }} !important;">
                                     <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" id="pregunta-2-landing">
-                                        Accordion Item #2
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" id="pregunta-2-landing" style="color: {{ $color_text_pregunta }} !important;">
+                                        {{ $pregunta2 }}
                                     </button>
                                     </h2>
                                     <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                                     <div class="accordion-body" id="respuesta-2-landing">
-                                        <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                                        {{ $respuesta2 }}
                                     </div>
                                     </div>
                                 </div>
-                                <div class="accordion-item">
+                                <div class="accordion-item" style="border-color: {{ $color_border_pregunta }} !important;">
                                     <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" id="pregunta-3-landing">
-                                        Accordion Item #3
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" id="pregunta-3-landing" style="color: {{ $color_text_pregunta }} !important;">
+                                        {{ $pregunta3 }}
                                     </button>
                                     </h2>
                                     <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                                     <div class="accordion-body"  id="respuesta-3-landing">
-                                        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                                        {{ $respuesta3 }}
                                     </div>
                                     </div>
                                 </div>
-                                <div class="accordion-item">
+                                <div class="accordion-item" style="border-color: {{ $color_border_pregunta }} !important;">
                                     <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" id="pregunta-4-landing">
-                                        Accordion Item #3
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" id="pregunta-4-landing" style="color: {{ $color_text_pregunta }} !important;">
+                                        {{ $pregunta4 }}
                                     </button>
                                     </h2>
                                     <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                                     <div class="accordion-body"  id="respuesta-4-landing">
-                                        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                                        {{ $respuesta4 }}
                                     </div>
                                     </div>
                                 </div>

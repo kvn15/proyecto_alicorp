@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\landing_promocional;
 use App\Http\Controllers\Controller;
 use App\Models\AwardProject;
 use App\Models\GameView;
+use App\Models\Landing;
 use App\Models\Participant;
 use App\Models\Project;
 use App\Models\RaspaGana;
@@ -271,7 +272,13 @@ class LandingPromocionalController extends Controller
         
         $project = Project::where('id', $id)
                             ->first();
-        return view('admin.pages.landing_promocional.personalizarLanding', compact('project'));
+
+        $landing = Landing::where('project_id', $id)->first();
+        $data = [
+            'project' => $project,
+            'landing' => $landing
+        ];
+        return view('admin.pages.landing_promocional.personalizarLanding', compact('data'));
     }
 
     public function personalizarJuego($id) {
