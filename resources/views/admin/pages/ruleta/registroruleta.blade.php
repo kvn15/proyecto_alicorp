@@ -90,13 +90,63 @@
         color: #000;
     }
 </style>
-<body>
+<style>
+    .select_punto {
+        height: 80px;
+        font-size: 1.5em;
+        width: 200px;
+        white-space: pre-wrap;
+        text-align: center;
+        border: 0;
+        font-weight: 700;
+        background-color: #e9ba17;
+        line-height: 20px;
+        font-style: italic;
+        color: #000;
+    }
+    .content_left_select {
+        width: 250px;
+        background-color: #000;
+        font-size: 1.5em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 1em;
+        text-align: center;
+        color: #e9ba17;
+        font-weight: 700;
+    }
 
-    <form method="POST" action="{{ route("juego.post.registro.ruleta", $data["project"]->id) }}" enctype="multipart/form-data" class="content-game" id="form_registro_game">
+    .content_select {
+        overflow: hidden;
+        border: 2px solid #e9ba17;
+        border-radius: 15px;
+        line-height: 20px;
+        font-style: italic;
+    }
+</style>
+<body>
+    @php
+        $tipoJuego = $data["project"]->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
+    @endphp
+    <form method="POST" action="{{ route($tipoJuego."juego.post.registro.ruleta", $data["project"]->id) }}" enctype="multipart/form-data" class="content-game" id="form_registro_game">
         @csrf
         @method('POST')
         <div class="container h-100-vh ">
-            <div class="row h-100" id="form-registro">
+            <div class="{{ $data["project"]->project_type_id == 3 ? 'd-flex' : 'd-none' }} flex-column justify-content-center align-items-center h-100" id="punto_venta_content">
+                <div class="d-flex content_select mt-3">
+                    <div class="content_left_select">
+                        <b>Seleccionar punto de venta</b>
+                    </div>
+                    <select name="punto_venta" id="punto_venta" class="select_punto">
+                        <option value="">Mercados o autoservicios</option>
+                        @foreach ($data["puntoVenta"] as $index => $item)
+                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="row h-100 {{ $data["project"]->project_type_id == 3 ? 'd-none' : '' }}" id="form-registro">
                 <div class="col-12 col-lg-4 d-flex flex-column justify-content-center">
                     <img class="img-fluid" src="{{ asset('backend/img/recurso_form.png') }}" alt="">
                 </div>
@@ -245,6 +295,19 @@
                 $("#poltica-privacidad").addClass('d-none');
                 $("#terminos-condiciones").removeClass('d-none');
             })
+
+            $("#punto_venta").change(function (e) { 
+                e.preventDefault();
+                const valor = $("#punto_venta").val();
+
+                if (!valor) {
+                    alert("Deben escoger un punto de venta");
+                    return;
+                }
+
+                $("#punto_venta_content").addClass('d-none');
+                $("#form-registro").removeClass('d-none');
+            });
 
             // $("#form_registro_game").submit(function (e) { 
             //     e.preventDefault();

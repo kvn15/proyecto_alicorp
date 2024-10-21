@@ -12,6 +12,7 @@ use App\Models\ViewProject;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class GameMemoriaController extends Controller
@@ -19,7 +20,7 @@ class GameMemoriaController extends Controller
     
     public function index($hub) {
 
-        $project = Project::where('dominio', $hub)->where('status', 1)->where('project_type_id', 2)->where('game_id', 3)->first();
+        $project = Project::where('dominio', $hub)->where('status', 1)->whereIn('project_type_id', [2,3])->where('game_id', 3)->first();
 
         if(!isset($project)){
             return redirect()->route('index');
@@ -29,11 +30,23 @@ class GameMemoriaController extends Controller
             return redirect()->route('login');
         }
 
+        $game = GameView::where('project_id', $project->id)->first();
+
+        $puntoVenta = DB::table("projects")
+        ->join('asignacion_projects', 'asignacion_projects.project_id', '=', 'projects.id')
+        ->join('sales_points', 'sales_points.id', '=', 'asignacion_projects.sales_point_id')
+        ->select('sales_points.id', 'sales_points.name')
+        ->where('projects.id', $project->id)
+        ->distinct()
+        ->get()->toArray();
+
         $user = User::find(Auth::user()->id);
 
         $data = [
             'project' => $project,
             'user' => $user,
+            'gameMemoria' => $game,
+            'puntoVenta' => $puntoVenta
         ];
 
         return view('admin.pages.game_memoria.gamememoria', compact('data'));
@@ -52,8 +65,10 @@ class GameMemoriaController extends Controller
         // Verificar si el codigo ya existe
         $isCodigo = Participant::where('project_id', $id)->where('codigo', $request->codigo)->first();
 
+        $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
+
         if (isset($isCodigo)) {
-            return redirect()->route('juego.view.registro', $project->dominio)->with('mensaje', 'El N° de LOTE ya existe.');;
+            return redirect()->route($tipoJuego.'juego.view.registro', $project->dominio)->with('mensaje', 'El N° de LOTE ya existe.');;
         }
         
         $participant = new Participant();
@@ -64,6 +79,7 @@ class GameMemoriaController extends Controller
         $participant->codigo_valido = 1;
         $participant->participaciones = 1;
         $participant->file_producto = $ruta;
+        $participant->punto_entrega = isset($request->punto_venta) && !empty($request->punto_venta) ? $request->punto_venta : null;
         $participant->save();
 
         $user= User::findOrFail(Auth::user()->id);
@@ -80,7 +96,7 @@ class GameMemoriaController extends Controller
 
         $uuid = Str::uuid()->toString();
 
-        return redirect()->route('juego.view.memoria', $project->dominio)->with('claveMemoria', $participant->id);
+        return redirect()->route($tipoJuego.'juego.view.memoria', $project->dominio)->with('claveMemoria', $participant->id);
     }
 
     public function show($hub) {
@@ -89,9 +105,10 @@ class GameMemoriaController extends Controller
         if(!isset($project)){
             return redirect()->route('index');
         }
+        $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
 
         if (!session()->has('claveMemoria')) {
-            return redirect()->route('juego.view.registro', $hub);
+            return redirect()->route($tipoJuego.'juego.view.registro', $hub);
         }
 
         $idParticipante = session('claveMemoria');

@@ -310,6 +310,10 @@
     $logo_juego = isset($gameRuleta["logo_juego"]) && !empty($gameRuleta["logo_juego"]) ? '/storage/'.$gameRuleta["logo_juego"] : $imgNulo;
     $titulo_premio = isset($gameRuleta["titulo_premio"]) && !empty($gameRuleta["titulo_premio"]) ? '/storage/'.$gameRuleta["titulo_premio"] : $imgNulo;
     @endphp
+    
+    @php
+        $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
+    @endphp
     <div class="h-100 d-flex flex-column justify-content-center" style="background-image: url({{ $fondo }}); background-size: cover; min-height: 100vh;" id="juego_ruleta">
         <div id="inicio_juego" class=" d-block">
             <div class="text-center ctn-data">
@@ -346,7 +350,7 @@
                 </div>
                 <h5 id="title_premio">{{ $projectPremio[0]["nombre_premio"] }}</h5>
                 <div class="{{ $styleBotones }} justify-content-center" style="gap: 0.4em;" id="btn_content">
-                    <a href="{{ route("juego.view.registro.ruleta", $project->dominio) }}" class="btn_premio" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">IR A REGISTRO</a>
+                    <a href="{{ route($tipoJuego."juego.view.registro.ruleta", $project->dominio) }}" class="btn_premio" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">IR A REGISTRO</a>
                     <a href="{{ route("index") }}" class="btn_premio" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">IR A HOME</a>
                     {{-- <a href="" class="btn_premio" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">VOLVER A JUGAR</a> --}}
                 </div>

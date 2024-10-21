@@ -243,8 +243,10 @@
         
     @endphp
     
-
-    <form action="{{ route('juego.ganador.memoria', $project->id) }}" method="POST" id="form_ganador">
+    @php
+        $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
+    @endphp
+    <form action="{{ route($tipoJuego.'juego.ganador.memoria', $project->id) }}" method="POST" id="form_ganador">
         @csrf
         @method('POST')
         <input type="hidden" id="idParticipante" name="idParticipante" value="{{ $idParticipante }}">

@@ -87,9 +87,6 @@ Route::prefix('admin')->group(function () {
         Route::get('show/{id}/participantes',[LandingPromocionalController::class, 'participante'])->name('juego_web.show.participantes');
         Route::get('show/{id}/ganadores',[LandingPromocionalController::class, 'ganador'])->name('juego_web.show.ganadores');
         Route::get('show/{id}/configuracion',[LandingPromocionalController::class, 'configuracion'])->name('juego_web.show.configuracion');
-        Route::get('show/{id}/personalizar/game/memoria',[LandingPromocionalController::class, 'personalizarJuego'])->name('juego_campana.show.personalizarJuego');
-        Route::get('show/{id}/personalizar/game/raspa_gana',[LandingPromocionalController::class, 'personalizarJuegoRaspaGana'])->name('juego_campana.show.personalizarJuego.raspagana');
-        Route::get('show/{id}/personalizar/game/ruleta',[LandingPromocionalController::class, 'personalizarRuleta'])->name('juego_campana.show.personalizarJuego.ruleta');
     });
     
     Route::prefix('juego_campana')->group(function () {
@@ -101,6 +98,12 @@ Route::prefix('admin')->group(function () {
         Route::get('show/{id}/ganadores',[LandingPromocionalController::class, 'ganador'])->name('juego_campana.show.ganadores');
         Route::get('show/{id}/configuracion',[LandingPromocionalController::class, 'configuracion'])->name('juego_campana.show.configuracion');
         Route::get('show/{id}/asignacion',[LandingPromocionalController::class, 'asignacion'])->name('juego_campana.show.asignacion');
+    });
+
+    Route::prefix('/')->group(function () {
+        Route::get('show/{id}/personalizar/game/memoria',[LandingPromocionalController::class, 'personalizarJuego'])->name('juego_campana.show.personalizarJuego');
+        Route::get('show/{id}/personalizar/game/raspa_gana',[LandingPromocionalController::class, 'personalizarJuegoRaspaGana'])->name('juego_campana.show.personalizarJuego.raspagana');
+        Route::get('show/{id}/personalizar/game/ruleta',[LandingPromocionalController::class, 'personalizarRuleta'])->name('juego_campana.show.personalizarJuego.ruleta');
     });
 
     // registros
@@ -181,30 +184,60 @@ Route::prefix('landing')->group(function () {
     Route::post('/{id}/postHtml', [ViewLandingController::class, 'storeHtml'])->name('landing.post.html');
 });
 
-Route::prefix('game_memoria')->group(function () {
-    Route::get('/{hub}/registro', [GameMemoriaController::class, 'index'])->name('juego.view.registro');
-    Route::post('/{id}/registro', [GameMemoriaController::class, 'store'])->name('juego.post.registro');
-    Route::get('/{hub}', [GameMemoriaController::class, 'show'])->name('juego.view.memoria');
-    Route::post('/{id}/registroPersonalizar', [GameMemoriaController::class, 'storePersonalizar'])->name('juego.post.registro.personalizar');
-    Route::post('/{id}/postHtml', [GameMemoriaController::class, 'storeHtml'])->name('memoria.post.html');
-    Route::post('/{id}/updateGanador', [GameMemoriaController::class, 'updateGanador'])->name('juego.ganador.memoria');
+Route::prefix('juegoWeb')->group(function () {
+    Route::prefix('game_memoria')->group(function () {
+        Route::get('/{hub}/registro', [GameMemoriaController::class, 'index'])->name('juegoWeb.juego.view.registro');
+        Route::post('/{id}/registro', [GameMemoriaController::class, 'store'])->name('juegoWeb.juego.post.registro');
+        Route::get('/{hub}', [GameMemoriaController::class, 'show'])->name('juegoWeb.juego.view.memoria');
+        Route::post('/{id}/registroPersonalizar', [GameMemoriaController::class, 'storePersonalizar'])->name('juegoWeb.juego.post.registro.personalizar');
+        Route::post('/{id}/postHtml', [GameMemoriaController::class, 'storeHtml'])->name('juegoWeb.memoria.post.html');
+        Route::post('/{id}/updateGanador', [GameMemoriaController::class, 'updateGanador'])->name('juegoWeb.juego.ganador.memoria');
+    });
+
+    Route::prefix('game_raspa_gana')->group(function () {
+        Route::get('/{hub}', [RaspaGanaController::class, 'show'])->name('juegoWeb.juego.view.raspagana');
+        Route::get('/{hub}/registro', [RaspaGanaController::class, 'index'])->name('juegoWeb.juego.view.registro.raspagana');
+        Route::post('/{hub}/registro', [RaspaGanaController::class, 'store'])->name('juegoWeb.juego.post.registro.raspagana');
+        Route::post('/{id}/registroPersonalizar', [RaspaGanaController::class, 'storePersonalizar'])->name('juegoWeb.juego2.post.registro.personalizar');
+        Route::post('/{id}/updateGanador', [RaspaGanaController::class, 'updateGanador'])->name('juegoWeb.juego.ganador.raspagana');
+    });
+
+    Route::prefix('ruleta')->group(function () {
+        Route::post('/{id}/registroPersonalizar', [RuletaController::class, 'storePersonalizar'])->name('juegoWeb.juego3.post.registro.personalizar');
+        Route::post('/registroImgPremio/{id}', [RuletaController::class, 'storeImgPremio'])->name("juegoWeb.juego3.registroPremio.img");
+        Route::post('/registroImgPremioFinal/{id}', [RuletaController::class, 'storeImgPremioFinal'])->name("juegoWeb.juego3.registroPremioFinal.img");
+        Route::get('/{hub}', [RuletaController::class, 'show'])->name('juegoWeb.juego.view.ruleta');
+        Route::get('/{hub}/registro', [RuletaController::class, 'index'])->name('juegoWeb.juego.view.registro.ruleta');
+        Route::post('/{hub}/registro', [RuletaController::class, 'store'])->name('juegoWeb.juego.post.registro.ruleta');
+    });
 });
 
-Route::prefix('game_raspa_gana')->group(function () {
-    Route::get('/{hub}', [RaspaGanaController::class, 'show'])->name('juego.view.raspagana');
-    Route::get('/{hub}/registro', [RaspaGanaController::class, 'index'])->name('juego.view.registro.raspagana');
-    Route::post('/{hub}/registro', [RaspaGanaController::class, 'store'])->name('juego.post.registro.raspagana');
-    Route::post('/{id}/registroPersonalizar', [RaspaGanaController::class, 'storePersonalizar'])->name('juego2.post.registro.personalizar');
-    Route::post('/{id}/updateGanador', [RaspaGanaController::class, 'updateGanador'])->name('juego.ganador.raspagana');
-});
+Route::prefix('juegoCampana')->group(function () {
+    Route::prefix('game_memoria')->group(function () {
+        Route::get('/{hub}/registro', [GameMemoriaController::class, 'index'])->name('juegoCampana.juego.view.registro');
+        Route::post('/{id}/registro', [GameMemoriaController::class, 'store'])->name('juegoCampana.juego.post.registro');
+        Route::get('/{hub}', [GameMemoriaController::class, 'show'])->name('juegoCampana.juego.view.memoria');
+        Route::post('/{id}/registroPersonalizar', [GameMemoriaController::class, 'storePersonalizar'])->name('juegoCampana.juego.post.registro.personalizar');
+        Route::post('/{id}/postHtml', [GameMemoriaController::class, 'storeHtml'])->name('juegoCampana.memoria.post.html');
+        Route::post('/{id}/updateGanador', [GameMemoriaController::class, 'updateGanador'])->name('juegoCampana.juego.ganador.memoria');
+    });
 
-Route::prefix('ruleta')->group(function () {
-    Route::post('/{id}/registroPersonalizar', [RuletaController::class, 'storePersonalizar'])->name('juego3.post.registro.personalizar');
-    Route::post('/registroImgPremio/{id}', [RuletaController::class, 'storeImgPremio'])->name("juego3.registroPremio.img");
-    Route::post('/registroImgPremioFinal/{id}', [RuletaController::class, 'storeImgPremioFinal'])->name("juego3.registroPremioFinal.img");
-    Route::get('/{hub}', [RuletaController::class, 'show'])->name('juego.view.ruleta');
-    Route::get('/{hub}/registro', [RuletaController::class, 'index'])->name('juego.view.registro.ruleta');
-    Route::post('/{hub}/registro', [RuletaController::class, 'store'])->name('juego.post.registro.ruleta');
+    Route::prefix('game_raspa_gana')->group(function () {
+        Route::get('/{hub}', [RaspaGanaController::class, 'show'])->name('juegoCampana.juego.view.raspagana');
+        Route::get('/{hub}/registro', [RaspaGanaController::class, 'index'])->name('juegoCampana.juego.view.registro.raspagana');
+        Route::post('/{hub}/registro', [RaspaGanaController::class, 'store'])->name('juegoCampana.juego.post.registro.raspagana');
+        Route::post('/{id}/registroPersonalizar', [RaspaGanaController::class, 'storePersonalizar'])->name('juegoCampana.juego2.post.registro.personalizar');
+        Route::post('/{id}/updateGanador', [RaspaGanaController::class, 'updateGanador'])->name('juegoCampana.juego.ganador.raspagana');
+    });
+
+    Route::prefix('ruleta')->group(function () {
+        Route::post('/{id}/registroPersonalizar', [RuletaController::class, 'storePersonalizar'])->name('juegoCampana.juego3.post.registro.personalizar');
+        Route::post('/registroImgPremio/{id}', [RuletaController::class, 'storeImgPremio'])->name("juegoCampana.juego3.registroPremio.img");
+        Route::post('/registroImgPremioFinal/{id}', [RuletaController::class, 'storeImgPremioFinal'])->name("juegoCampana.juego3.registroPremioFinal.img");
+        Route::get('/{hub}', [RuletaController::class, 'show'])->name('juegoCampana.juego.view.ruleta');
+        Route::get('/{hub}/registro', [RuletaController::class, 'index'])->name('juegoCampana.juego.view.registro.ruleta');
+        Route::post('/{hub}/registro', [RuletaController::class, 'store'])->name('juegoCampana.juego.post.registro.ruleta');
+    });
 });
 
 Route::post('game/ganador/{id}', [ParticipantController::class, 'ganador'])->name('post.ganador');

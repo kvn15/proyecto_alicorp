@@ -1,3 +1,6 @@
 composer require maatwebsite/excel
 quitar ;extension=gd de php.ini
 composer update maatwebsite/excel --ignore-platform-req=ext-zip
+
+//para importar desde excel (carga masiva)
+extension=zip

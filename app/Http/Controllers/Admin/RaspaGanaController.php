@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class RaspaGanaController extends Controller
 {
@@ -180,8 +181,10 @@ class RaspaGanaController extends Controller
             return redirect()->route('index');
         }
 
+        $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
+
         if (!session()->has('claveRaspaGana')) {
-            return redirect()->route('juego.post.registro.raspagana', $hub);
+            return redirect()->route($tipoJuego.'juego.post.registro.raspagana', $hub);
         }
 
         $idParticipante = session('claveRaspaGana');
@@ -225,10 +228,19 @@ class RaspaGanaController extends Controller
         $user = User::find(Auth::user()->id);
         $gameRaspaGana = RaspaGana::where('project_id', $project->id)->first();
 
+        $puntoVenta = DB::table("projects")
+        ->join('asignacion_projects', 'asignacion_projects.project_id', '=', 'projects.id')
+        ->join('sales_points', 'sales_points.id', '=', 'asignacion_projects.sales_point_id')
+        ->select('sales_points.id', 'sales_points.name')
+        ->where('projects.id', $project->id)
+        ->distinct()
+        ->get()->toArray();
+
         $data = [
             'project' => $project,
             'user' => $user,
-            'gameRaspaGana' => $gameRaspaGana
+            'gameRaspaGana' => $gameRaspaGana,
+            'puntoVenta' => $puntoVenta
         ];
 
         return view('admin.pages.game_raspa_gana.gameraspagana', compact('data'));
@@ -243,12 +255,13 @@ class RaspaGanaController extends Controller
         if ($request->hasFile('imagen')) {
             $ruta = $request->file('imagen')->store('game_raspa_gana', 'public'); // Almacena en storage/app/public/imagenes
         }
+        $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
 
         // Verificar si el codigo ya existe
         $isCodigo = Participant::where('project_id', $id)->where('codigo', $request->codigo)->first();
 
         if (isset($isCodigo)) {
-            return redirect()->route('juego.view.registro.raspagana', $project->dominio)->with('mensaje', 'El N° de LOTE ya existe.');;
+            return redirect()->route($tipoJuego.'juego.view.registro.raspagana', $project->dominio)->with('mensaje', 'El N° de LOTE ya existe.');;
         }
         
         $participant = new Participant();
@@ -259,6 +272,7 @@ class RaspaGanaController extends Controller
         $participant->codigo_valido = 1;
         $participant->participaciones = 1;
         $participant->file_producto = $ruta;
+        $participant->punto_entrega = isset($request->punto_venta) && !empty($request->punto_venta) ? $request->punto_venta : null;
         $participant->save();
 
         $user= User::findOrFail(Auth::user()->id);
@@ -275,7 +289,7 @@ class RaspaGanaController extends Controller
 
         $uuid = Str::uuid()->toString();
 
-        return redirect()->route('juego.view.raspagana', $project->dominio)->with('claveRaspaGana', $participant->id);
+        return redirect()->route($tipoJuego.'juego.view.raspagana', $project->dominio)->with('claveRaspaGana', $participant->id);
     }
 
     // Verificar ganador

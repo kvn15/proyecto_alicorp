@@ -220,9 +220,10 @@ class RuletaController extends Controller
         if(!isset($project)){
             return redirect()->route('index');
         }
+        $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
 
         if (!session()->has('claveRuleta')) {
-            return redirect()->route('juego.view.registro.ruleta', $hub);
+            return redirect()->route($tipoJuego.'juego.view.registro.ruleta', $hub);
         }
         $idParticipante = session('claveRuleta');
         
@@ -309,10 +310,19 @@ class RuletaController extends Controller
         $user = User::find(Auth::user()->id);
         $gameRuleta = Roulette::where('project_id', $project->id)->first();
 
+        $puntoVenta = DB::table("projects")
+        ->join('asignacion_projects', 'asignacion_projects.project_id', '=', 'projects.id')
+        ->join('sales_points', 'sales_points.id', '=', 'asignacion_projects.sales_point_id')
+        ->select('sales_points.id', 'sales_points.name')
+        ->where('projects.id', $project->id)
+        ->distinct()
+        ->get()->toArray();
+
         $data = [
             'project' => $project,
             'user' => $user,
-            'gameRuleta' => $gameRuleta
+            'gameRuleta' => $gameRuleta,
+            'puntoVenta' => $puntoVenta
         ];
 
         return view('admin.pages.ruleta.registroruleta', compact('data'));
@@ -327,12 +337,13 @@ class RuletaController extends Controller
         if ($request->hasFile('imagen')) {
             $ruta = $request->file('imagen')->store('ruleta', 'public'); // Almacena en storage/app/public/imagenes
         }
+        $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
 
         // Verificar si el codigo ya existe
         $isCodigo = Participant::where('project_id', $id)->where('codigo', $request->codigo)->first();
 
         if (isset($isCodigo)) {
-            return redirect()->route('juego.view.registro.ruleta', $project->dominio)->with('mensaje', 'El N° de LOTE ya existe.');;
+            return redirect()->route($tipoJuego.'juego.view.registro.ruleta', $project->dominio)->with('mensaje', 'El N° de LOTE ya existe.');;
         }
         
         $participant = new Participant();
@@ -343,6 +354,7 @@ class RuletaController extends Controller
         $participant->codigo_valido = 1;
         $participant->participaciones = 1;
         $participant->file_producto = $ruta;
+        $participant->punto_entrega = isset($request->punto_venta) && !empty($request->punto_venta) ? $request->punto_venta : null;
         $participant->save();
 
         $user= User::findOrFail(Auth::user()->id);
@@ -359,6 +371,6 @@ class RuletaController extends Controller
 
         $uuid = Str::uuid()->toString();
 
-        return redirect()->route('juego.view.ruleta', $project->dominio)->with('claveRuleta', $participant->id);
+        return redirect()->route($tipoJuego.'juego.view.ruleta', $project->dominio)->with('claveRuleta', $participant->id);
     }
 }

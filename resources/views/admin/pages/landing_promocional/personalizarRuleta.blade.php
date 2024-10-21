@@ -310,10 +310,12 @@
     $logo_juego = isset($gameRuleta["logo_juego"]) && !empty($gameRuleta["logo_juego"]) ? '/storage/'.$gameRuleta["logo_juego"] : $imgNulo;
     $titulo_premio = isset($gameRuleta["titulo_premio"]) && !empty($gameRuleta["titulo_premio"]) ? '/storage/'.$gameRuleta["titulo_premio"] : $imgNulo;
 @endphp
-
+@php
+    $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
+@endphp
 <div class="container-fluid">
     <div class="row">
-        <form id="form-ruleta" action="{{ route("juego3.post.registro.personalizar", $project->id) }}" method="POST" enctype="multipart/form-data" class="col-3 border-end" style="overflow-y: scroll; height: 100vh;">
+        <form id="form-ruleta" action="{{ route($tipoJuego."juego3.post.registro.personalizar", $project->id) }}" method="POST" enctype="multipart/form-data" class="col-3 border-end" style="overflow-y: scroll; height: 100vh;">
             @csrf
             @method('POST')
             <div class="d-block" id="menu_edit">
@@ -640,7 +642,7 @@
                             <div id="premio_{{ $value->orden }}">
 
                                 <input type="hidden" name="method" value="" class="method">
-                                <input type="hidden" name="ruta_img" value="{{ route("juego3.registroPremio.img", $value->id) }}" class="action">
+                                <input type="hidden" name="ruta_img" value="{{ route($tipoJuego."juego3.registroPremio.img", $value->id) }}" class="action">
 
                                 <input hidden type="text" value="{{ $value->orden }}" class="input_value">
                                 <p class="mb-2">Premio {{ $value->orden }} => {{ $value->nombre_premio }}</p>
@@ -745,7 +747,7 @@
                             <div method="POST" id="premio_final_{{ $value->orden }}">
                                
                                 <input type="hidden" name="method" value="" class="method">
-                                <input type="hidden" name="ruta_img" value="{{ route("juego3.registroPremioFinal.img", $value->id) }}" class="action">
+                                <input type="hidden" name="ruta_img" value="{{ route($tipoJuego."juego3.registroPremioFinal.img", $value->id) }}" class="action">
 
                                 <input hidden type="text" value="{{ $value->orden }}" class="input_value">
                                 <p class="mb-2">Premio {{ $value->orden }} => {{ $value->nombre_premio }}</p>

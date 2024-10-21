@@ -36,10 +36,10 @@
 
     // Principal
     $bgMemoria = isset($principalData["banner"]) && !empty($principalData["banner"]) ? "background-image: url('".'/storage/'.$principalData["banner"]."');" : "background-color: #EFF2F6;" ;
-    $imgLogo = isset($principalData["logo-subir"]) && !empty($principalData["logo-subir"]) ? $principalData["logo-subir"] : $imgNulo;
+    $imgLogo = isset($principalData["logo-subir"]) && !empty($principalData["logo-subir"]) ? '/storage/'.$principalData["logo-subir"] : $imgNulo;
 
     // Premios
-    $imgLogoPremio = isset($premioData["gano-subir"])  && !empty($premioData["gano-subir"]) ? $premioData["gano-subir"] : $imgNulo;
+    $imgLogoPremio = isset($premioData["gano-subir"])  && !empty($premioData["gano-subir"]) ? '/storage/'.$premioData["gano-subir"] : $imgNulo;
 
     // array memorias
     $jsonDataMemoria = json_decode($gameMemoria->premio_img ?? "", true);
@@ -175,9 +175,12 @@
             background-color: #E620200D;
         }
 </style>
+@php
+    $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
+@endphp
 <div class="container-fluid" style="height: 100vh; overflow: hidden;">
     <div class="row">
-        <form id="form-memoria" action="{{ route("juego.post.registro.personalizar", $project->id) }}" method="POST" enctype="multipart/form-data" class="col-3 border-end" style="overflow-y: scroll; height: 100vh;">
+        <form id="form-memoria" action="{{ route($tipoJuego."juego.post.registro.personalizar", $project->id) }}" method="POST" enctype="multipart/form-data" class="col-3 border-end" style="overflow-y: scroll; height: 100vh;">
             @csrf
             @method('POST')
             <div class="d-block" id="menu_edit">
@@ -728,7 +731,7 @@
                 <div class="contenido_juego d-block" id="contenido_juego">
                     <p class="{{ $styleAlineacion }} {{ $styleTamano }} w-100 mt-0 mb-0 pt-2 {{ $styleBold }} {{ $italicTitulo }}" id="parrafo-header" style="color: {{ $color }};">{{ $tituloTexto }}</p>
                     <div class="d-flex justify-content-center pt-4">
-                        <img class="img-fluid" id="logo_memoria" src="{{ '/storage/'.$imgLogo }}" alt="">
+                        <img class="img-fluid" id="logo_memoria" src="{{ $imgLogo }}" alt="">
                     </div>
                     <div class="game">
                         <div class="controls">
@@ -752,7 +755,7 @@
                 </div>
                 <div class="win-game d-none" id="win-game">
                     <div class="d-flex justify-content-center pt-4 w-100 mb-3">
-                        <img class="img-fluid" src="{{ '/storage/'.$imgLogoPremio }}" alt="" id="img-header-premio">
+                        <img class="img-fluid" src="{{ $imgLogoPremio }}" alt="" id="img-header-premio">
                     </div>
                     <div class="d-flex flex-column align-items-center justify-content-center w-100">
                         <img class="img-fluid" src="{{ $imgPremio }}" alt="" id="premio_img">

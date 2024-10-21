@@ -267,10 +267,13 @@
     $imgPremio = isset($premioSelect["imagen"]) && !empty($premioSelect["imagen"]) ? "/storage/".$premioSelect["imagen"] : $imgNulo;
     $namePremio = isset($premioSelect["premio_nombre"]) && !empty($premioSelect["premio_nombre"]) ? $premioSelect["premio_nombre"] : '';
 @endphp
+@php
+    $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
+@endphp
 
 <div class="container-fluid">
     <div class="row">
-        <form id="form-raspa-gana" action="{{ route("juego2.post.registro.personalizar", $project->id) }}" method="POST" enctype="multipart/form-data" class="col-2 border-end" style="overflow-y: scroll; height: 100vh;">
+        <form id="form-raspa-gana" action="{{ route($tipoJuego."juego2.post.registro.personalizar", $project->id) }}" method="POST" enctype="multipart/form-data" class="col-2 border-end" style="overflow-y: scroll; height: 100vh;">
             @csrf
             @method('POST')
             <div class="d-block" id="menu_edit">
