@@ -3446,6 +3446,7 @@
 
             var html = ``;
 
+            if(arrayRedes) {
             arrayRedes.forEach(a => {
                 html += `
                     <a href="${a.enlace}">
@@ -3453,6 +3454,7 @@
                     </a>
                 `;
             })
+            }
 
             $("#landing_redes").html(html)
         }
