@@ -9,6 +9,7 @@ use App\Models\Project;
 use App\Models\Roulette;
 use App\Models\User;
 use App\Models\ViewProject;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -298,6 +299,13 @@ class RuletaController extends Controller
             return redirect()->route('index');
         }
 
+        $fechaActual = Carbon::now('America/Lima')->startOfDay();
+        if (isset($project->fecha_fin_proyecto)) {
+            if ($fechaActual->toDateTimeString() > $project->fecha_fin_proyecto) {
+                return redirect()->route('index')->with('projecto', 'El juego se encuentra finalizado.');
+            }
+        }
+
         if (!isset(Auth::user()->id)) {
             return redirect()->route('login');
         }
@@ -331,6 +339,13 @@ class RuletaController extends Controller
     public function store(Request $request, $id) {
 
         $project = Project::where('id', $id)->first();
+
+        $fechaActual = Carbon::now('America/Lima')->startOfDay();
+        if (isset($project->fecha_fin_participar)) {
+            if ($fechaActual->toDateTimeString() > $project->fecha_fin_participar) {
+                return redirect()->back()->with('mensaje', 'La participación para este juego ha finalizado.');;
+            }
+        }
 
         // Almacenar la imagen en el directorio deseado
         $ruta = '';

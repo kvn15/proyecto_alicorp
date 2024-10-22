@@ -94,6 +94,15 @@
 
     </div>
   </main>
-
   @include('footer')
   
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        @if (session('projecto'))
+            Swal.fire({
+                icon: 'success',
+                title: "{{ session('projecto') }}"
+            });
+        @endif
+    });
+</script>

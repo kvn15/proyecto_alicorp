@@ -1419,12 +1419,19 @@
                 // toastr.success(data.message); 
 
                 if (data) {
-                    toastr.success('Cambios guadados correctamente'); 
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Cambios guardados'
+                    })
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
-                toastr.error('Ocurrió un error al procesar la solicitud.');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Ocurrió un error al procesar la solicitud.'
+                })
             }
         });
         });

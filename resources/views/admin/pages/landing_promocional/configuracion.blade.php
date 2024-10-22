@@ -68,6 +68,16 @@
                                 <input type="text" name="tipo_promocion" id="tipo_promocion" class="form-control w-100" value="{{ $project->project_type->name }}" disabled>
                             </div>
                         </div>
+                        @if (isset($project->game_id) && !empty($project->game_id))
+                        <div class="col-12 row border-bottom pb-3 mb-4">
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label for="game"><small><b>Juego</b></small></label>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-5">
+                                <input type="text" name="game" id="game" class="form-control w-100" value="{{ $project->game->name }}" disabled>
+                            </div>
+                        </div>
+                        @endif
                         <div class="col-12 row border-bottom pb-3 mb-4">
                             <div class="col-12 col-md-6 col-lg-3">
                                 <label for="id_promo"><small><b>ID de Promoción</b></small></label>

@@ -3563,11 +3563,19 @@
                         }
                     }
 
-                    $("#form_html").submit();
+                    // $("#form_html").submit();
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Cambios guardados'
+                    })
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
-                    toastr.error('Ocurrió un error al procesar la solicitud.');
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Ocurrió un error al procesar la solicitud.'
+                })
                 }
             });
         });
@@ -3589,10 +3597,15 @@
                 success: function(data) {
                     // Procesar los datos devueltos
                     toastr.success('Cambios guadados correctamente'); 
+                    
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
-                    toastr.error('Ocurrió un error al procesar la solicitud.');
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Ocurrió un error al procesar la solicitud.'
+                })
                 }
             });
         })

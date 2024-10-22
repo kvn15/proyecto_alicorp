@@ -216,6 +216,13 @@ class RaspaGanaController extends Controller
             return redirect()->route('index');
         }
 
+        $fechaActual = Carbon::now('America/Lima')->startOfDay();
+        if (isset($project->fecha_fin_proyecto)) {
+            if ($fechaActual->toDateTimeString() > $project->fecha_fin_proyecto) {
+                return redirect()->route('index')->with('projecto', 'El juego se encuentra finalizado.');
+            }
+        }
+
         if (!isset(Auth::user()->id)) {
             return redirect()->route('login');
         }
@@ -249,6 +256,13 @@ class RaspaGanaController extends Controller
     public function store(Request $request, $id) {
 
         $project = Project::where('id', $id)->first();
+
+        $fechaActual = Carbon::now('America/Lima')->startOfDay();
+        if (isset($project->fecha_fin_participar)) {
+            if ($fechaActual->toDateTimeString() > $project->fecha_fin_participar) {
+                return redirect()->back()->with('mensaje', 'La participación para este juego ha finalizado.');;
+            }
+        }
 
         // Almacenar la imagen en el directorio deseado
         $ruta = '';

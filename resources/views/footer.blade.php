@@ -4,6 +4,7 @@
 <script src="{{asset('js/java.js')}}"></script>
 <script src="{{asset('js/script.js')}}"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     @if(Session::has('message'))
     var type = "{{ Session::get('alert-type','info') }}"

@@ -16,6 +16,9 @@ class Project extends Model
     public function project_type() {
         return $this->belongsTo(ProyectType::class);
     }
+    public function game() {
+        return $this->belongsTo(Game::class);
+    }
 
     public static function search($search, $tipoProyecto) {
         return empty($search) ? static::query()->where('project_type_id', $tipoProyecto) 

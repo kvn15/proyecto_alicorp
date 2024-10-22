@@ -19,11 +19,18 @@ $(document).ready(function() {
             processData: false, // No procesar los datos
             success: function(data) {
                 // Procesar los datos devueltos
-                toastr.success(data.message); 
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Cambios guardados'
+                })
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
-                toastr.error('Ocurrió un error al procesar la solicitud.');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Ocurrió un error al procesar la solicitud.'
+                })
             }
         });
     });
@@ -41,11 +48,18 @@ $(document).ready(function() {
             processData: false, // No procesar los datos
             success: function(data) {
                 // Procesar los datos devueltos
-                toastr.success(data.message); 
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Cambios guardados'
+                })
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
-                toastr.error('Ocurrió un error al procesar la solicitud.');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Ocurrió un error al procesar la solicitud.'
+                })
             }
         });
     });
@@ -63,11 +77,18 @@ $(document).ready(function() {
             processData: false, // No procesar los datos
             success: function(data) {
                 // Procesar los datos devueltos
-                toastr.success(data.message); 
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Cambios guardados'
+                })
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
-                toastr.error('Ocurrió un error al procesar la solicitud.');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Ocurrió un error al procesar la solicitud.'
+                })
             }
         });
     });
@@ -85,11 +106,18 @@ $(document).ready(function() {
             processData: false, // No procesar los datos
             success: function(data) {
                 // Procesar los datos devueltos
-                toastr.success(data.message); 
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Cambios guardados'
+                })
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
-                toastr.error('Ocurrió un error al procesar la solicitud.');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Ocurrió un error al procesar la solicitud.'
+                })
             }
         });
     });
@@ -107,7 +135,7 @@ $(document).ready(function() {
         var lPremioConcat = [];
         
         for (let i = 0; i < lPremio.length; i++) {
-            const nroPremio = nro_premio[i].value;
+            const nroPremio = i + 1;
             const nombre = premioNombre[i].value;
             const stock = premioStock[i].value;
             const probabilidad = premioProbabilidad[i].value;
@@ -124,11 +152,18 @@ $(document).ready(function() {
             processData: false, // No procesar los datos
             success: function(data) {
                 // Procesar los datos devueltos
-                toastr.success(data.message); 
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Cambios guardados'
+                })
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                toastr.error('Ocurrió un error al procesar la solicitud.');
                 console.error('Error en la solicitud AJAX:', textStatus, errorThrown, jqXHR.responseJSON.message);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Ocurrió un error al procesar la solicitud.'
+                })
             }
         });
     });
@@ -244,11 +279,18 @@ $(document).ready(function() {
             processData: false, // No procesar los datos
             success: function(data) {
                 // Procesar los datos devueltos
-                toastr.success(data.message); 
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Cambios guardados'
+                })
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
-                toastr.error('Ocurrió un error al procesar la solicitud.');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Ocurrió un error al procesar la solicitud.'
+                })
             }
         });
     });
