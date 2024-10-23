@@ -239,9 +239,9 @@
 
 @php
     $gameRuleta = $data["gameRuleta"];
-    $principalData = json_decode($gameRuleta["titulo_inicio"], true);
-    $principalData2 = json_decode($gameRuleta["titulo_juego"], true);
-    $principalData3 = json_decode($gameRuleta["boton_premio"], true);
+    $principalData = isset($gameRuleta["titulo_inicio"]) ? json_decode($gameRuleta["titulo_inicio"], true) : null;
+    $principalData2 = isset($gameRuleta["titulo_juego"]) ? json_decode($gameRuleta["titulo_juego"], true) : null;
+    $principalData3 = isset($gameRuleta["boton_premio"]) ? json_decode($gameRuleta["boton_premio"], true) : null;
     
     // titulo
     // valores

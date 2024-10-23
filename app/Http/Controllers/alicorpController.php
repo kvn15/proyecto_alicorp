@@ -7,6 +7,8 @@ use App\Models\User;
 use Auth;
 use Illuminate\Support\Facades\Hash;
 
+use App\Models\Project;
+
 class alicorpController extends Controller
 {
     public function index(){
@@ -36,7 +38,10 @@ class alicorpController extends Controller
     public function Juegos(){
         $juegos = 'juegos';
         //modelo proyects , tipo de juego y status
-        return view('juegos',compact($juegos));
+        $raspa = Project::where('game_id',1)->where('project_type_id','<>',3)->where('status','1')->first();
+        $ruleta = Project::where('game_id',2)->where('project_type_id','<>',3)->where('status','1')->first();
+        $memoria = Project::where('game_id',3)->where('project_type_id','<>',3)->where('status','1')->first();
+        return view('juegos',compact('juegos','raspa','ruleta','memoria'));
     }
 
     public function Promocion(){

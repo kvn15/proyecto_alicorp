@@ -310,6 +310,8 @@
     $logo_juego = isset($gameRuleta["logo_juego"]) && !empty($gameRuleta["logo_juego"]) ? '/storage/'.$gameRuleta["logo_juego"] : $imgNulo;
     $titulo_premio = isset($gameRuleta["titulo_premio"]) && !empty($gameRuleta["titulo_premio"]) ? '/storage/'.$gameRuleta["titulo_premio"] : $imgNulo;
     @endphp
+
+ 
     
     @php
         $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
@@ -519,6 +521,9 @@
                 if (startDeg % 360 < 360 && startDeg % 360 > 270 && endDeg % 360 > 0 && endDeg % 360 < 90) {
                     index = items[i]
                     console.log(index)
+                } else {
+                    index = items[i]
+                    console.log(index, items[i])
                 }
             }
         }
@@ -554,6 +559,7 @@
             itemDegs = {};
             pause = false;
             window.requestAnimationFrame(animate);
+            console.log(index)
             setTimeout(() => {
                 sectionRuletaSelect(index)
             }, 14500);
@@ -596,6 +602,7 @@
 
         function sectionRuletaSelect(posicion) {  
             const premio = data.find(d => d.name == posicion);
+            console.log(premio, posicion)
             // Agregar id
             $("#idPremio").val(premio.id);
             if (premio.name == "Sigue Intentando") {

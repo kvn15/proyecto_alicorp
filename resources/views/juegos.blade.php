@@ -21,21 +21,22 @@
             <div class="col-1"></div>
             <div class="col-10 juego-card">
                 <div>
-                    <a href="#">
+                    {{-- @dd($memoria->dominio) --}}
+                    <a href="http://proyecto_alicorp.test/juegoWeb/game_memoria/{{$memoria->dominio}}">
                         <button class="button button--perfil-2">Haz match y gana</button>
                     </a>                    
                     <img src="{{asset('img/juego3.png')}}" alt="" >
                 </div>
                 
-                <div>
-                    <a href="{{route('juegoWeb.juego.view.raspagana/')}}">
+                <div>                   
+                    <a href="http://proyecto_alicorp.test/juegoWeb/game_raspa_gana/{{$raspa->dominio}}">
                         <button class="button button--perfil-2">Raspa y Gana</button>
-                    </a>                    
+                    </a>                                                         
                     <img src="{{asset('img/juego2.png')}}" alt="" >
                 </div>
                 
                 <div>
-                    <a href="#">
+                    <a href="http://proyecto_alicorp.test/juegoWeb/ruleta/{{$ruleta->dominio}}">
                         <button class="button button--perfil-2">Ruleta Casino</button>
                     </a>                    
                     <img src="{{asset('img/juego1.png')}}" alt="" >
