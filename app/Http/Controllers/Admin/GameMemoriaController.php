@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\AwardProject;
 use App\Models\GameView;
+use App\Models\OtherParticipant;
 use App\Models\Participant;
 use App\Models\Project;
 use App\Models\User;
@@ -32,9 +33,13 @@ class GameMemoriaController extends Controller
                 return redirect()->route('index')->with('projecto', 'El juego se encuentra finalizado.');
             }
         }
+        
+        if ($project->project_type_id != 3) { // no es campaña
+            if (!isset(Auth::user()->id)) {
+                return redirect()->route('login');
+            }
 
-        if (!isset(Auth::user()->id)) {
-            return redirect()->route('login');
+            $user = User::find(Auth::user()->id);
         }
 
         $game = GameView::where('project_id', $project->id)->first();
@@ -47,11 +52,9 @@ class GameMemoriaController extends Controller
         ->distinct()
         ->get()->toArray();
 
-        $user = User::find(Auth::user()->id);
-
         $data = [
             'project' => $project,
-            'user' => $user,
+            'user' => $user ?? null,
             'gameMemoria' => $game,
             'puntoVenta' => $puntoVenta
         ];
@@ -84,10 +87,46 @@ class GameMemoriaController extends Controller
         if (isset($isCodigo)) {
             return redirect()->route($tipoJuego.'juego.view.registro', $project->dominio)->with('mensaje', 'El N° de LOTE ya existe.');;
         }
+
+        $other_participant_id = null;
+
+        if ($project->project_type_id == 3) {
+            // Si existe el dni
+            $otherParticipant = OtherParticipant::where('nro_documento', $request->documento)->first();
+
+            if (isset($otherParticipant)) {
+                
+                $otherParticipant->update([
+                    'nombres' => $request->name,
+                    'apellidos' => $request->apellido,
+                    'edad' => $request->edad,
+                    'telefono' => $request->telefono,
+                    'correo' => $request->email
+                ]);
+
+                $other_participant_id = $otherParticipant->id;
+            } else {
+                $otherParticipant = OtherParticipant::create([
+                    'nombres' => $request->name,
+                    'apellidos' => $request->apellido,
+                    'edad' => $request->edad,
+                    'telefono' => $request->telefono,
+                    'correo' => $request->email,
+                    'tipo_doc' => $request->tipo_doc,
+                    'nro_documento' => $request->documento,
+                ]);
+
+                $other_participant_id = $otherParticipant->id;
+            }
+            
+        }
+
+        $userId = isset(Auth::user()->id) ? Auth::user()->id : null;
         
         $participant = new Participant();
         $participant->project_id = $id;
-        $participant->user_id = Auth::user()->id;
+        $participant->user_id = $userId;
+        $participant->other_participant_id = $other_participant_id;
         $participant->terminos_condiciones = 1;
         $participant->codigo = $request->codigo;
         $participant->codigo_valido = 1;
@@ -96,17 +135,20 @@ class GameMemoriaController extends Controller
         $participant->punto_entrega = isset($request->punto_venta) && !empty($request->punto_venta) ? $request->punto_venta : null;
         $participant->save();
 
-        $user= User::findOrFail(Auth::user()->id);
+        if ($project->project_type_id != 3) {
 
-        // Actualizar usuario
-        $user->update([
-            'name' => $request->name,
-            'apellido' => $request->apellido,
-            'tipo_documento' => $request->tipo_doc,
-            'documento' => $request->documento,
-            'edad' => $request->edad,
-            'telefono' => $request->telefono
-        ]);
+            $user= User::findOrFail(Auth::user()->id);
+
+            // Actualizar usuario
+            $user->update([
+                'name' => $request->name,
+                'apellido' => $request->apellido,
+                'tipo_documento' => $request->tipo_doc,
+                'documento' => $request->documento,
+                'edad' => $request->edad,
+                'telefono' => $request->telefono
+            ]);
+        }
 
         $uuid = Str::uuid()->toString();
 
@@ -333,18 +375,11 @@ class GameMemoriaController extends Controller
     public function obtenerPremio($projectId) {
         // Obtener todos los premios con su probabilidad
         $premios = AwardProject::where('project_id', $projectId)->where('stock','>',0)->get();
-        $project = Project::findOrFail($projectId);
+        // $project = Project::findOrFail($projectId);
     
         // Crear un array acumulativo para la probabilidad
         $acumulado = [];
         $total = 0;
-
-        $acumulado[] = [
-            'id' => 0,
-            'nombre' => 'Sigue intentando',
-            'imagen' => '',
-            'prob_acum' => $total + $project->prob_no_premio
-        ];
     
         foreach ($premios as $premio) {
             $total += $premio->probabilidad;

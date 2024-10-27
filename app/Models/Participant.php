@@ -11,6 +11,7 @@ class Participant extends Model
 
     protected $fillable = ['project_id',
     'user_id',
+    'other_participant_id',
     'terminos_condiciones',
     'codigo',
     'file_producto',

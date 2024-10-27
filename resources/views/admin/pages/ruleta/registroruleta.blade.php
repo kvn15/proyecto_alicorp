@@ -159,39 +159,48 @@
                         </div>
                         @endif
                     </div>
+                    @php
+                        $name = isset($data["user"]->name) ? $data["user"]->name : '';
+                        $apellido = isset($data["user"]->apellido) ? $data["user"]->apellido : '';
+                        $tipo_documento = isset($data["user"]->tipo_documento) ? $data["user"]->tipo_documento : '';
+                        $documento = isset($data["user"]->documento) ? $data["user"]->documento : '';
+                        $edad = isset($data["user"]->edad) ? $data["user"]->edad : '';
+                        $telefono = isset($data["user"]->telefono) ? $data["user"]->telefono : '';
+                        $email = isset($data["user"]->email) ? $data["user"]->email : '';
+                    @endphp
                     <div action="" class="row">
                         <div class="col-12 col-lg-6 mb-2">
                             <label for="name">Nombre</label>
-                            <input type="text" name="name" id="name" class="form-registro" value="{{ $data["user"]->name }}">
+                            <input type="text" name="name" id="name" class="form-registro" value="{{ $name }}">
                         </div>
                         <div class="col-12 col-lg-6 mb-2">
                             <label for="apellido">Apellido</label>
-                            <input type="text" name="apellido" id="apellido" class="form-registro" value="{{ $data["user"]->apellido }}">
+                            <input type="text" name="apellido" id="apellido" class="form-registro" value="{{ $apellido }}">
                         </div>
                         <div class="col-12 col-lg-6 mb-2">
                             <label for="tipo_doc">Tipo de documento</label>
                             {{-- <input type="text" name="tipo_doc" id="tipo_doc" class="form-registro"> --}}
                             <select name="tipo_doc" id="tipo_doc" class="form-registro">
-                                <option value="DNI" {{ $data["user"]->tipo_documento == 'DNI' ? 'selected' : '' }}>DNI</option>
-                                <option value="C.EXT" {{ $data["user"]->tipo_documento == 'C.EXT' ? 'selected' : '' }}>C.EXT</option>
-                                <option value="PASAPORTE" {{ $data["user"]->tipo_documento == 'PASAPORTE' ? 'selected' : '' }}>PASAPORTE</option>
+                                <option value="DNI" {{ $tipo_documento == 'DNI' ? 'selected' : '' }}>DNI</option>
+                                <option value="C.EXT" {{ $tipo_documento == 'C.EXT' ? 'selected' : '' }}>C.EXT</option>
+                                <option value="PASAPORTE" {{ $tipo_documento == 'PASAPORTE' ? 'selected' : '' }}>PASAPORTE</option>
                             </select>
                         </div>
                         <div class="col-12 col-lg-6 mb-2">
                             <label for="documento">N° de documento</label>
-                            <input type="text" name="documento" id="documento" class="form-registro" value="{{ $data["user"]->documento }}">
+                            <input type="text" name="documento" id="documento" class="form-registro" value="{{ $documento }}">
                         </div>
                         <div class="col-12 col-lg-6 mb-2">
                             <label for="edad">Edad (*Mayores de 18 años)</label>
-                            <input type="number" name="edad" id="edad" class="form-registro" min="18" value="{{ $data["user"]->edad }}">
+                            <input type="number" name="edad" id="edad" class="form-registro" min="18" value="{{ $edad }}">
                         </div>
                         <div class="col-12 col-lg-6 mb-2">
                             <label for="telefono">N° telefónico</label>
-                            <input type="text" name="telefono" id="telefono" class="form-registro" value="{{ $data["user"]->telefono }}">
+                            <input type="text" name="telefono" id="telefono" class="form-registro" value="{{ $telefono }}">
                         </div>
                         <div class="col-12 col-lg-6 mb-2">
                             <label for="email">Correo electronico</label>
-                            <input type="email" name="email" id="email" class="form-registro" value="{{ $data["user"]->email }}" readonly>
+                            <input type="email" name="email" id="email" class="form-registro" value="{{ $email }}">
                         </div>
                         <div class="col-12 col-lg-6 mb-2">
                             <label for="codigo">N° de LOTE + foto de producto</label>

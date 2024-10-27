@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\AwardProject;
+use App\Models\OtherParticipant;
 use App\Models\Participant;
 use App\Models\Project;
 use App\Models\Roulette;
@@ -306,16 +307,19 @@ class RuletaController extends Controller
             }
         }
 
-        if (!isset(Auth::user()->id)) {
-            return redirect()->route('login');
+        if ($project->project_type_id != 3) { // no es campaña
+            if (!isset(Auth::user()->id)) {
+                return redirect()->route('login');
+            }
+        
+            $user = User::find(Auth::user()->id);
         }
+
         // Vista Proyecto
         ViewProject::create([
             'project_id' => $project->id,
             'codigo' => Str::random(10)
         ]);
-        
-        $user = User::find(Auth::user()->id);
         $gameRuleta = Roulette::where('project_id', $project->id)->first();
 
         $puntoVenta = DB::table("projects")
@@ -328,7 +332,7 @@ class RuletaController extends Controller
 
         $data = [
             'project' => $project,
-            'user' => $user,
+            'user' => $user ?? null,
             'gameRuleta' => $gameRuleta,
             'puntoVenta' => $puntoVenta
         ];
@@ -360,10 +364,46 @@ class RuletaController extends Controller
         if (isset($isCodigo)) {
             return redirect()->route($tipoJuego.'juego.view.registro.ruleta', $project->dominio)->with('mensaje', 'El N° de LOTE ya existe.');;
         }
+
+        $other_participant_id = null;
+
+        if ($project->project_type_id == 3) {
+            // Si existe el dni
+            $otherParticipant = OtherParticipant::where('nro_documento', $request->documento)->first();
+
+            if (isset($otherParticipant)) {
+                
+                $otherParticipant->update([
+                    'nombres' => $request->name,
+                    'apellidos' => $request->apellido,
+                    'edad' => $request->edad,
+                    'telefono' => $request->telefono,
+                    'correo' => $request->email
+                ]);
+
+                $other_participant_id = $otherParticipant->id;
+            } else {
+                $otherParticipant = OtherParticipant::create([
+                    'nombres' => $request->name,
+                    'apellidos' => $request->apellido,
+                    'edad' => $request->edad,
+                    'telefono' => $request->telefono,
+                    'correo' => $request->email,
+                    'tipo_doc' => $request->tipo_doc,
+                    'nro_documento' => $request->documento,
+                ]);
+
+                $other_participant_id = $otherParticipant->id;
+            }
+            
+        }
+
+        $userId = isset(Auth::user()->id) ? Auth::user()->id : null;
         
         $participant = new Participant();
         $participant->project_id = $id;
-        $participant->user_id = Auth::user()->id;
+        $participant->user_id = $userId;
+        $participant->other_participant_id = $other_participant_id;
         $participant->terminos_condiciones = 1;
         $participant->codigo = $request->codigo;
         $participant->codigo_valido = 1;
@@ -372,17 +412,20 @@ class RuletaController extends Controller
         $participant->punto_entrega = isset($request->punto_venta) && !empty($request->punto_venta) ? $request->punto_venta : null;
         $participant->save();
 
-        $user= User::findOrFail(Auth::user()->id);
+        if ($project->project_type_id != 3) {
 
-        // Actualizar usuario
-        $user->update([
-            'name' => $request->name,
-            'apellido' => $request->apellido,
-            'tipo_documento' => $request->tipo_doc,
-            'documento' => $request->documento,
-            'edad' => $request->edad,
-            'telefono' => $request->telefono
-        ]);
+            $user= User::findOrFail(Auth::user()->id);
+
+            // Actualizar usuario
+            $user->update([
+                'name' => $request->name,
+                'apellido' => $request->apellido,
+                'tipo_documento' => $request->tipo_doc,
+                'documento' => $request->documento,
+                'edad' => $request->edad,
+                'telefono' => $request->telefono
+            ]);
+        }
 
         $uuid = Str::uuid()->toString();
 
