@@ -22,10 +22,10 @@
                     @endphp
                     <div class="card-w-full">
                         <div class="info-container">
-                            <a href="{{ route($project->project_type->ruta_name.'.show.overview', $project->id ) }}"><img class="img-fluid" src="{{asset('backend/img/thumbnail.png')}}" alt=""></a>
+                            <a href="{{ route($project->ruta_name.'.show.overview', $project->id ) }}"><img class="img-fluid" src="{{asset('backend/img/thumbnail.png')}}" alt=""></a>
                             <div class="info-card">
-                                <p class="title-card"><a href="{{ route($project->project_type->ruta_name.'.show.overview', $project->id) }}">{{ $project->nombre_promocion }}</a></p>
-                                <p>{{ $project->project_type->name }}</p>
+                                <p class="title-card"><a href="{{ route($project->ruta_name.'.show.overview', $project->id) }}">{{ $project->nombre_promocion }}</a></p>
+                                <p>{{ $project->name }}</p>
                                 <p><small>Ultima actualización: {{ $project->updated_at }}</small></p>
                                 <p><small>Fecha creación: {{ $project->created_at }}</small></p>
                             </div>
@@ -60,7 +60,7 @@
                             <div class="item-etapa">
                                 <span class="title-etapa"><b>Participantes</b></span>
                                 <div class="body-etapa">
-                                    <span>3500</span>
+                                    <span>{{ $project->participant_count }}</span>
                                 </div>
                             </div>
                         </div>
@@ -71,7 +71,7 @@
                                     @php
                                         $ruta = empty($project->game_id) ? 'landing_promocional.show.personalizarLanding' : ($project->game_id == 3 ? 'juego_campana.show.personalizarJuego' : ($project->game_id == 1 ? 'juego_campana.show.personalizarJuego.raspagana' : 'juego_campana.show.personalizarJuego.ruleta'))
                                     @endphp
-                                    <a href="{{ route($project->project_type->ruta_name.'.show.configuracion', $project->id ) }}" class="btn btn-outline-secondary" style="font-size: 13px;">Configurar</a>
+                                    <a href="{{ route($project->ruta_name.'.show.configuracion', $project->id ) }}" class="btn btn-outline-secondary" style="font-size: 13px;">Configurar</a>
                                     <a href="{{route($ruta, $project->id )}}" class="btn btn-outline-secondary me-2" style="align-self: flex-start;font-size: 14px;">Personalizar</a>
                                     @if ($project->status == '0')
                                     <form class="publicar" action="{{ route('juego_web.show.publicar',$project->id ) }}" method="POST">

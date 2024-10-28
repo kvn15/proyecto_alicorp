@@ -36,11 +36,12 @@ class PaticipanteTable extends Component
 
     public function render()
     {
-        $participant = Participant::search($this->search, $this->projectId)
+        $participant = Participant::searchParticipante($this->search, $this->projectId)
             ->where('project_id', $this->projectId)
-            ->with('user')
-            ->join('users', 'users.id', '=', 'participants.user_id')
-            ->select('participants.*', 'users.name', 'users.telefono', 'users.email', 'users.documento');
+            ->with(['user', 'other_participant'])
+            ->leftjoin('users', 'users.id', '=', 'participants.user_id')
+            ->leftjoin('other_participants', 'other_participants.id', '=', 'participants.other_participant_id')
+            ->select('participants.*', 'users.name', 'users.telefono', 'users.email', 'users.documento', 'other_participants.nombres', 'other_participants.correo', 'other_participants.nro_documento', 'other_participants.telefono as telefonoOther');
         
         if (!empty($this->fechaIni) && !empty($this->fechaFin)) {
             $participant->whereBetween('participants.created_at', [$this->fechaIni, $this->fechaFin]);

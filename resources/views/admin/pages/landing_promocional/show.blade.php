@@ -133,12 +133,16 @@
 
                         <div class="w-100 d-flex flex-column" style="gap: 0.4rem">
                             @foreach ($project["ultParticipantes"] as $ultParticipante)
+                            @php
+                                $name = isset($ultParticipante->user->name) ? $ultParticipante->user->name : $ultParticipante->other_participant->nombres;
+                                $documento = isset($ultParticipante->user->documento) ? $ultParticipante->user->documento : $ultParticipante->other_participant->nro_documento;
+                            @endphp
                             <div class="row">
                                 <div class="col-5 name-ganador">
-                                    <span>{{ $ultParticipante->user->name }}</span>
+                                    <span>{{ $name }}</span>
                                 </div>
                                 <div class="col-3 documento-ganador">
-                                    <span>{{ $ultParticipante->user->documento }}</span>
+                                    <span>{{ $documento }}</span>
                                 </div>
                                 <div class="col-4 estado-ganador">
                                     @if ($ultParticipante->ganador == 1)
@@ -201,13 +205,17 @@
 
                         <div class="w-100 d-flex flex-column" style="gap: 0.4rem">
                             @foreach ($project["ultGanadores"] as $ultGanadores)
+                            @php
+                                $name = isset($ultGanadores->user->name) ? $ultGanadores->user->name : $ultGanadores->other_participant->nombres;
+                                $documento = isset($ultGanadores->user->documento) ? $ultGanadores->user->documento : $ultGanadores->other_participant->nro_documento;
+                            @endphp
                             <div class="row">
                                 <div class="col-5 name-ganador">
-                                    <span>{{ $ultGanadores->user->name }}</span>
+                                    <span>{{ $name }}</span>
                                     <small>{{ $ultGanadores->created_at }}</small>
                                 </div>
                                 <div class="col-3 documento-ganador">
-                                    <span>{{ $ultGanadores->user->documento }}</span>
+                                    <span>{{ $documento }}</span>
                                 </div>
                                 <div class="col-4 estado-ganador">
                                     @if ($ultGanadores->ganador == 1)

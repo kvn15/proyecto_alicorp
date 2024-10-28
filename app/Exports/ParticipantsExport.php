@@ -20,11 +20,40 @@ class ParticipantsExport implements FromCollection, WithHeadings
     */
     public function collection()
     {
-        return DB::table("participants")
+
+        $firstQuery = DB::table("participants")
             ->join('users', 'users.id', '=', 'participants.user_id')
-            ->select('participants.id', 'users.name', 'users.telefono', 'users.email', 'users.documento', 'participants.participaciones', 'participants.terminos_condiciones', 'participants.codigo', 'participants.codigo_valido', 'participants.created_at')
-            ->where('participants.project_id', $this->id)
-            ->get();
+            ->select(
+                'participants.id',
+                'users.name',
+                'users.telefono',
+                'users.email',
+                'users.documento',
+                'participants.participaciones',
+                'participants.terminos_condiciones',
+                'participants.codigo',
+                'participants.codigo_valido',
+                'participants.created_at'
+            )
+            ->where('participants.project_id', $this->id);
+        
+        $secondQuery = DB::table("participants")
+            ->join('other_participants', 'other_participants.id', '=', 'participants.other_participant_id')
+            ->select(
+                'participants.id',
+                'other_participants.nombres as name', 
+                'other_participants.telefono',
+                'other_participants.correo',
+                'other_participants.nro_documento',
+                'participants.participaciones',
+                'participants.terminos_condiciones',
+                'participants.codigo',
+                'participants.codigo_valido',
+                'participants.created_at'
+            )
+            ->where('participants.project_id', $this->id);
+            
+        return $firstQuery->unionAll($secondQuery)->get();
     }
 
     public function headings(): array

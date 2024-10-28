@@ -32,6 +32,11 @@ class Participant extends Model
     public function award_project() {
         return $this->belongsTo(AwardProject::class, 'award_project_id');
     }
+    
+    // Relacion categoria - Uno a Uno
+    public function other_participant() {
+        return $this->belongsTo(OtherParticipant::class, 'other_participant_id');
+    }
 
     public static function search($search) {
         return empty($search) ? static::query()
@@ -62,5 +67,28 @@ class Participant extends Model
                         ->orWhere('documento', 'like', '%'.$search.'%')
                         ->orWhere('email', 'like', '%'.$search.'%');
                 });
+    }
+
+    public static function searchParticipante($search) {
+        return empty($search) ? static::query()
+            : static::query()
+            ->with(['user', 'other_participant'])
+            ->where('participants.id', 'like', '%'.$search.'%')
+            ->orWhere('participaciones', 'like', '%'.$search.'%')
+            ->orWhere('codigo', 'like', '%'.$search.'%')
+            ->orWhereHas('user', function ($q) use ($search) {
+                $q->where('name', 'like', '%'.$search.'%')
+                    ->orWhere('telefono', 'like', '%'.$search.'%')
+                    ->orWhere('documento', 'like', '%'.$search.'%')
+                    ->orWhere('email', 'like', '%'.$search.'%');
+            })
+            ->orWhereHas('other_participant', function ($q) use ($search) {
+                $q->where('nombres', 'like', '%'.$search.'%')
+                    ->orWhere('apellidos', 'like', '%'.$search.'%')
+                    ->orWhere('edad', 'like', '%'.$search.'%')
+                    ->orWhere('telefono', 'like', '%'.$search.'%')
+                    ->orWhere('nro_documento', 'like', '%'.$search.'%')
+                    ->orWhere('correo', 'like', '%'.$search.'%');
+            });
     }
 }

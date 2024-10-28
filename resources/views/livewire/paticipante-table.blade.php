@@ -78,10 +78,10 @@
                     @foreach ( $participant as $value )
                     <tr>    
                         <td>{{ $value->id }}</td>
-                        <td>{{ $value->user->name }}</td>
-                        <td>{{ $value->user->telefono }}</td>
-                        <td>{{ $value->user->email }}</td>
-                        <td>{{ $value->user->documento }}</td>
+                        <td>{{ isset($value->user->name) ? $value->user->name : $value->other_participant->nombres }}</td>
+                        <td>{{ isset($value->user->telefono) ? $value->user->telefono : $value->other_participant->telefono }}</td>
+                        <td>{{ isset($value->user->email) ? $value->user->email : $value->other_participant->correo }}</td>
+                        <td>{{ isset($value->user->documento) ? $value->user->documento : $value->other_participant->nro_documento }}</td>
                         <td>{{ $value->participaciones }}</td>
                         <td class="badge-alicorp">
                             @if ($value->terminos_condiciones == 1)

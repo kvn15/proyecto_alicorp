@@ -20,7 +20,36 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        $projects = Project::limit(3)->orderBy('created_at', 'desc')->get();
+        $projects = Project::select(
+            'projects.id',
+            'projects.nombre_promocion', // Incluye los demás campos necesarios
+            'projects.status',
+            'projects.fecha_ini_proyecto',
+            'projects.fecha_fin_proyecto',
+            'projects.game_id',
+            'projects.created_at',
+            'projects.updated_at',
+            'proyect_types.ruta_name',
+            'proyect_types.name',
+            DB::raw('COUNT(participants.id) as participant_count')
+        )
+        ->leftJoin('proyect_types', 'proyect_types.id', '=', 'projects.project_type_id')
+        ->leftJoin('participants', 'participants.project_id', '=', 'projects.id')
+        ->groupBy(
+            'projects.id',
+            'projects.nombre_promocion',
+            'projects.status',
+            'projects.fecha_ini_proyecto',
+            'projects.fecha_fin_proyecto',
+            'projects.game_id',
+            'projects.created_at',
+            'proyect_types.ruta_name',
+            'proyect_types.name',
+            'projects.updated_at'
+        ) // Incluye todas las columnas seleccionadas
+        ->orderBy('projects.created_at', 'desc')
+        ->limit(3)
+        ->get();
         $landing = Project::where('project_type_id', 1)->orderBy('created_at', 'desc')->get();
         $web = Project::where('project_type_id', 2)->orderBy('created_at', 'desc')->get();
         $campana = Project::where('project_type_id', 3)->orderBy('created_at', 'desc')->get();
