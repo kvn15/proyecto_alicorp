@@ -518,12 +518,9 @@
                 };
 
                 // // Check winner
-                if (startDeg % 360 < 360 && startDeg % 360 > (360/items.length) && endDeg % 360 > 0 && endDeg % 360 < 90) {
+                if (startDeg % 360 < 360 && startDeg % 360 > (360/items.length) && endDeg % 360 > 0 && endDeg % 360 < (360/items.length) ) {
                     index = items[i]
                     console.log(index)
-                } else {
-                    index = items[i]
-                    console.log(index, items[i])
                 }
             }
         }

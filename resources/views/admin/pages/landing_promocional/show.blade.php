@@ -219,7 +219,7 @@
                                 </div>
                                 <div class="col-4 estado-ganador">
                                     @if ($ultGanadores->ganador == 1)
-                                    <span class="estado-win">{{ $ultGanadores->award_project->nombre_premio }}</span>
+                                    <span class="estado-win">{{ isset($ultGanadores->award_project->nombre_premio) ? $ultGanadores->award_project->nombre_premio : "" }}</span>
                                     @else
                                     <span class="estado-lose">Articulo 1</span>
                                     @endif
