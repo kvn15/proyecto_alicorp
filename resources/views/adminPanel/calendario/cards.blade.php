@@ -93,11 +93,11 @@
                                             <td>{{$item1->text}}</td>
                                             <td>{{ Carbon\Carbon::parse($item1->event_date)->format('d-m-yy') }}</td>
                                             <td>
-                                                <a href="#" class="btn btn-info sm"
-                                                    title="Edit Data"> <i class="fas fa-edit"></i> </a>
+                                                {{-- <a href="#" class="btn btn-info sm"
+                                                    title="Edit Data"> <i class="fas fa-edit"></i> </a> --}}
 
                                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal" data-id="{{ $item1->id }}" data-text="{{ $item1->text }}" data-event_date="{{ $item1->event_date }}">
-                                                        Editar
+                                                        <i class="fas fa-edit"></i>
                                                     </button>
 
                                                 <a href="{{ route('adminPanel.calendario.delete.card', $item1->id) }}"
@@ -119,7 +119,7 @@
     </div>
 
     @if($Allcards->isEmpty())
-                                     <p>No hay Cards disponibles.</p>
+                                     <h3>No hay Cards disponibles.</h3>
                                      @else
     <!-- Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">

@@ -117,7 +117,7 @@
     </div>
 
     @if($Allcards->isEmpty())
-                                     <p>No hay Cards disponibles.</p>
+                                     <h3>No hay Cards disponibles.</h3>
                                      @else
     <!-- Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">

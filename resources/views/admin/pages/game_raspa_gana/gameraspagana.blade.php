@@ -173,7 +173,7 @@
                         </div>
                         <div class="col-12 col-lg-6 mb-2">
                             <label for="apellido">Apellido</label>
-                            <input type="text" name="apellido" id="apellido" class="form-registro" value="{{ apellido }}">
+                            <input type="text" name="apellido" id="apellido" class="form-registro" value="{{ $apellido }}">
                         </div>
                         <div class="col-12 col-lg-6 mb-2">
                             <label for="tipo_doc">Tipo de documento</label>

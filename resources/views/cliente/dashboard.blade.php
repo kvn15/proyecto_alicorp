@@ -1,4 +1,12 @@
 @include('cabecera/header-2')
+@php
+    // $sliders = App\Models\AdminPanel\CalendarioPage::all();    
+    // $Allcards = App\Models\AdminPanel\CalendarioCard::all();
+    $gameWin = App\Models\Participant::where('ganador', 1)->count();
+    $gameParti = App\Models\Participant::where('user_id', auth()->id())->sum('participaciones');
+    $promos = App\Models\Participant::where('user_id', auth()->id())->distinct('project_id')->count('project_id');
+@endphp
+{{-- @dd($gameParti) --}}
 <section class="dashboard">
     <div class="container-fluid">
         <div class="row">
@@ -20,21 +28,21 @@
                         <i class="fa fa-bullhorn" aria-hidden="true"></i>
                         <span class="mx-3">Mis Promos</span>
                     </div>                    
-                    <span class="contador">2</span>
+                    <span class="contador">{{$promos}}</span>
                 </button>
                 <button class="button button--perfil-2 d-flex align-items-center justify-content-md-around">
                     <div class="d-md-flex align-items-center">
                         <i class="fa fa-gamepad" aria-hidden="true"></i>
                         <span class="mx-3">Mis Juegos</span>
                     </div>                    
-                    <span class="contador">2</span>
+                    <span class="contador">{{$gameParti}}</span>
                 </button>
                 <button class="button button--perfil-2 d-flex align-items-center justify-content-md-around">
                     <div class="d-md-flex align-items-center w-50">
                         <i class="fa fa-gift" aria-hidden="true"></i>
                         <span class="mx-3 parti">Participaciones Ganadas</span>
                     </div>                    
-                    <span class="contador">1</span>
+                    <span class="contador">{{$gameWin}}</span>
                 </button>
             </div>
             <div class="col-2"></div>
