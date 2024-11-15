@@ -168,4 +168,30 @@ class GanadoresTable extends Component
             ]);
         }
     }
+
+    public function eliminar($id) {
+        $participant = Participant::where('id', $id)->first();
+
+        try {
+
+            $participant->update([
+                'ganador' => 0,
+                'award_project_id' => null,
+                "fecha_premio" => null
+            ]);
+
+            $this->dispatchBrowserEvent('swal:alert', [
+                'title' => 'Exitoso!',
+                'icon' => 'success',
+            ]);
+    
+        } catch (\Exception $e) {
+            // Maneja la excepción
+            $this->dispatchBrowserEvent('swal:alert', [
+                'title' => 'Error inesperado',
+                'icon' => 'error',
+            ]);
+        }
+
+    }
 }

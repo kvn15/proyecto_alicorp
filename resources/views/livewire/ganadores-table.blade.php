@@ -69,6 +69,9 @@
                         <th>Participaciones <span wire:click="sortBy('asignancions.participaciones')" style="cursor: pointer;" class="ms-3"><i class="bi bi-arrow-down-up"></i></span></th>
                         <th>Premio</th>
                         <th>Fecha Premio</th>
+                        @if ($this->tipo_pro->project_type_id == 1)
+                        <th>Acción</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -89,6 +92,11 @@
                         <td>
                             {{ $value->fecha_premio }}
                         </td>
+                        @if ($this->tipo_pro->project_type_id == 1)
+                        <td>
+                            <button class="btn btn-danger" wire:click="eliminar({{ $value->id }})">Quitar</button>
+                        </td>
+                        @endif
                     </tr>
                     @endforeach
                 </tbody>
