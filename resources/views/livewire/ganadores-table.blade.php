@@ -86,7 +86,7 @@
                         <td>{{ $value->participaciones }}</td>
                         <td class="badge-alicorp">
                             <span class="badge text-bg-success">
-                                {{ $value->award_project->nombre_premio  }}
+                                {{ $value->award_project->nombre_premio ?? ''  }}
                             </span>
                         </td>
                         <td>
