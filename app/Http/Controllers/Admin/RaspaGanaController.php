@@ -214,7 +214,7 @@ class RaspaGanaController extends Controller
         $project = Project::where('dominio', $hub)->where('status', 1)->where('game_id', 1)->first();
 
         if(!isset($project)){
-            return redirect()->route('index');
+            return redirect()->route('index')->with('projecto', 'El juego no existe o no esta publicado.');
         }
 
         $fechaActual = Carbon::now('America/Lima')->startOfDay();

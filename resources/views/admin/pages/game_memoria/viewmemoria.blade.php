@@ -16,11 +16,56 @@
     <title>{{ $project->titulo_pestana }}</title>
     <link rel="icon" href="{{ '/storage/'.$project->ruta_fav }}" type="image/x-icon">
 </head>
+@php
+    $estiloFont = "";
+    switch ($project["tipo_letra"]) {
+        case 'Times New Roman':
+            $estiloFont = '--times';
+            break;
+        case 'Poppins':
+            $estiloFont = '--popins';
+            break;
+        case 'Arial':
+            $estiloFont = '--arial';
+            break;
+        case 'Verdana':
+            $estiloFont = '--verdana';
+            break;
+        case 'Roboto':
+            $estiloFont = '--roboto';
+            break;
+        case 'Courier New':
+            $estiloFont = '--courier';
+            break;
+        case 'Montserrat':
+            $estiloFont = '--Montserrat';
+            break;
+        
+        default:
+            $estiloFont = '--popins';
+            break;
+    }
+@endphp
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+|   @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+    
+    :root {
+        --color-text1: #fff;
+        --popins: "Poppins", sans-serif;
+        --arial: Arial, sans-serif;
+        --courier: "Courier New", monospace;
+        --verdana: Verdana, sans-serif;
+        --times: 'Times New Roman', serif;
+        --roboto: "Roboto", sans-serif;
+        --montserrat: "Montserrat", sans-serif;
+    }
     .juego_memorio_content {
         width: 100%;
         height: 100vh;
-        font-family: Arial, Helvetica, sans-serif;
+        font-family: var({{$estiloFont}}) !important;
     }
     .game {
         /* position: absolute;

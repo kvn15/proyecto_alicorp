@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Landing;
+use App\Models\OtherParticipant;
 use App\Models\Participant;
 use App\Models\Project;
 use App\Models\User;
@@ -29,19 +30,14 @@ class ViewLandingController extends Controller
                 return redirect()->route('index')->with('projecto', 'La landing se encuentra finalizada');
             }
         }
-        
-        if (!isset(Auth::user()->id)) {
-            return redirect()->route('login');
-        }
 
         $landing = Landing::where('project_id', $project->id)->first();
-        $ganadores = Participant::where('project_id', $project->id)->where('ganador', 1)->get();
-        $user = User::find(Auth::user()->id);
+        $ganadores = Participant::where('project_id', $project->id)->where('ganador', 1)->get();;
 
         $landingPage = [
             'project' => $project,
             'landing' => $landing,
-            'user' => $user,
+            'user' => null,
             'ganadores' => $ganadores
         ];
 
@@ -381,10 +377,60 @@ class ViewLandingController extends Controller
         if (isset($isCodigo)) {
             return redirect()->back()->with('mensajeError', 'El N° de LOTE ya existe.');;
         }
+
+        $other_participant_id = null;
+
+        $userId = isset(Auth::user()->id) ? Auth::user()->id : null;
+
+        if ($userId == null || !isset($userId)) {
+            // Si existe el dni
+            $otherParticipant = OtherParticipant::where('nro_documento', $request->documento)->first();
+
+
+            if (isset($otherParticipant)) {
+
+                $otherParticipantTel = OtherParticipant::where('nro_documento', '<>', $request->documento)->where('telefono', $request->telefono)->first();
+
+                if (isset($otherParticipantTel)) {
+                    return redirect()->back()->with('mensajeError', 'El numero de telefono ya se encuentra registrado.');;
+                }
+                
+                $otherParticipant->update([
+                    'nombres' => $request->name,
+                    'apellidos' => $request->apellido,
+                    'edad' => $request->edad,
+                    'telefono' => $request->telefono,
+                    'correo' => $request->email
+                ]);
+
+                $other_participant_id = $otherParticipant->id;
+            } else {
+
+                $otherParticipantTel = OtherParticipant::where('telefono', $request->telefono)->first();
+
+                if (isset($otherParticipantTel)) {
+                    return redirect()->back()->with('mensajeError', 'El numero de telefono ya se encuentra registrado.');;
+                }
+
+                $otherParticipant = OtherParticipant::create([
+                    'nombres' => $request->name,
+                    'apellidos' => $request->apellido,
+                    'edad' => $request->edad,
+                    'telefono' => $request->telefono,
+                    'correo' => $request->email,
+                    'tipo_doc' => $request->tipo_doc,
+                    'nro_documento' => $request->documento,
+                ]);
+
+                $other_participant_id = $otherParticipant->id;
+            }
+            
+        }
         
         $participant = new Participant();
         $participant->project_id = $id;
-        $participant->user_id = Auth::user()->id;
+        $participant->user_id = $userId;
+        $participant->other_participant_id = $other_participant_id;
         $participant->terminos_condiciones = 1;
         $participant->codigo = $request->codigo;
         $participant->codigo_valido = 1;
@@ -393,17 +439,19 @@ class ViewLandingController extends Controller
         $participant->punto_entrega = isset($request->punto_venta) && !empty($request->punto_venta) ? $request->punto_venta : null;
         $participant->save();
 
-        $user= User::findOrFail(Auth::user()->id);
+        if (isset(Auth::user()->id)) {
 
-        // Actualizar usuario
-        $user->update([
-            'name' => $request->name,
-            'apellido' => $request->apellido,
-            'tipo_documento' => $request->tipo_doc,
-            'documento' => $request->documento,
-            'edad' => $request->edad,
-            'telefono' => $request->telefono
-        ]);
+            $user= User::findOrFail(Auth::user()->id);
+            // Actualizar usuario
+            $user->update([
+                'name' => $request->name,
+                'apellido' => $request->apellido,
+                'tipo_documento' => $request->tipo_doc,
+                'documento' => $request->documento,
+                'edad' => $request->edad,
+                'telefono' => $request->telefono
+            ]);
+        }
 
         $uuid = Str::uuid()->toString();
 

@@ -229,7 +229,13 @@
                             </div>
                             <div class="col-12 col-md-6 col-lg-5">
                                 <select name="tipo_letra" id="tipo_letra" class="form-select w-100">
-                                    <option value="Poppins" selected>Poppins</option>
+                                    <option value="Poppins" {{ $project->tipo_letra == 'Poppins' ? 'selected' : '' }} >Poppins</option>
+                                    <option value="Arial"  {{ $project->tipo_letra == 'Arial' ? 'selected' : '' }}>Arial</option>
+                                    <option value="Verdana"  {{ $project->tipo_letra == 'Verdana' ? 'selected' : '' }}>Verdana</option>
+                                    <option value="Roboto"  {{ $project->tipo_letra == 'Roboto' ? 'selected' : '' }}>Roboto</option>
+                                    <option value="Times New Roman"  {{ $project->tipo_letra == 'Times New Roman' ? 'selected' : '' }}>Times New Roman</option>
+                                    <option value="Courier New"  {{ $project->tipo_letra == 'Courier New' ? 'selected' : '' }}>Courier New</option>
+                                    <option value="Montserrat"  {{ $project->tipo_letra == 'Montserrat' ? 'selected' : '' }}>Montserrat</option>
                                 </select>
                             </div>
                         </div>
@@ -307,6 +313,7 @@
                                 <label for="prob_no_premio"><small><b>No Premio</b></small></label>
                             </div>
                             <div class="col-12 col-md-6 col-lg-5">
+                                <label for="prob_no_premio">Probabilidad</label>
                                 <select name="prob_no_premio" id="prob_no_premio" class="form-select w-100">
                                     <option value="0" selected>0</option>
                                     <option value="10" selected>10</option>

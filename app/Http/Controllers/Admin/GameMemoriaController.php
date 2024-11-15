@@ -24,7 +24,7 @@ class GameMemoriaController extends Controller
         $project = Project::where('dominio', $hub)->where('status', 1)->whereIn('project_type_id', [2,3])->where('game_id', 3)->first();
 
         if(!isset($project)){
-            return redirect()->route('index');
+            return redirect()->route('index')->with('projecto', 'El juego no existe o no esta publicado.');
         }
         
         $fechaActual = Carbon::now('America/Lima')->startOfDay();

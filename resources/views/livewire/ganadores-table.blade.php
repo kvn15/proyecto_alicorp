@@ -1,4 +1,11 @@
 <div>
+    <div class="col-12 d-flex mb-2 justify-content-end">
+        <button class="btn btn-outline-dark me-2" wire:click="downloadExcel">Descargar Formato</button>
+        <label for="file" class="btn btn-outline-dark">Carga Masiva</label>
+        <input type="file" wire:model="file" hidden id="file" accept=".xlsx, .xls">
+        <button class="btn btn-outline-danger ms-2" style="align-self: flex-start" data-bs-toggle="modal" data-bs-target="#modalAgregar">Agregar</button>
+    </div>
+    
     <div class="col-12 d-flex justify-content-between">
         <div class="col-12 col-lg-4 d-flex justify-content-start position-relative" style="gap: 0.7em">
             <div class="filtro-select-btn d-none" id="premios_ctn">
@@ -37,7 +44,7 @@
                 </form>
             </div>
         </div>
-        <div class="col-12 col-lg-4 d-flex" style="gap: 0.7rem">
+        <div class="col-12 col-lg-5 d-flex" style="gap: 0.7rem">
             <div class="input-group mb-3 w-100">
                 <span class="input-group-text" id="basic-addon1" style="background-color: transparent; border-right: 0"><i class="bi bi-search"></i></span>
                 <input wire:model.debounce.300ms="search" type="text" class="form-control" placeholder="Buscar" style="border-left: 0">
@@ -67,10 +74,10 @@
                     <tr>    
                         <td>{{ $value->id }}</td>
                         <td>{{ $value->created_at }}</td>
-                        <td>{{ $value->user->name }}</td>
-                        <td>{{ $value->user->telefono }}</td>
-                        <td>{{ $value->user->email }}</td>
-                        <td>{{ $value->user->documento }}</td>
+                        <td>{{ isset($value->user->name) ? $value->user->name : $value->other_participant->nombres }}</td>
+                        <td>{{ isset($value->user->telefono) ? $value->user->telefono : $value->other_participant->telefono }}</td>
+                        <td>{{ isset($value->user->email) ? $value->user->email : $value->other_participant->correo }}</td>
+                        <td>{{ isset($value->user->documento) ? $value->user->documento : $value->other_participant->nro_documento }}</td>
                         <td>{{ $value->participaciones }}</td>
                         <td class="badge-alicorp">
                             <span class="badge text-bg-success">
@@ -88,6 +95,44 @@
         </div>
     </div>
 
+    {{-- Modal Agregar --}}
+    <div wire:ignore.self class="modal fade" id="modalAgregar" tabindex="-1" aria-labelledby="exampleModalAgregar" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <form wire:submit.prevent="store" class="modal-content">
+                <div class="modal-header" style="background-color: #ED1B2F; color: #fff;">
+                    <h1 class="modal-title fs-5" id="exampleModalAgregar">Agregar Ganador</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="color: #fff;" wire:click="resetForm"></button>
+                </div>
+                <div class="modal-body row">
+                    <div class="col-12 mb-2">
+                        <label for="fecha_ini" class="form-label">Participante</label>
+                        <select name="ganador" id="ganador" class="form-select" wire:model="id_ganador">
+                            <option>Seleccione</option>
+                            @foreach ($ganadores as $item)
+                                <option value="{{ $item->id }}">{{ $item->id }} - {{ isset($item->user->name) ? $item->user->name : $item->other_participant->nombres }} - {{ $item->codigo }}</option>
+                            @endforeach
+                        </select>
+                        @error('id_ganador') <span class="text-danger">Debe escoger un participante</span> @enderror
+                    </div>
+                    <div class="col-12 mb-2">
+                        <label for="fecha_ini" class="form-label">Premio</label>
+                        <select name="ganador" id="ganador" class="form-select" wire:model="id_premio">
+                            <option>Seleccione</option>
+                            @foreach ($premiosList as $item)
+                            <option value="{{ $item->id }}">{{ $item->nombre_premio }}</option>
+                            @endforeach
+                        </select>
+                        @error('id_premio') <span class="text-danger">Debe escoger un premio</span> @enderror
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color: #2e2e2e; color: #fff; border: 0;" wire:click="resetForm">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" style="background-color: #ED1B2F; color: #fff; border: 0;">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('livewire:load', function () {
             Livewire.on('premio', function (data) {
@@ -99,6 +144,14 @@
                     premios_ctn.classList.add("d-block")
                     premio_text.textContent = data
                 }
+            });
+        });
+    </script>
+    <script>
+        window.addEventListener('swal:alert', event => {
+            Swal.fire({
+                title: event.detail.title,
+                icon: event.detail.icon,
             });
         });
     </script>

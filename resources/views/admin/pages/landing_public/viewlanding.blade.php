@@ -270,19 +270,58 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
     
 @endphp
 <body>
+
+    @php
+        $estiloFont = "";
+        switch ($project["tipo_letra"]) {
+            case 'Times New Roman':
+                $estiloFont = '--times';
+                break;
+            case 'Poppins':
+                $estiloFont = '--popins';
+                break;
+            case 'Arial':
+                $estiloFont = '--arial';
+                break;
+            case 'Verdana':
+                $estiloFont = '--verdana';
+                break;
+            case 'Roboto':
+                $estiloFont = '--roboto';
+                break;
+            case 'Courier New':
+                $estiloFont = '--courier';
+                break;
+            case 'Montserrat':
+                $estiloFont = '--Montserrat';
+                break;
+            
+            default:
+                $estiloFont = '--popins';
+                break;
+        }
+    @endphp
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
         :root {
-            --landing: {{ $fondo_landing }};
+            --landing: @php echo $fondo_landing @endphp;
             --color-text1: #fff;
-            --color-active-nav: {{ $color_navegacion_input_hover }};
+            --color-active-nav: @php echo $color_navegacion_input_hover @endphp;
             --popins: "Poppins", sans-serif;
+            --arial: Arial, sans-serif;
+            --courier: "Courier New", monospace;
+            --verdana: Verdana, sans-serif;
+            --times: 'Times New Roman', serif;
+            --roboto: "Roboto", sans-serif;
+            --montserrat: "Montserrat", sans-serif;
             --bg-nav: #080808;
             --buttom-header: #cd0a10;
             --color-buttom-header: #fff;
-            --border-participar: {{ $border_input_como }};
+            --border-participar: @php $border_input_como @endphp;
             --title-participar: #fbbb01;
             --buttom-participar: #fbbb01;
             --buttom-vermas: #fbbb01;
@@ -295,7 +334,7 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
         .landing_page {
             color: var(--color-text1) !important;
             background-color: var(--landing);
-            font-family: var(--popins) !important;
+            font-family: var(@php echo $estiloFont @endphp) !important;
         }
 
         .nav-landing {
@@ -636,35 +675,35 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
                         @method('POST')
                         <div class="col-12 col-md-6 mb-3">
                             <label for="name" class="label_form" style="color: {{ $color_label_formulario }} !important;">Nombre</label>
-                            <input type="text" class="form-control input-text" name="name" value="{{ $landingPage["user"]->name }}">
+                            <input type="text" class="form-control input-text" name="name" value="{{ isset($landingPage["user"]) && $landingPage["user"]->name }}" required>
                         </div>
                         <div class="col-12 col-md-6 mb-3">
                             <label for="apellido" class="label_form" style="color: {{ $color_label_formulario }} !important;">Apellido</label>
-                            <input type="text" class="form-control input-text" name="apellido" id="apellido" value="{{ $landingPage["user"]->apellido }}">
+                            <input type="text" class="form-control input-text" name="apellido" id="apellido" value="{{ isset($landingPage["user"]) &&  $landingPage["user"]->apellido }}" required>
                         </div>
                         <div class="col-12 col-md-6 mb-3">
                             <label for="tipo_doc" class="label_form" style="color: {{ $color_label_formulario }} !important;">Tipo de documento</label>
-                            <select name="tipo_doc" id="tipo_doc" class="form-select input-text">
-                                <option value="DNI" {{ $landingPage["user"]->tipo_documento == 'DNI' ? 'selected' : '' }}>DNI</option>
-                                <option value="C.EXT" {{ $landingPage["user"]->tipo_documento == 'C.EXT' ? 'selected' : '' }}>C.EXT</option>
-                                <option value="PASAPORTE" {{ $landingPage["user"]->tipo_documento == 'PASAPORTE' ? 'selected' : '' }}>PASAPORTE</option>
+                            <select name="tipo_doc" id="tipo_doc" class="form-select input-text" required>
+                                <option value="DNI" {{  isset($landingPage["user"]) && $landingPage["user"]->tipo_documento == 'DNI' ? 'selected' : '' }}>DNI</option>
+                                <option value="C.EXT" {{ isset($landingPage["user"]) &&  $landingPage["user"]->tipo_documento == 'C.EXT' ? 'selected' : '' }}>C.EXT</option>
+                                <option value="PASAPORTE" {{  isset($landingPage["user"]) && $landingPage["user"]->tipo_documento == 'PASAPORTE' ? 'selected' : '' }}>PASAPORTE</option>
                             </select>
                         </div>
                         <div class="col-12 col-md-6 mb-3">
                             <label for="documento" class="label_form">N° de documento</label>
-                            <input type="text" class="form-control input-text" name="documento" id="documento" value="{{ $landingPage["user"]->documento }}">
+                            <input type="text" class="form-control input-text" name="documento" id="documento" value="{{ isset($landingPage["user"]) &&  $landingPage["user"]->documento }}" required>
                         </div>
                         <div class="col-12 col-md-6 mb-3">
                             <label for="edad" class="label_form" style="color: {{ $color_label_formulario }} !important;">Edad (*Mayores de 18 años)</label>
-                            <input type="text" class="form-control input-text" name="edad" id="edad" min="18" value="{{ $landingPage["user"]->edad }}">
+                            <input type="text" class="form-control input-text" name="edad" id="edad" min="18" value="{{ isset($landingPage["user"]) &&  $landingPage["user"]->edad }}" required>
                         </div>
                         <div class="col-12 col-md-6 mb-3">
                             <label for="name" class="label_form" style="color: {{ $color_label_formulario }} !important;">N° telefónico</label>
-                            <input type="text" name="telefono" id="telefono" class="form-control input-text" value="{{ $landingPage["user"]->telefono }}">
+                            <input type="text" name="telefono" id="telefono" class="form-control input-text" value="{{ isset($landingPage["user"]) &&  $landingPage["user"]->telefono }}" required>
                         </div>
                         <div class="col-12 col-md-6 mb-3">
                             <label for="name" class="label_form" style="color: {{ $color_label_formulario }} !important;">Correo Electronico</label>
-                            <input type="email" name="email" id="email" class="form-control input-text" value="{{ $landingPage["user"]->email }}" readonly>
+                            <input type="email" name="email" id="email" class="form-control input-text" value="{{ isset($landingPage["user"]) &&  $landingPage["user"]->email }}" required>
                         </div>
                         <div class="col-12 col-md-6 mb-3">
                             <label for="codigo" class="label_form" style="color: {{ $color_label_formulario }} !important;">N° de LOTE + foto de producto</label>

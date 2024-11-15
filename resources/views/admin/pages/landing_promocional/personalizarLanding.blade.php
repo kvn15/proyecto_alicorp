@@ -25,6 +25,10 @@
 .cursor {
     cursor: pointer;
 }
+
+.d-none-2 {
+    display: none;
+}
 </style>
 @php
     $imgNulo = asset('backend/svg/img-null.svg');
@@ -213,10 +217,10 @@
                 <button type="button" class="border-0 w-100 text-start" style="background-color: #fff;" id="back_encabezado"><i class="fas fa-chevron-left"></i> Encabezado</button>
             </div>
             <div class="py-2 border-bottom">
-                <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneNav" aria-expanded="true" aria-controls="collapseOneNav">
+                <button class="header-edit-web hidev" type="button" id="collapseOneNav">
                     <p class="mb-0"><b><img src="{{asset('backend/svg/vector-seccion.svg')}}" alt="svg seccion"> <small>Sección Encabezado</small></b></p>
                 </button>
-                <ul class="list-unstyled ps-4 mt-2 collapse show" id="collapseOneNav" data-bs-parent="#accordionExample">
+                <ul class="list-unstyled ps-4 mt-2 collapseOneNav">
                     <li>
                         <p class="mb-1">Distribución Menú</p>
                         <div class="d-flex justify-content-center" style="gap: 1.2em;">
@@ -245,10 +249,10 @@
                 </ul>
             </div>
             <div class="py-2 border-bottom">
-                <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoNav" aria-expanded="true" aria-controls="collapseTwoNav">
+                <button class="header-edit-web showv" type="button" id="collapseTwoNav">
                     <p class="mb-0"><b><img src="{{asset('backend/svg/logo-imagen.svg')}}" alt="svg seccion"> <small>Logo</small></b></p>
                 </button>
-                <ul class="list-unstyled ps-4 mt-2 collapse" id="collapseTwoNav" data-bs-parent="#accordionExample">
+                <ul class="list-unstyled ps-4 mt-2 collapseTwoNav d-none-2">
                     <li>
                         <p class="mb-1">Imagen Logo</p>
                         <div class="img-subir">
@@ -270,10 +274,10 @@
                 </ul>
             </div>
             <div class="py-2 border-bottom">
-                <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreeNav" aria-expanded="true" aria-controls="collapseThreeNav">
+                <button class="header-edit-web showv" type="button" id="collapseThreeNav">
                     <p class="mb-0"><b><img src="{{asset('backend/svg/cuadro-titulo.svg')}}" alt="svg seccion"> <small>Titulos de navegación</small></b></p>
                 </button>
-                <ul class="list-unstyled ps-4 mt-2 collapse" id="collapseThreeNav" data-bs-parent="#accordionExample">
+                <ul class="list-unstyled ps-4 mt-2 collapseThreeNav d-none-2">
                     <li>
                         <p class="mb-1">Configuración Navegación</p>
                         <div class="d-flex justify-content-start my-2" style="gap: 1.2em;">
@@ -440,10 +444,10 @@
                 <button type="button" class="border-0 w-100 text-start" style="background-color: #fff;" id="back_principal"><i class="fas fa-chevron-left"></i> Pagina Principal</button>
             </div>
             <div class="py-2 border-bottom">
-                <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneHeader" aria-expanded="true" aria-controls="collapseOneHeader">
+                <button class="header-edit-web hidev" type="button" id="collapseOneHeader">
                     <p class="mb-0"><b><img src="{{asset('backend/svg/vector-seccion.svg')}}" alt="svg seccion"> <small>Sección Pagina principal</small></b></p>
                 </button>
-                <ul class="list-unstyled ps-4 mt-2 collapse show" id="collapseOneHeader" data-bs-parent="#accordionExample">
+                <ul class="list-unstyled ps-4 mt-2 collapseOneHeader">
                     <li>
                         <p class="mb-1">Distribución</p>
                         <div class="d-flex justify-content-center" style="gap: 1.2em;">
@@ -491,11 +495,11 @@
                 </ul>
             </div>
             <div class="py-2 border-bottom">
-                <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoHeader" aria-expanded="true" aria-controls="collapseTwoHeader">
+                <button class="header-edit-web showv" type="button" id="collapseTwoHeader">
                     <p class="mb-0"><b><img src="{{asset('backend/svg/text.svg')}}" alt="svg seccion"> <small>Titulo</small></b></p>
                 </button>
                 
-                <ul class="list-unstyled ps-4 collapse" id="collapseTwoHeader" data-bs-parent="#accordionExample">
+                <ul class="list-unstyled ps-4 collapseTwoHeader  d-none-2">
                     <li class="my-2">
                         <p class="mb-1">Texto</p>
                         <div class="d-flex justify-content-start mb-2" style="gap: 1.2em;">
@@ -560,10 +564,10 @@
                 </ul>
             </div>
             <div class="py-2 border-bottom">
-                <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreeHeader" aria-expanded="true" aria-controls="collapseThreeHeader">
+                <button class="header-edit-web showv" type="button" id="collapseThreeHeader">
                     <p class="mb-0"><b><img src="{{asset('backend/svg/lapiz.svg')}}" alt="svg seccion"> <small>Texto</small></b></p>
                 </button>
-                <ul class="list-unstyled ps-4 collapse" id="collapseThreeHeader" data-bs-parent="#accordionExample">
+                <ul class="list-unstyled ps-4 collapseThreeHeader  d-none-2 ">
                     <li class="my-2">
                         <p class="mb-1">Texto</p>
                         <div class="d-flex justify-content-start mb-2" style="gap: 1.2em;">
@@ -627,12 +631,12 @@
                     </li>
                 </ul>
             </div>
-            <div class="py-2 border-bottom">
-                <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourHeader" aria-expanded="true" aria-controls="collapseFourHeader">
+            <div class="py-2 border-bottom d-none">
+                <button class="header-edit-web showv" type="button" id="collapseFourHeader">
                     <p class="mb-0"><b><img src="{{asset('backend/svg/logo-imagen.svg')}}" alt="svg seccion"> <small>Imagen</small></b></p>
                 </button>
 
-                <ul class="list-unstyled ps-4 collapse" id="collapseFourHeader" data-bs-parent="#accordionExample">
+                <ul class="list-unstyled ps-4 collapseFourHeader  d-none-2">
                     <li class="my-2">
                         <div class="img-subir">
                             <label for="imagen-subir">
@@ -651,11 +655,11 @@
                 </ul>
             </div>
             <div class="py-2 border-bottom">
-                <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFiveHeader" aria-expanded="true" aria-controls="collapseFiveHeader">
+                <button class="header-edit-web showv" type="button" id="collapseFiveHeader">
                     <p class="mb-0"><b><img src="{{asset('backend/svg/boton.svg')}}" alt="svg seccion"> <small>Botón</small></b></p>
                 </button>
 
-                <ul class="list-unstyled ps-4 collapse" id="collapseFiveHeader" data-bs-parent="#accordionExample">
+                <ul class="list-unstyled ps-4 collapseFiveHeader  d-none-2">
                     <li class="my-2">
                         <p class="mb-1">Direccionar</p>
                         <select class="form-select" name="direccionar_boton_header" id="direccionar_boton_header">
@@ -755,10 +759,10 @@
                 <button type="button" class="border-0 w-100 text-start" style="background-color: #fff;" id="back_como_participa"><i class="fas fa-chevron-left"></i> Como Participar</button>
             </div>
             <div class="py-2 border-bottom">
-                <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneNav" aria-expanded="true" aria-controls="collapseOneNav">
+                <button class="header-edit-web hidev" type="button" id="collapseOneNav1">
                     <p class="mb-0"><b><img src="{{asset('backend/svg/vector-seccion.svg')}}" alt="svg seccion"> <small>Sección Como participar</small></b></p>
                 </button>
-                <ul class="list-unstyled ps-4 mt-2 collapse show" id="collapseOneNav" data-bs-parent="#accordionExample">
+                <ul class="list-unstyled ps-4 mt-2 collapseOneNav1 ">
                     <li class="my-2">
                         <p class="my-1">Color Borde</p>
                         
@@ -770,10 +774,10 @@
                 </ul>
             </div>
             <div class="py-2 border-bottom">
-                <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoComo" aria-expanded="true" aria-controls="collapseTwoComo">
+                <button class="header-edit-web showv" type="button" id="collapseTwoComo">
                     <p class="mb-0"><b><img src="{{asset('backend/svg/text.svg')}}" alt="svg seccion"> <small>Titulo</small></b></p>
                 </button>
-                <ul class="list-unstyled ps-4 mt-2 collapse" id="collapseTwoComo" data-bs-parent="#accordionExample">
+                <ul class="list-unstyled ps-4 mt-2 collapseTwoComo  d-none-2">
                     <li class="my-2">
                         <p class="my-1">Texto</p>
                         <div class="d-flex justify-content-start mb-2" style="gap: 1.2em;">
@@ -822,10 +826,10 @@
                 </ul>
             </div>
             <div class="py-2 border-bottom">
-                <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreeComo" aria-expanded="true" aria-controls="collapseThreeComo">
+                <button class="header-edit-web showv" type="button" id="collapseThreeComo">
                     <p class="mb-0"><b><img src="{{asset('backend/svg/cuadro-titulo.svg')}}" alt="svg seccion"> <small>Bloque Participar</small></b></p>
                 </button>
-                <ul class="list-unstyled ps-4 mt-2 collapse" id="collapseThreeComo" data-bs-parent="#accordionExample">
+                <ul class="list-unstyled ps-4 mt-2 collapseThreeComo  d-none-2">
                     <li class="my-2">
                         <p class="mb-1">Participar 1</p>
                         <div class="img-subir">
@@ -883,10 +887,10 @@
                 </ul>
             </div>
             <div class="py-2 border-bottom">
-                <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourComo" aria-expanded="true" aria-controls="collapseFourComo">
+                <button class="header-edit-web showv" type="button" id="collapseFourComo">
                     <p class="mb-0"><b><img src="{{asset('backend/svg/boton.svg')}}" alt="svg seccion"> <small>Botón</small></b></p>
                 </button>
-                <ul class="list-unstyled ps-4 mt-2 collapse" id="collapseFourComo" data-bs-parent="#accordionExample">
+                <ul class="list-unstyled ps-4 mt-2 collapseFourComo  d-none-2">
                     <li class="my-2">
                         <p class="my-1">Texto</p>
                         <div class="d-flex justify-content-start mb-2" style="gap: 1.2em;">
@@ -975,10 +979,10 @@
                 <button type="button" class="border-0 w-100 text-start" style="background-color: #fff;" id="back_form_participa"><i class="fas fa-chevron-left"></i> Formulario Participar</button>
             </div>
             <div class="py-2 border-bottom">
-                <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneFormulario" aria-expanded="true" aria-controls="collapseOneFormulario">
+                <button class="header-edit-web hide" type="button" id="collapseOneFormulario">
                     <p class="mb-0"><b><img src="{{asset('backend/svg/vector-seccion.svg')}}" alt="svg seccion"> <small>Sección Formulario participar</small></b></p>
                 </button>
-                <ul class="list-unstyled ps-4 mt-2 collapse show" id="collapseOneFormulario" data-bs-parent="#accordionExample">
+                <ul class="list-unstyled ps-4 mt-2 collapseOneFormulario ">
                     <li class="my-2">
                         <p class="my-1">Color Borde</p>
                         
@@ -990,10 +994,10 @@
                 </ul>
             </div>
             <div class="py-2 border-bottom">
-                <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoFormulario" aria-expanded="true" aria-controls="collapseTwoFormulario">
+                <button class="header-edit-web showv" type="button" id="collapseTwoFormulario">
                     <p class="mb-0"><b><img src="{{asset('backend/svg/text.svg')}}" alt="svg seccion"> <small>Titulo</small></b></p>
                 </button>
-                <ul class="list-unstyled ps-4 mt-2 collapse" id="collapseTwoFormulario" data-bs-parent="#accordionExample">
+                <ul class="list-unstyled ps-4 mt-2 collapseTwoFormulario  d-none-2">
                     <li class="my-2">
                         <p class="my-1">Texto</p>
                         <div class="d-flex justify-content-start mb-2" style="gap: 1.2em;">
@@ -1042,10 +1046,10 @@
                 </ul>
             </div>
             <div class="py-2 border-bottom">
-                <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreeFormulario" aria-expanded="true" aria-controls="collapseThreeFormulario">
+                <button class="header-edit-web showv" type="button" id="collapseThreeFormulario">
                     <p class="mb-0"><b><img src="{{asset('backend/svg/cuadro-titulo.svg')}}" alt="svg seccion"> <small>Bloque formulario</small></b></p>
                 </button>
-                <ul class="list-unstyled ps-4 mt-2 collapse" id="collapseThreeFormulario" data-bs-parent="#accordionExample">
+                <ul class="list-unstyled ps-4 mt-2 collapseThreeFormulario  d-none-2">
                     <li class="my-2">
                         <p class="my-1">Color Label Formulario</p>
                         
@@ -1057,10 +1061,10 @@
                 </ul>
             </div>
             <div class="py-2 border-bottom">
-                <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourFormulario" aria-expanded="true" aria-controls="collapseFourFormulario">
+                <button class="header-edit-web showv" type="button" id="collapseFourFormulario">
                     <p class="mb-0"><b><img src="{{asset('backend/svg/boton.svg')}}" alt="svg seccion"> <small>Botón</small></b></p>
                 </button>
-                <ul class="list-unstyled ps-4 mt-2 collapse" id="collapseFourFormulario" data-bs-parent="#accordionExample">
+                <ul class="list-unstyled ps-4 mt-2 collapseFourFormulario  d-none-2">
                     <li class="my-2">
                         <p class="my-1">Texto</p>
                         <div class="d-flex justify-content-start mb-2" style="gap: 1.2em;">
@@ -1135,10 +1139,10 @@
                 <button type="button" class="border-0 w-100 text-start" style="background-color: #fff;" id="back_ganador"><i class="fas fa-chevron-left"></i> Ganadores</button>
             </div>
             <div class="py-2 border-bottom">
-                <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneGanador" aria-expanded="true" aria-controls="collapseOneGanador">
+                <button class="header-edit-web hidev" type="button" id="collapseOneGanador">
                     <p class="mb-0"><b><img src="{{asset('backend/svg/vector-seccion.svg')}}" alt="svg seccion"> <small>Sección Ganadores</small></b></p>
                 </button>
-                <ul class="list-unstyled ps-4 mt-2 collapse show" id="collapseOneGanador" data-bs-parent="#accordionExample">
+                <ul class="list-unstyled ps-4 mt-2 collapseOneGanador">
                     <li class="my-2">
                         <p class="my-1">Color Borde</p>
                         
@@ -1150,10 +1154,10 @@
                 </ul>
             </div>
             <div class="py-2 border-bottom">
-                <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoGanador" aria-expanded="true" aria-controls="collapseTwoGanador">
+                <button class="header-edit-web showv" type="button" id="collapseTwoGanador">
                     <p class="mb-0"><b><img src="{{asset('backend/svg/text.svg')}}" alt="svg seccion"> <small>Titulo</small></b></p>
                 </button>
-                <ul class="list-unstyled ps-4 mt-2 collapse" id="collapseTwoGanador" data-bs-parent="#accordionExample">
+                <ul class="list-unstyled ps-4 mt-2 collapseTwoGanador  d-none-2">
                     <li class="my-2">
                         <p class="my-1">Texto</p>
                         <div class="d-flex justify-content-start mb-2" style="gap: 1.2em;">
@@ -1202,10 +1206,10 @@
                 </ul>
             </div>
             <div class="py-2 border-bottom">
-                <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreeGanador" aria-expanded="true" aria-controls="collapseThreeGanador">
+                <button class="header-edit-web showv" type="button" id="collapseThreeGanador">
                     <p class="mb-0"><b><img src="{{asset('backend/svg/cuadro-titulo.svg')}}" alt="svg seccion"> <small>Bloque ganadores</small></b></p>
                 </button>
-                <ul class="list-unstyled ps-4 mt-2 collapse" id="collapseThreeGanador" data-bs-parent="#accordionExample">
+                <ul class="list-unstyled ps-4 mt-2 collapseThreeGanador  d-none-2">
                     <li class="my-2">
                         <p class="my-1">Color Lista</p>
                         
@@ -1256,10 +1260,10 @@
                 <button type="button" class="border-0 w-100 text-start" style="background-logo_subir: #fff;" id="back_pregunta"><i class="fas fa-chevron-left"></i> Preguntas Frecuentes</button>
             </div>
             <div class="py-2 border-bottom">
-                <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOnePregunta" aria-expanded="true" aria-controls="collapseOnePregunta">
+                <button class="header-edit-web hidev" type="button" id="collapseOnePregunta">
                     <p class="mb-0"><b><img src="{{asset('backend/svg/vector-seccion.svg')}}" alt="svg seccion"> <small>Sección Preguntas</small></b></p>
                 </button>
-                <ul class="list-unstyled ps-4 mt-2 collapse show" id="collapseOnePregunta" data-bs-parent="#accordionExample">
+                <ul class="list-unstyled ps-4 mt-2 collapseOnePregunta">
                     <li class="my-2">
                         <p class="my-1">Color Borde</p>
                         
@@ -1271,10 +1275,10 @@
                 </ul>
             </div>
             <div class="py-2 border-bottom">
-                <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoPregunta" aria-expanded="true" aria-controls="collapseTwoPregunta">
+                <button class="header-edit-web showv" type="button" id="collapseTwoPregunta">
                     <p class="mb-0"><b><img src="{{asset('backend/svg/text.svg')}}" alt="svg seccion"> <small>Titulo</small></b></p>
                 </button>
-                <ul class="list-unstyled ps-4 mt-2 collapse" id="collapseTwoPregunta" data-bs-parent="#accordionExample">
+                <ul class="list-unstyled ps-4 mt-2 collapseTwoPregunta  d-none-2">
                     <li class="my-2">
                         <p class="my-1">Texto</p>
                         <div class="d-flex justify-content-start mb-2" style="gap: 1.2em;">
@@ -1323,10 +1327,10 @@
                 </ul>
             </div>
             <div class="py-2 border-bottom">
-                <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreePregunta" aria-expanded="true" aria-controls="collapseThreePregunta">
+                <button class="header-edit-web showv" type="button" id="collapseThreePregunta">
                     <p class="mb-0"><b><img src="{{asset('backend/svg/cuadro-titulo.svg')}}" alt="svg seccion"> <small>Bloque Preguntas frecuentes</small></b></p>
                 </button>
-                <ul class="list-unstyled ps-4 mt-2 collapse" id="collapseThreePregunta" data-bs-parent="#accordionExample">
+                <ul class="list-unstyled ps-4 mt-2 collapseThreePregunta  d-none-2">
                     <li class="my-2">
                         <p class="my-1">Color Preguntas</p>
                         
@@ -1404,10 +1408,10 @@
                 <button type="button" class="border-0 w-100 text-start" style="background-logo_subir: #fff;" id="back_redes"><i class="fas fa-chevron-left"></i> Redes Sociales</button>
             </div>
             <div class="py-2 border-bottom">
-                <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneRedees" aria-expanded="true" aria-controls="collapseOneRedees">
+                <button class="header-edit-web hidev" type="button" id="collapseOneRedees">
                     <p class="mb-0"><b><img src="{{asset('backend/svg/text.svg')}}" alt="svg seccion"> <small>Titulo</small></b></p>
                 </button>
-                <ul class="list-unstyled ps-4 mt-2 collapse" id="collapseOneRedees" data-bs-parent="#accordionExample">
+                <ul class="list-unstyled ps-4 mt-2 collapseOneRedees">
                     <li class="my-2">
                         <p class="my-1">Texto</p>
                         <div class="d-flex justify-content-start mb-2" style="gap: 1.2em;">
@@ -1456,10 +1460,10 @@
                 </ul>
             </div>
             <div class="py-2 border-bottom">
-                <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoRedees" aria-expanded="true" aria-controls="collapseTwoRedees">
+                <button class="header-edit-web showv" type="button" id="collapseTwoRedees">
                     <p class="mb-0"><b><img src="{{asset('backend/svg/text.svg')}}" alt="svg seccion"> <small>Redes</small></b></p>
                 </button>
-                <ul class="list-unstyled ps-4 mt-2 collapse" id="collapseTwoRedees" data-bs-parent="#accordionExample">
+                <ul class="list-unstyled ps-4 mt-2 collapseTwoRedees  d-none-2">
                     <li class="my-2">
                         <p class="my-1">Color Redes</p>
                         
@@ -1966,7 +1970,7 @@
                                     {{ $pregunta1 }}
                                     </button>
                                     </h2>
-                                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                                    <div id="collapseOne" class="accordion-collapse collapse show">
                                     <div class="accordion-body" id="respuesta-1-landing">
                                         {{ $respuesta1 }}
                                     </div>
@@ -1978,7 +1982,7 @@
                                         {{ $pregunta2 }}
                                     </button>
                                     </h2>
-                                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                    <div id="collapseTwo" class="accordion-collapse collapse">
                                     <div class="accordion-body" id="respuesta-2-landing">
                                         {{ $respuesta2 }}
                                     </div>
@@ -1990,7 +1994,7 @@
                                         {{ $pregunta3 }}
                                     </button>
                                     </h2>
-                                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                    <div id="collapseThree" class="accordion-collapse collapse">
                                     <div class="accordion-body"  id="respuesta-3-landing">
                                         {{ $respuesta3 }}
                                     </div>
@@ -2002,7 +2006,7 @@
                                         {{ $pregunta4 }}
                                     </button>
                                     </h2>
-                                    <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                    <div id="collapseFour" class="accordion-collapse collapse">
                                     <div class="accordion-body"  id="respuesta-4-landing">
                                         {{ $respuesta4 }}
                                     </div>
@@ -3609,6 +3613,300 @@
                 }
             });
         })
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        ///
+        $("#collapseOneNav").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseOneNav").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseOneNav").show("fast");
+            }
+        })
+        $("#collapseTwoNav").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseTwoNav").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseTwoNav").show("fast");
+            }
+        })
+        $("#collapseThreeNav").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseThreeNav").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseThreeNav").show("fast");
+            }
+        })
+        //
+        $("#collapseOneHeader").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseOneHeader").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseOneHeader").show("fast");
+            }
+        })
+        $("#collapseTwoHeader").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseTwoHeader").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseTwoHeader").show("fast");
+            }
+        })
+        $("#collapseThreeHeader").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseThreeHeader").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseThreeHeader").show("fast");
+            }
+        })
+        $("#collapseFourHeader").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseFourHeader").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseFourHeader").show("fast");
+            }
+        })
+        $("#collapseFiveHeader").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseFiveHeader").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseFiveHeader").show("fast");
+            }
+        })
+        //
+        
+        $("#collapseOneNav1").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseOneNav1").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseOneNav1").show("fast");
+            }
+        })
+        
+        $("#collapseTwoComo").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseTwoComo").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseTwoComo").show("fast");
+            }
+        })
+        
+        $("#collapseThreeComo").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseThreeComo").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseThreeComo").show("fast");
+            }
+        })
+        
+        $("#collapseFourComo").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseFourComo").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseFourComo").show("fast");
+            }
+        })
+
+        ///
+        //
+        
+        $("#collapseOneFormulario").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseOneFormulario").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseOneFormulario").show("fast");
+            }
+        })
+        
+        $("#collapseTwoFormulario").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseTwoFormulario").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseTwoFormulario").show("fast");
+            }
+        })
+        
+        $("#collapseThreeFormulario").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseThreeFormulario").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseThreeFormulario").show("fast");
+            }
+        })
+        
+        $("#collapseFourFormulario").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseFourFormulario").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseFourFormulario").show("fast");
+            }
+        })
+        //
+        
+        $("#collapseOneGanador").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseOneGanador").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseOneGanador").show("fast");
+            }
+        })
+        
+        $("#collapseTwoGanador").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseTwoGanador").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseTwoGanador").show("fast");
+            }
+        })
+        
+        $("#collapseThreeGanador").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseThreeGanador").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseThreeGanador").show("fast");
+            }
+        })
+        //
+        
+        $("#collapseOnePregunta").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseOnePregunta").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseOnePregunta").show("fast");
+            }
+        })
+        
+        $("#collapseTwoPregunta").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseTwoPregunta").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseTwoPregunta").show("fast");
+            }
+        })
+        
+        $("#collapseThreePregunta").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseThreePregunta").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseThreePregunta").show("fast");
+            }
+        })
+        //
+        
+        $("#collapseOneRedees").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseOneRedees").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseOneRedees").show("fast");
+            }
+        })
+        
+        $("#collapseTwoRedees").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseTwoRedees").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseTwoRedees").show("fast");
+            }
+        })
+
     });
 </script>
 @endsection

@@ -174,6 +174,9 @@
             border-color: #E62020 !important;
             background-color: #E620200D;
         }
+.d-none-2 {
+    display: none;
+}
 </style>
 @php
     $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
@@ -231,11 +234,11 @@
                     <button type="button"  class="border-0 w-100 text-start" style="background-color: #fff;" id="back_principal"><i class="fas fa-chevron-left"></i> Pagina Principal</button>
                 </div>
                 <div class="py-2 border-bottom">
-                    <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneGame" aria-expanded="true" aria-controls="collapseOneGame">
+                    <button class="header-edit-web" type="button" id="collapseOneGame">
                         <p class="mb-0"><b><img src="{{asset('backend/svg/vector-seccion.svg')}}" alt="svg seccion"> <small>Vista Principal</small></b></p>
                     </button>
 
-                    <ul class="list-unstyled ps-4 mt-2 collapse show" id="collapseOneGame" data-bs-parent="#accordionExample">
+                    <ul class="list-unstyled ps-4 mt-2 collapseOneGame" >
                         <li>
                             <p class="mb-2">Banner</p>
                             <div class="img-subir">
@@ -257,10 +260,10 @@
                     </ul>
                 </div>
                 <div class="py-2 border-bottom">
-                    <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoGame" aria-expanded="true" aria-controls="collapseTwoGame">
+                    <button class="header-edit-web" type="button" id="collapseTwoGame">
                         <p class="mb-0"><b><img src="{{asset('backend/svg/text.svg')}}" alt="svg seccion"> <small>Titulo</small></b></p>
                     </button>
-                    <ul class="list-unstyled ps-4 collapse" id="collapseTwoGame" data-bs-parent="#accordionExample">
+                    <ul class="list-unstyled ps-4 d-none-2 collapseTwoGame" >
                         <li class="my-2">
                             <p class="mb-1">Texto</p>
                             <div class="d-flex justify-content-start mb-2" style="gap: 1.2em;">
@@ -325,11 +328,11 @@
                     </ul>
                 </div>
                 <div class="py-2 border-bottom">
-                    <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreeGame" aria-expanded="true" aria-controls="collapseThreeGame">
+                    <button class="header-edit-web" type="button" id="collapseThreeGame">
                         <p class="mb-0"><b><img src="{{asset('backend/svg/logo-imagen.svg')}}" alt="svg seccion"> <small>Logo</small></b></p>
                     </button>
 
-                    <ul class="list-unstyled ps-4 mt-2 collapse" id="collapseThreeGame" data-bs-parent="#accordionExample">
+                    <ul class="list-unstyled ps-4 mt-2 d-none-2 collapseThreeGame" >
                         <li>
                             <p class="mb-2">Logo</p>
                             <div class="img-subir">
@@ -351,11 +354,11 @@
                     </ul>
                 </div>
                 <div class="py-2 border-bottom">
-                    <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourGame" aria-expanded="true" aria-controls="collapseFourGame">
+                    <button class="header-edit-web" type="button" id="collapseFourGame">
                         <p class="mb-0"><b><img src="{{asset('backend/svg/cuadro-titulo.svg')}}" alt="svg seccion"> <small>Bloque Elementos de Juego</small></b></p>
                     </button>
 
-                    <ul class="list-unstyled ps-4 mt-2 collapse" id="collapseFourGame" data-bs-parent="#accordionExample">
+                    <ul class="list-unstyled ps-4 mt-2 d-none-2 collapseFourGame" >
                         <li>
                             <p class="mb-2">Imagen 1</p>
                             <div class="img-subir">
@@ -472,11 +475,11 @@
                     <button type="button"  class="border-0 w-100 text-start" style="background-color: #fff;" id="back_encabezado"><i class="fas fa-chevron-left"></i> Vista Premiación</button>
                 </div>
                 <div class="py-2 border-bottom">
-                    <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOnePremio" aria-expanded="true" aria-controls="collapseOnePremio">
+                    <button class="header-edit-web" type="button" id="collapseOnePremio">
                         <p class="mb-0"><b><img src="{{asset('backend/svg/cuadro-titulo.svg')}}" alt="svg seccion"> <small>Header Premiación</small></b></p>
                     </button>
 
-                    <ul class="list-unstyled ps-4 mt-2 collapse show" id="collapseOnePremio" data-bs-parent="#accordionExample">
+                    <ul class="list-unstyled ps-4 mt-2 collapseOnePremio" >
                         <li>
                             <p class="mb-2">Titulo Ganastes</p>
                             <div class="img-subir">
@@ -498,11 +501,11 @@
                     </ul>
                 </div>
                 <div class="py-2 border-bottom">
-                    <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoPremio" aria-expanded="true" aria-controls="collapseTwoPremio">
+                    <button class="header-edit-web" type="button" id="collapseTwoPremio">
                         <p class="mb-0"><b><img src="{{asset('backend/svg/boton.svg')}}" alt="svg seccion"> <small>Botón</small></b></p>
                     </button>
 
-                    <ul class="list-unstyled ps-4 mt-2 collapse show" id="collapseTwoPremio" data-bs-parent="#accordionExample">
+                    <ul class="list-unstyled ps-4 mt-2 d-none-2 collapseTwoPremio" >
                         <li>
                             <p class="mb-2">Ver Botones</p>
                             
@@ -535,11 +538,11 @@
                     </ul>
                 </div>
                 <div class="py-2 border-bottom">
-                    <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOnePremio" aria-expanded="true" aria-controls="collapseOnePremio">
+                    <button class="header-edit-web" type="button" id="collapseThreePremio">
                         <p class="mb-0"><b><img src="{{asset('backend/svg/cuadro-titulo.svg')}}" alt="svg seccion"> <small>Bloque Premiación</small></b></p>
                     </button>
 
-                    <ul class="list-unstyled ps-4 mt-2 collapse show" id="collapseOnePremio" data-bs-parent="#accordionExample">
+                    <ul class="list-unstyled ps-4 mt-2  d-none-2 collapseThreePremio" >
                         @foreach ($projectPremio as $value)
                         <li class="mb-2">
                             <p class="mb-2">Premio {{ $value->orden }} => {{ $value->nombre_premio }}</p>
@@ -1436,6 +1439,88 @@
         });
         });
 
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#collapseOneGame").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseOneGame").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseOneGame").show("fast");
+            }
+        })
+        $("#collapseTwoGame").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseTwoGame").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseTwoGame").show("fast");
+            }
+        })
+        $("#collapseThreeGame").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseThreeGame").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseThreeGame").show("fast");
+            }
+        })
+        $("#collapseFourGame").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseFourGame").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseFourGame").show("fast");
+            }
+        })
+        //
+        $("#collapseOnePremio").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseOnePremio").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseOnePremio").show("fast");
+            }
+        })
+        $("#collapseTwoPremio").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseTwoPremio").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseTwoPremio").show("fast");
+            }
+        })
+        $("#collapseThreePremio").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseThreePremio").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseThreePremio").show("fast");
+            }
+        })
     });
 </script>
 @endsection

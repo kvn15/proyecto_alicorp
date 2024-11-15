@@ -94,6 +94,40 @@
                                         <button type="submit" class="btn btn-alicorp" id="btn_publicar">Publicar</button>
                                     </form>
                                     @endif
+                                    @if (isset($project["landing"]->dominio) && !empty($project["landing"]->dominio))
+                                    @php
+                                        $rutaVisitar = "";
+                                        if ($project["landing"]->project_type_id == 1) { //Landing
+                                            $rutaVisitar = route('landing.view', $project["landing"]->dominio);
+                                        } else {
+                                            if ($project["landing"]->project_type_id == 2) { // Juego Web
+                                                
+                                                if ($project["landing"]->game_id == 1) {
+                                                    $rutaVisitar = route('juegoWeb.juego.view.registro.raspagana', $project["landing"]->dominio);
+                                                } else if($project["landing"]->game_id == 2) {
+                                                    $rutaVisitar = route('juegoWeb.juego.view.registro.ruleta', $project["landing"]->dominio);
+                                                } else {
+                                                    $rutaVisitar = route('juegoWeb.juego.view.registro', $project["landing"]->dominio);
+                                                }
+                                                
+
+                                            } else {
+                                                
+                                                if ($project["landing"]->game_id == 1) {
+                                                    $rutaVisitar = route('juegoCampana.juego.view.registro.raspagana', $project["landing"]->dominio);
+                                                } else if($project["landing"]->game_id == 2) {
+                                                    $rutaVisitar = route('juegoCampana.juego.view.registro.ruleta', $project["landing"]->dominio);
+                                                } else {
+                                                    $rutaVisitar = route('juegoCampana.juego.view.registro', $project["landing"]->dominio);
+                                                }
+                                                
+                                            }
+                                            
+                                        }
+                                            
+                                    @endphp
+                                        <a href="{{ $rutaVisitar }}" class="btn btn-outline-secondary ms-2" style="align-self: flex-start;font-size: 14px;" target="_blank">Visitar</a>
+                                    @endif
                                 </div>
                             </div>
                         </div>

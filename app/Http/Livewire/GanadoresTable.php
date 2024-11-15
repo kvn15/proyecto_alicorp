@@ -2,14 +2,20 @@
 
 namespace App\Http\Livewire;
 
+use App\Exports\GanadoresNewExport;
+use App\Imports\GanadoresNewImport;
 use App\Models\AwardProject;
 use App\Models\Participant;
+use Carbon\Carbon;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 class GanadoresTable extends Component
 {
     use WithPagination;
+    use WithFileUploads; // Asegúrate de que este trait esté incluido
 
     public $search = '';
 
@@ -27,12 +33,21 @@ class GanadoresTable extends Component
     // Filtro consulta
     public $fechaIni = '', $fechaFin = '', $premio = '';
 
-    public $name_premio = "";
+    public $name_premio = "", $ganadores, $premios;
+
+    public $id_ganador, $id_premio;
+
+    protected $rules = [
+        'id_ganador' => 'required',
+        'id_premio' => 'required'
+    ];
+    public $file;
  
     public function mount($projectId) 
     {
         $this->projectId = $projectId;
         $this->premiosList = AwardProject::where('project_id', $projectId)->get();
+        $this->ganadores = Participant::where('project_id', $projectId)->where("ganador", 0)->get();
     }
  
     public function search()
@@ -44,11 +59,11 @@ class GanadoresTable extends Component
     {
         $participant = Participant::searchGanador($this->search)
             ->where('participants.project_id', $this->projectId)
-            ->with('user')
-            ->join('users', 'users.id', '=', 'participants.user_id')
-            ->join('award_projects', 'award_projects.id', '=', 'participants.award_project_id')
-            ->select('participants.*', 'users.name', 'users.telefono', 'users.email', 'users.documento');
-
+            ->with(['user', 'other_participant'])
+            ->leftjoin('users', 'users.id', '=', 'participants.user_id')
+            ->leftjoin('other_participants', 'other_participants.id', '=', 'participants.other_participant_id')
+            ->select('participants.*', 'users.name', 'users.telefono', 'users.email', 'users.documento', 'other_participants.nombres', 'other_participants.correo', 'other_participants.nro_documento', 'other_participants.telefono as telefonoOther');
+        
         if (!empty($this->fechaIni) && !empty($this->fechaFin)) {
             $participant->whereBetween('participants.created_at', [$this->fechaIni, $this->fechaFin]);
         }
@@ -96,4 +111,59 @@ class GanadoresTable extends Component
         $this->premio = "";
     }
 
+    public function resetForm() {
+        $this->id_ganador = '';
+        $this->id_premio = '';
+    }
+
+    public function store() {
+
+        $this->validate();
+        
+        $participant = Participant::where('id', $this->id_ganador)->first();
+
+        if (isset($participant) && !empty($participant)) {
+            $participant->update([
+                'ganador' => 1,
+                'award_project_id' => $this->id_premio,
+                "fecha_premio" => Carbon::now()
+            ]);
+        }
+
+        // resetear
+        $this->resetForm();
+
+        $this->dispatchBrowserEvent('swal:alert', [
+            'title' => 'Registro exitoso!',
+            'icon' => 'success',
+        ]);
+    }
+
+    public function downloadExcel()
+    {
+        return Excel::download(new GanadoresNewExport, 'formato_nuevo_ganador.xlsx');
+    }
+
+    public function updatedFile()
+    {
+        $this->validate([
+            'file' => 'required|file|mimes:xlsx,csv,xls',
+        ]);
+
+        try {
+            // Pasa el ID al importador
+            Excel::import(new GanadoresNewImport($this->projectId), $this->file->getRealPath());
+
+            $this->dispatchBrowserEvent('swal:alert', [
+                'title' => 'Carga exitosa!',
+                'icon' => 'success',
+            ]);
+        } catch (\Exception $e) {
+            // Maneja la excepción
+            $this->dispatchBrowserEvent('swal:alert', [
+                'title' => $e->getMessage(),
+                'icon' => 'error',
+            ]);
+        }
+    }
 }
