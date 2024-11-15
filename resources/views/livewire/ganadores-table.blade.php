@@ -1,10 +1,12 @@
 <div>
+    @if ($this->tipo_pro->project_type_id == 1)
     <div class="col-12 d-flex mb-2 justify-content-end">
         <button class="btn btn-outline-dark me-2" wire:click="downloadExcel">Descargar Formato</button>
         <label for="file" class="btn btn-outline-dark">Carga Masiva</label>
         <input type="file" wire:model="file" hidden id="file" accept=".xlsx, .xls">
         <button class="btn btn-outline-danger ms-2" style="align-self: flex-start" data-bs-toggle="modal" data-bs-target="#modalAgregar">Agregar</button>
     </div>
+    @endif
     
     <div class="col-12 d-flex justify-content-between">
         <div class="col-12 col-lg-4 d-flex justify-content-start position-relative" style="gap: 0.7em">

@@ -6,6 +6,7 @@ use App\Exports\GanadoresNewExport;
 use App\Imports\GanadoresNewImport;
 use App\Models\AwardProject;
 use App\Models\Participant;
+use App\Models\Project;
 use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -35,7 +36,7 @@ class GanadoresTable extends Component
 
     public $name_premio = "", $ganadores, $premios;
 
-    public $id_ganador, $id_premio;
+    public $id_ganador, $id_premio, $tipo_pro;
 
     protected $rules = [
         'id_ganador' => 'required',
@@ -46,6 +47,7 @@ class GanadoresTable extends Component
     public function mount($projectId) 
     {
         $this->projectId = $projectId;
+        $this->tipo_pro = Project::where('id',$this->projectId)->first();
         $this->premiosList = AwardProject::where('project_id', $projectId)->get();
         $this->ganadores = Participant::where('project_id', $projectId)->where("ganador", 0)->get();
     }
