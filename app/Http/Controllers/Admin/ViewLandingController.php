@@ -170,6 +170,18 @@ class ViewLandingController extends Controller
         $encabezadoLogo = isset($existLanding->encabezado) ? json_decode($existLanding->encabezado, true) : null;
         // Subir imagenes
         $rutaLogo = '';
+
+        if ($request['logo-subir-url'] == null && isset($existLanding) && isset($encabezadoLogo) && !empty($encabezadoLogo["logo_subir"])) {
+            // Obtener la ruta de la imagen
+            $rutaLogoM = public_path($encabezadoLogo["logo_subir"]); // Suponiendo que la ruta está almacenada en 'ruta'
+    
+            // Eliminar el archivo del sistema
+            if (isset($encabezadoLogo["logo_subir"]) && !empty($encabezadoLogo["logo_subir"])  && file_exists($rutaLogoM)) {
+                unlink($rutaLogoM); // Eliminar el archivo
+            }
+            $rutaLogo = "";
+        }
+
         // Almacenar la imagen en el directorio deseado
         if ($request->hasFile('logo-subir')) {
             if (isset($existLanding)) {
@@ -185,11 +197,22 @@ class ViewLandingController extends Controller
         }
 
         // $encabezadoLogo = isset($existLanding) && json_decode($existLanding->encabezado, true);
-        $encabezado["logo_subir"] = isset($existLanding) && isset($encabezadoLogo) && !empty($encabezadoLogo["logo_subir"]) && !$request->hasFile('logo-subir') ? $encabezadoLogo["logo_subir"] : $rutaLogo;
+        $encabezado["logo_subir"] = $request['logo-subir-url'] != null && isset($existLanding) && isset($encabezadoLogo) && !empty($encabezadoLogo["logo_subir"]) && !$request->hasFile('logo-subir') ? $encabezadoLogo["logo_subir"] : $rutaLogo;
 
         /// banner_subir
         $rutaBanner = '';
         $encabezadoBanner = isset($existLanding->pagina_principal) ? json_decode($existLanding->pagina_principal, true) : null;
+
+        if ($request['banner-subir-url'] == null && isset($existLanding) && isset($encabezadoBanner) && !empty($encabezadoBanner["banner_subir"] ) ) {
+            // Obtener la ruta de la imagen
+            $rutaBannerM = public_path($encabezadoBanner["banner_subir"]); // Suponiendo que la ruta está almacenada en 'ruta'
+
+            // Eliminar el archivo del sistema
+            if (!empty($encabezadoBanner["banner_subir"]) && !empty($encabezadoBanner["banner_subir"]) && file_exists($rutaBannerM)) {
+                unlink($rutaBannerM); // Eliminar el archivo
+            }
+            $rutaBanner = "";
+        }
         // Almacenar la imagen en el directorio deseado
         if ($request->hasFile('banner-subir')) {
             // // Obtener la ruta de la imagen
@@ -206,12 +229,24 @@ class ViewLandingController extends Controller
             $rutaBanner = $request->file('banner-subir')->store('banner', 'public'); // Almacena en storage/app/public/imagenes
         }
         $principalBanner= isset($existLanding) &&  json_decode($existLanding->pagina_principal, true);
-        $pagina_principal["banner_subir"] = isset($existLanding) && isset($encabezadoBanner) && !empty($encabezadoBanner["banner_subir"] ) && !$request->hasFile('banner-subir') ? $encabezadoBanner["banner_subir"] : $rutaBanner;
+        $pagina_principal["banner_subir"] = $request['banner-subir-url'] != null && isset($existLanding) && isset($encabezadoBanner) && !empty($encabezadoBanner["banner_subir"] ) && !$request->hasFile('banner-subir') ? $encabezadoBanner["banner_subir"] : $rutaBanner;
         
 
         /// imagen-subir
         $rutaImagen = '';
         $encabezadoImagen = isset($existLanding->pagina_principal) ? json_decode($existLanding->pagina_principal, true) : null;
+        
+        if ($request['imagen-subir-url'] == null && isset($existLanding) && isset($encabezadoImagen) && !empty($encabezadoImagen["imagen-subir"])) {
+            // Obtener la ruta de la imagen
+            $rutaImagenM = public_path($encabezadoImagen["imagen-subir"]); // Suponiendo que la ruta está almacenada en 'ruta'
+
+            // Eliminar el archivo del sistema
+            if (!empty($encabezadoImagen["imagen-subir"]) && !empty($encabezadoImagen["subir"]) && file_exists($rutaImagenM)) {
+                unlink($rutaImagenM); // Eliminar el archivo
+            }
+            $rutaImagen = "";
+        }
+
         // Almacenar la imagen en el directorio deseado
         if ($request->hasFile('imagen-subir')) {
             // // Obtener la ruta de la imagen
@@ -229,11 +264,23 @@ class ViewLandingController extends Controller
         }
 
         $principalImagen= isset($existLanding) &&  json_decode($existLanding->pagina_principal, true);
-        $pagina_principal["imagen-subir"] = isset($existLanding) && isset($encabezadoImagen) && !empty($encabezadoImagen["imagen-subir"]) && !$request->hasFile('imagen-subir') ? $encabezadoImagen["imagen-subir"] : $rutaImagen;
+        $pagina_principal["imagen-subir"] = $request['imagen-subir-url'] != null && isset($existLanding) && isset($encabezadoImagen) && !empty($encabezadoImagen["imagen-subir"]) && !$request->hasFile('imagen-subir') ? $encabezadoImagen["imagen-subir"] : $rutaImagen;
 
         /// participar_1
         $rutaParticipar1 = '';
         $participar1Img = isset($existLanding->como_participar) ? json_decode($existLanding->como_participar, true) : null;
+        
+        if ($request['participar_1-url'] == null && isset($existLanding) && isset($participar1Img) && !empty($participar1Img["participar_1"])) {
+            // Obtener la ruta de la imagen
+            $rutaParticipar1M = public_path($participar1Img["participar_1"]); // Suponiendo que la ruta está almacenada en 'ruta'
+
+            // Eliminar el archivo del sistema
+            if (!empty($participar1Img["participar_1"]) && file_exists($rutaParticipar1M)) {
+                unlink($rutaParticipar1M); // Eliminar el archivo
+            }
+            $rutaParticipar1 = "";
+        }
+
         // Almacenar la imagen en el directorio deseado
         if ($request->hasFile('participar_1')) {
             // // Obtener la ruta de la imagen
@@ -251,11 +298,23 @@ class ViewLandingController extends Controller
         }
         $participarImagen= isset($existLanding) && json_decode($existLanding->como_participar, true);
 
-        $como_participar["participar_1"] = isset($existLanding) && isset($participar1Img) && !empty($participar1Img["participar_1"]) && !$request->hasFile('participar_1') ? $participar1Img["participar_1"] : $rutaParticipar1;
+        $como_participar["participar_1"] = $request['participar_1-url'] != null && isset($existLanding) && isset($participar1Img) && !empty($participar1Img["participar_1"]) && !$request->hasFile('participar_1') ? $participar1Img["participar_1"] : $rutaParticipar1;
 
         /// participar_2
         $rutaParticipar2 = '';
         $participar2Img = isset($existLanding->como_participar) ? json_decode($existLanding->como_participar, true) : null;
+        
+        if ($request['participar_2-url'] == null && isset($existLanding) && isset($participar2Img) && !empty($participar2Img["participar_2"])) {
+            // Obtener la ruta de la imagen
+            $rutaParticipar2M = public_path($participar2Img["participar_2"]); // Suponiendo que la ruta está almacenada en 'ruta'
+
+            // Eliminar el archivo del sistema
+            if (!empty($participar2Img["participar_2"]) && file_exists($rutaParticipar2M)) {
+                unlink($rutaParticipar2M); // Eliminar el archivo
+            }
+            $rutaParticipar2 = "";
+        }
+
         // Almacenar la imagen en el directorio deseado
         if ($request->hasFile('participar_2')) {
             // // Obtener la ruta de la imagen
@@ -272,11 +331,23 @@ class ViewLandingController extends Controller
             $rutaParticipar2 = $request->file('participar_2')->store('participar', 'public'); // Almacena en storage/app/public/imagenes
         }
 
-        $como_participar["participar_2"] = isset($existLanding) && isset($participar2Img) && !empty($participar2Img["participar_2"]) && !$request->hasFile('participar_2')  ? $participar2Img["participar_2"] : $rutaParticipar2;
+        $como_participar["participar_2"] = $request['participar_2-url'] != null && isset($existLanding) && isset($participar2Img) && !empty($participar2Img["participar_2"]) && !$request->hasFile('participar_2')  ? $participar2Img["participar_2"] : $rutaParticipar2;
 
         /// participar_3
         $rutaParticipar3 = '';
         $participar3Img = isset($existLanding->como_participar) ? json_decode($existLanding->como_participar, true) : null; 
+        
+        if ($request['participar_3-url'] == null && isset($existLanding) && isset($participar3Img) && !empty($participar3Img["participar_3"])) {
+            // Obtener la ruta de la imagen
+            $rutaParticipar3M = public_path($participar3Img["participar_3"]); // Suponiendo que la ruta está almacenada en 'ruta'
+
+            // Eliminar el archivo del sistema
+            if (!empty($participar3Img["participar_3"]) && file_exists($rutaParticipar3M)) {
+                unlink($rutaParticipar3M); // Eliminar el archivo
+            }
+            $rutaParticipar3 = "";
+        }
+
         // Almacenar la imagen en el directorio deseado
         if ($request->hasFile('participar_3')) {
             // // Obtener la ruta de la imagen
@@ -293,7 +364,7 @@ class ViewLandingController extends Controller
             $rutaParticipar3 = $request->file('participar_3')->store('participar', 'public'); // Almacena en storage/app/public/imagenes
         }
 
-        $como_participar["participar_3"] = isset($existLanding) && isset($participar3Img) && !empty($participar3Img["participar_3"]) && !$request->hasFile('participar_3')  ? $participar3Img["participar_3"] : $rutaParticipar3;
+        $como_participar["participar_3"] = $request['participar_3-url'] != null && isset($existLanding) && isset($participar3Img) && !empty($participar3Img["participar_3"]) && !$request->hasFile('participar_3')  ? $participar3Img["participar_3"] : $rutaParticipar3;
 
         // dd($como_participar);
         if (!isset($existLanding)) {

@@ -29,6 +29,17 @@
 .d-none-2 {
     display: none;
 }
+.btn-delete-img {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    border: 0;
+    background-color: #E62020;
+    color: #fff;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+}
 </style>
 @php
     $imgNulo = asset('backend/svg/img-null.svg');
@@ -185,7 +196,8 @@
         @php
             $encabezado = isset($landing->encabezado) && !empty($landing->encabezado) ? json_decode($landing->encabezado) : null;
             $color_menu = $encabezado ? $encabezado->color_menu : '#000000';
-            $logo_subir = $encabezado ? '/storage/'.$encabezado->logo_subir : $imgNulo;
+            $logo_subir = $encabezado && !empty($encabezado->logo_subir) ? '/storage/'.$encabezado->logo_subir : $imgNulo;
+            $logo_subir_url = $encabezado && !empty($encabezado->logo_subir) ? '/storage/'.$encabezado->logo_subir : "";
 
             $bold_menu = $encabezado && $encabezado->bold_menu == 1 ? "checked" : "";
             $bold_menu_style = $encabezado && $encabezado->bold_menu == 1 ? "fw-bold" : "";
@@ -256,19 +268,22 @@
                     <li>
                         <p class="mb-1">Imagen Logo</p>
                         <div class="img-subir">
+                            <button type="button" class="btn-delete-img">X</button>
                             <label for="logo-subir">
                                 <div class="cursor">
-                                    <div id="upload-logo">
+                                    <div id="upload-logo" class="{{ isset($logo_subir_url) && !empty($logo_subir_url) ? 'd-none' : '' }} upload_img">
                                         <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                         <h6>Click para Actualizar</h6>
                                         <p>PNG, JPG (max. 1,000x1,000px)</p>
                                     </div>
                                     <div>
-                                        <img class="img-fluid" id="preview-logo">
+                                        <img class="img-fluid" id="preview-logo" src="{{ $logo_subir_url }}">
                                     </div>
                                 </div>
                             </label>
                             <input hidden type="file" name="logo-subir" id="logo-subir">
+                            <input type="hidden" name="logo-subir-url" id="logo-subir-url" value="{{ $logo_subir_url }}">
+                            <input type="text" class="data_value" value="logo-nav" hidden>
                         </div>
                     </li>
                 </ul>
@@ -379,6 +394,7 @@
         @php
             $pagina_principal = isset($landing->pagina_principal) && !empty($landing->pagina_principal) ? json_decode($landing->pagina_principal, true) : null;
             $banner_subir = $pagina_principal && !empty($pagina_principal["banner_subir"]) ? '/storage/'.$pagina_principal["banner_subir"] : $imgNulo;
+            $banner_subir_url = $pagina_principal && !empty($pagina_principal["banner_subir"]) ? '/storage/'.$pagina_principal["banner_subir"] : "";
             $fondo_landing = $pagina_principal && !empty($pagina_principal["fondo_landing"]) ? $pagina_principal["fondo_landing"] : '#000000';
             
             $bold_titulo_header = $pagina_principal && $pagina_principal["bold-titulo-header"] == 1 ? "checked" : "";
@@ -421,6 +437,7 @@
 
             // imagen
             $imagen_subir = $pagina_principal && $pagina_principal["imagen-subir"] ? '/storage/'.$pagina_principal["imagen-subir"] : $imgNulo;
+            $imagen_subir_url = $pagina_principal && $pagina_principal["imagen-subir"] ? '/storage/'.$pagina_principal["imagen-subir"] : "";
 
             // button
             $direccionar_boton_header = $pagina_principal && $pagina_principal["direccionar_boton_header"] ? $pagina_principal["direccionar_boton_header"] : '#formulario-participar';
@@ -468,19 +485,22 @@
                     <li>
                         <p class="mb-2">Banner</p>
                         <div class="img-subir">
+                            <button type="button" class="btn-delete-img">X</button>
                             <label for="banner-subir">
                                 <div class="cursor">
-                                    <div id="upload-banner">
+                                    <div id="upload-banner" class="{{ isset($banner_subir_url) && !empty($banner_subir_url) ? 'd-none' : '' }} upload_img">
                                         <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                         <h6>Click para Actualizar</h6>
                                         <p>PNG, JPG (max. 1,000x1,000px)</p>
                                     </div>
                                     <div>
-                                        <img class="img-fluid" id="preview-banner">
+                                        <img class="img-fluid" id="preview-banner" src="{{ $banner_subir_url }}">
                                     </div>
                                 </div>
                             </label>
                             <input hidden type="file" name="banner-subir" id="banner-subir">
+                            <input type="hidden" name="banner-subir-url" id="banner-subir-url" value="{{ $banner_subir_url }}">
+                            <input type="text" class="data_value" value="header" hidden>
                         </div>
                     </li>
                     <li class="my-2">
@@ -639,17 +659,20 @@
                 <ul class="list-unstyled ps-4 collapseFourHeader  d-none-2">
                     <li class="my-2">
                         <div class="img-subir">
+                            <button type="button" class="btn-delete-img">X</button>
                             <label for="imagen-subir">
-                                <div id="upload-imagen">
+                                <div id="upload-imagen" class="{{ isset($imagen_subir_url) && !empty($imagen_subir_url) ? 'd-none' : '' }} upload_img">
                                     <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                     <h6>Click para Actualizar</h6>
                                     <p>PNG, JPG (max. 1,000x1,000px)</p>
                                 </div>
                                 <div>
-                                    <img class="img-fluid" id="preview-imagen">
+                                    <img class="img-fluid" id="preview-imagen" src="{{ $imagen_subir_url }}">
                                 </div>
                             </label>
                             <input hidden type="file" name="imagen-subir" id="imagen-subir">
+                            <input type="hidden" name="imagen-subir-url" id="imagen-subir-url" value="{{ $imagen_subir_url }}">
+                            <input type="text" class="data_value" value="imagen-header" hidden>
                         </div>
                     </li>
                 </ul>
@@ -737,8 +760,11 @@
             $color_titulo_como = $como_participar && $como_participar["color-titulo-como"] ? $como_participar["color-titulo-como"] : '#fbbb01 ';
         
             $participar_1 = $como_participar && $como_participar["participar_1"] ? '/storage/'.$como_participar["participar_1"] : $imgNulo;
+            $participar_1_url = $como_participar && $como_participar["participar_1"] ? '/storage/'.$como_participar["participar_1"] : "";
             $participar_2 = $como_participar && $como_participar["participar_2"] ? '/storage/'.$como_participar["participar_2"] : $imgNulo;
+            $participar_2_url = $como_participar && $como_participar["participar_2"] ? '/storage/'.$como_participar["participar_2"] : "";
             $participar_3 = $como_participar && $como_participar["participar_3"] ? '/storage/'.$como_participar["participar_3"] : $imgNulo;
+            $participar_3_url = $como_participar && $como_participar["participar_3"] ? '/storage/'.$como_participar["participar_3"] : "";
 
             $bold_boton_como = $como_participar && $como_participar["bold-boton-como"] == 1 ? "checked" : "";
             $bold_boton_como_style = $como_participar && $como_participar["bold-boton-como"] == 1 ? "fw-bold" : "";
@@ -833,55 +859,64 @@
                     <li class="my-2">
                         <p class="mb-1">Participar 1</p>
                         <div class="img-subir">
+                            <button type="button" class="btn-delete-img">X</button>
                             <label for="participar_1">
                                 <div class="cursor">
-                                    <div id="upload-participar-1">
+                                    <div id="upload-participar-1" class="{{ isset($participar_1_url) && !empty($participar_1_url) ? 'd-none' : '' }} upload_img">
                                         <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                         <h6>Click para Actualizar</h6>
                                         <p>PNG, JPG (max. 1,000x1,000px)</p>
                                     </div>
                                     <div>
-                                        <img class="img-fluid" id="preview_participar_1">
+                                        <img class="img-fluid" id="preview_participar_1" src="{{ $participar_1_url }}">
                                     </div>
                                 </div>
                             </label>
                             <input hidden type="file" name="participar_1" id="participar_1">
+                            <input type="hidden" name="participar_1-url" id="participar_1-url" value="{{ $participar_1_url }}">
+                            <input type="text" class="data_value" value="item_participar_1" hidden>
                         </div>
                     </li>
                     <li class="my-2">
                         <p class="mb-1">Participar 2</p>
                         <div class="img-subir">
+                            <button type="button" class="btn-delete-img">X</button>
                             <label for="participar_2">
                                 <div class="cursor">
-                                    <div id="upload-participar-2">
+                                    <div id="upload-participar-2" class="{{ isset($participar_2_url) && !empty($participar_2_url) ? 'd-none' : '' }} upload_img">
                                         <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                         <h6>Click para Actualizar</h6>
                                         <p>PNG, JPG (max. 1,000x1,000px)</p>
                                     </div>
                                     <div>
-                                        <img class="img-fluid" id="preview_participar_2">
+                                        <img class="img-fluid" id="preview_participar_2" src="{{ $participar_2_url }}">
                                     </div>
                                 </div>
                             </label>
                             <input hidden type="file" name="participar_2" id="participar_2">
+                            <input type="hidden" name="participar_2-url" id="participar_2-url" value="{{ $participar_2_url }}">
+                            <input type="text" class="data_value" value="item_participar_2" hidden>
                         </div>
                     </li>
                     <li class="my-2">
                         <p class="mb-1">Participar 3</p>
                         <div class="img-subir">
+                            <button type="button" class="btn-delete-img">X</button>
                             <label for="participar_3">
                                 <div class="cursor">
-                                    <div id="upload-participar-3">
+                                    <div id="upload-participar-3" class="{{ isset($participar_3_url) && !empty($participar_3_url) ? 'd-none' : '' }} upload_img">
                                         <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                         <h6>Click para Actualizar</h6>
                                         <p>PNG, JPG (max. 1,000x1,000px)</p>
                                     </div>
                                     <div>
-                                        <img class="img-fluid" id="preview_participar_3">
+                                        <img class="img-fluid" id="preview_participar_3" src="{{ $participar_3_url }}">
                                     </div>
                                 </div>
                             </label>
                             <input hidden type="file" name="participar_3" id="participar_3">
+                            <input type="hidden" name="participar_3-url" id="participar_3-url" value="{{ $participar_3_url }}">
+                            <input type="text" class="data_value" value="item_participar_3" hidden>
                         </div>
                     </li>
                 </ul>
@@ -1701,6 +1736,7 @@
             }
 
             .img-subir {
+                position: relative;
                 display: block;
                 width: 100%;
                 padding: 1.2em;
@@ -1799,10 +1835,10 @@
             </div>
             <div class="w-100">
                 <header id="header" class="w-100 d-flex flex-column justify-content-center align-items-center" style="gap: 1.2rem;background-image: url({{$banner_subir}});">
-                    <img class="img-fluid" src="{{$imagen_subir}}" alt="" id="imagen-header">
+                    {{-- <img class="img-fluid" src="{{$imagen_subir}}" alt="" id="imagen-header"> --}}
                     <p class="{{ $stylealineacionTitulo }} {{ $styleTamanoTituloHeader }} w-100 {{ $bold_titulo_header_style }} {{ $italic_titulo_header_style }}" id="titulo_header">{{ $input_titulo_header }}</p>
                     <p class="{{ $stylealineacionTexto }} {{ $styletamanoTextoHeader }} w-100 {{ $bold_titulo_parrafo_style }} {{ $italic_titulo_parrafo_style }}" id="parrafo-header" style="color: {{ $color_texto }};">{{ $input_texto_header }}</p>
-                    <a href="{{ $direccionar_boton_header }}" class="btns btn-landing mt-5 {{ $styletamanoBotonHeader }} {{ $bold_boton_parrafo_style }} {{ $italic_boton_parrafo_style }}" id="btn_participar_header" style="background-color: {{ $color_boton_header }};">PARTICIPAR</a>
+                    <a href="{{ $direccionar_boton_header }}" class="btns btn-landing {{ $styletamanoBotonHeader }} {{ $bold_boton_parrafo_style }} {{ $italic_boton_parrafo_style }}" id="btn_participar_header" style="background-color: {{ $color_boton_header }};margin-top: 12em;">PARTICIPAR</a>
                 </header>
                 <div class="pt-5" id="participar">
                     <section>
@@ -3907,6 +3943,35 @@
             }
         })
 
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $(document).on('click','.btn-delete-img', function () {
+            const valor = $(this).parent().find('input[type="hidden"]');
+            const valorImg = $(this).parent().find('.img-fluid');
+            const upload_img = $(this).parent().find('.upload_img');
+            const valor_file = $(this).parent().find('input[type="file"]');
+            const valor_id = $(this).parent().find('.data_value').val();
+            Swal.fire({
+                icon: 'question',
+                title: '¿Seguro de eliminar la imagen?',
+                showConfirmButton: true,
+                showCancelButton: true
+            }).then((swal) => {
+                if (swal.isConfirmed) {
+                    valor.val("");
+                    valorImg.attr('src', '')
+                    upload_img.removeClass('d-none')
+                    valor_file.val(null)
+                    if (valor_id == 'header') {
+                        $(`#${valor_id}`).css('background-image', 'url("{{ $imgNulo }}")');
+                    } else {
+                        $(`#${valor_id}`).attr('src', '{{ $imgNulo }}');
+                    }
+                }
+            })
+        });
     });
 </script>
 @endsection
