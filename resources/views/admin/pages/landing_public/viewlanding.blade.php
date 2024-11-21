@@ -625,7 +625,7 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
         </div>
         <div class="w-100">
             <header id="header" class="w-100 d-flex flex-column justify-content-center align-items-center" style="gap: 1.2rem;background-image: url({{$banner_subir}});">
-                <img class="img-fluid" src="{{$imagen_subir}}" alt="" id="imagen-header">
+                {{-- <img class="img-fluid" src="{{$imagen_subir}}" alt="" id="imagen-header"> --}}
                 <p class="{{ $stylealineacionTitulo }} {{ $styleTamanoTituloHeader }} w-100 {{ $bold_titulo_header_style }} {{ $italic_titulo_header_style }}" id="titulo_header">{{ $input_titulo_header }}</p>
                 <p class="{{ $stylealineacionTexto }} {{ $styletamanoTextoHeader }} w-100 {{ $bold_titulo_parrafo_style }} {{ $italic_titulo_parrafo_style }}" id="parrafo-header" style="color: {{ $color_texto }};">{{ $input_texto_header }}</p>
                 <a href="{{ $direccionar_boton_header }}" class="btns btn-landing mt-5 {{ $styletamanoBotonHeader }} {{ $bold_boton_parrafo_style }} {{ $italic_boton_parrafo_style }}" id="btn_participar_header" style="background-color: {{ $color_boton_header }};">PARTICIPAR</a>
