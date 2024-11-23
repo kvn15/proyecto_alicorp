@@ -42,6 +42,7 @@
 }
 </style>
 @php
+    $rutaCon = route($project->project_type->ruta_name.'.show.overview', $project->id );
     $imgNulo = asset('backend/svg/img-null.svg');
 @endphp
 <div class="row p-0 ps-1 w-100">
@@ -55,7 +56,7 @@
         <input type="submit" value="enviar" hidden>
         <div class="d-block" id="menu_edit">
             <div class="border-bottom py-2">
-                <span>Personalizar</span>
+                <button type="button" class="border-0 w-100 text-start" style="background-color: #fff;" id="back_configuracion"><i class="bi bi-box-arrow-left"></i> Personalizar</button>
             </div>
             <div class="py-2 border-bottom cursor" id="encabezado-menu">
                 <p class="mb-0"><b>Encabezado</b></p>
@@ -3971,6 +3972,10 @@
                     }
                 }
             })
+        });
+        $("#back_configuracion").click(function (e) { 
+            e.preventDefault();
+            window.location.href = '{{ $rutaCon }}'
         });
     });
 </script>

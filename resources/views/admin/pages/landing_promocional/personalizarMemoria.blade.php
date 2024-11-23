@@ -26,6 +26,7 @@
 
 @section('inicio_dash')
 @php
+    $rutaCon = route($project->project_type->ruta_name.'.show.overview', $project->id );
 
     //imagenes
     $principal = isset($gameMemoria) ? $gameMemoria->principal : '';
@@ -36,20 +37,30 @@
 
     // Principal
     $bgMemoria = isset($principalData["banner"]) && !empty($principalData["banner"]) ? "background-image: url('".'/storage/'.$principalData["banner"]."');" : "background-color: #EFF2F6;" ;
+    $bgMemoria_url = isset($principalData["banner"]) && !empty($principalData["banner"]) ? '/storage/'.$principalData["banner"] : "" ;
+
     $imgLogo = isset($principalData["logo-subir"]) && !empty($principalData["logo-subir"]) ? '/storage/'.$principalData["logo-subir"] : $imgNulo;
+    $imgLogo_url = isset($principalData["logo-subir"]) && !empty($principalData["logo-subir"]) ? '/storage/'.$principalData["logo-subir"] : "";
 
     // Premios
     $imgLogoPremio = isset($premioData["gano-subir"])  && !empty($premioData["gano-subir"]) ? '/storage/'.$premioData["gano-subir"] : $imgNulo;
+    $imgLogoPremio_url = isset($premioData["gano-subir"])  && !empty($premioData["gano-subir"]) ? '/storage/'.$premioData["gano-subir"] : '';
 
     // array memorias
     $jsonDataMemoria = json_decode($gameMemoria->premio_img ?? "", true);
 
     $img1 = isset($jsonDataMemoria[0]['img']) && !empty($jsonDataMemoria[0]['img']) ? "/storage/".$jsonDataMemoria[0]['img'] : $imgNulo;
+    $img1_url = isset($jsonDataMemoria[0]['img']) && !empty($jsonDataMemoria[0]['img']) ? "/storage/".$jsonDataMemoria[0]['img'] : '';
     $img2 = isset($jsonDataMemoria[1]['img']) && !empty($jsonDataMemoria[1]['img']) ? "/storage/".$jsonDataMemoria[1]['img'] : $imgNulo;
+    $img2_url = isset($jsonDataMemoria[1]['img']) && !empty($jsonDataMemoria[1]['img']) ? "/storage/".$jsonDataMemoria[1]['img'] : '';
     $img3 = isset($jsonDataMemoria[2]['img']) && !empty($jsonDataMemoria[2]['img']) ? "/storage/".$jsonDataMemoria[2]['img'] : $imgNulo;
+    $img3_url = isset($jsonDataMemoria[2]['img']) && !empty($jsonDataMemoria[2]['img']) ? "/storage/".$jsonDataMemoria[2]['img'] : '';
     $img4 = isset($jsonDataMemoria[3]['img']) && !empty($jsonDataMemoria[3]['img']) ? "/storage/".$jsonDataMemoria[3]['img'] : $imgNulo;
+    $img4_url = isset($jsonDataMemoria[3]['img']) && !empty($jsonDataMemoria[3]['img']) ? "/storage/".$jsonDataMemoria[3]['img'] : '';
     $img5 = isset($jsonDataMemoria[4]['img']) && !empty($jsonDataMemoria[4]['img']) ? "/storage/".$jsonDataMemoria[4]['img'] : $imgNulo;
+    $img5_url = isset($jsonDataMemoria[4]['img']) && !empty($jsonDataMemoria[4]['img']) ? "/storage/".$jsonDataMemoria[4]['img'] : '';
     $img6 = isset($jsonDataMemoria[5]['img']) && !empty($jsonDataMemoria[5]['img']) ? "/storage/".$jsonDataMemoria[5]['img'] : $imgNulo;
+    $img6_url = isset($jsonDataMemoria[5]['img']) && !empty($jsonDataMemoria[5]['img']) ? "/storage/".$jsonDataMemoria[5]['img'] : '';
 
     // valores
     $boldTitulo = isset($principalData["bold-titulo-parrafo"]) ? ($principalData["bold-titulo-parrafo"] == 1 ? "checked" : "") : "";
@@ -87,6 +98,7 @@
     
     // premios img
     $imgPremio = isset($premioSelect["imagen"]) && !empty($premioSelect["imagen"]) ? "/storage/".$premioSelect["imagen"] : $imgNulo;
+    $imgPremio_url = isset($premioSelect["imagen"]) && !empty($premioSelect["imagen"]) ? "/storage/".$premioSelect["imagen"] : '';
     $namePremio = isset($premioSelect["premio_nombre"]) && !empty($premioSelect["premio_nombre"]) ? $premioSelect["premio_nombre"] : '';
 
 @endphp
@@ -177,6 +189,20 @@
 .d-none-2 {
     display: none;
 }
+.img-subir {
+    position: relative;
+}
+.btn-delete-img {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    border: 0;
+    background-color: #E62020;
+    color: #fff;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+}
 </style>
 @php
     $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
@@ -188,7 +214,7 @@
             @method('POST')
             <div class="d-block" id="menu_edit">
                 <div class="border-bottom py-2">
-                    <span>Personalizar</span>
+                    <button type="button" class="border-0 w-100 text-start" style="background-color: #fff;" id="back_configuracion"><i class="bi bi-box-arrow-left"></i> Personalizar</button>
                 </div>
                 <div class="py-2 border-bottom cursor" id="principal-menu">
                     <p class="mb-0"><b>Vista Principal</b></p>
@@ -242,19 +268,21 @@
                         <li>
                             <p class="mb-2">Banner</p>
                             <div class="img-subir">
+                                <button type="button" class="btn-delete-img">X</button>
                                 <label for="banner-subir">
                                     <div class="cursor">
-                                        <div id="upload-banner">
+                                        <div id="upload-banner" class="{{ isset($bgMemoria_url) && !empty($bgMemoria_url) ? 'd-none' : '' }} upload_img">
                                             <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                             <h6>Click para Actualizar</h6>
                                             <p>PNG, JPG (max. 1,000x1,000px)</p>
                                         </div>
                                         <div>
-                                            <img class="img-fluid" id="preview-banner">
+                                            <img class="img-fluid" id="preview-banner" src="{{ $bgMemoria_url }}">
                                         </div>
                                     </div>
                                 </label>
                                 <input hidden type="file" name="banner-subir" id="banner-subir">
+                                <input type="hidden" name="banner-subir-url" id="banner-subir-url" value="{{ $bgMemoria_url }}">
                             </div>
                         </li>
                     </ul>
@@ -336,19 +364,21 @@
                         <li>
                             <p class="mb-2">Logo</p>
                             <div class="img-subir">
+                                <button type="button" class="btn-delete-img">X</button>
                                 <label for="logo-subir">
                                     <div class="cursor">
-                                        <div id="upload-logo">
+                                        <div id="upload-logo" class="{{ isset($imgLogo_url) && !empty($imgLogo_url) ? 'd-none' : '' }} upload_img">
                                             <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                             <h6>Click para Actualizar</h6>
                                             <p>PNG, JPG (max. 1,000x1,000px)</p>
                                         </div>
                                         <div>
-                                            <img class="img-fluid" id="preview-logo">
+                                            <img class="img-fluid" id="preview-logo" src="{{ $imgLogo_url }}">
                                         </div>
                                     </div>
                                 </label>
                                 <input hidden type="file" name="logo-subir" id="logo-subir">
+                                <input type="hidden" name="logo-subir-url" id="logo-subir-url" value="{{ $imgLogo_url }}">
                             </div>
                         </li>
                     </ul>
@@ -362,109 +392,121 @@
                         <li>
                             <p class="mb-2">Imagen 1</p>
                             <div class="img-subir">
+                                <button type="button" class="btn-delete-img">X</button>
                                 <label for="imagen-1-subir">
                                     <div class="cursor">
-                                        <div id="upload-imagen-1">
+                                        <div id="upload-imagen-1" class="{{ isset($img1_url) && !empty($img1_url) ? 'd-none' : '' }} upload_img">
                                             <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                             <h6>Click para Actualizar</h6>
                                             <p>PNG, JPG (max. 1,000x1,000px)</p>
                                         </div>
                                         <div>
-                                            <img class="img-fluid" id="preview-imagen-1">
+                                            <img class="img-fluid" id="preview-imagen-1" src="{{ $img1_url }}">
                                         </div>
                                     </div>
                                 </label>
                                 <input hidden type="file" name="imagen-1-subir" id="imagen-1-subir">
+                                <input type="hidden" name="imagen-1-subir-url" id="imagen-1-subir-url" value="{{ $img1_url }}">
                             </div>
                         </li>
                         <li>
                             <p class="mb-2">Imagen 2</p>
                             <div class="img-subir">
+                                <button type="button" class="btn-delete-img">X</button>
                                 <label for="imagen-2-subir">
                                     <div class="cursor">
-                                        <div id="upload-imagen-2">
+                                        <div id="upload-imagen-2" class="{{ isset($img2_url) && !empty($img2_url) ? 'd-none' : '' }} upload_img">
                                             <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                             <h6>Click para Actualizar</h6>
                                             <p>PNG, JPG (max. 1,000x1,000px)</p>
                                         </div>
                                         <div>
-                                            <img class="img-fluid" id="preview-imagen-2">
+                                            <img class="img-fluid" id="preview-imagen-2" src="{{ $img2_url }}">
                                         </div>
                                     </div>
                                 </label>
                                 <input hidden type="file" name="imagen-2-subir" id="imagen-2-subir">
+                                <input type="hidden" name="imagen-2-subir-url" id="imagen-2-subir-url" value="{{ $img2_url }}">
                             </div>
                         </li>
                         <li>
                             <p class="mb-2">Imagen 3</p>
                             <div class="img-subir">
+                                <button type="button" class="btn-delete-img">X</button>
                                 <label for="imagen-3-subir">
                                     <div class="cursor">
-                                        <div id="upload-imagen-3">
+                                        <div id="upload-imagen-3" class="{{ isset($img3_url) && !empty($img3_url) ? 'd-none' : '' }} upload_img">
                                             <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                             <h6>Click para Actualizar</h6>
                                             <p>PNG, JPG (max. 1,000x1,000px)</p>
                                         </div>
                                         <div>
-                                            <img class="img-fluid" id="preview-imagen-3">
+                                            <img class="img-fluid" id="preview-imagen-3" src="{{ $img3_url }}">
                                         </div>
                                     </div>
                                 </label>
                                 <input hidden type="file" name="imagen-3-subir" id="imagen-3-subir">
+                                <input type="hidden" name="imagen-3-subir-url" id="imagen-3-subir-url" value="{{ $img3_url }}">
                             </div>
                         </li>
                         <li>
                             <p class="mb-2">Imagen 4</p>
                             <div class="img-subir">
+                                <button type="button" class="btn-delete-img">X</button>
                                 <label for="imagen-4-subir">
                                     <div class="cursor">
-                                        <div id="upload-imagen-4">
+                                        <div id="upload-imagen-4" class="{{ isset($img4_url) && !empty($img4_url) ? 'd-none' : '' }} upload_img">
                                             <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                             <h6>Click para Actualizar</h6>
                                             <p>PNG, JPG (max. 1,000x1,000px)</p>
                                         </div>
                                         <div>
-                                            <img class="img-fluid" id="preview-imagen-4">
+                                            <img class="img-fluid" id="preview-imagen-4" src="{{ $img4_url }}">
                                         </div>
                                     </div>
                                 </label>
                                 <input hidden type="file" name="imagen-4-subir" id="imagen-4-subir">
+                                <input type="hidden" name="imagen-4-subir-url" id="imagen-4-subir-url" value="{{ $img4_url }}">
                             </div>
                         </li>
                         <li>
                             <p class="mb-2">Imagen 5</p>
                             <div class="img-subir">
+                                <button type="button" class="btn-delete-img">X</button>
                                 <label for="imagen-5-subir">
                                     <div class="cursor">
-                                        <div id="upload-imagen-5">
+                                        <div id="upload-imagen-5" class="{{ isset($img5_url) && !empty($img5_url) ? 'd-none' : '' }} upload_img">
                                             <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                             <h6>Click para Actualizar</h6>
                                             <p>PNG, JPG (max. 1,000x1,000px)</p>
                                         </div>
                                         <div>
-                                            <img class="img-fluid" id="preview-imagen-5">
+                                            <img class="img-fluid" id="preview-imagen-5" src="{{ $img5_url }}">
                                         </div>
                                     </div>
                                 </label>
                                 <input hidden type="file" name="imagen-5-subir" id="imagen-5-subir">
+                                <input type="hidden" name="imagen-5-subir-url" id="imagen-5-subir-url" value="{{ $img5_url }}">
                             </div>
                         </li>
                         <li>
                             <p class="mb-2">Imagen 6</p>
                             <div class="img-subir">
+                                <button type="button" class="btn-delete-img">X</button>
                                 <label for="imagen-6-subir">
                                     <div class="cursor">
-                                        <div id="upload-imagen-6">
+                                        <div id="upload-imagen-6" class="{{ isset($img6_url) && !empty($img6_url) ? 'd-none' : '' }} upload_img">
                                             <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                             <h6>Click para Actualizar</h6>
                                             <p>PNG, JPG (max. 1,000x1,000px)</p>
                                         </div>
                                         <div>
-                                            <img class="img-fluid" id="preview-imagen-6">
+                                            <img class="img-fluid" id="preview-imagen-6" src="{{ $img6_url }}">
                                         </div>
                                     </div>
                                 </label>
                                 <input hidden type="file" name="imagen-6-subir" id="imagen-6-subir">
+                                <input type="hidden" name="imagen-6-subir-url" id="imagen-6-subir-url" value="{{ $img6_url }}">
                             </div>
                         </li>
                     </ul>
@@ -483,19 +525,21 @@
                         <li>
                             <p class="mb-2">Titulo Ganastes</p>
                             <div class="img-subir">
+                                <button type="button" class="btn-delete-img">X</button>
                                 <label for="gano-subir">
                                     <div class="cursor">
-                                        <div id="upload-gano">
+                                        <div id="upload-gano" class="{{ isset($imgLogoPremio_url) && !empty($imgLogoPremio_url) ? 'd-none' : '' }} upload_img">
                                             <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                             <h6>Click para Actualizar</h6>
                                             <p>PNG, JPG (max. 1,000x1,000px)</p>
                                         </div>
                                         <div>
-                                            <img class="img-fluid" id="preview-gano">
+                                            <img class="img-fluid" id="preview-gano" src="{{ $imgLogoPremio_url }}">
                                         </div>
                                     </div>
                                 </label>
                                 <input hidden type="file" name="gano-subir" id="gano-subir">
+                                <input type="hidden" name="gano-subir-url" id="gano-subir-url" value="{{ $imgLogoPremio_url }}">
                             </div>
                         </li>
                     </ul>
@@ -544,23 +588,28 @@
 
                     <ul class="list-unstyled ps-4 mt-2  d-none-2 collapseThreePremio" >
                         @foreach ($projectPremio as $value)
+                        @php
+                            $imgUrl = !empty($value["imagen"]) ? "/storage/".$value["imagen"] : ''
+                        @endphp
                         <li class="mb-2">
                             <p class="mb-2">Premio {{ $value->orden }} => {{ $value->nombre_premio }}</p>
                             <div class="img-subir">
+                                <button type="button" class="btn-delete-img">X</button>
                                 <label for="premio-subir-{{ $value->orden }}">
                                     <div class="cursor">
-                                        <div id="upload-premio-{{ $value->orden }}">
+                                        <div id="upload-premio-{{ $value->orden }}" class="{{ isset($imgUrl) && !empty($imgUrl) ? 'd-none' : '' }} upload_img">
                                             <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                             <h6>Click para Actualizar</h6>
                                             <p>PNG, JPG (max. 1,000x1,000px)</p>
                                         </div>
                                         <div>
-                                            <img class="img-fluid" id="preview-premio-{{ $value->orden }}">
+                                            <img class="img-fluid" id="preview-premio-{{ $value->orden }}" src="{{ $imgUrl }}">
                                         </div>
                                     </div>
                                 </label>
                                 <input hidden type="file" name="premio-subir-{{ $value->orden }}" id="premio-subir-{{ $value->orden }}" onchange="subirImagenPremio(event, {{ $value->orden }})">
-                                <input type="hidden" name="premio_id_{{ $value->orden }}" id="premio_id_{{ $value->orden }}" value="{{ $value->orden }}|{{ $value->id }}">
+                                <input type="text" hidden  name="premio_id_{{ $value->orden }}" id="premio_id_{{ $value->orden }}" value="{{ $value->orden }}|{{ $value->id }}">
+                                <input type="hidden" name="premio-subir-{{ $value->orden }}-url" id="premio-subir-{{ $value->orden }}-url" value="{{ $imgUrl }}">
                             </div>
                         </li>
                         @endforeach
@@ -1425,6 +1474,10 @@
                     Swal.fire({
                         icon: 'success',
                         title: 'Cambios guardados'
+                    }).then((swal) => {
+                        if (swal.isConfirmed || swal.isDenied || swal.isDismissed) {
+                            location.reload();
+                        }
                     })
                 }
             },
@@ -1521,6 +1574,33 @@
                 $(".collapseThreePremio").show("fast");
             }
         })
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $(document).on('click','.btn-delete-img', function () {
+            const valor = $(this).parent().find('input[type="hidden"]');
+            const valorImg = $(this).parent().find('.img-fluid');
+            const upload_img = $(this).parent().find('.upload_img');
+            const valor_file = $(this).parent().find('input[type="file"]');
+            Swal.fire({
+                icon: 'question',
+                title: '¿Seguro de eliminar la imagen?',
+                showConfirmButton: true,
+                showCancelButton: true
+            }).then((swal) => {
+                if (swal.isConfirmed) {
+                    valor.val("");
+                    valorImg.attr('src', '')
+                    upload_img.removeClass('d-none')
+                    valor_file.val(null)
+                }
+            })
+        });
+        $("#back_configuracion").click(function (e) { 
+            e.preventDefault();
+            window.location.href = '{{ $rutaCon }}'
+        });
     });
 </script>
 @endsection

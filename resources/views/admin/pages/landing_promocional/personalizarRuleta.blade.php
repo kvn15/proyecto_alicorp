@@ -238,9 +238,24 @@
 .d-none-2 {
     display: none;
 }
+.img-subir {
+    position: relative;
+}
+.btn-delete-img, .btn-delete-img_upload, .btn-delete-img_upload2 {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    border: 0;
+    background-color: #E62020;
+    color: #fff;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+}
 </style>
 
 @php
+    $rutaCon = route($project->project_type->ruta_name.'.show.overview', $project->id );
     $gameRuleta = $data["gameRuleta"];
     $principalData = isset($gameRuleta["titulo_inicio"]) ? json_decode($gameRuleta["titulo_inicio"], true) : null;
     $principalData2 = isset($gameRuleta["titulo_juego"]) ? json_decode($gameRuleta["titulo_juego"], true) : null;
@@ -309,9 +324,17 @@
 
     // Imagenes
     $fondo = isset($gameRuleta["fondo"]) && !empty($gameRuleta["fondo"]) ? '/storage/'.$gameRuleta["fondo"] : $imgNulo;
+    $fondo_url = isset($gameRuleta["fondo"]) && !empty($gameRuleta["fondo"]) ? '/storage/'.$gameRuleta["fondo"] : "" ;
+
     $logo_inicio = isset($gameRuleta["logo_inicio"]) && !empty($gameRuleta["logo_inicio"]) ? '/storage/'.$gameRuleta["logo_inicio"] : $imgNulo;
+    $logo_inicio_url = isset($gameRuleta["logo_inicio"]) && !empty($gameRuleta["logo_inicio"]) ? '/storage/'.$gameRuleta["logo_inicio"] : "" ;
+
+
     $logo_juego = isset($gameRuleta["logo_juego"]) && !empty($gameRuleta["logo_juego"]) ? '/storage/'.$gameRuleta["logo_juego"] : $imgNulo;
+    $logo_juego_url = isset($gameRuleta["logo_juego"]) && !empty($gameRuleta["logo_juego"]) ? '/storage/'.$gameRuleta["logo_juego"] : "" ;
+
     $titulo_premio = isset($gameRuleta["titulo_premio"]) && !empty($gameRuleta["titulo_premio"]) ? '/storage/'.$gameRuleta["titulo_premio"] : $imgNulo;
+    $titulo_premio_url = isset($gameRuleta["titulo_premio"]) && !empty($gameRuleta["titulo_premio"]) ? '/storage/'.$gameRuleta["titulo_premio"] : "" ;
 @endphp
 @php
     $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
@@ -323,7 +346,7 @@
             @method('POST')
             <div class="d-block" id="menu_edit">
                 <div class="border-bottom py-2">
-                    <span>Personalizar</span>
+                    <button type="button" class="border-0 w-100 text-start" style="background-color: #fff;" id="back_configuracion"><i class="bi bi-box-arrow-left"></i> Personalizar</button>
                 </div>
                 <div class="py-2 border-bottom cursor" id="principal-menu">
                     <p class="mb-0"><b>Vista Principal</b></p>
@@ -398,19 +421,21 @@
                         <li>
                             <p class="mb-2">Fondo</p>
                             <div class="img-subir">
+                                <button type="button" class="btn-delete-img">X</button>
                                 <label for="banner-subir">
                                     <div class="cursor">
-                                        <div id="upload-banner">
+                                        <div id="upload-banner" class="{{ isset($fondo_url) && !empty($fondo_url) ? 'd-none' : '' }} upload_img">
                                             <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                             <h6>Click para Actualizar</h6>
                                             <p>PNG, JPG (max. 1,000x1,000px)</p>
                                         </div>
                                         <div>
-                                            <img class="img-fluid" id="preview-banner">
+                                            <img class="img-fluid" id="preview-banner" src="{{ $fondo_url }}">
                                         </div>
                                     </div>
                                 </label>
                                 <input hidden type="file" name="banner-subir" id="banner-subir">
+                                <input type="hidden" name="banner-subir-url" id="banner-subir-url" value="{{ $fondo_url }}">
                             </div>
                         </li>
                     </ul>
@@ -492,19 +517,21 @@
                         <li>
                             <p class="mb-2">Logo</p>
                             <div class="img-subir">
+                                <button type="button" class="btn-delete-img">X</button>
                                 <label for="logo-subir">
                                     <div class="cursor">
-                                        <div id="upload-logo">
+                                        <div id="upload-logo" class="{{ isset($logo_inicio_url) && !empty($logo_inicio_url) ? 'd-none' : '' }} upload_img">
                                             <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                             <h6>Click para Actualizar</h6>
                                             <p>PNG, JPG (max. 1,000x1,000px)</p>
                                         </div>
                                         <div>
-                                            <img class="img-fluid" id="preview-logo">
+                                            <img class="img-fluid" id="preview-logo" src="{{ $logo_inicio_url }}">
                                         </div>
                                     </div>
                                 </label>
                                 <input hidden type="file" name="logo-subir" id="logo-subir">
+                                <input type="hidden" name="logo-subir-url" id="logo-subir-url" value="{{ $logo_inicio_url }}">
                             </div>
                         </li>
                     </ul>
@@ -617,19 +644,21 @@
                         <li>
                             <p class="mb-2">Logo</p>
                             <div class="img-subir">
+                                <button type="button" class="btn-delete-img">X</button>
                                 <label for="logo-subir-game">
                                     <div class="cursor">
-                                        <div id="upload-logo-game">
+                                        <div id="upload-logo-game" class="{{ isset($logo_juego) && !empty($logo_juego) ? 'd-none' : '' }} upload_img">
                                             <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                             <h6>Click para Actualizar</h6>
                                             <p>PNG, JPG (max. 1,000x1,000px)</p>
                                         </div>
                                         <div>
-                                            <img class="img-fluid" id="preview-logo-game">
+                                            <img class="img-fluid" id="preview-logo-game" src="{{ $logo_juego }}">
                                         </div>
                                     </div>
                                 </label>
                                 <input hidden type="file" name="logo-subir-game" id="logo-subir-game">
+                                <input type="hidden" name="logo-subir-game-url" id="logo-subir-game-url" value="{{ $logo_juego }}">
                             </div>
                         </li>
                     </ul>
@@ -641,6 +670,9 @@
     
                     <ul class="list-unstyled ps-4 mt-2 d-none-2 collapseFourGame" >
                         @foreach ($projectPremio as $value)
+                        @php
+                            $imgUrl = !empty($value["imagen"]) ? "/storage/".$value["imagen"] : ''
+                        @endphp
                         <li class="mb-2">
                             <div id="premio_{{ $value->orden }}">
 
@@ -650,20 +682,22 @@
                                 <input hidden type="text" value="{{ $value->orden }}" class="input_value">
                                 <p class="mb-2">Premio {{ $value->orden }} => {{ $value->nombre_premio }}</p>
                                 <div class="img-subir">
+                                    <button type="button" class="btn-delete-img_upload">X</button>
                                     <label for="premio-subir-{{ $value->orden }}">
                                         <div class="cursor">
-                                            <div id="upload-premio-{{ $value->orden }}">
+                                            <div id="upload-premio-{{ $value->orden }}" class="{{ isset($imgUrl) && !empty($imgUrl) ? 'd-none' : '' }} upload_img">
                                                 <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                                 <h6>Click para Actualizar</h6>
                                                 <p>PNG, JPG (max. 1,000x1,000px)</p>
                                             </div>
                                             <div>
-                                                <img class="img-fluid" id="preview-premio-{{ $value->orden }}">
+                                                <img class="img-fluid" id="preview-premio-{{ $value->orden }}" src="{{ $imgUrl }}">
                                             </div>
                                         </div>
                                     </label>
                                     <input hidden type="file" name="premio_subir" id="premio-subir-{{ $value->orden }}" class="premio_upload">
-                                    <input type="hidden" name="premio_id_{{ $value->orden }}" id="premio_id_{{ $value->orden }}" value="{{ $value->orden }}|{{ $value->id }}">
+                                    <input type="text" hidden name="premio_id_{{ $value->orden }}" id="premio_id_{{ $value->orden }}" value="{{ $value->orden }}|{{ $value->id }}">
+                                    <input type="hidden" class="img_url_hidden" name="premio-subir-{{ $value->orden }}-url" id="premio-subir-{{ $value->orden }}-url" value="{{ $imgUrl }}">
                                 </div>
                             </div>
                         </li>
@@ -684,19 +718,21 @@
                         <li>
                             <p class="mb-2">Titulo Ganastes</p>
                             <div class="img-subir">
+                                <button type="button" class="btn-delete-img">X</button>
                                 <label for="premio-gano-subir">
                                     <div class="cursor">
-                                        <div id="upload-premio-gano">
+                                        <div id="upload-premio-gano" class="{{ isset($titulo_premio) && !empty($titulo_premio) ? 'd-none' : '' }} upload_img">
                                             <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                             <h6>Click para Actualizar</h6>
                                             <p>PNG, JPG (max. 1,000x1,000px)</p>
                                         </div>
                                         <div>
-                                            <img class="img-fluid" id="preview-premio-gano">
+                                            <img class="img-fluid" id="preview-premio-gano" src="{{ $titulo_premio }}">
                                         </div>
                                     </div>
                                 </label>
                                 <input hidden type="file" name="premio-gano-subir" id="premio-gano-subir">
+                                <input type="hidden" name="gano-subir-url" id="gano-subir-url" value="{{ $titulo_premio }}">
                             </div>
                         </li>
                     </ul>
@@ -746,6 +782,9 @@
     
                     <ul class="list-unstyled ps-4 mt-2 d-none-2 collapseFourGame2" >
                         @foreach ($projectPremio as $value)
+                        @php
+                            $imgUrl2 = !empty($value["imagen_premio"]) ? "/storage/".$value["imagen_premio"] : ''
+                        @endphp
                         <li class="mb-2">
                             <div method="POST" id="premio_final_{{ $value->orden }}">
                                
@@ -755,19 +794,21 @@
                                 <input hidden type="text" value="{{ $value->orden }}" class="input_value">
                                 <p class="mb-2">Premio {{ $value->orden }} => {{ $value->nombre_premio }}</p>
                                 <div class="img-subir">
+                                    <button type="button" class="btn-delete-img_upload2">X</button>
                                     <label for="subir-premio-{{ $value->orden }}">
                                         <div class="cursor">
-                                            <div id="premio-upload-{{ $value->orden }}">
+                                            <div id="premio-upload-{{ $value->orden }}" class="{{ isset($imgUrl2) && !empty($imgUrl2) ? 'd-none' : '' }} upload_img">
                                                 <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                                 <h6>Click para Actualizar</h6>
                                                 <p>PNG, JPG (max. 1,000x1,000px)</p>
                                             </div>
                                             <div>
-                                                <img class="img-fluid" id="premio-preview-{{ $value->orden }}">
+                                                <img class="img-fluid" id="premio-preview-{{ $value->orden }}" src="{{ $imgUrl2 }}">
                                             </div>
                                         </div>
                                     </label>
                                     <input hidden type="file" name="subir_premio" id="subir-premio-{{ $value->orden }}" class="premio_upload_2">
+                                    <input type="hidden" name="subir_premio-{{ $value->orden }}-url" id="subir_premio-{{ $value->orden }}-url" value="{{ $imgUrl2 }}" class="img_url_hidden">
                                 </div>
                             </div>
                         </li>
@@ -808,8 +849,11 @@
                 <div id="fin_juego" class="d-none">
                     <div class="content_premio">
                         <img class="img-fluid mb-3" src="{{ $titulo_premio }}" alt="" id="logo_ganaste">
+                        @php
+                            $urlImagenPremio = isset($projectPremio[0]["imagen_premio"]) && !empty($projectPremio[0]["imagen_premio"]) ? '/storage/'.$projectPremio[0]["imagen_premio"] : $imgNulo;
+                        @endphp
                         <div class="content_premio_img">
-                            <img class="img-fluid" src="{{ asset('backend/img/Capa 8.png') }}" alt="" id="premio_first">
+                            <img class="img-fluid" src="{{ $urlImagenPremio }}" alt="" id="premio_first">
                         </div>
                         <h5>{{ $projectPremio[0]["nombre_premio"] }}</h5>
                         <div class="{{ $styleBotones }} justify-content-center" style="gap: 0.4em;" id="btn_content">
@@ -1238,6 +1282,14 @@
     $(document).ready(function () {
 
         var data = {!! json_encode($premioRuleta) !!};
+
+        if (data.filter(d => d["img"] == '/storage/')) {
+            data.forEach(d => {
+                if(d["img"] == '/storage/') {
+                    d["img"] = '{{ $imgNulo }}';
+                }
+            })
+        }
         // var data = [
         //     {
         //         name: '2 entradas',
@@ -1439,9 +1491,69 @@
             spin();
         });
 
+        $(document).on('click','.btn-delete-img_upload', function () {
+            const premioUploadInput = $(this).parent().find('.premio_upload');
+            const valor = $(this).parent().find('input[type="hidden"]');
+            const valorImg = $(this).parent().find('.img-fluid');
+            const upload_img = $(this).parent().find('.upload_img');
+            const valor_file = $(this).parent().find('input[type="file"]');
+
+            const orden = $(this).parent().parent().find(".input_value").val();
+            const action = $(this).parent().parent().find(".action").val();
+            const premio_subir_url = $(this).parent().find(".img_url_hidden").val();
+            const token = $('input[name="_token"]').val();
+            const method = $('input[name="_method"]').val();
+            
+            Swal.fire({
+                icon: 'question',
+                title: '¿Seguro de eliminar la imagen?',
+                showConfirmButton: true,
+                showCancelButton: true
+            }).then((swal) => {
+                if (swal.isConfirmed) {
+
+                    const imagen = $(`#premio-subir-${orden}`)[0];
+
+                    const formData = new FormData();
+                    formData.append("_token", token)
+                    formData.append("_method", method)
+                    formData.append("premio_subir", null)
+                    formData.append("premio_subir_url", null)
+                    $.ajax({
+                        url: action, // URL de la ruta
+                        method: 'POST',
+                        data: formData,
+                        contentType: false, // Para enviar los datos como FormData
+                        processData: false, // No procesar los datos
+                        success: function(datas) {
+                            // Procesar los datos devueltos
+                            // toastr.success(data.message); 
+
+                            // if (data) {
+                            //     toastr.success('Cambios guadados correctamente'); 
+                            // }
+                            if (datas) {
+                                valor.val("");
+                                valorImg.attr('src', '')
+                                upload_img.removeClass('d-none')
+                                valor_file.val(null)
+                                //
+                                recargarImagenes(`{{ $imgNulo }}`, orden - 1)
+                            }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
+                            toastr.error('Ocurrió un error al procesar la solicitud.');
+                        }
+                    });
+                }
+            })
+        });
+
         $(document).on('change','.premio_upload', function () {
             const orden = $(this).parent().parent().find(".input_value").val();
             const action = $(this).parent().parent().find(".action").val();
+            const premio_subir_url = $(this).parent().find(".img_url_hidden").val();
             const token = $('input[name="_token"]').val();
             const method = $('input[name="_method"]').val();
 
@@ -1452,6 +1564,7 @@
             formData.append("_token", token)
             formData.append("_method", method)
             formData.append("premio_subir", inputImage)
+            formData.append("premio_subir_url", premio_subir_url)
             $.ajax({
                 url: action, // URL de la ruta
                 method: 'POST',
@@ -1465,7 +1578,6 @@
                     // if (data) {
                     //     toastr.success('Cambios guadados correctamente'); 
                     // }
-                    console.log(datas, data)
                     if (datas) {
                         const preview = document.getElementById(`preview-premio-${orden}`);
                         const upload = document.getElementById(`upload-premio-${orden}`)
@@ -1483,9 +1595,73 @@
             });
         });
 
+        $(document).on('click','.btn-delete-img_upload2', function () {
+            const premioUploadInput = $(this).parent().find('.premio_upload');
+            const valor = $(this).parent().find('input[type="hidden"]');
+            const valorImg = $(this).parent().find('.img-fluid');
+            const upload_img = $(this).parent().find('.upload_img');
+            const valor_file = $(this).parent().find('input[type="file"]');
+
+            const orden = $(this).parent().parent().find(".input_value").val();
+            const action = $(this).parent().parent().find(".action").val();
+            const premio_subir_url = $(this).parent().find(".img_url_hidden").val();
+            const token = $('input[name="_token"]').val();
+            const method = $('input[name="_method"]').val();
+
+            const imagen = $(`#subir-premio-${orden}`)[0];
+            const inputImage = imagen.files[0] ? imagen.files[0] : null;
+            
+            Swal.fire({
+                icon: 'question',
+                title: '¿Seguro de eliminar la imagen?',
+                showConfirmButton: true,
+                showCancelButton: true
+            }).then((swal) => {
+                if (swal.isConfirmed) {
+
+                    const formData = new FormData();
+                    formData.append("_token", token)
+                    formData.append("_method", method)
+                    formData.append("subir_premio", inputImage)
+                    formData.append("subir_premio_url", premio_subir_url)
+                    
+                    $.ajax({
+                        url: action, // URL de la ruta
+                        method: 'POST',
+                        data: formData,
+                        contentType: false, // Para enviar los datos como FormData
+                        processData: false, // No procesar los datos
+                        success: function(datas) {
+                            // Procesar los datos devueltos
+                            // toastr.success(data.message); 
+
+                            // if (data) {
+                            //     toastr.success('Cambios guadados correctamente'); 
+                            // }
+                            if (datas) {
+                                valor.val("");
+                                valorImg.attr('src', '')
+                                upload_img.removeClass('d-none')
+                                valor_file.val(null)
+
+                                const premio_first = document.getElementById('premio_first')
+                                premio_first.src = `{{ $imgNulo }}`; // Establece la fuente de la imagen
+                            }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
+                            toastr.error('Ocurrió un error al procesar la solicitud.');
+                        }
+                    });
+                    
+                }
+            })
+        });
+
         $(document).on('change','.premio_upload_2', function () {
             const orden = $(this).parent().parent().find(".input_value").val();
             const action = $(this).parent().parent().find(".action").val();
+            const premio_subir_url = $(this).parent().find(".img_url_hidden").val();
             const token = $('input[name="_token"]').val();
             const method = $('input[name="_method"]').val();
 
@@ -1496,6 +1672,7 @@
             formData.append("_token", token)
             formData.append("_method", method)
             formData.append("subir_premio", inputImage)
+            formData.append("subir_premio_url", premio_subir_url)
             
             $.ajax({
                 url: action, // URL de la ruta
@@ -1558,6 +1735,10 @@
                         Swal.fire({
                             icon: 'success',
                             title: 'Cambios guardados'
+                        }).then((swal) => {
+                            if (swal.isConfirmed || swal.isDenied || swal.isDismissed) {
+                                location.reload();
+                            }
                         })
                     }
                 },
@@ -1656,29 +1837,56 @@
             }
         })
 
-$("#collapseOnePremio").click(function (e){
-    if ($(this).hasClass("hidev")) {
-        $(this).removeClass("hidev")
-        $(this).addClass("showv")
-        $(".collapseOnePremio").hide("fast");
-    } else {
-        $(this).removeClass("showv")
-        $(this).addClass("hidev")
-        $(".collapseOnePremio").show("fast");
-    }
-})
+        $("#collapseOnePremio").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseOnePremio").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseOnePremio").show("fast");
+            }
+        })
 
-$("#collapseTwoPremio").click(function (e){
-    if ($(this).hasClass("hidev")) {
-        $(this).removeClass("hidev")
-        $(this).addClass("showv")
-        $(".collapseTwoPremio").hide("fast");
-    } else {
-        $(this).removeClass("showv")
-        $(this).addClass("hidev")
-        $(".collapseTwoPremio").show("fast");
-    }
-})
+        $("#collapseTwoPremio").click(function (e){
+            if ($(this).hasClass("hidev")) {
+                $(this).removeClass("hidev")
+                $(this).addClass("showv")
+                $(".collapseTwoPremio").hide("fast");
+            } else {
+                $(this).removeClass("showv")
+                $(this).addClass("hidev")
+                $(".collapseTwoPremio").show("fast");
+            }
+        })
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $(document).on('click','.btn-delete-img', function () {
+            const valor = $(this).parent().find('input[type="hidden"]');
+            const valorImg = $(this).parent().find('.img-fluid');
+            const upload_img = $(this).parent().find('.upload_img');
+            const valor_file = $(this).parent().find('input[type="file"]');
+            Swal.fire({
+                icon: 'question',
+                title: '¿Seguro de eliminar la imagen?',
+                showConfirmButton: true,
+                showCancelButton: true
+            }).then((swal) => {
+                if (swal.isConfirmed) {
+                    valor.val("");
+                    valorImg.attr('src', '')
+                    upload_img.removeClass('d-none')
+                    valor_file.val(null)
+                }
+            })
+        });
+    });
+    $("#back_configuracion").click(function (e) { 
+        e.preventDefault();
+        window.location.href = '{{ $rutaCon }}'
     });
 </script>
 @endsection

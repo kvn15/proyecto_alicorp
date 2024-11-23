@@ -26,7 +26,7 @@ class RaspaGanaController extends Controller
         // Guardar Imagenes principales
         
         // Fondo
-        $rutaFondo = isset($isRaspaGana) && !empty($isRaspaGana->fondo) ?  $isRaspaGana->fondo : '';
+        $rutaFondo = isset($isRaspaGana) && !empty($isRaspaGana->fondo) && $request["banner-subir-url"] != null ?  $isRaspaGana->fondo : '';
         if ($request->hasFile('banner-subir')) {
             
             if(isset($isRaspaGana)) {
@@ -43,7 +43,7 @@ class RaspaGanaController extends Controller
         }
         
         // Logo Principal
-        $rutaLogoPrincipal = isset($isRaspaGana) && !empty($isRaspaGana->logo_principal) ?  $isRaspaGana->logo_principal : '';
+        $rutaLogoPrincipal = isset($isRaspaGana) && !empty($isRaspaGana->logo_principal) && $request["logo-subir-url"] != null ?  $isRaspaGana->logo_principal : '';
         if ($request->hasFile('logo-subir')) {
             
             if(isset($isRaspaGana)) {
@@ -60,7 +60,7 @@ class RaspaGanaController extends Controller
         }
         
         // Imagen Raspar
-        $rutaImgRaspar = isset($isRaspaGana) && !empty($isRaspaGana->imagen_raspar) ?  $isRaspaGana->imagen_raspar : '';
+        $rutaImgRaspar = isset($isRaspaGana) && !empty($isRaspaGana->imagen_raspar) && $request["raspar-subir-url"] != null ?  $isRaspaGana->imagen_raspar : '';
         if ($request->hasFile('raspar-subir')) {
             
             if(isset($isRaspaGana)) {
@@ -77,7 +77,7 @@ class RaspaGanaController extends Controller
         }
         
         // Titulo subir
-        $rutaImgTitulo = isset($isRaspaGana) && !empty($isRaspaGana->titulo_subir) ?  $isRaspaGana->titulo_subir : '';
+        $rutaImgTitulo = isset($isRaspaGana) && !empty($isRaspaGana->titulo_subir) && $request["gano-subir-url"] != null ?  $isRaspaGana->titulo_subir : '';
         if ($request->hasFile('gano-subir')) {
             
             if(isset($isRaspaGana)) {
@@ -137,35 +137,38 @@ class RaspaGanaController extends Controller
         
         
         // Bloque premios
-        $arrayPremios = explode(",", $request->arrayPremiosValue);
 
-        foreach ($arrayPremios as $key => $value) {
-            $premioValor = explode('|', $value);
-            $orden = $premioValor[0];
-            $idPremio = $premioValor[1];
-
-            $premios = AwardProject::findOrFail($idPremio);
+        if (isset($request->arrayPremiosValue) && !empty($request->arrayPremiosValue)) {
+            $arrayPremios = explode(",", $request->arrayPremiosValue);
             
-            if ($premios) {
-                $ruta = $premios->imagen;
-                // Almacenar la imagen en el directorio deseado
-                if ($request->hasFile('premio-subir-'.$orden)) {
-                    // Obtener la ruta de la imagen
-                    $rutaFav = public_path($premios->imagen); // Suponiendo que la ruta está almacenada en 'ruta'
+            foreach ($arrayPremios as $key => $value) {
+                $premioValor = explode('|', $value);
+                $orden = $premioValor[0];
+                $idPremio = $premioValor[1];
 
-                    // Eliminar el archivo del sistema
-                    if (file_exists($rutaFav) && !empty($premios->imagen)) {
-                        unlink($rutaFav); // Eliminar el archivo
+                $premios = AwardProject::findOrFail($idPremio);
+                
+                if ($premios) {
+                    $ruta = $request["premio-subir-".$orden."-url"] != null ? $premios->imagen : '';
+                    // Almacenar la imagen en el directorio deseado
+                    if ($request->hasFile('premio-subir-'.$orden)) {
+                        // Obtener la ruta de la imagen
+                        $rutaFav = public_path($premios->imagen); // Suponiendo que la ruta está almacenada en 'ruta'
+
+                        // Eliminar el archivo del sistema
+                        if (file_exists($rutaFav) && !empty($premios->imagen)) {
+                            unlink($rutaFav); // Eliminar el archivo
+                        }
+
+                        $ruta = $request->file('premio-subir-'.$orden)->store('premios', 'public'); // Almacena en storage/app/public/premios
                     }
 
-                    $ruta = $request->file('premio-subir-'.$orden)->store('premios', 'public'); // Almacena en storage/app/public/premios
+                    $premios->update([
+                        'imagen' => $ruta
+                    ]);
                 }
 
-                $premios->update([
-                    'imagen' => $ruta
-                ]);
             }
-
         }
 
         $isRaspaGana = RaspaGana::where('project_id', $id)->first();

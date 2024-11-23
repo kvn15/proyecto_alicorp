@@ -215,51 +215,51 @@ class GameMemoriaController extends Controller
         $principalArray = json_decode($existLanding->principal ?? "", true);
         $premioArray = json_decode($existLanding->premio ?? "", true);
 
-        $rutaBanner = isset($principalArray["banner"])  && !empty($principalArray["banner"]) ? $principalArray["banner"] : "";
+        $rutaBanner = isset($principalArray["banner"])  && !empty($principalArray["banner"]) && $request["banner-subir-url"] != null ? $principalArray["banner"] : "";
         if ($request->hasFile('banner-subir')) {
             $rutaBanner = $request->file('banner-subir')->store('game_memoria', 'public'); // Almacena en storage/app/public/imagenes
         }
         $principal["banner"] = $rutaBanner; 
 
-        $rutalogo = isset($principalArray["logo-subir"])  && !empty($principalArray["logo-subir"]) ? $principalArray["logo-subir"] : "";
+        $rutalogo = isset($principalArray["logo-subir"])  && !empty($principalArray["logo-subir"]) && $request["logo-subir-url"] != null ? $principalArray["logo-subir"] : "";
         if ($request->hasFile('logo-subir')) {
             $rutalogo = $request->file('logo-subir')->store('game_memoria', 'public'); // Almacena en storage/app/public/imagenes
         }
         $principal["logo-subir"] = $rutalogo;
 
-        $rutaGano = isset($premioArray["gano-subir"])  && !empty($premioArray["gano-subir"]) ? $premioArray["gano-subir"] : "";;
+        $rutaGano = isset($premioArray["gano-subir"])  && !empty($premioArray["gano-subir"]) && $request["gano-subir-url"] != null ? $premioArray["gano-subir"] : "";;
         if ($request->hasFile('gano-subir')) {
             $rutaGano = $request->file('gano-subir')->store('game_memoria', 'public'); // Almacena en storage/app/public/imagenes
         }
         $premio["gano-subir"] = $rutaGano; 
  
         
-        $rutaImg1 = isset($gameArray[0]['img'])  && !empty($gameArray[0]['img']) ? $gameArray[0]['img'] : "";
+        $rutaImg1 = isset($gameArray[0]['img'])  && !empty($gameArray[0]['img']) && $request["imagen-1-subir-url"] != null ? $gameArray[0]['img'] : "";
         if ($request->hasFile('imagen-1-subir')) {
             $rutaImg1 = $request->file('imagen-1-subir')->store('game_memoria', 'public'); // Almacena en storage/app/public/imagenes
         }
         
-        $rutaImg2 = isset($gameArray[1]['img'])  && !empty($gameArray[1]['img']) ? $gameArray[1]['img'] : "";
+        $rutaImg2 = isset($gameArray[1]['img'])  && !empty($gameArray[1]['img']) && $request["imagen-2-subir-url"] != null ? $gameArray[1]['img'] : "";
         if ($request->hasFile('imagen-2-subir')) {
             $rutaImg2 = $request->file('imagen-2-subir')->store('game_memoria', 'public'); // Almacena en storage/app/public/imagenes
         }
         
-        $rutaImg3 = isset($gameArray[2]['img'])  && !empty($gameArray[2]['img']) ? $gameArray[2]['img'] : "";
+        $rutaImg3 = isset($gameArray[2]['img'])  && !empty($gameArray[2]['img']) && $request["imagen-3-subir-url"] != null ? $gameArray[2]['img'] : "";
         if ($request->hasFile('imagen-3-subir')) {
             $rutaImg3 = $request->file('imagen-3-subir')->store('game_memoria', 'public'); // Almacena en storage/app/public/imagenes
         }
         
-        $rutaImg4 = isset($gameArray[3]['img'])  && !empty($gameArray[3]['img']) ? $gameArray[3]['img'] : "";
+        $rutaImg4 = isset($gameArray[3]['img'])  && !empty($gameArray[3]['img']) && $request["imagen-4-subir-url"] != null ? $gameArray[3]['img'] : "";
         if ($request->hasFile('imagen-4-subir')) {
             $rutaImg4 = $request->file('imagen-4-subir')->store('game_memoria', 'public'); // Almacena en storage/app/public/imagenes
         } 
         
-        $rutaImg5 = isset($gameArray[4]['img'])  && !empty($gameArray[4]['img']) ? $gameArray[4]['img'] : "";
+        $rutaImg5 = isset($gameArray[4]['img'])  && !empty($gameArray[4]['img']) && $request["imagen-5-subir-url"] != null ? $gameArray[4]['img'] : "";
         if ($request->hasFile('imagen-5-subir')) {
             $rutaImg5 = $request->file('imagen-5-subir')->store('game_memoria', 'public'); // Almacena en storage/app/public/imagenes
         }
         
-        $rutaImg6 = isset($gameArray[5]['img'])  && !empty($gameArray[5]['img']) ? $gameArray[5]['img'] : "";
+        $rutaImg6 = isset($gameArray[5]['img'])  && !empty($gameArray[5]['img']) && $request["imagen-6-subir-url"] != null ? $gameArray[5]['img'] : "";
         if ($request->hasFile('imagen-6-subir')) {
             $rutaImg6 = $request->file('imagen-6-subir')->store('game_memoria', 'public'); // Almacena en storage/app/public/imagenes
         }
@@ -305,7 +305,7 @@ class GameMemoriaController extends Controller
             $premios = AwardProject::findOrFail($idPremio);
             
             if ($premios) {
-                $ruta = $premios->imagen;
+                $ruta = $request["premio-subir-".$orden."-url"] != null ?  $premios->imagen : "";
                 // Almacenar la imagen en el directorio deseado
                 if ($request->hasFile('premio-subir-'.$orden)) {
                     // Obtener la ruta de la imagen

@@ -23,7 +23,7 @@ class RuletaController extends Controller
         // Actualizar o crear datos del juego
         $isRuleta = Roulette::where('project_id', $id)->first();
         // Fondo
-        $rutaFondo = isset($isRuleta) && !empty($isRuleta->fondo) ?  $isRuleta->fondo : '';
+        $rutaFondo = isset($isRuleta) && !empty($isRuleta->fondo) && $request['banner-subir-url'] != null ?  $isRuleta->fondo : '';
         if ($request->hasFile('banner-subir')) {
             
             if(isset($isRuleta)) {
@@ -40,7 +40,7 @@ class RuletaController extends Controller
         }
         
         // Logo Principal
-        $rutaLogoPrincipal = isset($isRuleta) && !empty($isRuleta->logo_inicio) ?  $isRuleta->logo_inicio : '';
+        $rutaLogoPrincipal = isset($isRuleta) && !empty($isRuleta->logo_inicio) && $request['logo-subir-url'] != null ?  $isRuleta->logo_inicio : '';
         if ($request->hasFile('logo-subir')) {
             
             if(isset($isRuleta)) {
@@ -57,7 +57,7 @@ class RuletaController extends Controller
         }
         
         // Logo Juego
-        $rutaLogoGame = isset($isRuleta) && !empty($isRuleta->logo_juego) ?  $isRuleta->logo_juego : '';
+        $rutaLogoGame = isset($isRuleta) && !empty($isRuleta->logo_juego) && $request['logo-subir-game-url'] != null ?  $isRuleta->logo_juego : '';
         if ($request->hasFile('logo-subir-game')) {
             
             if(isset($isRuleta)) {
@@ -74,7 +74,7 @@ class RuletaController extends Controller
         }
         
         // Titulo premio
-        $rutaTituloPremio = isset($isRuleta) && !empty($isRuleta->titulo_premio) ?  $isRuleta->titulo_premio : '';
+        $rutaTituloPremio = isset($isRuleta) && !empty($isRuleta->titulo_premio) && $request['gano-subir-url'] != null ?  $isRuleta->titulo_premio : '';
         if ($request->hasFile('premio-gano-subir')) {
             
             if(isset($isRuleta)) {
@@ -154,7 +154,7 @@ class RuletaController extends Controller
         $premio = AwardProject::findOrFail($id);
 
         // insertar imagen
-        $ruta = !empty($premio->imagen) ?  $premio->imagen : '';
+        $ruta = !empty($premio->imagen) && $request["premio_subir_url"] != "null" ?  $premio->imagen : '';
         if ($request->hasFile('premio_subir')) {
             
             if(!empty($ruta)) {
