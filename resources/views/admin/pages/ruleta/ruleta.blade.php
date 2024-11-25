@@ -376,8 +376,8 @@
         </div>
         <div class="content-game d-none" id="juego">
             <div class="header text-center">
-                <h1 class="{{ $styleTamanoGame }} {{ $styleBoldGame }} {{ $italicTituloGame }} {{ $styleAlineacionGame }}" id="titulo_juego" style="color: #fff;">GIRA Y GANA CON</h1>
-                <img style="width: 170px;" src="{{ $logo_juego }}" alt="" id="logo_juego">
+                <h1 class="{{ $styleTamanoGame }} {{ $styleBoldGame }} {{ $italicTituloGame }} {{ $styleAlineacionGame }} d-none" id="titulo_juego" style="color: #fff;">GIRA Y GANA CON</h1>
+                <img style="width: 170px;" src="{{ $logo_juego }}" alt="" id="logo_juego" style="max-width: 250px;">
                 <p id="winner" class="d-none">NONE</p>
             </div>
             <div class="w-100 d-flex justify-content-center">
@@ -394,9 +394,12 @@
         </div>
         <div id="fin_juego" class="d-none">
             <div class="content_premio">
-                <img class="img-fluid mb-3" src="{{ $titulo_premio }}" alt="" id="logo_ganaste">
+                <img class="img-fluid mb-3" src="{{ $titulo_premio }}" alt="" id="logo_ganaste" style="max-width: 350px;">
+                @php
+                    $urlImagenPremio = isset($projectPremio[0]["imagen_premio"]) && !empty($projectPremio[0]["imagen_premio"]) ? '/storage/'.$projectPremio[0]["imagen_premio"] : $imgNulo;
+                @endphp
                 <div class="content_premio_img">
-                    <img class="img-fluid" src="{{ asset('backend/img/Capa 8.png') }}" alt="" id="premio_first">
+                    <img class="img-fluid" src="{{ $urlImagenPremio }}" alt="" id="premio_first" style="max-width: 400px;">
                 </div>
                 <h5 id="title_premio">{{ $projectPremio[0]["nombre_premio"] }}</h5>
                 <div class="{{ $styleBotones }} justify-content-center" style="gap: 0.4em;" id="btn_content">

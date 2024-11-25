@@ -339,7 +339,7 @@
 @php
     $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
 @endphp
-<div class="container-fluid">
+<div class="container-fluid" style="overflow: auto;">
     <div class="row">
         <form id="form-ruleta" action="{{ route($tipoJuego."juego3.post.registro.personalizar", $project->id) }}" method="POST" enctype="multipart/form-data" class="col-3 border-end" style="overflow-y: scroll; height: 100vh;">
             @csrf
@@ -440,7 +440,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="py-2 border-bottom">
+                <div class="py-2 border-bottom d-none">
                     <button class="header-edit-web" type="button"  id="collapseTwoGame">
                         <p class="mb-0"><b><img src="{{asset('backend/svg/text.svg')}}" alt="svg seccion"> <small>Titulo</small></b></p>
                     </button>
@@ -567,7 +567,7 @@
                 <div class="border-bottom py-2">
                     <button type="button" class="border-0 w-100 text-start" style="background-color: #fff;" id="back_encabezado"><i class="fas fa-chevron-left"></i> Vista Premiación</button>
                 </div>
-                <div class="py-2 border-bottom">
+                <div class="py-2 border-bottom d-none">
                     <button class="header-edit-web" type="button"  id="collapseTwoGame2">
                         <p class="mb-0"><b><img src="{{asset('backend/svg/text.svg')}}" alt="svg seccion"> <small>Titulo</small></b></p>
                     </button>
@@ -821,7 +821,7 @@
             <div class="h-100" style="background-image: url({{ $fondo }}); background-size: cover;" id="juego_ruleta">
                 <div id="inicio_juego" class=" d-none">
                     <div class="text-center ctn-data">
-                        <h1 class="{{ $styleTamano }} mb-4 {{ $styleBold }} {{ $italicTitulo }} {{ $styleAlineacion }}" id="titulo_header" style="color: #fff;">GIRA Y GANA CON</h1>
+                        <h1 class="{{ $styleTamano }} mb-4 {{ $styleBold }} {{ $italicTitulo }} {{ $styleAlineacion }} d-none" id="titulo_header" style="color: #fff;"></h1>
                         <img style="width: 300px;" src="{{ $logo_inicio }}" alt="" id="logo_header">
                     </div>
                     <div class="w-100 d-flex justify-content-center">
@@ -830,8 +830,8 @@
                 </div>
                 <div class="content-game" id="juego">
                     <div class="header text-center">
-                        <h1 class="{{ $styleTamanoGame }} {{ $styleBoldGame }} {{ $italicTituloGame }} {{ $styleAlineacionGame }}" id="titulo_juego" style="color: #fff;">GIRA Y GANA CON</h1>
-                        <img style="width: 170px;" src="{{ $logo_juego }}" alt="" id="logo_juego">
+                        <h1 class="{{ $styleTamanoGame }} {{ $styleBoldGame }} {{ $italicTituloGame }} {{ $styleAlineacionGame }} d-none" id="titulo_juego" style="color: #fff;"></h1>
+                        <img style="width: 170px;" src="{{ $logo_juego }}" alt="" id="logo_juego" style="max-width: 250px;">
                         <p id="winner" class="d-none">NONE</p>
                     </div>
                     <div class="w-100 d-flex justify-content-center">
@@ -848,14 +848,14 @@
                 </div>
                 <div id="fin_juego" class="d-none">
                     <div class="content_premio">
-                        <img class="img-fluid mb-3" src="{{ $titulo_premio }}" alt="" id="logo_ganaste">
+                        <img class="img-fluid mb-3" src="{{ $titulo_premio }}" alt="" id="logo_ganaste" style="max-width: 350px;">
                         @php
                             $urlImagenPremio = isset($projectPremio[0]["imagen_premio"]) && !empty($projectPremio[0]["imagen_premio"]) ? '/storage/'.$projectPremio[0]["imagen_premio"] : $imgNulo;
                         @endphp
                         <div class="content_premio_img">
-                            <img class="img-fluid" src="{{ $urlImagenPremio }}" alt="" id="premio_first">
+                            <img class="img-fluid" src="{{ $urlImagenPremio }}" alt="" id="premio_first" style="max-width: 400px;">
                         </div>
-                        <h5>{{ $projectPremio[0]["nombre_premio"] }}</h5>
+                        <h5>{{ isset($projectPremio[0]["nombre_premio"]) ? $projectPremio[0]["nombre_premio"] : '' }}</h5>
                         <div class="{{ $styleBotones }} justify-content-center" style="gap: 0.4em;" id="btn_content">
                             <button type="button" class="btn_premio" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">IR A REGISTRO</button>
                             <button type="button" class="btn_premio" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">IR A HOME</button>

@@ -207,7 +207,7 @@
 @php
     $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
 @endphp
-<div class="container-fluid" style="height: 100vh; overflow: hidden;">
+<div class="container-fluid" style="min-height: 100vh; overflow: auto;">
     <div class="row">
         <form id="form-memoria" action="{{ route($tipoJuego."juego.post.registro.personalizar", $project->id) }}" method="POST" enctype="multipart/form-data" class="col-3 border-end" style="overflow-y: scroll; height: 100vh;">
             @csrf
@@ -287,7 +287,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="py-2 border-bottom">
+                <div class="py-2 border-bottom d-none">
                     <button class="header-edit-web" type="button" id="collapseTwoGame">
                         <p class="mb-0"><b><img src="{{asset('backend/svg/text.svg')}}" alt="svg seccion"> <small>Titulo</small></b></p>
                     </button>
@@ -781,9 +781,9 @@
             </style>
             <div class="juego_memorio_content" id="juego_memorio_content" style="{{ $bgMemoria }} background-size: cover;">
                 <div class="contenido_juego d-block" id="contenido_juego">
-                    <p class="{{ $styleAlineacion }} {{ $styleTamano }} w-100 mt-0 mb-0 pt-2 {{ $styleBold }} {{ $italicTitulo }}" id="parrafo-header" style="color: {{ $color }};">{{ $tituloTexto }}</p>
+                    <p class="{{ $styleAlineacion }} {{ $styleTamano }} w-100 mt-0 mb-0 pt-2 {{ $styleBold }} {{ $italicTitulo }} d-none" id="parrafo-header" style="color: {{ $color }};">{{ $tituloTexto }}</p>
                     <div class="d-flex justify-content-center pt-4">
-                        <img class="img-fluid" id="logo_memoria" src="{{ $imgLogo }}" alt="">
+                        <img class="img-fluid" id="logo_memoria" src="{{ $imgLogo }}" alt="" style="max-width: 250px;">
                     </div>
                     <div class="game">
                         <div class="controls">
@@ -807,10 +807,10 @@
                 </div>
                 <div class="win-game d-none" id="win-game">
                     <div class="d-flex justify-content-center pt-4 w-100 mb-3">
-                        <img class="img-fluid" src="{{ $imgLogoPremio }}" alt="" id="img-header-premio">
+                        <img class="img-fluid" src="{{ $imgLogoPremio }}" alt="" id="img-header-premio" style="max-width: 350px;">
                     </div>
                     <div class="d-flex flex-column align-items-center justify-content-center w-100">
-                        <img class="img-fluid" src="{{ $imgPremio }}" alt="" id="premio_img">
+                        <img class="img-fluid mb-2" src="{{ $imgPremio }}" alt="" id="premio_img" style="max-width: 370px;">
                         <h4 class="text-white" style="font-weight: 700;">{{ $namePremio }}</h4>
                     </div>
                     <div class="{{ $styleBotones }} justify-content-center" id="btn_content">

@@ -15,7 +15,7 @@ class ProyectoLista extends Component
     // Filtros
     public $activo, $inactivo, $finalizado, $usuarioCreo, $fechaDesde, $fechaHasta;
 
-    public $estados = [1, 2 ,3], $idUsuario, $fechaIni, $fechaFin;
+    public $estados = [0, 1, 2 ,3], $idUsuario, $fechaIni, $fechaFin;
 
     public function mount($tipoProyecto, $bMisProyectos = false) {
         $this->tipoProyecto = $tipoProyecto;
@@ -32,7 +32,7 @@ class ProyectoLista extends Component
                 array_push($arrayEstados, 1);
             }
             if (isset($this->inactivo) && $this->inactivo == true) {
-                array_push($arrayEstados, 2);
+                array_push($arrayEstados, 0);
             }
             if (isset($this->finalizado) && $this->finalizado == true) {
                 array_push($arrayEstados, 3);
@@ -40,7 +40,7 @@ class ProyectoLista extends Component
 
             $this->estados = $arrayEstados;
         } else {
-            $this->estados = [1, 2 ,3];
+            $this->estados = [0, 1, 2 ,3];
         }
 
         if (isset($this->usuarioCreo)) {

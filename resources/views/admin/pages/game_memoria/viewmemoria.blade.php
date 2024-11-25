@@ -299,9 +299,9 @@
     </form>
     <div class="juego_memorio_content" id="juego_memorio_content" style="{{ $bgMemoria }} background-size: cover;">
         <div class="contenido_juego d-block" id="contenido_juego">
-            <p class="{{ $styleAlineacion }} {{ $styleTamano }} w-100 mt-0 mb-0 pt-2 {{ $styleBold }} {{ $italicTitulo }}" id="parrafo-header" style="color: {{ $color }};">{{ $tituloTexto }}</p>
+            {{-- <p class="{{ $styleAlineacion }} {{ $styleTamano }} w-100 mt-0 mb-0 pt-2 {{ $styleBold }} {{ $italicTitulo }}" id="parrafo-header" style="color: {{ $color }};">{{ $tituloTexto }}</p> --}}
             <div class="d-flex justify-content-center pt-4">
-                <img class="img-fluid" id="logo_memoria" src="{{ '/storage/'.$imgLogo }}" alt="">
+                <img class="img-fluid" id="logo_memoria" src="{{ '/storage/'.$imgLogo }}" alt="" style="max-width: 250px;">
             </div>
             <div class="game">
                 <div class="controls">
@@ -325,10 +325,10 @@
         </div>
         <div class="win-game d-none" id="win-game">
             <div class="d-flex justify-content-center pt-4 w-100 mb-3">
-                <img class="img-fluid" src="{{ '/storage/'.$imgLogoPremio }}" alt="" id="img-header-premio">
+                <img class="img-fluid" src="{{ '/storage/'.$imgLogoPremio }}" alt="" id="img-header-premio" style="max-width: 350px;">
             </div>
             <div class="d-flex flex-column align-items-center justify-content-center w-100">
-                <img class="img-fluid" src="{{ $imgPremio }}" alt="">
+                <img class="img-fluid mb-2" src="{{ $imgPremio }}" alt="" style="max-width: 370px;">
                 <h4 class="text-white" style="font-weight: 700;">{{ $namePremio }}</h4>
             </div>
             <div class="{{ $styleBotones }} justify-content-center" id="btn_content">

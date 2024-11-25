@@ -223,22 +223,32 @@ $(document).ready(function() {
                     <div class="col-12 col-md-6 col-lg-3">
                         <label for=""><small><b>Premio ${premio.nro_premio}</b></small></label>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-5">
+                    <div class="col-12 col-md-6 col-lg-7">
                         <input type="hidden" name="nro_premio[]" id="nro_premio[]" value="${premio.nro_premio}">
-                        <label for="nombre_premio_1[]">Nombre del Premio ${premio.nro_premio}</label>
-                        <input type="text" name="nombre_premio_1[]" id="nombre_premio_1[]" class="form-control w-100 mb-3" value="${premio.nombre_premio}" required>
-
-                        <label for="stock_premio_1[]">Stock</label>
-                        <input type="text" name="stock_premio_1[]" id="stock_premio_1[]" class="form-control w-100 mb-3" value="${premio.stock}" min="1" required>
-
-                        <label for="probabilidad_premio_1[]">Probabilidad</label>
-                        <select name="probabilidad_premio_1[]" id="probabilidad_premio_1[]" class="form-select w-100" required>
-                            ${
-                                arrayProbabilidad.map(a => (
-                                    `<option value="${a}" ${premio.probabilidad == a ? 'selected' : ''} >${a}</option>`
-                                ))
-                            }
-                        </select>
+                        <div class="mb-2 row">
+                            <label for="nombre_premio_1[]" class="col-sm-4">Nombre del Premio ${premio.nro_premio}</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="nombre_premio_1[]" id="nombre_premio_1[]" class="form-control w-100 mb-3" value="${premio.nombre_premio}" required>
+                            </div>
+                        </div>
+                        <div class="mb-2 row">
+                            <label for="stock_premio_1[]" class="col-sm-4">Stock</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="stock_premio_1[]" id="stock_premio_1[]" class="form-control w-100 mb-3" value="${premio.stock}" min="1" required>
+                            </div>
+                        </div>
+                        <div class="mb-2 row">
+                            <label for="probabilidad_premio_1[]" class="col-sm-4">Probabilidad</label>
+                            <div class="col-sm-8">
+                                <select name="probabilidad_premio_1[]" id="probabilidad_premio_1[]" class="form-select w-100" required>
+                                    ${
+                                        arrayProbabilidad.map(a => (
+                                            `<option value="${a}" ${premio.probabilidad == a ? 'selected' : ''} >${a}</option>`
+                                        ))
+                                    }
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
             `;

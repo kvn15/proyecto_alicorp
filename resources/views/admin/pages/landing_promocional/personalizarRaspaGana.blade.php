@@ -382,7 +382,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="py-2 border-bottom">
+                <div class="py-2 border-bottom d-none">
                     <button class="header-edit-web" type="button" id="collapseTwoGame">
                         <p class="mb-0"><b><img src="{{asset('backend/svg/text.svg')}}" alt="svg seccion"> <small>Titulo</small></b></p>
                     </button>
@@ -617,8 +617,8 @@
             <div id="juego_casino_raspa" style="background-image: url('{{ $fondo }}'); background-size: cover; height: 100vh; position: relative;">
                 <div id="card-raspa">
                     <div class="text-header">
-                        <p id="parrafo-header" class="{{ $styleBold }} {{  $italicTitulo }} {{ $styleTamano }} {{ $styleAlineacion }}" style="color: #fff;">{{ $tituloTexto }}</p>
-                        <img id="logo_casino" src="{{ $logo_principal }}" alt="">
+                        <p id="parrafo-header" class="{{ $styleBold }} {{  $italicTitulo }} {{ $styleTamano }} {{ $styleAlineacion }} d-none" style="color: #fff;">{{ $tituloTexto }}</p>
+                        <img id="logo_casino" src="{{ $logo_principal }}" alt=""  style="max-width: 250px;">
                     </div>
                     <div class="container">
                         <div class="base">
@@ -632,10 +632,10 @@
                 </div>
                 <div id="card-premio" class="d-none">
                     <div class="d-flex justify-content-center pt-4 w-100 pb-4">
-                        <img class="img-fluid" src="{{ $titulo_subir }}" alt="" id="img-header-premio">
+                        <img class="img-fluid" src="{{ $titulo_subir }}" alt="" id="img-header-premio" style="max-width: 350px;">
                     </div>
                     <div class="d-flex flex-column align-items-center justify-content-center w-100">
-                        <img class="img-fluid" src="{{ $imgPremio }}" alt="" id="premio_img">
+                        <img class="img-fluid " src="{{ $imgPremio }}" alt="" id="premio_img" style="max-width: 400px;">
                         <h4 class="text-white my-2" style="font-weight: 700;">{{ $namePremio }}</h4>
                     </div>
                     <div class="{{ $styleBotones }} justify-content-center" id="btn_content">
