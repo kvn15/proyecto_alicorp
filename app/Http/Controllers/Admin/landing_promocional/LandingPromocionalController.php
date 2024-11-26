@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\landing_promocional;
 use App\Http\Controllers\Controller;
 use App\Models\AwardProject;
 use App\Models\GameView;
+use App\Models\KeepTrying;
 use App\Models\Landing;
 use App\Models\Participant;
 use App\Models\Project;
@@ -288,12 +289,14 @@ class LandingPromocionalController extends Controller
         $gameMemoria = GameView::where('project_id', $id)->first();
         $projectPremio = AwardProject::where('project_id', $id)->get();
         $premio = $this->obtenerPremio($id);
+        $sigueIntentando = KeepTrying::where('project_id', $id)->first();
 
         $data = [
             'project' => $project,
             'gameMemoria' => $gameMemoria,
             'projectPremio' => $projectPremio,
-            'premio' => $premio
+            'premio' => $premio,
+            'sigueIntentando' => $sigueIntentando
         ];
 
         return view('admin.pages.landing_promocional.personalizarMemoria', compact('data'));
@@ -306,12 +309,14 @@ class LandingPromocionalController extends Controller
         $gameRaspaGana = RaspaGana::where('project_id', $id)->first();
         $projectPremio = AwardProject::where('project_id', $id)->get();
         $premio = $this->obtenerPremio($id);
+        $sigueIntentando = KeepTrying::where('project_id', $id)->first();
 
         $data = [
             'project' => $project,
             'gameRaspaGana' => $gameRaspaGana,
             'projectPremio' => $projectPremio,
-            'premio' => $premio
+            'premio' => $premio,
+            'sigueIntentando' => $sigueIntentando
         ];
 
         return view('admin.pages.landing_promocional.personalizarRaspaGana', compact('data'));
@@ -325,13 +330,15 @@ class LandingPromocionalController extends Controller
         $projectPremio = AwardProject::where('project_id', $id)->get();
         $premioRuleta = DB::table('award_projects')->where('project_id', $id)->select('id', 'nombre_premio as name', DB::raw("CONCAT('/storage/', imagen) AS img"))->get();
         $premio = $this->obtenerPremio($id);
+        $sigueIntentando = KeepTrying::where('project_id', $id)->first();
 
         $data = [
             'project' => $project,
             'gameRuleta' => $gameRuleta,
             'projectPremio' => $projectPremio,
             'premio' => $premio,
-            'premioRuleta' => $premioRuleta
+            'premioRuleta' => $premioRuleta,
+            'sigueIntentando' => $sigueIntentando
         ];
 
         return view('admin.pages.landing_promocional.personalizarRuleta', compact('data'));
@@ -341,10 +348,16 @@ class LandingPromocionalController extends Controller
         // Obtener todos los premios con su probabilidad
         $premios = AwardProject::where('project_id', $projectId)->where('stock','>',0)->get();
         $project = Project::findOrFail($projectId);
+        $sigueIntentando = KeepTrying::where('project_id', $projectId)->first();
     
         // Crear un array acumulativo para la probabilidad
         $acumulado = [];
         $total = 0;
+
+        $rutaSigue = '';
+        if (isset($sigueIntentando) && !empty($sigueIntentando)) {
+            $rutaSigue = $sigueIntentando["imagen"];
+        }
     
         foreach ($premios as $premio) {
             $total += $premio->probabilidad;
@@ -359,7 +372,7 @@ class LandingPromocionalController extends Controller
         $acumulado[] = [
             'id' => 0,
             'nombre' => 'Sigue intentando',
-            'imagen' => '',
+            'imagen' => $rutaSigue,
             'prob_acum' => $total
         ];
     

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\AwardProject;
+use App\Models\KeepTrying;
 use App\Models\OtherParticipant;
 use App\Models\Participant;
 use App\Models\Project;
@@ -89,7 +90,32 @@ class RuletaController extends Controller
 
             $rutaTituloPremio = $request->file('premio-gano-subir')->store('ruleta', 'public'); // Almacena en storage/app/public/imagenes
         }
+
+        $sigueIntentandoBD = KeepTrying::where('project_id', $id)->first();
+
+        $sigueIntentando = isset($sigueIntentandoBD["imagen"])  && !empty($sigueIntentandoBD["imagen"]) && $request["sigue-intentando-subir-url"] != null ? $sigueIntentandoBD["imagen"] : "";
+        if ($request->hasFile('sigue-intentando-subir')) {
+            $sigueIntentando = $request->file('sigue-intentando-subir')->store('premios', 'public'); // Almacena en storage/app/public/imagenes
+        }
         
+        $imagen_no_premio = isset($sigueIntentandoBD["imagen_no_premio"])  && !empty($sigueIntentandoBD["imagen_no_premio"]) && $request["sigue-intentando-subir-url2"] != null ? $sigueIntentandoBD["imagen_no_premio"] : "";
+        if ($request->hasFile('sigue-intentando-subir2')) {
+            $imagen_no_premio = $request->file('sigue-intentando-subir2')->store('premios', 'public'); // Almacena en storage/app/public/imagenes
+        }
+
+
+        if (isset($sigueIntentandoBD) && !empty($sigueIntentandoBD)) {
+            $sigueIntentandoBD->update([
+                'imagen' => $sigueIntentando,
+                'imagen_no_premio' => $imagen_no_premio
+            ]);
+        } else {
+            KeepTrying::create([
+                'project_id' => $id,
+                'imagen' => $sigueIntentando,
+                'imagen_no_premio' => $imagen_no_premio
+            ]);
+        }
         
         $titulo_inicio = [
             'bold-titulo-parrafo' => isset($request['bold-titulo-parrafo']) ? 1 : 0,
@@ -233,6 +259,7 @@ class RuletaController extends Controller
         $projectPremio = AwardProject::where('project_id', $project->id)->get();
         $premioRuleta = DB::table('award_projects')->where('project_id', $project->id)->select('id', 'nombre_premio as name', DB::raw("CONCAT('/storage/', imagen) AS img"))->get();
         $premio = $this->obtenerPremio($project->id);
+        $sigueIntentando = KeepTrying::where('project_id', $project->id)->first();
 
         $data = [
             'idParticipante' => $idParticipante,
@@ -240,7 +267,8 @@ class RuletaController extends Controller
             'gameRuleta' => $gameRuleta,
             'projectPremio' => $projectPremio,
             'premio' => $premio,
-            'premioRuleta' => $premioRuleta
+            'premioRuleta' => $premioRuleta,
+            'sigueIntentando' => $sigueIntentando
         ];
 
         // Borrar la sesión

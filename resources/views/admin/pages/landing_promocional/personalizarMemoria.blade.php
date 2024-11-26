@@ -6,6 +6,9 @@
     $gameMemoria = $data["gameMemoria"]; 
     $projectPremio = $data["projectPremio"]; 
     $premioSelect = $data["premio"]; 
+    $sigueIntentando = $data["sigueIntentando"];
+
+    $urlSigue = isset($sigueIntentando["imagen"]) && !empty($sigueIntentando["imagen"]) ? '/storage/'.$sigueIntentando["imagen"] : '';
 @endphp
 
 @section('header_left')
@@ -613,8 +616,29 @@
                             </div>
                         </li>
                         @endforeach
+                        <li class="mb-2">
+                            <p class="mb-2">Sigue Intentando</p>
+                            <div class="img-subir">
+                                <button type="button" class="btn-delete-img">X</button>
+                                <label for="sigue-intentando-subir">
+                                    <div class="cursor">
+                                        <div id="upload-sigue" class="{{ isset($urlSigue) && !empty($urlSigue) ? 'd-none' : '' }} upload_img">
+                                            <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
+                                            <h6>Click para Actualizar</h6>
+                                            <p>PNG, JPG (max. 1,000x1,000px)</p>
+                                        </div>
+                                        <div>
+                                            <img class="img-fluid" id="preview-sigue" src="{{ $urlSigue }}">
+                                        </div>
+                                    </div>
+                                </label>
+                                <input hidden type="file" name="sigue-intentando-subir" id="sigue-intentando-subir">
+                                <input type="hidden" name="sigue-intentando-subir-url" id="sigue-intentando-subir-url" value="{{ $urlSigue }}">
+                            </div>
+                        </li>
                     </ul>
                 </div>
+                
             </div>
         </form>
         <div class="col-9 p-0 landing_page position-relative" id="juego_memoria" style="height: 100vh;">
@@ -1436,6 +1460,29 @@
                 btn.style.backgroundColor = this.value
             })
         })
+</script>
+
+<script>
+    
+    // const img_header_premio = document.getElementById("img-header-premio")
+    document.getElementById('sigue-intentando-subir').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const preview = document.getElementById('preview-sigue');
+                const upload = document.getElementById('upload-sigue')
+                const parentElement = preview.parentNode;
+                preview.src = e.target.result; // Establece la fuente de la imagen
+                preview.style.display = 'block'; // Muestra la imagen
+                upload.classList.add("d-none")
+                // img_header_premio.src = e.target.result;
+            };
+
+            reader.readAsDataURL(file); // Lee la imagen como una URL de datos
+        }
+    });
 </script>
 @endsection
 

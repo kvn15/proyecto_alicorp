@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\AwardProject;
+use App\Models\KeepTrying;
 use App\Models\OtherParticipant;
 use App\Models\Participant;
 use App\Models\Project;
@@ -91,6 +92,23 @@ class RaspaGanaController extends Controller
             }
 
             $rutaImgTitulo = $request->file('gano-subir')->store('imagenes', 'public'); // Almacena en storage/app/public/imagenes
+        }
+
+        $sigueIntentandoBD = KeepTrying::where('project_id', $id)->first();
+        $sigueIntentando = isset($sigueIntentandoBD["imagen"])  && !empty($sigueIntentandoBD["imagen"]) && $request["sigue-intentando-subir-url"] != null ? $sigueIntentandoBD["imagen"] : "";;
+        if ($request->hasFile('sigue-intentando-subir')) {
+            $sigueIntentando = $request->file('sigue-intentando-subir')->store('premios', 'public'); // Almacena en storage/app/public/imagenes
+        }
+
+        if (isset($sigueIntentandoBD) && !empty($sigueIntentandoBD)) {
+            $sigueIntentandoBD->update([
+                'imagen' => $sigueIntentando
+            ]);
+        } else {
+            KeepTrying::create([
+                'project_id' => $id,
+                'imagen' => $sigueIntentando
+            ]);
         }
 
         $titulo = [
@@ -388,10 +406,16 @@ class RaspaGanaController extends Controller
         // Obtener todos los premios con su probabilidad
         $premios = AwardProject::where('project_id', $projectId)->where('stock','>',0)->get();
         $project = Project::findOrFail($projectId);
+        $sigueIntentando = KeepTrying::where('project_id', $projectId)->first();
     
         // Crear un array acumulativo para la probabilidad
         $acumulado = [];
         $total = 0;
+
+        $rutaSigue = '';
+        if (isset($sigueIntentando) && !empty($sigueIntentando)) {
+            $rutaSigue = $sigueIntentando["imagen"];
+        }
     
         foreach ($premios as $premio) {
             $total += $premio->probabilidad;
@@ -406,7 +430,7 @@ class RaspaGanaController extends Controller
         $acumulado[] = [
             'id' => 0,
             'nombre' => 'Sigue intentando',
-            'imagen' => '',
+            'imagen' => $rutaSigue,
             'prob_acum' => $total
         ];
     

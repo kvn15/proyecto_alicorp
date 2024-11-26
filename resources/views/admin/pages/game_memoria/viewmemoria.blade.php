@@ -3,6 +3,10 @@
     $gameMemoria = $data["gameMemoria"]; 
     $premioSelect = $data["premio"]; 
     $idParticipante = $data["idParticipante"]; 
+    $sigueIntentando = $data["sigueIntentando"];
+    $imgNulo = asset('backend/svg/img-null.svg');
+
+    $urlSigue = isset($sigueIntentando["imagen"]) && !empty($sigueIntentando["imagen"]) ? '/storage/'.$sigueIntentando["imagen"] : $imgNulo;
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -230,7 +234,6 @@
         $premio = isset($gameMemoria) ? $gameMemoria->premio : '';
         $principalData = json_decode($principal, true);
         $premioData = json_decode($premio, true);
-        $imgNulo = asset('backend/svg/img-null.svg');
     
         // Principal
         $bgMemoria = isset($principalData["banner"]) && !empty($principalData["banner"]) ? "background-image: url('".'/storage/'.$principalData["banner"]."');" : "background-color: #EFF2F6;" ;

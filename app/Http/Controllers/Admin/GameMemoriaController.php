@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\AwardProject;
 use App\Models\GameView;
+use App\Models\KeepTrying;
 use App\Models\OtherParticipant;
 use App\Models\Participant;
 use App\Models\Project;
@@ -263,6 +264,24 @@ class GameMemoriaController extends Controller
         if ($request->hasFile('imagen-6-subir')) {
             $rutaImg6 = $request->file('imagen-6-subir')->store('game_memoria', 'public'); // Almacena en storage/app/public/imagenes
         }
+
+        $sigueIntentandoBD = KeepTrying::where('project_id', $id)->first();
+        $sigueIntentando = isset($sigueIntentandoBD["imagen"])  && !empty($sigueIntentandoBD["imagen"]) && $request["sigue-intentando-subir-url"] != null ? $sigueIntentandoBD["imagen"] : "";;
+        if ($request->hasFile('sigue-intentando-subir')) {
+            $sigueIntentando = $request->file('sigue-intentando-subir')->store('game_memoria', 'public'); // Almacena en storage/app/public/imagenes
+        }
+
+        if (isset($sigueIntentandoBD) && !empty($sigueIntentandoBD)) {
+            $sigueIntentandoBD->update([
+                'imagen' => $sigueIntentando
+            ]);
+        } else {
+            KeepTrying::create([
+                'project_id' => $id,
+                'imagen' => $sigueIntentando
+            ]);
+        }
+        
         
         $rutaGano = '';
 

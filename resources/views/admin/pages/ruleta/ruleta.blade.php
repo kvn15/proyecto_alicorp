@@ -5,6 +5,12 @@
     $premioSelect = $data["premio"]; 
     $premioRuleta = $data["premioRuleta"];
     $idParticipante = $data["idParticipante"];
+    $sigueIntentando = $data["sigueIntentando"];
+
+    $urlSigue = isset($sigueIntentando["imagen"]) && !empty($sigueIntentando["imagen"]) ? '/storage/'.$sigueIntentando["imagen"] : '';
+    $urlSigue2 = isset($sigueIntentando["imagen_no_premio"]) && !empty($sigueIntentando["imagen_no_premio"]) ? '/storage/'.$sigueIntentando["imagen_no_premio"] : '';
+    $imgSigue = isset($sigueIntentando["imagen"]) && !empty($sigueIntentando["imagen"]) ? '/storage/'.$sigueIntentando["imagen"] : asset('backend/svg/img-null.svg');
+    $imgSigue2 = isset($sigueIntentando["imagen_no_premio"]) && !empty($sigueIntentando["imagen_no_premio"]) ? '/storage/'.$sigueIntentando["imagen_no_premio"] : asset('backend/svg/img-null.svg');
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -461,7 +467,7 @@
         data.push({
             "id": 0,
             "name": 'Sigue Intentando',
-            "img": '{{ $imgNulo }}'
+            "img": '{{ $imgSigue }}'
         })
 
         let index = 0;

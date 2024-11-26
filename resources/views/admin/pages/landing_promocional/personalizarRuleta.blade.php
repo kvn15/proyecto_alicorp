@@ -7,6 +7,12 @@
     $projectPremio = $data["projectPremio"]; 
     $premioSelect = $data["premio"]; 
     $premioRuleta = $data["premioRuleta"];
+    $sigueIntentando = $data["sigueIntentando"];
+
+    $urlSigue = isset($sigueIntentando["imagen"]) && !empty($sigueIntentando["imagen"]) ? '/storage/'.$sigueIntentando["imagen"] : '';
+    $urlSigue2 = isset($sigueIntentando["imagen_no_premio"]) && !empty($sigueIntentando["imagen_no_premio"]) ? '/storage/'.$sigueIntentando["imagen_no_premio"] : '';
+    $imgSigue = isset($sigueIntentando["imagen"]) && !empty($sigueIntentando["imagen"]) ? '/storage/'.$sigueIntentando["imagen"] : asset('backend/svg/img-null.svg');
+    $imgSigue2 = isset($sigueIntentando["imagen_no_premio"]) && !empty($sigueIntentando["imagen_no_premio"]) ? '/storage/'.$sigueIntentando["imagen_no_premio"] : asset('backend/svg/img-null.svg');
 @endphp
 
 @section('header_left')
@@ -565,13 +571,13 @@
             </div>
             <div class="d-none" id="encabezado">
                 <div class="border-bottom py-2">
-                    <button type="button" class="border-0 w-100 text-start" style="background-color: #fff;" id="back_encabezado"><i class="fas fa-chevron-left"></i> Vista Premiación</button>
+                    <button type="button" class="border-0 w-100 text-start" style="background-color: #fff;" id="back_encabezado"><i class="fas fa-chevron-left"></i> Vista Gira</button>
                 </div>
                 <div class="py-2 border-bottom d-none">
                     <button class="header-edit-web" type="button"  id="collapseTwoGame2">
                         <p class="mb-0"><b><img src="{{asset('backend/svg/text.svg')}}" alt="svg seccion"> <small>Titulo</small></b></p>
                     </button>
-                    <ul class="list-unstyled ps-4 collapseTwoGame2" >
+                    <ul class="list-unstyled ps-4 d-none-2 collapseTwoGame2" >
                         <li class="my-2">
                             <p class="mb-1">Texto</p>
                             <div class="d-flex justify-content-start mb-2" style="gap: 1.2em;">
@@ -640,7 +646,7 @@
                         <p class="mb-0"><b><img src="{{asset('backend/svg/logo-imagen.svg')}}" alt="svg seccion"> <small>Logo</small></b></p>
                     </button>
     
-                    <ul class="list-unstyled ps-4 mt-2 d-none-2 collapseThreeGame2" >
+                    <ul class="list-unstyled ps-4 mt-2 collapseThreeGame2" >
                         <li>
                             <p class="mb-2">Logo</p>
                             <div class="img-subir">
@@ -702,6 +708,26 @@
                             </div>
                         </li>
                         @endforeach
+                        <li class="mb-2">
+                            <p class="mb-2">Sigue Intentando</p>
+                            <div class="img-subir">
+                                <button type="button" class="btn-delete-img">X</button>
+                                <label for="sigue-intentando-subir">
+                                    <div class="cursor">
+                                        <div id="upload-sigue" class="{{ isset($urlSigue) && !empty($urlSigue) ? 'd-none' : '' }} upload_img">
+                                            <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
+                                            <h6>Click para Actualizar</h6>
+                                            <p>PNG, JPG (max. 1,000x1,000px)</p>
+                                        </div>
+                                        <div>
+                                            <img class="img-fluid" id="preview-sigue" src="{{ $urlSigue }}">
+                                        </div>
+                                    </div>
+                                </label>
+                                <input hidden type="file" name="sigue-intentando-subir" id="sigue-intentando-subir">
+                                <input type="hidden" name="sigue-intentando-subir-url" id="sigue-intentando-subir-url" value="{{ $urlSigue }}">
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -813,6 +839,26 @@
                             </div>
                         </li>
                         @endforeach
+                        <li class="mb-2">
+                            <p class="mb-2">Sigue Intentando</p>
+                            <div class="img-subir">
+                                <button type="button" class="btn-delete-img">X</button>
+                                <label for="sigue-intentando-subir2">
+                                    <div class="cursor">
+                                        <div id="upload-sigue2" class="{{ isset($urlSigue2) && !empty($urlSigue2) ? 'd-none' : '' }} upload_img">
+                                            <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
+                                            <h6>Click para Actualizar</h6>
+                                            <p>PNG, JPG (max. 1,000x1,000px)</p>
+                                        </div>
+                                        <div>
+                                            <img class="img-fluid" id="preview-sigue2" src="{{ $urlSigue2 }}">
+                                        </div>
+                                    </div>
+                                </label>
+                                <input hidden type="file" name="sigue-intentando-subir2" id="sigue-intentando-subir2">
+                                <input type="hidden" name="sigue-intentando-subir-url2" id="sigue-intentando-subir-url2" value="{{ $urlSigue2 }}">
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -850,7 +896,7 @@
                     <div class="content_premio">
                         <img class="img-fluid mb-3" src="{{ $titulo_premio }}" alt="" id="logo_ganaste" style="max-width: 350px;">
                         @php
-                            $urlImagenPremio = isset($projectPremio[0]["imagen_premio"]) && !empty($projectPremio[0]["imagen_premio"]) ? '/storage/'.$projectPremio[0]["imagen_premio"] : $imgNulo;
+                            $urlImagenPremio = isset($projectPremio[0]["imagen_premio"]) && !empty($projectPremio[0]["imagen_premio"]) ? '/storage/'.$projectPremio[0]["imagen_premio"] : $imgSigue2;
                         @endphp
                         <div class="content_premio_img">
                             <img class="img-fluid" src="{{ $urlImagenPremio }}" alt="" id="premio_first" style="max-width: 400px;">
@@ -934,6 +980,50 @@
         $("#premiacion").addClass('d-none')
         $("#juego").removeClass('d-none')
         $("#fin_juego").addClass('d-none')
+    });
+</script>
+<script>
+    
+    // const img_header_premio = document.getElementById("img-header-premio")
+    document.getElementById('sigue-intentando-subir').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const preview = document.getElementById('preview-sigue');
+                const upload = document.getElementById('upload-sigue')
+                const parentElement = preview.parentNode;
+                preview.src = e.target.result; // Establece la fuente de la imagen
+                preview.style.display = 'block'; // Muestra la imagen
+                upload.classList.add("d-none")
+                // img_header_premio.src = e.target.result;
+            };
+
+            reader.readAsDataURL(file); // Lee la imagen como una URL de datos
+        }
+    });
+</script>
+<script>
+    
+    // const img_header_premio = document.getElementById("img-header-premio")
+    document.getElementById('sigue-intentando-subir2').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const preview = document.getElementById('preview-sigue2');
+                const upload = document.getElementById('upload-sigue2')
+                const parentElement = preview.parentNode;
+                preview.src = e.target.result; // Establece la fuente de la imagen
+                preview.style.display = 'block'; // Muestra la imagen
+                upload.classList.add("d-none")
+                // img_header_premio.src = e.target.result;
+            };
+
+            reader.readAsDataURL(file); // Lee la imagen como una URL de datos
+        }
     });
 </script>
 
@@ -1311,7 +1401,7 @@
 
         data.push({
             name: 'Sigue Intentando',
-            img: '{{ $imgNulo }}'
+            img: '{{ $imgSigue }}'
         })
 
         function randomColor() {
