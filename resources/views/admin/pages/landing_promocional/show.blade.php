@@ -68,7 +68,7 @@
                             <div class="item-etapa">
                                 <span class="title-etapa"><b>Fecha Fin</b></span>
                                 <div class="body-etapa">
-                                    <span>{{ $project->fecha_fin_proyecto ?? '-' }}</span>
+                                    <span>{{ $project["landing"]->fecha_fin_proyecto ?? '-' }}</span>
                                 </div>
                             </div>
                             <div class="item-etapa">

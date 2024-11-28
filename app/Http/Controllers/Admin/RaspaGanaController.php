@@ -385,7 +385,7 @@ class RaspaGanaController extends Controller
         }else { // Gano
             $participante->update([
                 'ganador' => 1,
-                'award_project_id ' => $request->premio_id,
+                'award_project_id' => $request->premio_id,
                 'fecha_premio' => Carbon::now()
             ]);
 
