@@ -68,7 +68,7 @@
     }
 
     .base {
-        background-color: #49ec88;
+        background-color: transparent;
         font-family: "Poppins", sans-serif;
         display: flex;
         flex-direction: column;
