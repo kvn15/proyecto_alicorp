@@ -321,7 +321,7 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
                 <h4 class="text-white my-2" style="font-weight: 700;">{{ $namePremio }}</h4>
             </div>
             <div class="{{ $styleBotones }} justify-content-center" id="btn_content">
-                <a href="{{ route($tipoJuego."juego.view.registro.raspagana", $project->dominio) }}" class="btn_premio" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">IR A REGISTRO</a>
+                <a href="{{ route($tipoJuego."juego.view.registro.raspagana", $project->dominio) }}" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">IR A REGISTRO</a>
                 <a href="" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">IR A HOME</a>
                 <a href="" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">VOLVER A JUGAR</a>
             </div>
