@@ -22,6 +22,19 @@
 @endsection
 
 @section('inicio_dash')
+<style>
+.btn-delete-img {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    border: 0;
+    background-color: #E62020;
+    color: #fff;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+}
+</style>
 <div class="row-show">
     <x-admin.menu-reg ruta="{{$project->project_type->ruta_name}}" id="{{ $project->id }}" />
     <div class="body-right">
@@ -251,25 +264,35 @@
                             <div class="col-12 col-md-6 col-lg-3">
                                 <label><small><b>Imagen del Fav Icon</b></small></label>
                             </div>
+                            @php
+                                $fav = isset($project->ruta_fav) && !empty($project->ruta_fav) ? '/storage/'.$project->ruta_fav  : '';
+                            @endphp
                             <div class="col-12 col-md-6 col-lg-5">
                                 <input hidden type="file" name="imagen" id="imagen">
-                                <label for="imagen" class="d-flex flex-column align-items-center imagen-draw-fav" style="gap: 0.3rem">
-                                    <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <rect x="3" y="3" width="40" height="40" rx="20" fill="#F2F4F7"/>
-                                        <rect x="3" y="3" width="40" height="40" rx="20" stroke="#F9FAFB" stroke-width="6"/>
-                                        <g clip-path="url(#clip0_141_1677)">
-                                        <path d="M26.3334 26.3332L23 22.9999M23 22.9999L19.6667 26.3332M23 22.9999V30.4999M29.9917 28.3249C30.8045 27.8818 31.4466 27.1806 31.8166 26.3321C32.1866 25.4835 32.2635 24.5359 32.0352 23.6388C31.8069 22.7417 31.2863 21.9462 30.5556 21.3778C29.8249 20.8094 28.9257 20.5005 28 20.4999H26.95C26.6978 19.5243 26.2277 18.6185 25.575 17.8507C24.9223 17.0829 24.1041 16.4731 23.1818 16.0671C22.2595 15.661 21.2572 15.4694 20.2501 15.5065C19.2431 15.5436 18.2576 15.8085 17.3677 16.2813C16.4778 16.7541 15.7066 17.4225 15.1122 18.2362C14.5178 19.05 14.1156 19.9879 13.9358 20.9794C13.7561 21.9709 13.8034 22.9903 14.0744 23.961C14.3453 24.9316 14.8327 25.8281 15.5 26.5832" stroke="#868686" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </g>
-                                        <defs>
-                                        <clipPath id="clip0_141_1677">
-                                        <rect width="20" height="20" fill="white" transform="translate(13 13)"/>
-                                        </clipPath>
-                                        </defs>
-                                    </svg>
-                                    
-                                    <small><b>Click para Actualizar</b></small>
-                                    <small>SVG,PNG,JPG (max. 250x250px)</small>
+                                <label for="imagen" class="imagen-draw-fav position-relative" style="gap: 0.3rem">
+                                    <button type="button" class="btn-delete-img">X</button>
+                                    <div id="upload-imagen" class="{{ empty($fav) ? 'd-flex' : 'd-none' }} flex-column align-items-center justify-content-center w-100">
+                                        <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect x="3" y="3" width="40" height="40" rx="20" fill="#F2F4F7"/>
+                                            <rect x="3" y="3" width="40" height="40" rx="20" stroke="#F9FAFB" stroke-width="6"/>
+                                            <g clip-path="url(#clip0_141_1677)">
+                                            <path d="M26.3334 26.3332L23 22.9999M23 22.9999L19.6667 26.3332M23 22.9999V30.4999M29.9917 28.3249C30.8045 27.8818 31.4466 27.1806 31.8166 26.3321C32.1866 25.4835 32.2635 24.5359 32.0352 23.6388C31.8069 22.7417 31.2863 21.9462 30.5556 21.3778C29.8249 20.8094 28.9257 20.5005 28 20.4999H26.95C26.6978 19.5243 26.2277 18.6185 25.575 17.8507C24.9223 17.0829 24.1041 16.4731 23.1818 16.0671C22.2595 15.661 21.2572 15.4694 20.2501 15.5065C19.2431 15.5436 18.2576 15.8085 17.3677 16.2813C16.4778 16.7541 15.7066 17.4225 15.1122 18.2362C14.5178 19.05 14.1156 19.9879 13.9358 20.9794C13.7561 21.9709 13.8034 22.9903 14.0744 23.961C14.3453 24.9316 14.8327 25.8281 15.5 26.5832" stroke="#868686" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </g>
+                                            <defs>
+                                            <clipPath id="clip0_141_1677">
+                                            <rect width="20" height="20" fill="white" transform="translate(13 13)"/>
+                                            </clipPath>
+                                            </defs>
+                                        </svg>
+                                        
+                                        <small><b>Click para Actualizar</b></small>
+                                        <small>SVG,PNG,JPG (max. 250x250px)</small>
+                                    </div>
+                                    <div id="preview-imagen" class="{{ empty($fav) ? 'd-none' : 'd-flex' }} flex-column align-items-center justify-content-center w-100">
+                                        <img alt="fav" id="img-fav-subir" src="{{ $fav }}" style="width:35px; height: 35px;">
+                                    </div>
                                  </label>
+                                 <input type="hidden" name="valor_img" id="valor_img" src="$fav">
                             </div>
                         </div>
                     </form>
@@ -451,6 +474,27 @@
         var estado = document.querySelector("#status");
         estado.value = "{{ $project->status }}"
     </script>
+    <script>
+        
+    const img_fav_subir = document.getElementById("img-fav-subir")
+    document.getElementById('imagen').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const preview = document.getElementById('preview-imagen');
+                const upload = document.getElementById('upload-imagen')
+                preview.style.display = 'flex'; // Muestra la imagen
+                upload.classList.add("d-none")
+                preview.classList.remove("d-none")
+                img_fav_subir.src = e.target.result;
+            };
+
+            reader.readAsDataURL(file); // Lee la imagen como una URL de datos
+        }
+    });
+    </script>
     <script src="{{ asset('backend/js/admin/configuracionLanding.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
 
@@ -597,5 +641,34 @@
             }
             obtenerCondiciones()
         });
+    </script>
+    <script>
+        
+    $(document).ready(function () {
+        $(document).on('click','.btn-delete-img', function () {
+            const valor_img = $(this).parent().parent().find('#valor_img');
+            const valorImg = $(this).parent().parent().find('#img-fav-subir');
+            const preview_img = $(this).parent().parent().find('#preview-imagen');
+            const upload_img = $(this).parent().parent().find('#upload-imagen');
+            const valor_file = $(this).parent().parent().find('input[type="file"]');
+            Swal.fire({
+                icon: 'question',
+                title: '¿Seguro de eliminar la imagen?',
+                showConfirmButton: true,
+                showCancelButton: true
+            }).then((swal) => {
+                if (swal.isConfirmed) {
+                    preview_img.removeClass('d-flex')
+                    preview_img.addClass('d-none');
+                    upload_img.removeClass('d-none')
+                    upload_img.addClass('d-flex');
+
+                    valorImg.attr('src', '')
+                    valor_file.val(null)
+                    valor_img.val(null)
+                }
+            })
+        });
+    });
     </script>
 @endsection

@@ -92,8 +92,10 @@ class ProjectController extends Controller
             return response()->json(['message' => 'Proyecto no encontrado.'], 404);
         }
 
+        $ruta = $request["valor_img"];
+
         // Almacenar la imagen en el directorio deseado
-        if ($request->hasFile('imagen')) {
+        if ($request->hasFile('imagen') && isset($request["imagen"])) {
             if(isset($project->ruta_fav) && !empty($project->ruta_fav)){
                 // Obtener la ruta de la imagen
                 $rutaFav = public_path($project->ruta_fav); // Suponiendo que la ruta está almacenada en 'ruta'
