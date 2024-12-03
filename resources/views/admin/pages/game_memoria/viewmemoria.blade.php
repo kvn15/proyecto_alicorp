@@ -338,7 +338,7 @@
                 <h4 class="text-white" style="font-weight: 700;" id="h4Premio">{{ $namePremio }}</h4>
             </div>
             <div class="{{ $styleBotones }} justify-content-center" id="btn_content">
-                <a href="{{ route($tipoJuego."juego.view.registro.ruleta", $project->dominio) }}" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }};">IR A REGISTRO</a>
+                <a href="{{ route($tipoJuego."juego.view.registro", $project->dominio) }}" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }};">IR A REGISTRO</a>
                 <a href="{{ route("index") }}" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }};">IR A HOME</a>
                 {{-- <a href="" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }};">VOLVER A JUGAR</a> --}}
             </div>
