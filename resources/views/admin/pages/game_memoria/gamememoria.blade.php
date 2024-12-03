@@ -159,10 +159,10 @@
             </div>
             <div class="row h-100 {{ $data["project"]->project_type_id == 3 ? 'd-none' : '' }}" id="form-registro">
                 <div class="col-12 col-lg-4 d-flex flex-column justify-content-center">
-                    <img class="img-fluid" src="{{ asset('img/games/HAZ MATCH 2.png') }}" alt="">
+                    <img class="img-fluid" src="{{ $imgLogo }}" alt="">
+                    {{-- <br>
                     <br>
-                    <br>
-                    <img class="img-fluid" src="{{ asset('img/games/LOGOS_memoria.png') }}" alt="">
+                    <img class="img-fluid" src="{{ asset('img/games/LOGOS_memoria.png') }}" alt=""> --}}
                 </div>
                 <div class="col-12 col-lg-8 ps-5 d-flex flex-column justify-content-center">
                     <h1 class="w-75 text-white border-bottom mb-5" style="font-weight: 700">REGISTRATE</h1>
