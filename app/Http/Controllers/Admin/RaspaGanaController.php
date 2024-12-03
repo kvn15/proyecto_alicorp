@@ -126,6 +126,16 @@ class RaspaGanaController extends Controller
             'color-btn-bg-input' => $request["color-btn-bg-input"]
         ];
 
+        $politica = [
+            "color-politica-btn" => $request["color-politica-btn"],
+            "politicas_value" => $request["politicas_value"]
+        ];
+
+        $termino = [
+            "color-termino-btn" => $request["color-termino-btn"],
+            "terminos_value" => $request["terminos_value"]
+        ];
+
 
         // Registra
         if (!isset($isRaspaGana)) {
@@ -138,6 +148,8 @@ class RaspaGanaController extends Controller
                 'imagen_raspar' => $rutaImgRaspar,
                 'titulo_subir' => $rutaImgTitulo,
                 'boton_premios' => json_encode($boton_premios, true),
+                'politicas' => json_encode($politica, true),
+                'terminos' => json_encode($termino, true),
             ]);
 
         } else { // Actualizar
@@ -150,6 +162,8 @@ class RaspaGanaController extends Controller
                 'imagen_raspar' => $rutaImgRaspar,
                 'titulo_subir' => $rutaImgTitulo,
                 'boton_premios' => json_encode($boton_premios, true),
+                'politicas' => json_encode($politica, true),
+                'terminos' => json_encode($termino, true),
             ]);
         }
         

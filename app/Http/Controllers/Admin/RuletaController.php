@@ -141,6 +141,16 @@ class RuletaController extends Controller
             'color-btn-bg-input' => $request["color-btn-bg-input"]
         ];
 
+        $politica = [
+            "color-politica-btn" => $request["color-politica-btn"],
+            "politicas_value" => $request["politicas_value"]
+        ];
+
+        $termino = [
+            "color-termino-btn" => $request["color-termino-btn"],
+            "terminos_value" => $request["terminos_value"]
+        ];
+
         // Registra
         if (!isset($isRuleta)) {
                     
@@ -153,6 +163,8 @@ class RuletaController extends Controller
                 'logo_juego' => $rutaLogoGame,
                 'titulo_premio' => $rutaTituloPremio,
                 'boton_premio' => json_encode($boton_premio, true),
+                'politicas' => json_encode($politica, true),
+                'terminos' => json_encode($termino, true),
             ]);
 
         } else { // Actualizar
@@ -166,6 +178,8 @@ class RuletaController extends Controller
                 'logo_juego' => $rutaLogoGame,
                 'titulo_premio' => $rutaTituloPremio,
                 'boton_premio' => json_encode($boton_premio, true),
+                'politicas' => json_encode($politica, true),
+                'terminos' => json_encode($termino, true),
             ]);
         }
 

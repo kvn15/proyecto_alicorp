@@ -192,23 +192,56 @@
             border-color: #E62020 !important;
             background-color: #E620200D;
         }
-.d-none-2 {
-    display: none;
-}
-.img-subir {
-    position: relative;
-}
-.btn-delete-img {
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    border: 0;
-    background-color: #E62020;
-    color: #fff;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-}
+        .d-none-2 {
+            display: none;
+        }
+        .img-subir {
+            position: relative;
+        }
+        .btn-delete-img {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            border: 0;
+            background-color: #E62020;
+            color: #fff;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+        }
+
+        .content_politicas_terminos {
+            width: 100%;
+            background-color: #ffffffec;
+            color: #005adc !important;
+            border-radius: 25px;
+        }
+
+        .content_politicas_terminos h1 {
+            font-weight: 700;
+            padding-bottom: 0.3em;
+            font-size: 3em;
+            border-bottom: 2px solid #005adc;
+        } 
+
+        .content_politicas_terminos p {
+            font-size: 22px;
+            font-weight: 400;
+        }
+
+        .btn_politicas, .btn_terminos {
+            background-color: #005adc;
+            color: #fff;
+            border: 0;
+            font-size: 1.5em;
+            font-weight: 500;
+            border-radius: 35px;
+            padding: 0.3em 1.5em
+        }
+
+        .btn_politicas:hover, .btn_terminos:hover {
+            color: #fff;
+        }
 </style>
 
 <script>
@@ -303,7 +336,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <form id="form-raspa-gana" action="{{ route($tipoJuego."juego2.post.registro.personalizar", $project->id) }}" method="POST" enctype="multipart/form-data" class="col-2 border-end" style="overflow-y: scroll; height: 100vh;">
+        <form id="form-raspa-gana" action="{{ route($tipoJuego."juego2.post.registro.personalizar", $project->id) }}" method="POST" enctype="multipart/form-data" class="col-3 border-end" style="overflow-y: scroll; height: 100vh;">
             @csrf
             @method('POST')
             <div class="d-block" id="menu_edit">
@@ -349,6 +382,24 @@
                         <li>
                             <img src="{{asset('backend/svg/boton.svg')}}" alt="svg seccion">
                             <small>Botón</small>
+                        </li>
+                    </ul>
+                </div>
+                <div class="py-2 border-bottom cursor" id="politicas-menu">
+                    <p class="mb-0"><b>Política de privacidad</b></p>
+                    <ul class="list-unstyled ps-4">
+                        <li>
+                            <img src="{{asset('backend/svg/cuadro-titulo.svg')}}" alt="svg imagen">
+                            <small>Bloque Política de privacidad</small>
+                        </li>
+                    </ul>
+                </div>
+                <div class="py-2 border-bottom cursor" id="terminos-menu">
+                    <p class="mb-0"><b>Terminos y Condiciones</b></p>
+                    <ul class="list-unstyled ps-4">
+                        <li>
+                            <img src="{{asset('backend/svg/cuadro-titulo.svg')}}" alt="svg imagen">
+                            <small>Bloque Terminos y Condiciones</small>
                         </li>
                     </ul>
                 </div>
@@ -521,7 +572,7 @@
 
                     <ul class="list-unstyled ps-4 mt-2 collapseOnePremio" >
                         <li>
-                            <p class="mb-2">Titulo Ganastes</p>
+                            <p class="mb-2">Titulo</p>
                             <div class="img-subir">
                                 <button type="button" class="btn-delete-img">X</button>
                                 <label for="gano-subir">
@@ -635,8 +686,69 @@
                     </ul>
                 </div>
             </div>
+            <div class="d-none" id="politicas">
+                @php
+                $politicas = isset($gameRaspaGana["politicas"]) && !empty($gameRaspaGana["politicas"]) && !empty(json_decode($gameRaspaGana["politicas"], true)['politicas_value']) ? json_decode($gameRaspaGana["politicas"], true)['politicas_value'] : 'Conste por el presente documento, yo ____________, identificado con _______________, (en adelante él/la "CEDENTE"), expresa su voluntad expresa de ceder de forma gratuita, a favor de ALICORP S.A.A., con RUC Nº 20100055237, con domicilio legal  en avenida Argentina 4793, Carmen de la Legua Reynoso, Callao y a sus subsidiarias (en adelante, ALICORP o la EMPRESA), los derechos de explotación y uso de su imagen, cesión que se realiza sin limitación alguna, de acuerdo al artículo 15 del código civil; en los términos que se detallan a continuación:
+                        PRIMERO: OBJETO DE SESIÓN
+                        <br>
+                        <br>
+                        1.1. Él, La CEDENTE cede y transfiere de forma total e integra, gratuita e ilimitada a nivel mundial, a LA EMPRESA todos los derechos de uso de su imagen que aparecerá en el video, fotografías y cualquier otro medio de captación de imágenes que elaborará y será de propiedad de LA EMPRESA.';
+                $colorPolitica = isset($gameRaspaGana["politicas"]) && !empty($gameRaspaGana["politicas"]) && !empty(json_decode($gameRaspaGana["politicas"], true)['color-politica-btn']) ? json_decode($gameRaspaGana["politicas"], true)['color-politica-btn'] : '#2347fb';
+                @endphp
+                <div class="border-bottom py-2">
+                    <button type="button"  class="border-0 w-100 text-start" style="background-color: #fff;" id="back_politicas"><i class="fas fa-chevron-left"></i> Vista Política de privacidad</button>
+                </div>
+                
+
+                <div class="py-2 border-bottom">
+                    <ul class="list-unstyled ps-4 mt-2">
+                        <li>
+                            <p class="mb-2">Color Base</p>
+                            
+                            <div class="d-flex" role="group" style="gap: 0.4em;">
+                                <input type="text" class="form-control" id="color-politica-btn" name="color-politica-btn" value="{{ $colorPolitica }}">
+                                <input type="color" class="form-control form-control-color p-0" id="politica-btn" value="{{ $colorPolitica }}">
+                            </div>
+                        </li>
+                        <li>
+                            <p class="mb-2">Texto</p>
+                            
+                            <textarea name="politicas_text" id="politicas_text" cols="30" rows="10" class="form-control">{{ str_replace('<br>', '', $politicas) }}</textarea>
+                            <input type="hidden" name="politicas_value" id="politicas_value" value="{{ $politicas }}">
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="d-none" id="terminos">
+                @php
+                    $terminos = isset($gameRaspaGana["terminos"]) && !empty($gameRaspaGana["terminos"]) && !empty(json_decode($gameRaspaGana["terminos"], true)['terminos_value']) ? json_decode($gameRaspaGana["terminos"], true)['terminos_value'] : "Vigencia: Lima: del 15.03.2024 al 17.05.2024, Provincia: del 22.03.2024 al 07.04.2024, los días viernes, sábados y domingos, de 9:00 a.m. a 2:00 p.m. Válida en los mercados participantes de las ciudades de Lima, Arequipa, Trujillo, Huancayo y Chiclayo. Participan solo mayores de 18 años que realicen en el mercado participante la compra mínima de: (i) de 02 pastas corta o larga Don Vittorio, en cualquiera de sus presentaciones y (ii) ubiquen a la impulsadora, quien les permitirá participar en el “Juego de la Ruleta Virtual” y según el resultado podrá llevarse o no, uno de los premios disponibles. Stock total de premios en los mercados participantes: Lima: (i) 500 kits Don Vittorio (incluye: 01 bolso notex, 01 spaguetti Don Vittorio de 450g, 01 salsa roja Don Vittorio de 200 g), (ii) 225 coladores, (iii) 500 cucharones de pasta, Provincia: (i) 180 kits N°1 Don Vittorio (incluye: 01 bolso notex, 01 spaguetti Don Vittorio de 450 g), (ii) 222 kits N°2 Don Vittorio (incluye: 01 bolso notex, 01 codito Don Vittorio de 250 g), 300 kits N°3 Don Vittorio (incluye: 01 bolso notex, 01 salsa roja Don Vittorio de 200 g). Más información en https://www.alicorp.com.pe/pe/es/promociones/ o al número 01 7089300.";
+                    $colorTermino = isset($gameRaspaGana["terminos"]) && !empty($gameRaspaGana["terminos"]) && !empty(json_decode($gameRaspaGana["terminos"], true)['color-termino-btn']) ? json_decode($gameRaspaGana["terminos"], true)['color-termino-btn'] : '#2347fb';
+                @endphp
+                <div class="border-bottom py-2">
+                    <button type="button"  class="border-0 w-100 text-start" style="background-color: #fff;" id="back_terminos"><i class="fas fa-chevron-left"></i> Vista Terminos y Condiciones</button>
+                </div>
+                
+                <div class="py-2 border-bottom">
+                    <ul class="list-unstyled ps-4 mt-2">
+                        <li>
+                            <p class="mb-2">Color Base</p>
+                            
+                            <div class="d-flex" role="group" style="gap: 0.4em;">
+                                <input type="text" class="form-control" id="color-termino-btn" name="color-termino-btn" value="{{ $colorTermino }}">
+                                <input type="color" class="form-control form-control-color p-0" id="termino-btn" value="{{ $colorTermino }}">
+                            </div>
+                        </li>
+                        <li>
+                            <p class="mb-2">Texto</p>
+                            
+                            <textarea name="terminos_text" id="terminos_text" cols="30" rows="10" class="form-control">{{ str_replace('<br>', '', $terminos) }}</textarea>
+                            <input type="hidden" name="terminos_value" id="terminos_value" value="{{ $terminos }}">
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </form>
-        <div class="col-10 p-0">
+        <div class="col-9 p-0">
             <div id="juego_casino_raspa" style="background-image: url('{{ $fondo }}'); background-size: cover; height: 100vh; position: relative;">
                 <div id="card-raspa">
                     <div class="text-header">
@@ -662,8 +774,37 @@
                         <h4 class="text-white my-2" style="font-weight: 700;">{{ $namePremio }}</h4>
                     </div>
                     <div class="{{ $styleBotones }} justify-content-center" id="btn_content">
+                        <a href="" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }};">IR A REGISTRO</a>
                         <a href="" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">IR A HOME</a>
-                        <a href="" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">VOLVER A JUGAR</a>
+                        {{-- <a href="" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">VOLVER A JUGAR</a> --}}
+                    </div>
+                </div>
+                <div class="container w-100 h-100 d-flex align-items-center d-none" id="poltica-privacidad">
+                    <div class="content_politicas_terminos text-center p-5">
+                        <h1 class="w-75 m-auto text_politicas_color" style="color: {{ $colorPolitica }} !important;border-color: {{ $colorPolitica }} !important;">POLÍTICA DE PRIVACIDAD</h1>
+                        <p class="mt-4 text_politicas_color" id="text_politicas" style="color: {{ $colorPolitica }} !important;">
+                            @php
+                                echo $politicas;
+                            @endphp
+                        </p>
+                        <div class="d-flex justify-content-between mt-5">
+                            <button type="button" class="btn_politicas text-uppercase" id="aceptar_politica" style="background-color: {{ $colorPolitica }} !important;">Aceptar y contnuar</button>
+                            <a href="{{ route('index') }}" class="btn_politicas text-uppercase" style="text-decoration: none; background-color: {{ $colorPolitica }} !important;">No Aceptar y salir</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="container w-100 h-100 d-flex align-items-center d-none" id="terminos-condiciones">
+                    <div class="content_politicas_terminos text-center p-5">
+                        <h1 class="w-75 m-auto text_terminos_color" style="color: {{ $colorTermino }} !important;border-color: {{ $colorTermino }} !important;">TÉRMINOS Y CONDICIONES</h1>
+                        <p class="mt-4 text_terminos_color" id="text_terminos" style="color: {{ $colorTermino }} !important;">
+                            @php
+                                echo $terminos;
+                            @endphp
+                        </p>
+                        <div class="d-flex justify-content-between mt-5">
+                            <button type="submit" class="btn_terminos text-uppercase" id="aceptar_terminos" style="background-color: {{ $colorTermino }} !important;">Aceptar y contnuar</button>
+                            <a href="{{ route('index') }}" class="btn_terminos text-uppercase" style="text-decoration: none; background-color: {{ $colorTermino }} !important;">No Aceptar y salir</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -802,7 +943,7 @@
     context.globalCompositeOperation = "destination-out";
     context.beginPath();
     //arc makes circle - x,y,radius,start angle,end angle
-    context.arc(x, y, 22,-20, 0);
+    context.arc(x, y, 30,-20, 0);
     context.fill();
     };
 
@@ -860,6 +1001,54 @@
 
         card_premio.classList.remove('d-block'); 
         card_premio.classList.add('d-none'); 
+        card_raspa.classList.add('d-block'); 
+        card_raspa.classList.remove('d-none'); 
+        retornoMenuEdit();
+    })
+
+    const politicas = document.getElementById("politicas");
+    const back_politicas = document.getElementById("back_politicas");
+    const politicas_menu = document.getElementById("politicas-menu");
+    const poltica_privacidad = document.getElementById("poltica-privacidad");
+
+    politicas_menu.addEventListener('click', function() {
+        retornoMenuEditNone();
+        politicas.classList.add('d-block'); 
+        politicas.classList.remove('d-none'); 
+        poltica_privacidad.classList.remove('d-none'); 
+        
+        card_raspa.classList.remove('d-block'); 
+        card_raspa.classList.add('d-none'); 
+    })
+    back_politicas.addEventListener('click', () => {
+        politicas.classList.remove('d-block'); 
+        politicas.classList.add('d-none'); 
+        poltica_privacidad.classList.add('d-none'); 
+        
+        card_raspa.classList.add('d-block'); 
+        card_raspa.classList.remove('d-none'); 
+        retornoMenuEdit();
+    })
+
+    const terminos = document.getElementById("terminos");
+    const back_terminos = document.getElementById("back_terminos");
+    const terminos_menu = document.getElementById("terminos-menu");
+    const terminos_condiciones = document.getElementById("terminos-condiciones");
+    
+    terminos_menu.addEventListener('click', function() {
+        retornoMenuEditNone();
+        terminos.classList.add('d-block'); 
+        terminos.classList.remove('d-none'); 
+        terminos_condiciones.classList.remove('d-none'); 
+        
+        card_raspa.classList.remove('d-block'); 
+        card_raspa.classList.add('d-none'); 
+    })
+    back_terminos.addEventListener('click', () => {
+        terminos.classList.remove('d-block'); 
+        terminos.classList.add('d-none'); 
+        terminos_condiciones.classList.add('d-none'); 
+        
         card_raspa.classList.add('d-block'); 
         card_raspa.classList.remove('d-none'); 
         retornoMenuEdit();
@@ -1274,6 +1463,50 @@
     $("#back_configuracion").click(function (e) { 
         e.preventDefault();
         window.location.href = '{{ $rutaCon }}'
+    });
+</script>
+<script>
+    $("#politicas_text").on('keyup', function (e) {
+        const valor = e.target.value;
+        var textoPoliticas = valor.toString();
+        const texto =  textoPoliticas.replace(/\n/g, '<br>')
+        $("#politicas_value").val(texto);
+        $("#text_politicas").html(texto)
+    });
+    $("#terminos_text").on('keyup', function (e) {
+        const valor = e.target.value;
+        var textoPoliticas = valor.toString();
+        const texto =  textoPoliticas.replace(/\n/g, '<br>')
+        $("#terminos_value").val(texto);
+        $("#text_terminos").html(texto)
+    });
+
+    $("#color-politica-btn").on('input', function (event) {
+        $("#politica-btn").val(event.target.value);
+        $(".text_politicas_color").css('color', event.target.value);
+        $(".text_politicas_color").css('border-color', event.target.value);
+        $(".btn_politicas").css('background-color', event.target.value);
+    });
+
+    $("#politica-btn").on('input', function (event) {
+        $("#color-politica-btn").val(event.target.value);
+        $(".text_politicas_color").css('color', event.target.value);
+        $(".text_politicas_color").css('border-color', event.target.value);
+        $(".btn_politicas").css('background-color', event.target.value);
+    });
+
+    $("#color-termino-btn").on('input', function (event) {
+        $("#termino-btn").val(event.target.value);
+        $(".text_terminos_color").css('color', event.target.value);
+        $(".text_terminos_color").css('border-color', event.target.value);
+        $(".btn_terminos").css('background-color', event.target.value);
+    });
+
+    $("#termino-btn").on('input', function (event) {
+        $("#color-termino-btn").val(event.target.value);
+        $(".text_terminos_color").css('color', event.target.value);
+        $(".text_terminos_color").css('border-color', event.target.value);
+        $(".btn_terminos").css('background-color', event.target.value);
     });
 </script>
 @endsection

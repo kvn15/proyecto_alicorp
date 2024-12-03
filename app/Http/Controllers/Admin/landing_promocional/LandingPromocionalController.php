@@ -52,14 +52,16 @@ class LandingPromocionalController extends Controller
         $endDate = Carbon::now()->endOfYear(); // O puedes usar otra fecha como '2024-12-31'
         $meses = [];
 
-        while ($startDate->lte($endDate)) {
-            $monthName = $startDate->translatedFormat('F'); // Nombre del mes en español
-            if (!in_array($monthName, $meses)) {
-                $meses[] = $monthName;
-            }
-            $startDate->addMonth(); // Sumar un mes
-        }
-        $meses = array_map('ucfirst', $meses);
+        // while ($startDate->lte($endDate)) {
+        //     $monthName = $startDate->translatedFormat('F'); // Nombre del mes en español
+        //     if (!in_array($monthName, $meses)) {
+        //         $meses[] = $monthName;
+        //     }
+        //     $startDate->addMonth(); // Sumar un mes
+        // }
+        // $meses = array_map('ucfirst', $meses);
+        
+        $meses = $this->obtenerUltimos12Meses();
 
         // obtener las vistas x mes
         $vistas = $this->arrayVistas($id);
@@ -102,14 +104,15 @@ class LandingPromocionalController extends Controller
         $endDate = Carbon::now()->endOfYear(); // O puedes usar otra fecha como '2024-12-31'
         $meses = [];
  
-        while ($startDate->lte($endDate)) {
-            $monthName = $startDate->translatedFormat('F'); // Nombre del mes en español
-            if (!in_array($monthName, $meses)) {
-                $meses[] = $monthName;
-            }
-            $startDate->addMonth(); // Sumar un mes
-         }
-        $meses = array_map('ucfirst', $meses);
+        // while ($startDate->lte($endDate)) {
+        //     $monthName = $startDate->translatedFormat('F'); // Nombre del mes en español
+        //     if (!in_array($monthName, $meses)) {
+        //         $meses[] = $monthName;
+        //     }
+        //     $startDate->addMonth(); // Sumar un mes
+        //  }
+        // $meses = array_map('ucfirst', $meses);
+        $meses = $this->obtenerUltimos12Meses();
 
         // obtener las vistas x mes
         $vistas = $this->arrayVistas($id);
@@ -184,51 +187,79 @@ class LandingPromocionalController extends Controller
 
     // metodos
     public function arrayVistas($id) {
+        $meses = [];
+        $fechaActual = Carbon::now();
+
+        for ($i = 0; $i < 12; $i++) {
+            $meses[$fechaActual->format('Y-m')] = [
+                'mes' => ucfirst($fechaActual->locale('es')->isoFormat('MMMM')), // Nombre del mes
+                'count' => 0, // Valor predeterminado
+            ];
+            $fechaActual->subMonth();
+        }
+
         $vistasPorMes = ViewProject::selectRaw('DATE_FORMAT(created_at, "%Y-%m") as month, COUNT(*) as count')
                     ->where('project_id', $id)
                     ->groupBy('month')
                     ->orderBy('month')
                     ->get();
-        // Inicializar el array de resultados con 0
-        $resultado = array_fill(0, 12, 0); // Un array de 12 elementos inicializados en 0
-
-        // Obtener el mes de inicio
-        $primerMes = null;
-
+                    
+        // Reemplazar los valores en el array base si existen datos
         foreach ($vistasPorMes as $vista) {
-            $month = Carbon::createFromFormat('Y-m', $vista->month);
-            if (is_null($primerMes)) {
-                $primerMes = $month->month; // Guardar el primer mes encontrado
+            if (isset($meses[$vista->month])) {
+                $meses[$vista->month]['count'] = $vista->count;
             }
-            $resultado[$month->month - 1] = $vista->count; // Guardar el conteo en la posición correspondiente
         }
 
-        // Ajustar el array para comenzar en el mes donde se creó la primera vista
-        return array_slice($resultado, $primerMes - 1);
+        // Convertir a array final
+        $resultado = array_values($meses);
+
+        $retornoValor = [];
+
+        foreach ($resultado as $key => $value) {
+            array_unshift($retornoValor, $value["count"]);
+        }
+
+        // Retornar o procesar el resultado
+        return $retornoValor;
     }
 
     public function arrayParticipante($id) {
+        $meses = [];
+        $fechaActual = Carbon::now();
+
+        for ($i = 0; $i < 12; $i++) {
+            $meses[$fechaActual->format('Y-m')] = [
+                'mes' => ucfirst($fechaActual->locale('es')->isoFormat('MMMM')), // Nombre del mes
+                'count' => 0, // Valor predeterminado
+            ];
+            $fechaActual->subMonth();
+        }
+
         $participantePorMes = Participant::selectRaw('DATE_FORMAT(created_at, "%Y-%m") as month, COUNT(*) as count')
                     ->where('project_id', $id)
                     ->groupBy('month')
                     ->orderBy('month')
                     ->get();
-        // Inicializar el array de resultados con 0
-        $resultado = array_fill(0, 12, 0); // Un array de 12 elementos inicializados en 0
-
-        // Obtener el mes de inicio
-        $primerMes = null;
-
-        foreach ($participantePorMes as $partcipante) {
-            $month = Carbon::createFromFormat('Y-m', $partcipante->month);
-            if (is_null($primerMes)) {
-                $primerMes = $month->month; // Guardar el primer mes encontrado
+        
+        // Reemplazar los valores en el array base si existen datos
+        foreach ($participantePorMes as $participante) {
+            if (isset($meses[$participante->month])) {
+                $meses[$participante->month]['count'] = $participante->count;
             }
-            $resultado[$month->month - 1] = $partcipante->count; // Guardar el conteo en la posición correspondiente
         }
 
-        // Ajustar el array para comenzar en el mes donde se creó la primera vista
-        return array_slice($resultado, $primerMes - 1);
+        // Convertir a array final
+        $resultado = array_values($meses);
+
+        $retornoValor = [];
+
+        foreach ($resultado as $key => $value) {
+            array_unshift($retornoValor, $value["count"]);
+        }
+
+        // Retornar o procesar el resultado
+        return $retornoValor;
     }
 
     public function VistasUltimos7Dias($id)  {
@@ -389,5 +420,19 @@ class LandingPromocionalController extends Controller
                 ];
             }
         }
+    }
+
+    public function obtenerUltimos12Meses()
+    {
+        $ultimosMeses = [];
+        $fechaActual = Carbon::now(); // Fecha actual usando Carbon
+
+        for ($i = 0; $i < 12; $i++) {
+            $mes = $fechaActual->locale('es')->isoFormat('MMMM'); // Nombre del mes en español
+            array_unshift($ultimosMeses, ucfirst($mes)); // Capitalizar la primera letra
+            $fechaActual->subMonth(); // Restar un mes
+        }
+
+        return $ultimosMeses;
     }
 }

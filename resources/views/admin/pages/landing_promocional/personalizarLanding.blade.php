@@ -275,7 +275,7 @@
                                     <div id="upload-logo" class="{{ isset($logo_subir_url) && !empty($logo_subir_url) ? 'd-none' : '' }} upload_img">
                                         <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                         <h6>Click para Actualizar</h6>
-                                        <p>PNG, JPG (max. 1,000x1,000px)</p>
+                                        <p>PNG, JPG (max. 140px x 55 px)</p>
                                     </div>
                                     <div>
                                         <img class="img-fluid" id="preview-logo" src="{{ $logo_subir_url }}">
@@ -406,12 +406,12 @@
 
             $tamanoTituloHeader1 = $pagina_principal && $pagina_principal["tamanoTitulo"] == 1 ? 'checked' : '';
             $tamanoTituloHeader2 = $pagina_principal && $pagina_principal["tamanoTitulo"] == 2 ? 'checked' : '';
-            $tamanoTituloHeader3 = $pagina_principal && $pagina_principal["tamanoTitulo"] == 2 ? 'checked' : '';
+            $tamanoTituloHeader3 = $pagina_principal && $pagina_principal["tamanoTitulo"] == 3 ? 'checked' : '';
             $styleTamanoTituloHeader = $pagina_principal && $pagina_principal["tamanoTitulo"]  == 1 ? "fs-6" : ($pagina_principal && $pagina_principal["tamanoTitulo"]  == 2 ? "fs-3"  :  ($pagina_principal && $pagina_principal["tamanoTitulo"]  == 3 ? "fs-1"  : ""));
             
             $alineacionTitulo1 = $pagina_principal && $pagina_principal["alineacionTitulo"] == 1 ? 'checked' : '';
             $alineacionTitulo2 = $pagina_principal && $pagina_principal["alineacionTitulo"] == 2 ? 'checked' : '';
-            $alineacionTitulo3 = $pagina_principal && $pagina_principal["alineacionTitulo"] == 2 ? 'checked' : '';
+            $alineacionTitulo3 = $pagina_principal && $pagina_principal["alineacionTitulo"] == 3 ? 'checked' : '';
             $stylealineacionTitulo = $pagina_principal && $pagina_principal["alineacionTitulo"]  == 1 ? "text-start" : ($pagina_principal && $pagina_principal["alineacionTitulo"]  == 2 ? "text-center"  :  ($pagina_principal && $pagina_principal["alineacionTitulo"]  == 3 ? "text-end"  : "text-center"));
             
             $color_titulo = $pagina_principal && $pagina_principal["color-titulo"] ? $pagina_principal["color-titulo"] : '#ffffff';
@@ -426,12 +426,12 @@
 
             $tamanoTextoHeader1 = $pagina_principal && $pagina_principal["tamanoTexto"] == 1 ? 'checked' : '';
             $tamanoTextoHeader2 = $pagina_principal && $pagina_principal["tamanoTexto"] == 2 ? 'checked' : '';
-            $tamanoTextoHeader3 = $pagina_principal && $pagina_principal["tamanoTexto"] == 2 ? 'checked' : '';
+            $tamanoTextoHeader3 = $pagina_principal && $pagina_principal["tamanoTexto"] == 3 ? 'checked' : '';
             $styletamanoTextoHeader = $pagina_principal && $pagina_principal["tamanoTexto"]  == 1 ? "fs-6" : ($pagina_principal && $pagina_principal["tamanoTexto"]  == 2 ? "fs-3"  :  ($pagina_principal && $pagina_principal["tamanoTexto"]  == 3 ? "fs-1"  : ""));
             
             $alineacionTexto1 = $pagina_principal && $pagina_principal["alineacionTexto"] == 1 ? 'checked' : '';
             $alineacionTexto2 = $pagina_principal && $pagina_principal["alineacionTexto"] == 2 ? 'checked' : '';
-            $alineacionTexto3 = $pagina_principal && $pagina_principal["alineacionTexto"] == 2 ? 'checked' : '';
+            $alineacionTexto3 = $pagina_principal && $pagina_principal["alineacionTexto"] == 3 ? 'checked' : '';
             $stylealineacionTexto = $pagina_principal && $pagina_principal["alineacionTexto"]  == 1 ? "text-start" : ($pagina_principal && $pagina_principal["alineacionTexto"]  == 2 ? "text-center"  :  ($pagina_principal && $pagina_principal["alineacionTexto"]  == 3 ? "text-end"  : "text-center"));
         
             $color_texto = $pagina_principal && $pagina_principal["color-texto"] ? $pagina_principal["color-texto"] : '#ffffff';
@@ -450,7 +450,7 @@
 
             $tamanoBotonHeader1 = $pagina_principal && $pagina_principal["tamanoBotonHeader"] == 1 ? 'checked' : '';
             $tamanoBotonHeader2 = $pagina_principal && $pagina_principal["tamanoBotonHeader"] == 2 ? 'checked' : '';
-            $tamanoBotonHeader3 = $pagina_principal && $pagina_principal["tamanoBotonHeader"] == 2 ? 'checked' : '';
+            $tamanoBotonHeader3 = $pagina_principal && $pagina_principal["tamanoBotonHeader"] == 3 ? 'checked' : '';
             $styletamanoBotonHeader = $pagina_principal && $pagina_principal["tamanoBotonHeader"]  == 1 ? "fs-6" : ($pagina_principal && $pagina_principal["tamanoBotonHeader"]  == 2 ? "fs-3"  :  ($pagina_principal && $pagina_principal["tamanoBotonHeader"]  == 3 ? "fs-1"  : ""));
         
             $color_boton_header = $pagina_principal && $pagina_principal["color-boton-header"] ? $pagina_principal["color-boton-header"] : '#ffffff';
@@ -492,7 +492,7 @@
                                     <div id="upload-banner" class="{{ isset($banner_subir_url) && !empty($banner_subir_url) ? 'd-none' : '' }} upload_img">
                                         <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                         <h6>Click para Actualizar</h6>
-                                        <p>PNG, JPG (max. 1,000x1,000px)</p>
+                                        <p>PNG, JPG (max. 1040x750 px)</p>
                                     </div>
                                     <div>
                                         <img class="img-fluid" id="preview-banner" src="{{ $banner_subir_url }}">
@@ -755,7 +755,7 @@
 
             $tamanoTituloComo1 = $como_participar && $como_participar["tamanoTituloComo"] == 1 ? 'checked' : '';
             $tamanoTituloComo2 = $como_participar && $como_participar["tamanoTituloComo"] == 2 ? 'checked' : '';
-            $tamanoTituloComo3 = $como_participar && $como_participar["tamanoTituloComo"] == 2 ? 'checked' : '';
+            $tamanoTituloComo3 = $como_participar && $como_participar["tamanoTituloComo"] == 3 ? 'checked' : '';
             $styletamanoTituloComo = $como_participar && $como_participar["tamanoTituloComo"]  == 1 ? "fs-6" : ($como_participar && $como_participar["tamanoTituloComo"]  == 2 ? "fs-3"  :  ($como_participar && $como_participar["tamanoTituloComo"]  == 3 ? "fs-1"  : ""));
         
             $color_titulo_como = $como_participar && $como_participar["color-titulo-como"] ? $como_participar["color-titulo-como"] : '#fbbb01 ';
@@ -774,7 +774,7 @@
 
             $tamanoBotonComo1 = $como_participar && $como_participar["tamanoBotonComo"] == 1 ? 'checked' : '';
             $tamanoBotonComo2 = $como_participar && $como_participar["tamanoBotonComo"] == 2 ? 'checked' : '';
-            $tamanoBotonComo3 = $como_participar && $como_participar["tamanoBotonComo"] == 2 ? 'checked' : '';
+            $tamanoBotonComo3 = $como_participar && $como_participar["tamanoBotonComo"] == 3 ? 'checked' : '';
             $styletamanoBotonComo = $como_participar && $como_participar["tamanoBotonComo"]  == 1 ? "fs-6" : ($como_participar && $como_participar["tamanoBotonComo"]  == 2 ? "fs-3"  :  ($como_participar && $como_participar["tamanoBotonComo"]  == 3 ? "fs-1"  : ""));
         
             $color_boton_como = $como_participar && $como_participar["color-boton-como"] ? $como_participar["color-boton-como"] : '#ffffff';
@@ -989,7 +989,7 @@
 
             $tamanoTituloFormulario1 = $formulario_participar && $formulario_participar["tamanoTituloFormulario"] == 1 ? 'checked' : '';
             $tamanoTituloFormulario2 = $formulario_participar && $formulario_participar["tamanoTituloFormulario"] == 2 ? 'checked' : '';
-            $tamanoTituloFormulario3 = $formulario_participar && $formulario_participar["tamanoTituloFormulario"] == 2 ? 'checked' : '';
+            $tamanoTituloFormulario3 = $formulario_participar && $formulario_participar["tamanoTituloFormulario"] == 3 ? 'checked' : '';
             $styletamanoTituloFormulario = $formulario_participar && $formulario_participar["tamanoTituloFormulario"]  == 1 ? "fs-6" : ($formulario_participar && $formulario_participar["tamanoTituloFormulario"]  == 2 ? "fs-3"  :  ($formulario_participar && $formulario_participar["tamanoTituloFormulario"]  == 3 ? "fs-1"  : ""));
         
             $color_titulo_formulario = $formulario_participar && $formulario_participar["color-titulo-formulario"] ? $formulario_participar["color-titulo-formulario"] : '#fbbb01';
@@ -1003,7 +1003,7 @@
 
             $tamanoBotonFormulario1 = $formulario_participar && $formulario_participar["tamanoBotonFormulario"] == 1 ? 'checked' : '';
             $tamanoBotonFormulario2 = $formulario_participar && $formulario_participar["tamanoBotonFormulario"] == 2 ? 'checked' : '';
-            $tamanoBotonFormulario3 = $formulario_participar && $formulario_participar["tamanoBotonFormulario"] == 2 ? 'checked' : '';
+            $tamanoBotonFormulario3 = $formulario_participar && $formulario_participar["tamanoBotonFormulario"] == 3 ? 'checked' : '';
             $styletamanoBotonFormulario = $formulario_participar && $formulario_participar["tamanoBotonFormulario"]  == 1 ? "fs-6" : ($formulario_participar && $formulario_participar["tamanoBotonFormulario"]  == 2 ? "fs-3"  :  ($formulario_participar && $formulario_participar["tamanoBotonFormulario"]  == 3 ? "fs-1"  : ""));
         
             $color_boton_formulario = $formulario_participar && $formulario_participar["color-boton-formulario"] ? $formulario_participar["color-boton-formulario"] : '#ffffff';
@@ -1163,7 +1163,7 @@
 
             $tamanoTituloGanador1 = $ganadores && $ganadores["tamanoTituloGanador"] == 1 ? 'checked' : '';
             $tamanoTituloGanador2 = $ganadores && $ganadores["tamanoTituloGanador"] == 2 ? 'checked' : '';
-            $tamanoTituloGanador3 = $ganadores && $ganadores["tamanoTituloGanador"] == 2 ? 'checked' : '';
+            $tamanoTituloGanador3 = $ganadores && $ganadores["tamanoTituloGanador"] == 3 ? 'checked' : '';
             $styletamanoTituloGanador = $ganadores && $ganadores["tamanoTituloGanador"]  == 1 ? "fs-6" : ($ganadores && $ganadores["tamanoTituloGanador"]  == 2 ? "fs-3"  :  ($ganadores && $ganadores["tamanoTituloGanador"]  == 3 ? "fs-1"  : ""));
         
             $color_titulo_ganador = $ganadores && $ganadores["color-titulo-ganador"] ? $ganadores["color-titulo-ganador"] : '#fbbb01';
@@ -1270,7 +1270,7 @@
 
             $tamanoTituloPregunta1 = $preguntas_frecuentes && $preguntas_frecuentes["tamanoTituloPregunta"] == 1 ? 'checked' : '';
             $tamanoTituloPregunta2 = $preguntas_frecuentes && $preguntas_frecuentes["tamanoTituloPregunta"] == 2 ? 'checked' : '';
-            $tamanoTituloPregunta3 = $preguntas_frecuentes && $preguntas_frecuentes["tamanoTituloPregunta"] == 2 ? 'checked' : '';
+            $tamanoTituloPregunta3 = $preguntas_frecuentes && $preguntas_frecuentes["tamanoTituloPregunta"] == 3 ? 'checked' : '';
             $styletamanoTituloPregunta = $preguntas_frecuentes && $preguntas_frecuentes["tamanoTituloPregunta"]  == 1 ? "fs-6" : ($preguntas_frecuentes && $preguntas_frecuentes["tamanoTituloPregunta"]  == 2 ? "fs-3"  :  ($preguntas_frecuentes && $preguntas_frecuentes["tamanoTituloPregunta"]  == 3 ? "fs-1"  : ""));
         
             $color_titulo_pregunta = $preguntas_frecuentes && $preguntas_frecuentes["color-titulo-pregunta"] ? $preguntas_frecuentes["color-titulo-pregunta"] : '#fbbb01';
@@ -1429,7 +1429,7 @@
 
             $tamanoTituloRedes1 = $redes_sociales && $redes_sociales["tamanoTituloRedes"] == 1 ? 'checked' : '';
             $tamanoTituloRedes2 = $redes_sociales && $redes_sociales["tamanoTituloRedes"] == 2 ? 'checked' : '';
-            $tamanoTituloRedes3 = $redes_sociales && $redes_sociales["tamanoTituloRedes"] == 2 ? 'checked' : '';
+            $tamanoTituloRedes3 = $redes_sociales && $redes_sociales["tamanoTituloRedes"] == 3 ? 'checked' : '';
             $styletamanoTituloRedes = $redes_sociales && $redes_sociales["tamanoTituloRedes"]  == 1 ? "fs-6" : ($redes_sociales && $redes_sociales["tamanoTituloRedes"]  == 2 ? "fs-3"  :  ($redes_sociales && $redes_sociales["tamanoTituloRedes"]  == 3 ? "fs-1"  : ""));
         
             $color_titulo_redes = $redes_sociales && $redes_sociales["color-titulo-redes"] ? $redes_sociales["color-titulo-redes"] : '#fbbb01';
@@ -1798,6 +1798,9 @@
                 background-color: transparent;
                 color: {{ $color_lista }};
             }
+            .accordion-button:not(.collapsed) {
+                box-shadow: inset 0 calc(-1 * 1px) 0 var(--border-participar) !important;
+            }
         </style>
         <div class="landing_page position-relative">
             <div class="w-100 nav-landing nav-position px-5" id="nav-landing" style="background-color: {{ $color_menu }} !important;">
@@ -1816,16 +1819,16 @@
                                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex" style="gap: 3rem;">
                                         <li class="nav-item">
-                                            <a class="nav-link active item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" aria-current="page" href="#participar" id="{{ $direccionar_1 }}">{{ $navegacion_1 }}</a>
+                                            <a class="navegacion_1_menu nav-link active item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" aria-current="page" href="#participar" id="{{ $direccionar_1 }}">{{ $navegacion_1 }}</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" href="#preguntas-frecuentes" id="{{ $direccionar_2 }}">{{ $navegacion_2 }}</a>
+                                            <a class="navegacion_2_menu nav-link item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" href="#preguntas-frecuentes" id="{{ $direccionar_2 }}">{{ $navegacion_2 }}</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" href="#" id="{{ $direccionar_3 }}">{{ $navegacion_3 }}</a>
+                                            <a class="navegacion_3_menu nav-link item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" href="#" id="{{ $direccionar_3 }}">{{ $navegacion_3 }}</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" href="#ganadores" id="{{ $direccionar_4 }}">{{ $navegacion_4 }}</a>
+                                            <a class="navegacion_4_menu nav-link item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" href="#ganadores" id="{{ $direccionar_4 }}">{{ $navegacion_4 }}</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -1839,7 +1842,7 @@
                     {{-- <img class="img-fluid" src="{{$imagen_subir}}" alt="" id="imagen-header"> --}}
                     <p class="{{ $stylealineacionTitulo }} {{ $styleTamanoTituloHeader }} w-100 {{ $bold_titulo_header_style }} {{ $italic_titulo_header_style }}" id="titulo_header">{{ $input_titulo_header }}</p>
                     <p class="{{ $stylealineacionTexto }} {{ $styletamanoTextoHeader }} w-100 {{ $bold_titulo_parrafo_style }} {{ $italic_titulo_parrafo_style }}" id="parrafo-header" style="color: {{ $color_texto }};">{{ $input_texto_header }}</p>
-                    <a href="{{ $direccionar_boton_header }}" class="btns btn-landing {{ $styletamanoBotonHeader }} {{ $bold_boton_parrafo_style }} {{ $italic_boton_parrafo_style }}" id="btn_participar_header" style="background-color: {{ $color_boton_header }};margin-top: 12em;">PARTICIPAR</a>
+                    <a href="{{ $direccionar_boton_header }}" class="btns btn-landing {{ $styletamanoBotonHeader }} {{ $bold_boton_parrafo_style }} {{ $italic_boton_parrafo_style }}" id="btn_participar_header" style="background-color: {{ $color_boton_header }};margin-top: 12em;">{{ $titulo_boton_header }}</a>
                 </header>
                 <div class="pt-5" id="participar">
                     <section>
@@ -1875,7 +1878,7 @@
                                 <input type="text" class="form-control input-text">
                             </div>
                             <div class="col-12 col-md-6 mb-3">
-                                <label for="name" class="label_form">N° de documento</label>
+                                <label for="name" class="label_form" style="color: {{ $color_label_formulario }} !important;">N° de documento</label>
                                 <input type="text" class="form-control input-text">
                             </div>
                             <div class="col-12 col-md-6 mb-3">
@@ -2072,7 +2075,6 @@
         </div>
     </div>
 </div>
-
 <script>
     const menu_edit = document.getElementById("menu_edit");
     function retornoMenuEdit() {
@@ -2651,22 +2653,22 @@
     const navegacion_4 = document.getElementById("navegacion_4");
 
     navegacion_1.addEventListener("input", function(event) {
-        const item = document.getElementById("navegacion_1_menu")
+        const item = document.querySelector(".navegacion_1_menu")
         item.innerHTML = event.target.value
     })
 
     navegacion_2.addEventListener("input", function(event) {
-        const item = document.getElementById("navegacion_2_menu")
+        const item = document.querySelector(".navegacion_2_menu")
         item.innerHTML = event.target.value
     })
 
     navegacion_3.addEventListener("input", function(event) {
-        const item = document.getElementById("navegacion_3_menu")
+        const item = document.querySelector(".navegacion_3_menu")
         item.innerHTML = event.target.value
     })
 
     navegacion_4.addEventListener("input", function(event) {
-        const item = document.getElementById("navegacion_4_menu")
+        const item = document.querySelector(".navegacion_4_menu")
         item.innerHTML = event.target.value
     })
 
@@ -3189,17 +3191,20 @@
     
     // COlor borde
     const border_input_pregunta = document.getElementById("border-input-pregunta");
+    const accordionButton = document.querySelector('.accordion-button:not(.collapsed)');
     const border_pregunta = document.getElementById("border-pregunta");
     const section_pregunta = document.querySelector("#preguntas-frecuentes section");
 
     border_input_pregunta.addEventListener("input", function(event) {
         border_pregunta.value = event.target.value
         section_pregunta.style.borderColor = event.target.value
+        accordionButton.style.boxShadow = `inset 0 calc(-1 * 1px) 0 ${event.target.value}`
     })
 
     border_pregunta.addEventListener('input', function(event) {
         border_input_pregunta.value = this.value
         section_pregunta.style.borderColor = this.value
+        accordionButton.style.boxShadow = `inset 0 calc(-1 * 1px) 0 ${event.target.value}`
     })
 
     // estilo texto
@@ -3976,6 +3981,14 @@
         $("#back_configuracion").click(function (e) { 
             e.preventDefault();
             window.location.href = '{{ $rutaCon }}'
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $(document).on('click', '.item_landing_menu', function () {
+            $(".item_landing_menu").removeClass('active');
+            $(this).addClass('active');
         });
     });
 </script>

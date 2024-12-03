@@ -376,7 +376,7 @@
     <div class="h-100 d-flex flex-column justify-content-center" style="background-image: url({{ $fondo }}); background-size: cover; min-height: 100vh;" id="juego_ruleta">
         <div id="inicio_juego" class=" d-block">
             <div class="text-center ctn-data">
-                <h1 class="{{ $styleTamano }} mb-4 {{ $styleBold }} {{ $italicTitulo }} {{ $styleAlineacion }}" id="titulo_header" style="color: #fff;">GIRA Y GANA CON</h1>
+                {{-- <h1 class="{{ $styleTamano }} mb-4 {{ $styleBold }} {{ $italicTitulo }} {{ $styleAlineacion }}" id="titulo_header" style="color: #fff;">GIRA Y GANA CON</h1> --}}
                 <img style="width: 300px;" src="{{ $logo_inicio }}" alt="" id="logo_header">
             </div>
             <div class="w-100 d-flex justify-content-center">
@@ -386,7 +386,7 @@
         <div class="content-game d-none" id="juego">
             <div class="header text-center">
                 <h1 class="{{ $styleTamanoGame }} {{ $styleBoldGame }} {{ $italicTituloGame }} {{ $styleAlineacionGame }} d-none" id="titulo_juego" style="color: #fff;">GIRA Y GANA CON</h1>
-                <img style="width: 170px;" src="{{ $logo_juego }}" alt="" id="logo_juego" style="max-width: 250px;">
+                <img style="width: 300px;" src="{{ $logo_juego }}" alt="" id="logo_juego" style="max-width: 250px;">
                 <p id="winner" class="d-none">NONE</p>
             </div>
             <div class="w-100 d-flex justify-content-center">
@@ -408,7 +408,7 @@
                     $urlImagenPremio = isset($projectPremio[0]["imagen_premio"]) && !empty($projectPremio[0]["imagen_premio"]) ? '/storage/'.$projectPremio[0]["imagen_premio"] : $imgNulo;
                 @endphp
                 <div class="content_premio_img">
-                    <img class="img-fluid" src="{{ $urlImagenPremio }}" alt="" id="premio_first" style="max-width: 400px;">
+                    <img class="img-fluid" src="{{ $urlImagenPremio }}" alt="" id="premio_first" style="max-width: 300px;">
                 </div>
                 <h5 id="title_premio">{{ $projectPremio[0]["nombre_premio"] }}</h5>
                 <div class="{{ $styleBotones }} justify-content-center" style="gap: 0.4em;" id="btn_content">
@@ -612,14 +612,14 @@
             createWheel(); // Llama a createWheel para asegurarte de que se dibuje antes de girar
             draw();
             const randomNum = getRandomNumber(1, 360);
-            maxRotation = (360 * 8) - itemDegs[data[0].name].endDeg + randomNum;
+            maxRotation = (360 * (data.length * 2)) - itemDegs[data[0].name].endDeg + randomNum;
             itemDegs = {};
             pause = false;
             window.requestAnimationFrame(animate);
             console.log(index)
             setTimeout(() => {
                 sectionRuletaSelect(index)
-            }, 14500);
+            }, 12500);
         }
 
         function spin2() {
@@ -640,7 +640,6 @@
         function recargarImagenes(imgData, posicion) {
             images = []
             data[posicion].img = imgData
-            console.log(data);
             data.forEach(item => {
                 const img = new Image();
                 console.log(item.img)
@@ -659,19 +658,18 @@
 
         function sectionRuletaSelect(posicion) {  
             const premio = data.find(d => d.name == posicion);
-            console.log(premio, posicion)
             // Agregar id
             $("#idPremio").val(premio.id);
-            if (premio.name == "Sigue Intentando") {
-                alert("Sigue intentado.")
-                location.reload(true);
-            } else {
+            // if (premio.name == "Sigue Intentando") {
+                
+            // } 
+            // else {
                 $("#premio_first").attr('src', `${premio.img}`);
                 $("#title_premio").html(premio.name);
                 $("#fin_juego").removeClass('d-none');
                 $("#juego").removeClass('d-block');
                 $("#juego").addClass('d-none');
-            }
+            // }
 
             $('#ganador_form').submit();
         }

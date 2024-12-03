@@ -19,5 +19,6 @@ class Landing extends Model
     'redes_sociales',
     'html_preview',
     'html_origin',
-    'html_end'];
+    'html_end','politicas',
+    'terminos'];
 }

@@ -171,12 +171,14 @@ class GameMemoriaController extends Controller
         $idParticipante = session('claveMemoria');
         $game = GameView::where('project_id', $project->id)->first();
         $premio = $this->obtenerPremio($project->id);
+        $sigueIntentando = KeepTrying::where('project_id', $project->id)->first();
 
         $data = [
             'idParticipante' => $idParticipante,
             'project' => $project,
             'gameMemoria' => $game,
-            'premio' => $premio
+            'premio' => $premio,
+            'sigueIntentando' => $sigueIntentando
         ];
 
         // Vista Proyecto
@@ -209,6 +211,16 @@ class GameMemoriaController extends Controller
             'verBoton' => $request["verBoton"],
             'color-texto-btn' => $request["color-texto-btn"],
             'color-btn-bg-input' => $request["color-btn-bg-input"]
+        ];
+
+        $politica = [
+            "color-politica-btn" => $request["color-politica-btn"],
+            "politicas_value" => $request["politicas_value"]
+        ];
+
+        $termino = [
+            "color-termino-btn" => $request["color-termino-btn"],
+            "terminos_value" => $request["terminos_value"]
         ];
 
         $existLanding = GameView::where('project_id', $id)->first();
@@ -314,35 +326,37 @@ class GameMemoriaController extends Controller
 
         // Bloque premios
 
-        $arrayPremios = explode(",", $request->arrayPremiosValue);
+        if (isset($request->arrayPremiosValue) && !empty($request->arrayPremiosValue)) {
+            $arrayPremios = explode(",", $request->arrayPremiosValue);
 
-        foreach ($arrayPremios as $key => $value) {
-            $premioValor = explode('|', $value);
-            $orden = $premioValor[0];
-            $idPremio = $premioValor[1];
+            foreach ($arrayPremios as $key => $value) {
+                $premioValor = explode('|', $value);
+                $orden = $premioValor[0];
+                $idPremio = $premioValor[1];
 
-            $premios = AwardProject::findOrFail($idPremio);
-            
-            if ($premios) {
-                $ruta = $request["premio-subir-".$orden."-url"] != null ?  $premios->imagen : "";
-                // Almacenar la imagen en el directorio deseado
-                if ($request->hasFile('premio-subir-'.$orden)) {
-                    // Obtener la ruta de la imagen
-                    $rutaFav = public_path($premios->imagen); // Suponiendo que la ruta está almacenada en 'ruta'
+                $premios = AwardProject::findOrFail($idPremio);
+                
+                if ($premios) {
+                    $ruta = $request["premio-subir-".$orden."-url"] != null ?  $premios->imagen : "";
+                    // Almacenar la imagen en el directorio deseado
+                    if ($request->hasFile('premio-subir-'.$orden)) {
+                        // Obtener la ruta de la imagen
+                        $rutaFav = public_path($premios->imagen); // Suponiendo que la ruta está almacenada en 'ruta'
 
-                    // Eliminar el archivo del sistema
-                    if (file_exists($rutaFav) && !empty($premios->imagen)) {
-                        unlink($rutaFav); // Eliminar el archivo
+                        // Eliminar el archivo del sistema
+                        if (file_exists($rutaFav) && !empty($premios->imagen)) {
+                            unlink($rutaFav); // Eliminar el archivo
+                        }
+
+                        $ruta = $request->file('premio-subir-'.$orden)->store('premios', 'public'); // Almacena en storage/app/public/premios
                     }
 
-                    $ruta = $request->file('premio-subir-'.$orden)->store('premios', 'public'); // Almacena en storage/app/public/premios
+                    $premios->update([
+                        'imagen' => $ruta
+                    ]);
                 }
 
-                $premios->update([
-                    'imagen' => $ruta
-                ]);
             }
-
         }
 
         if (!isset($existLanding)) {
@@ -354,6 +368,8 @@ class GameMemoriaController extends Controller
             $landing->html_preview = '';
             $landing->html_origin = '';
             $landing->html_end = '';
+            $landing->politicas = json_encode($politica, true);
+            $landing->terminos = json_encode($termino, true);
             $landing->save();
         } else {
             $landing = GameView::findOrFail($existLanding->id);
@@ -364,6 +380,8 @@ class GameMemoriaController extends Controller
                 'html_preview' => '',
                 'html_origin' => '',
                 'html_end' => '',
+                'politicas' => json_encode($politica, true),
+                'terminos' => json_encode($termino, true),
             ]);
         }
 

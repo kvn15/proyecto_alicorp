@@ -64,6 +64,12 @@ class Asignacion extends Component
         $this->sales_point = SalesPoint::where('status', 1)->get();
         $this->xplorers = Xplorer::all();
     }
+
+    public function allDatas() {
+        $this->premios = AwardProject::where("project_id", $this->projectId)->get();
+        $this->sales_point = SalesPoint::where('status', 1)->get();
+        $this->xplorers = Xplorer::all();
+    }
  
     public function search()
     {

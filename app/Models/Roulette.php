@@ -9,5 +9,7 @@ class Roulette extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['project_id','fondo','titulo_inicio','logo_inicio', 'titulo_juego', 'logo_juego', 'elementos_juego', 'titulo_premio', 'boton_premio', 'bloque_premios'];
+    protected $fillable = ['project_id','fondo','titulo_inicio','logo_inicio', 'titulo_juego', 'logo_juego', 'elementos_juego', 'titulo_premio', 'boton_premio', 'bloque_premios'
+    ,'politicas',
+    'terminos'];
 }

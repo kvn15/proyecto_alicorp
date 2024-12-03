@@ -237,42 +237,10 @@
                         </div>
                     </div>
                     <div class="w-100" style="font-size: 14px; font-weight: 500">
-                        <div class="d-flex justify-content-between mb-3">
+                        {{-- <div class="d-flex justify-content-between mb-3">
                             <span>KPI nro 1</span>
                             <span>12,200</span>
-                        </div>
-                        <div class="d-flex justify-content-between mb-3">
-                            <span>KPI nro 2</span>
-                            <span>12,200</span>
-                        </div>
-                        <div class="d-flex justify-content-between mb-3">
-                            <span>KPI nro 3</span>
-                            <span>12,200</span>
-                        </div>
-                        <div class="d-flex justify-content-between mb-3">
-                            <span>KPI nro 4</span>
-                            <span>12,200</span>
-                        </div>
-                        <div class="d-flex justify-content-between mb-3">
-                            <span>KPI nro 5</span>
-                            <span>12,200</span>
-                        </div>
-                        <div class="d-flex justify-content-between mb-3">
-                            <span>KPI nro 6</span>
-                            <span>12,200</span>
-                        </div>
-                        <div class="d-flex justify-content-between mb-3">
-                            <span>KPI nro 7</span>
-                            <span>12,200</span>
-                        </div>
-                        <div class="d-flex justify-content-between mb-3">
-                            <span>KPI nro 8</span>
-                            <span>12,200</span>
-                        </div>
-                        <div class="d-flex justify-content-between mb-3">
-                            <span>KPI nro 9</span>
-                            <span>12,200</span>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

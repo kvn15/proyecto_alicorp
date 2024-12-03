@@ -76,7 +76,7 @@
         font-weight: 400;
     }
 
-    .btn_politicas {
+    .btn_politicas, .btn_terminos {
         background-color: #eabf2e;
         color: #000;
         border: 0;
@@ -86,7 +86,7 @@
         padding: 0.3em 1.5em
     }
 
-    .btn_politicas:hover {
+    .btn_politicas:hover, .btn_terminos:hover {
         color: #000;
     }
 </style>
@@ -235,30 +235,43 @@
                 </div>
             </div>
             <div class="container h-100 d-flex align-items-center d-none" id="poltica-privacidad">
-                <div class="content_politicas_terminos text-center p-5">
-                    <h1 class="w-75 m-auto">POLÍTICA DE PRIVACIDAD</h1>
-                    <p class="mt-4">
-                        Conste por el presente documento, yo ____________, identificado con _______________, (en adelante él/la "CEDENTE"), expresa su voluntad expresa de ceder de forma gratuita, a favor de ALICORP S.A.A., con RUC Nº 20100055237, con domicilio legal  en avenida Argentina 4793, Carmen de la Legua Reynoso, Callao y a sus subsidiarias (en adelante, ALICORP o la EMPRESA), los derechos de explotación y uso de su imagen, cesión que se realiza sin limitación alguna, de acuerdo al artículo 15 del código civil; en los términos que se detallan a continuación:
+                @php
+                $gameRuleta = $data["gameRuleta"]; 
+                $politicas = isset($gameRuleta["politicas"]) && !empty($gameRuleta["politicas"]) && !empty(json_decode($gameRuleta["politicas"], true)['politicas_value']) ? json_decode($gameRuleta["politicas"], true)['politicas_value'] : 'Conste por el presente documento, yo ____________, identificado con _______________, (en adelante él/la "CEDENTE"), expresa su voluntad expresa de ceder de forma gratuita, a favor de ALICORP S.A.A., con RUC Nº 20100055237, con domicilio legal  en avenida Argentina 4793, Carmen de la Legua Reynoso, Callao y a sus subsidiarias (en adelante, ALICORP o la EMPRESA), los derechos de explotación y uso de su imagen, cesión que se realiza sin limitación alguna, de acuerdo al artículo 15 del código civil; en los términos que se detallan a continuación:
                         PRIMERO: OBJETO DE SESIÓN
                         <br>
                         <br>
-                        1.1. Él, La CEDENTE cede y transfiere de forma total e integra, gratuita e ilimitada a nivel mundial, a LA EMPRESA todos los derechos de uso de su imagen que aparecerá en el video, fotografías y cualquier otro medio de captación de imágenes que elaborará y será de propiedad de LA EMPRESA.
+                        1.1. Él, La CEDENTE cede y transfiere de forma total e integra, gratuita e ilimitada a nivel mundial, a LA EMPRESA todos los derechos de uso de su imagen que aparecerá en el video, fotografías y cualquier otro medio de captación de imágenes que elaborará y será de propiedad de LA EMPRESA.';
+                $colorPolitica = isset($gameRuleta["politicas"]) && !empty($gameRuleta["politicas"]) && !empty(json_decode($gameRuleta["politicas"], true)['color-politica-btn']) ? json_decode($gameRuleta["politicas"], true)['color-politica-btn'] : '#000000';
+                @endphp
+                <div class="content_politicas_terminos text-center p-5">
+                    <h1 class="w-75 m-auto text_politicas_color" style="color: {{ $colorPolitica }} !important;border-color: {{ $colorPolitica }} !important;">POLÍTICA DE PRIVACIDAD</h1>
+                    <p class="mt-4 text_politicas_color" id="text_politicas" style="color: {{ $colorPolitica }} !important;">
+                        @php
+                            echo $politicas;
+                        @endphp
                     </p>
                     <div class="d-flex justify-content-between mt-5">
-                        <button type="button" class="btn_politicas text-uppercase" id="aceptar_politica">Aceptar y contnuar</button>
-                        <a href="{{ route('index') }}" class="btn_politicas text-uppercase" style="text-decoration: none">No Aceptar y salir</a>
+                        <button type="button" class="btn_politicas text-uppercase" id="aceptar_politica" style="color: {{ $colorPolitica }} !important;">Aceptar y contnuar</button>
+                        <a href="{{ route('index') }}" class="btn_politicas text-uppercase" style="text-decoration: none; color: {{ $colorPolitica }} !important;">No Aceptar y salir</a>
                     </div>
                 </div>
             </div>
             <div class="container h-100 d-flex align-items-center d-none" id="terminos-condiciones">
+                @php
+                    $terminos = isset($gameRuleta["terminos"]) && !empty($gameRuleta["terminos"]) && !empty(json_decode($gameRuleta["terminos"], true)['terminos_value']) ? json_decode($gameRuleta["terminos"], true)['terminos_value'] : "Vigencia: Lima: del 15.03.2024 al 17.05.2024, Provincia: del 22.03.2024 al 07.04.2024, los días viernes, sábados y domingos, de 9:00 a.m. a 2:00 p.m. Válida en los mercados participantes de las ciudades de Lima, Arequipa, Trujillo, Huancayo y Chiclayo. Participan solo mayores de 18 años que realicen en el mercado participante la compra mínima de: (i) de 02 pastas corta o larga Don Vittorio, en cualquiera de sus presentaciones y (ii) ubiquen a la impulsadora, quien les permitirá participar en el “Juego de la Ruleta Virtual” y según el resultado podrá llevarse o no, uno de los premios disponibles. Stock total de premios en los mercados participantes: Lima: (i) 500 kits Don Vittorio (incluye: 01 bolso notex, 01 spaguetti Don Vittorio de 450g, 01 salsa roja Don Vittorio de 200 g), (ii) 225 coladores, (iii) 500 cucharones de pasta, Provincia: (i) 180 kits N°1 Don Vittorio (incluye: 01 bolso notex, 01 spaguetti Don Vittorio de 450 g), (ii) 222 kits N°2 Don Vittorio (incluye: 01 bolso notex, 01 codito Don Vittorio de 250 g), 300 kits N°3 Don Vittorio (incluye: 01 bolso notex, 01 salsa roja Don Vittorio de 200 g). Más información en https://www.alicorp.com.pe/pe/es/promociones/ o al número 01 7089300.";
+                    $colorTermino = isset($gameRuleta["terminos"]) && !empty($gameRuleta["terminos"]) && !empty(json_decode($gameRuleta["terminos"], true)['color-termino-btn']) ? json_decode($gameRuleta["terminos"], true)['color-termino-btn'] : '#000000';
+                @endphp
                 <div class="content_politicas_terminos text-center p-5">
-                    <h1 class="w-75 m-auto">TÉRMINOS Y CONDICIONES</h1>
-                    <p class="mt-4">
-                        Vigencia: Lima: del 15.03.2024 al 17.05.2024, Provincia: del 22.03.2024 al 07.04.2024, los días viernes, sábados y domingos, de 9:00 a.m. a 2:00 p.m. Válida en los mercados participantes de las ciudades de Lima, Arequipa, Trujillo, Huancayo y Chiclayo. Participan solo mayores de 18 años que realicen en el mercado participante la compra mínima de: (i) de 02 pastas corta o larga Don Vittorio, en cualquiera de sus presentaciones y (ii) ubiquen a la impulsadora, quien les permitirá participar en el “Juego de la Ruleta Virtual” y según el resultado podrá llevarse o no, uno de los premios disponibles. Stock total de premios en los mercados participantes: Lima: (i) 500 kits Don Vittorio (incluye: 01 bolso notex, 01 spaguetti Don Vittorio de 450g, 01 salsa roja Don Vittorio de 200 g), (ii) 225 coladores, (iii) 500 cucharones de pasta, Provincia: (i) 180 kits N°1 Don Vittorio (incluye: 01 bolso notex, 01 spaguetti Don Vittorio de 450 g), (ii) 222 kits N°2 Don Vittorio (incluye: 01 bolso notex, 01 codito Don Vittorio de 250 g), 300 kits N°3 Don Vittorio (incluye: 01 bolso notex, 01 salsa roja Don Vittorio de 200 g). Más información en https://www.alicorp.com.pe/pe/es/promociones/ o al número 01 7089300.
+                    <h1 class="w-75 m-auto text_terminos_color" style="color: {{ $colorTermino }} !important;border-color: {{ $colorTermino }} !important;">TÉRMINOS Y CONDICIONES</h1>
+                    <p class="mt-4 text_terminos_color" id="text_terminos" style="color: {{ $colorTermino }} !important;">
+                        @php
+                            echo $terminos;
+                        @endphp
                     </p>
                     <div class="d-flex justify-content-between mt-5">
-                        <button type="submit" class="btn_politicas text-uppercase" id="aceptar_terminos">Aceptar y contnuar</button>
-                        <a href="{{ route('index') }}" class="btn_politicas text-uppercase" style="text-decoration: none">No Aceptar y salir</a>
+                        <button type="submit" class="btn_terminos text-uppercase" id="aceptar_terminos" style="color: {{ $colorTermino }} !important;">Aceptar y contnuar</button>
+                        <a href="{{ route('index') }}" class="btn_terminos text-uppercase" style="text-decoration: none; color: {{ $colorTermino }} !important;">No Aceptar y salir</a>
                     </div>
                 </div>
             </div>

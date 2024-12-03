@@ -322,8 +322,8 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
             </div>
             <div class="{{ $styleBotones }} justify-content-center" id="btn_content">
                 <a href="{{ route($tipoJuego."juego.view.registro.raspagana", $project->dominio) }}" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">IR A REGISTRO</a>
-                <a href="" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">IR A HOME</a>
-                <a href="" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">VOLVER A JUGAR</a>
+                <a href="{{ route("index") }}" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">IR A HOME</a>
+                {{-- <a href="" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">VOLVER A JUGAR</a> --}}
             </div>
         </div>
     </div>
@@ -440,7 +440,7 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
     context.globalCompositeOperation = "destination-out";
     context.beginPath();
     //arc makes circle - x,y,radius,start angle,end angle
-    context.arc(x, y, 22,-20, 0);
+    context.arc(x, y, 30,-20, 0);
     context.fill();
     };
 

@@ -3,10 +3,10 @@
     $gameMemoria = $data["gameMemoria"]; 
     $premioSelect = $data["premio"]; 
     $idParticipante = $data["idParticipante"]; 
-    // $sigueIntentando = $data["sigueIntentando"];
+    $sigueIntentando = $data["sigueIntentando"];
     $imgNulo = asset('backend/svg/img-null.svg');
 
-    $urlSigue = $imgNulo;
+    $urlSigue = isset($sigueIntentando["imagen"]) && !empty($sigueIntentando["imagen"]) ? '/storage/'.$sigueIntentando["imagen"] : '';
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -334,13 +334,13 @@
                 <img class="img-fluid" src="{{ '/storage/'.$imgLogoPremio }}" alt="" id="img-header-premio" style="max-width: 350px;">
             </div>
             <div class="d-flex flex-column align-items-center justify-content-center w-100">
-                <img class="img-fluid mb-2" src="{{ $imgPremio }}" alt="" style="max-width: 370px;">
-                <h4 class="text-white" style="font-weight: 700;">{{ $namePremio }}</h4>
+                <img class="img-fluid mb-2" src="{{ $imgPremio }}" alt=""  id="premio_img" style="max-width: 370px;">
+                <h4 class="text-white" style="font-weight: 700;" id="h4Premio">{{ $namePremio }}</h4>
             </div>
             <div class="{{ $styleBotones }} justify-content-center" id="btn_content">
-                <a href="" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }};">IR A REGISTRO</a>
-                <a href="" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }};">IR A HOME</a>
-                <a href="" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }};">VOLVER A JUGAR</a>
+                <a href="{{ route($tipoJuego."juego.view.registro.ruleta", $project->dominio) }}" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }};">IR A REGISTRO</a>
+                <a href="{{ route("index") }}" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }};">IR A HOME</a>
+                {{-- <a href="" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }};">VOLVER A JUGAR</a> --}}
             </div>
         </div>
     </div>
@@ -504,18 +504,37 @@
                     flippedCards[1].classList.add('none-visibiliti')
                     flippedCards[0].classList.remove('scale-trans')
                     flippedCards[1].classList.remove('scale-trans')
+                    // mover a vista premiación
+                    document.getElementById("win-game").classList.add('d-block')
+                    document.getElementById("win-game").classList.remove('d-none')
+                    // ocultar
+                    document.getElementById("contenido_juego").classList.remove('d-block')
+                    document.getElementById("contenido_juego").classList.add('d-none')
+                    ganador()
+                    console.log('a la bd')
                 }, 1500);
             } else {
                 const turno = document.getElementsByClassName('turno');
                 const error = document.getElementsByClassName('error');
                 nErrores++
                 error[0].innerHTML = `ERRORES: ${nErrores}`;
+                setTimeout(() => {
+                    // mover a vista premiación
+                    document.getElementById("win-game").classList.add('d-block')
+                    document.getElementById("win-game").classList.remove('d-none')
+                    // ocultar
+                    document.getElementById("contenido_juego").classList.remove('d-block')
+                    document.getElementById("contenido_juego").classList.add('d-none')
+
+                    document.getElementById("premio_img").src = "{{ $urlSigue }}";
+                    document.getElementById("h4Premio").textContent = 'Sigue Intentando'
+                }, 1500);
             }
 
             setTimeout(() => {
                 flipBackCards()
-                if (nErrores === 1) {
-                    alert("Perdistes")
+                // if (nErrores === 1) {
+                //     alert("Perdistes")
                     nErrores = 0;
                     const flippedCards2 = document.querySelectorAll('.card')
                     flippedCards2.forEach(value => { 
@@ -526,9 +545,7 @@
                     const error = document.getElementsByClassName('error');
                     error[0].innerHTML = `ERRORES: ${nErrores}`;
                     generateGame()
-                    var urlCompleta = window.location.href;
-                    window.location.href = urlCompleta+'/registro'
-                }
+                // }
             }, 1000)
 
         }
@@ -545,7 +562,6 @@
                 selectors.contenido_juego.classList.add('d-none')
                 selectors.win.classList.remove('d-none')
                 selectors.win.classList.add('d-block')
-                ganador()
 
                 clearInterval(state.loop)
             }, 1000)
@@ -588,7 +604,6 @@
             success: function(data) {
                 // Procesar los datos devueltos
                 console.log(data)
-                $("#img-header-premio").remove();
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('Error en la solicitud AJAX:', textStatus, errorThrown);

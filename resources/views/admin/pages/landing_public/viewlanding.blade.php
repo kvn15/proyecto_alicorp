@@ -34,7 +34,7 @@ $italic_menu_style = $encabezado && $encabezado->italic_menu == 1 ? "fst-italic"
 
 $tamanoMenu1 = $encabezado && $encabezado->tamanoMenu == 1 ? 'checked' : '';
 $tamanoMenu2 = $encabezado && $encabezado->tamanoMenu == 2 ? 'checked' : '';
-$tamanoMenu3 = $encabezado && $encabezado->tamanoMenu == 2 ? 'checked' : '';
+$tamanoMenu3 = $encabezado && $encabezado->tamanoMenu == 3 ? 'checked' : '';
 $styleTamanoMenu = $encabezado && $encabezado->tamanoMenu  == 1 ? "fs-6" : ($encabezado && $encabezado->tamanoMenu  == 2 ? "fs-3"  :  ($encabezado && $encabezado->tamanoMenu  == 3 ? "fs-1"  : ""));
 
 $color_navegacion = $encabezado && $encabezado->color_navegacion ? $encabezado->color_navegacion : '#ffffff';
@@ -66,12 +66,12 @@ $input_titulo_header = $pagina_principal && $pagina_principal["input-titulo-head
 
 $tamanoTituloHeader1 = $pagina_principal && $pagina_principal["tamanoTitulo"] == 1 ? 'checked' : '';
 $tamanoTituloHeader2 = $pagina_principal && $pagina_principal["tamanoTitulo"] == 2 ? 'checked' : '';
-$tamanoTituloHeader3 = $pagina_principal && $pagina_principal["tamanoTitulo"] == 2 ? 'checked' : '';
+$tamanoTituloHeader3 = $pagina_principal && $pagina_principal["tamanoTitulo"] == 3 ? 'checked' : '';
 $styleTamanoTituloHeader = $pagina_principal && $pagina_principal["tamanoTitulo"]  == 1 ? "fs-6" : ($pagina_principal && $pagina_principal["tamanoTitulo"]  == 2 ? "fs-3"  :  ($pagina_principal && $pagina_principal["tamanoTitulo"]  == 3 ? "fs-1"  : ""));
 
 $alineacionTitulo1 = $pagina_principal && $pagina_principal["alineacionTitulo"] == 1 ? 'checked' : '';
 $alineacionTitulo2 = $pagina_principal && $pagina_principal["alineacionTitulo"] == 2 ? 'checked' : '';
-$alineacionTitulo3 = $pagina_principal && $pagina_principal["alineacionTitulo"] == 2 ? 'checked' : '';
+$alineacionTitulo3 = $pagina_principal && $pagina_principal["alineacionTitulo"] == 3 ? 'checked' : '';
 $stylealineacionTitulo = $pagina_principal && $pagina_principal["alineacionTitulo"]  == 1 ? "text-start" : ($pagina_principal && $pagina_principal["alineacionTitulo"]  == 2 ? "text-center"  :  ($pagina_principal && $pagina_principal["alineacionTitulo"]  == 3 ? "text-end"  : "text-center"));
 
 $color_titulo = $pagina_principal && $pagina_principal["color-titulo"] ? $pagina_principal["color-titulo"] : '#ffffff';
@@ -86,12 +86,12 @@ $input_texto_header = $pagina_principal && $pagina_principal["texto-header"] ? $
 
 $tamanoTextoHeader1 = $pagina_principal && $pagina_principal["tamanoTexto"] == 1 ? 'checked' : '';
 $tamanoTextoHeader2 = $pagina_principal && $pagina_principal["tamanoTexto"] == 2 ? 'checked' : '';
-$tamanoTextoHeader3 = $pagina_principal && $pagina_principal["tamanoTexto"] == 2 ? 'checked' : '';
+$tamanoTextoHeader3 = $pagina_principal && $pagina_principal["tamanoTexto"] == 3 ? 'checked' : '';
 $styletamanoTextoHeader = $pagina_principal && $pagina_principal["tamanoTexto"]  == 1 ? "fs-6" : ($pagina_principal && $pagina_principal["tamanoTexto"]  == 2 ? "fs-3"  :  ($pagina_principal && $pagina_principal["tamanoTexto"]  == 3 ? "fs-1"  : ""));
 
 $alineacionTexto1 = $pagina_principal && $pagina_principal["alineacionTexto"] == 1 ? 'checked' : '';
 $alineacionTexto2 = $pagina_principal && $pagina_principal["alineacionTexto"] == 2 ? 'checked' : '';
-$alineacionTexto3 = $pagina_principal && $pagina_principal["alineacionTexto"] == 2 ? 'checked' : '';
+$alineacionTexto3 = $pagina_principal && $pagina_principal["alineacionTexto"] == 3 ? 'checked' : '';
 $stylealineacionTexto = $pagina_principal && $pagina_principal["alineacionTexto"]  == 1 ? "text-start" : ($pagina_principal && $pagina_principal["alineacionTexto"]  == 2 ? "text-center"  :  ($pagina_principal && $pagina_principal["alineacionTexto"]  == 3 ? "text-end"  : "text-center"));
 
 $color_texto = $pagina_principal && $pagina_principal["color-texto"] ? $pagina_principal["color-texto"] : '#ffffff';
@@ -109,7 +109,7 @@ $italic_boton_parrafo_style = $pagina_principal && $pagina_principal["italic-bot
 
 $tamanoBotonHeader1 = $pagina_principal && $pagina_principal["tamanoBotonHeader"] == 1 ? 'checked' : '';
 $tamanoBotonHeader2 = $pagina_principal && $pagina_principal["tamanoBotonHeader"] == 2 ? 'checked' : '';
-$tamanoBotonHeader3 = $pagina_principal && $pagina_principal["tamanoBotonHeader"] == 2 ? 'checked' : '';
+$tamanoBotonHeader3 = $pagina_principal && $pagina_principal["tamanoBotonHeader"] == 3 ? 'checked' : '';
 $styletamanoBotonHeader = $pagina_principal && $pagina_principal["tamanoBotonHeader"]  == 1 ? "fs-6" : ($pagina_principal && $pagina_principal["tamanoBotonHeader"]  == 2 ? "fs-3"  :  ($pagina_principal && $pagina_principal["tamanoBotonHeader"]  == 3 ? "fs-1"  : ""));
 
 $color_boton_header = $pagina_principal && $pagina_principal["color-boton-header"] ? $pagina_principal["color-boton-header"] : '#ffffff';
@@ -131,7 +131,7 @@ $input_titulo_como = $como_participar && $como_participar["input-titulo-como"] ?
 
 $tamanoTituloComo1 = $como_participar && $como_participar["tamanoTituloComo"] == 1 ? 'checked' : '';
 $tamanoTituloComo2 = $como_participar && $como_participar["tamanoTituloComo"] == 2 ? 'checked' : '';
-$tamanoTituloComo3 = $como_participar && $como_participar["tamanoTituloComo"] == 2 ? 'checked' : '';
+$tamanoTituloComo3 = $como_participar && $como_participar["tamanoTituloComo"] == 3 ? 'checked' : '';
 $styletamanoTituloComo = $como_participar && $como_participar["tamanoTituloComo"]  == 1 ? "fs-6" : ($como_participar && $como_participar["tamanoTituloComo"]  == 2 ? "fs-3"  :  ($como_participar && $como_participar["tamanoTituloComo"]  == 3 ? "fs-1"  : ""));
 
 $color_titulo_como = $como_participar && $como_participar["color-titulo-como"] ? $como_participar["color-titulo-como"] : '#fbbb01 ';
@@ -147,7 +147,7 @@ $italic_boton_como_style = $como_participar && $como_participar["italic-boton-co
 
 $tamanoBotonComo1 = $como_participar && $como_participar["tamanoBotonComo"] == 1 ? 'checked' : '';
 $tamanoBotonComo2 = $como_participar && $como_participar["tamanoBotonComo"] == 2 ? 'checked' : '';
-$tamanoBotonComo3 = $como_participar && $como_participar["tamanoBotonComo"] == 2 ? 'checked' : '';
+$tamanoBotonComo3 = $como_participar && $como_participar["tamanoBotonComo"] == 3 ? 'checked' : '';
 $styletamanoBotonComo = $como_participar && $como_participar["tamanoBotonComo"]  == 1 ? "fs-6" : ($como_participar && $como_participar["tamanoBotonComo"]  == 2 ? "fs-3"  :  ($como_participar && $como_participar["tamanoBotonComo"]  == 3 ? "fs-1"  : ""));
 
 $color_boton_como = $como_participar && $como_participar["color-boton-como"] ? $como_participar["color-boton-como"] : '#ffffff';
@@ -169,7 +169,7 @@ $input_titulo_formulario = $formulario_participar && $formulario_participar["inp
 
 $tamanoTituloFormulario1 = $formulario_participar && $formulario_participar["tamanoTituloFormulario"] == 1 ? 'checked' : '';
 $tamanoTituloFormulario2 = $formulario_participar && $formulario_participar["tamanoTituloFormulario"] == 2 ? 'checked' : '';
-$tamanoTituloFormulario3 = $formulario_participar && $formulario_participar["tamanoTituloFormulario"] == 2 ? 'checked' : '';
+$tamanoTituloFormulario3 = $formulario_participar && $formulario_participar["tamanoTituloFormulario"] == 3 ? 'checked' : '';
 $styletamanoTituloFormulario = $formulario_participar && $formulario_participar["tamanoTituloFormulario"]  == 1 ? "fs-6" : ($formulario_participar && $formulario_participar["tamanoTituloFormulario"]  == 2 ? "fs-3"  :  ($formulario_participar && $formulario_participar["tamanoTituloFormulario"]  == 3 ? "fs-1"  : ""));
 
 $color_titulo_formulario = $formulario_participar && $formulario_participar["color-titulo-formulario"] ? $formulario_participar["color-titulo-formulario"] : '#fbbb01';
@@ -183,7 +183,7 @@ $italic_boton_formulario_style = $formulario_participar && $formulario_participa
 
 $tamanoBotonFormulario1 = $formulario_participar && $formulario_participar["tamanoBotonFormulario"] == 1 ? 'checked' : '';
 $tamanoBotonFormulario2 = $formulario_participar && $formulario_participar["tamanoBotonFormulario"] == 2 ? 'checked' : '';
-$tamanoBotonFormulario3 = $formulario_participar && $formulario_participar["tamanoBotonFormulario"] == 2 ? 'checked' : '';
+$tamanoBotonFormulario3 = $formulario_participar && $formulario_participar["tamanoBotonFormulario"] == 3 ? 'checked' : '';
 $styletamanoBotonFormulario = $formulario_participar && $formulario_participar["tamanoBotonFormulario"]  == 1 ? "fs-6" : ($formulario_participar && $formulario_participar["tamanoBotonFormulario"]  == 2 ? "fs-3"  :  ($formulario_participar && $formulario_participar["tamanoBotonFormulario"]  == 3 ? "fs-1"  : ""));
 
 $color_boton_formulario = $formulario_participar && $formulario_participar["color-boton-formulario"] ? $formulario_participar["color-boton-formulario"] : '#ffffff';
@@ -205,7 +205,7 @@ $input_titulo_ganador = $ganadores && $ganadores["input-titulo-ganador"] ? $gana
 
 $tamanoTituloGanador1 = $ganadores && $ganadores["tamanoTituloGanador"] == 1 ? 'checked' : '';
 $tamanoTituloGanador2 = $ganadores && $ganadores["tamanoTituloGanador"] == 2 ? 'checked' : '';
-$tamanoTituloGanador3 = $ganadores && $ganadores["tamanoTituloGanador"] == 2 ? 'checked' : '';
+$tamanoTituloGanador3 = $ganadores && $ganadores["tamanoTituloGanador"] == 3 ? 'checked' : '';
 $styletamanoTituloGanador = $ganadores && $ganadores["tamanoTituloGanador"]  == 1 ? "fs-6" : ($ganadores && $ganadores["tamanoTituloGanador"]  == 2 ? "fs-3"  :  ($ganadores && $ganadores["tamanoTituloGanador"]  == 3 ? "fs-1"  : ""));
 
 $color_titulo_ganador = $ganadores && $ganadores["color-titulo-ganador"] ? $ganadores["color-titulo-ganador"] : '#fbbb01';
@@ -226,7 +226,7 @@ $input_titulo_pregunta = $preguntas_frecuentes && $preguntas_frecuentes["input-t
 
 $tamanoTituloPregunta1 = $preguntas_frecuentes && $preguntas_frecuentes["tamanoTituloPregunta"] == 1 ? 'checked' : '';
 $tamanoTituloPregunta2 = $preguntas_frecuentes && $preguntas_frecuentes["tamanoTituloPregunta"] == 2 ? 'checked' : '';
-$tamanoTituloPregunta3 = $preguntas_frecuentes && $preguntas_frecuentes["tamanoTituloPregunta"] == 2 ? 'checked' : '';
+$tamanoTituloPregunta3 = $preguntas_frecuentes && $preguntas_frecuentes["tamanoTituloPregunta"] == 3 ? 'checked' : '';
 $styletamanoTituloPregunta = $preguntas_frecuentes && $preguntas_frecuentes["tamanoTituloPregunta"]  == 1 ? "fs-6" : ($preguntas_frecuentes && $preguntas_frecuentes["tamanoTituloPregunta"]  == 2 ? "fs-3"  :  ($preguntas_frecuentes && $preguntas_frecuentes["tamanoTituloPregunta"]  == 3 ? "fs-1"  : ""));
 
 $color_titulo_pregunta = $preguntas_frecuentes && $preguntas_frecuentes["color-titulo-pregunta"] ? $preguntas_frecuentes["color-titulo-pregunta"] : '#fbbb01';
@@ -259,7 +259,7 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
 
     $tamanoTituloRedes1 = $redes_sociales && $redes_sociales["tamanoTituloRedes"] == 1 ? 'checked' : '';
     $tamanoTituloRedes2 = $redes_sociales && $redes_sociales["tamanoTituloRedes"] == 2 ? 'checked' : '';
-    $tamanoTituloRedes3 = $redes_sociales && $redes_sociales["tamanoTituloRedes"] == 2 ? 'checked' : '';
+    $tamanoTituloRedes3 = $redes_sociales && $redes_sociales["tamanoTituloRedes"] == 3 ? 'checked' : '';
     $styletamanoTituloRedes = $redes_sociales && $redes_sociales["tamanoTituloRedes"]  == 1 ? "fs-6" : ($redes_sociales && $redes_sociales["tamanoTituloRedes"]  == 2 ? "fs-3"  :  ($redes_sociales && $redes_sociales["tamanoTituloRedes"]  == 3 ? "fs-1"  : ""));
 
     $color_titulo_redes = $redes_sociales && $redes_sociales["color-titulo-redes"] ? $redes_sociales["color-titulo-redes"] : '#fbbb01';
@@ -586,6 +586,9 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
             background-color: transparent;
             color: {{ $color_lista }};
         }
+        .accordion-button:not(.collapsed) {
+            box-shadow: inset 0 calc(-1 * 1px) 0 var(--border-participar) !important;
+        }
     </style>
 
     <div class="landing_page position-relative">
@@ -628,7 +631,7 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
                 {{-- <img class="img-fluid" src="{{$imagen_subir}}" alt="" id="imagen-header"> --}}
                 <p class="{{ $stylealineacionTitulo }} {{ $styleTamanoTituloHeader }} w-100 {{ $bold_titulo_header_style }} {{ $italic_titulo_header_style }}" id="titulo_header">{{ $input_titulo_header }}</p>
                 <p class="{{ $stylealineacionTexto }} {{ $styletamanoTextoHeader }} w-100 {{ $bold_titulo_parrafo_style }} {{ $italic_titulo_parrafo_style }}" id="parrafo-header" style="color: {{ $color_texto }};">{{ $input_texto_header }}</p>
-                <a href="{{ $direccionar_boton_header }}" class="btns btn-landing mt-5 {{ $styletamanoBotonHeader }} {{ $bold_boton_parrafo_style }} {{ $italic_boton_parrafo_style }}" id="btn_participar_header" style="background-color: {{ $color_boton_header }};">PARTICIPAR</a>
+                <a href="{{ $direccionar_boton_header }}" class="btns btn-landing mt-5 {{ $styletamanoBotonHeader }} {{ $bold_boton_parrafo_style }} {{ $italic_boton_parrafo_style }}" id="btn_participar_header" style="background-color: {{ $color_boton_header }};">{{ $titulo_boton_header }}</a>
             </header>
             <div class="pt-5" id="participar">
                 <section>
@@ -690,7 +693,7 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
                             </select>
                         </div>
                         <div class="col-12 col-md-6 mb-3">
-                            <label for="documento" class="label_form">N° de documento</label>
+                            <label for="documento" class="label_form" style="color: {{ $color_label_formulario }} !important;">N° de documento</label>
                             <input type="text" class="form-control input-text" name="documento" id="documento" value="{{ isset($landingPage["user"]) &&  $landingPage["user"]->documento }}" required>
                         </div>
                         <div class="col-12 col-md-6 mb-3">
@@ -864,6 +867,14 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
             $("#landing_redes").html(html)
         }
         addRedesLanding();
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $(document).on('click', '.item_landing_menu', function () {
+            $(".item_landing_menu").removeClass('active');
+            $(this).addClass('active');
+        });
     });
 </script>
 </body>

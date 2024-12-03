@@ -15,5 +15,8 @@ class GameView extends Model
     'premio_img',
     'html_preview',
     'html_origin',
-    'html_end'];
+    'html_end',
+    'politicas',
+    'terminos'
+];
 }
