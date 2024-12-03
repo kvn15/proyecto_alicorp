@@ -10,6 +10,10 @@
     <title>{{ $data["project"]->titulo_pestana }}</title>
     <link rel="icon" href="{{ '/storage/'.$data["project"]->ruta_fav }}" type="image/x-icon">
 </head>
+@php
+    $imgNulo = asset('backend/svg/img-null.svg');
+    $fondo = isset($data["gameRuleta"]->fondo) && !empty($data["gameRuleta"]->fondo) ? '/storage/'.$data["gameRuleta"]->fondo : $imgNulo;
+@endphp
 <style>
     body {
         margin: 0;
@@ -21,7 +25,7 @@
         background-repeat: no-repeat;
         background-size: 100% 100%;
         background-position:  center;
-        background-image: url({{ '/storage/'.$data["gameRuleta"]->fondo }});
+        background-image: url({{ $fondo }});
     }
     .h-100-vh {
         height: 100vh;

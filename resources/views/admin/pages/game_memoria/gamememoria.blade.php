@@ -10,6 +10,17 @@
     <title>{{ $data["project"]->titulo_pestana }}</title>
     <link rel="icon" href="{{ '/storage/'.$data["project"]->ruta_fav }}" type="image/x-icon">
 </head>
+@php
+    $tipoJuego = $data["project"]->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
+    $imgNulo = asset('backend/svg/img-null.svg');
+    $gameMemoria = $data["gameMemoria"]; 
+    $principal = isset($gameMemoria) ? $gameMemoria->principal : '';
+    $principalData = json_decode($principal, true);
+    $imgLogo = isset($principal) && !empty($principal) ? '/storage/'.$principalData["logo-subir"] : $imgNulo;
+@endphp
+@php
+    $fondo = isset($principalData["banner"]) && !empty($principalData["banner"]) ? '/storage/'.$principalData["banner"] : $imgNulo;
+@endphp
 <style>
     body {
         margin: 0;
@@ -21,7 +32,7 @@
         background-repeat: no-repeat;
         background-size: 100% 100%;
         background-position:  center;
-        background-image: url({{ asset('img/games/fondo_memoria_1.jpg') }});
+        background-image: url({{ $fondo }});
     }
     .h-100-vh {
         height: 100vh;
@@ -125,14 +136,6 @@
     }
 </style>
 <body>
-    @php
-        $tipoJuego = $data["project"]->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
-        $imgNulo = asset('backend/svg/img-null.svg');
-        $gameMemoria = $data["gameMemoria"]; 
-        $principal = isset($gameMemoria) ? $gameMemoria->principal : '';
-        $principalData = json_decode($principal, true);
-        $imgLogo = isset($principalData["logo-subir"]) && !empty($principalData["logo-subir"]) ? '/storage/'.$principalData["logo-subir"] : $imgNulo;
-    @endphp
     <form method="POST" action="{{ route($tipoJuego."juego.post.registro", $data["project"]->id) }}" enctype="multipart/form-data" class="content-game" id="form_registro_game">
         @csrf
         @method('POST')
