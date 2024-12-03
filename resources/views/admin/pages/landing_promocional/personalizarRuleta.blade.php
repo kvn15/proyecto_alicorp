@@ -550,7 +550,7 @@
                                 <label class="btn btn-outline-text" for="alineacionTexto2"><small><b><i class="fas fa-align-center"></i></b></small></label>
                               
                                 <input type="radio" class="btn-check" name="alineacionTexto" id="alineacionTexto3" autocomplete="off" value="3" {{ $alineacion3 }}>
-                                <label class="btn btn-outline-text" for="alineacionTexto3"><small><b><i class="fas fa-align-center"></i></b></small></label>
+                                <label class="btn btn-outline-text" for="alineacionTexto3"><small><b><i class="fas fa-align-right"></i></b></small></label>
                             </div>
     
                         </li>
@@ -677,7 +677,7 @@
                                 <label class="btn btn-outline-text" for="alineacionTextoGame2"><small><b><i class="fas fa-align-center"></i></b></small></label>
                               
                                 <input type="radio" class="btn-check" name="alineacionTextoGame" id="alineacionTextoGame3" autocomplete="off" value="3" {{ $alineacion3Game }}>
-                                <label class="btn btn-outline-text" for="alineacionTextoGame3"><small><b><i class="fas fa-align-center"></i></b></small></label>
+                                <label class="btn btn-outline-text" for="alineacionTextoGame3"><small><b><i class="fas fa-align-right"></i></b></small></label>
                             </div>
     
                         </li>
