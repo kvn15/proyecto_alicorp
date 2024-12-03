@@ -118,6 +118,12 @@ $styletamanoBotonHeader = $pagina_principal && $pagina_principal["tamanoBotonHea
 $color_boton_header = $pagina_principal && $pagina_principal["color-boton-header"] ? $pagina_principal["color-boton-header"] : '#ffffff';
 
 $titulo_boton_header = $pagina_principal && isset($pagina_principal["titulo-boton-header"]) ? $pagina_principal["titulo-boton-header"] : 'PARTICIPAR';
+
+$alineacionbtnParticipar1 = isset($pagina_principal["alineacionbtnParticipar"]) && $pagina_principal["alineacionbtnParticipar"] == 1 ? 'checked' : '';
+$alineacionbtnParticipar2 = isset($pagina_principal["alineacionbtnParticipar"]) && $pagina_principal["alineacionbtnParticipar"] == 2 ? 'checked' : '';
+$alineacionbtnParticipar3 = isset($pagina_principal["alineacionbtnParticipar"]) && $pagina_principal["alineacionbtnParticipar"] == 3 ? 'checked' : '';
+$stylealineacionbtnParticipar = isset($pagina_principal["alineacionbtnParticipar"]) && $pagina_principal["alineacionbtnParticipar"]  == 1 ? "me-auto" : (isset($pagina_principal["alineacionbtnParticipar"]) && $pagina_principal["alineacionbtnParticipar"]  == 2 ? ""  :  (isset($pagina_principal["alineacionbtnParticipar"]) && $pagina_principal["alineacionbtnParticipar"]  == 3 ? "ms-auto"  : ""));
+        
 @endphp
 
 @php
@@ -647,7 +653,7 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
                 {{-- <img class="img-fluid" src="{{$imagen_subir}}" alt="" id="imagen-header"> --}}
                 <p class="{{ $stylealineacionTitulo }} {{ $styleTamanoTituloHeader }} w-100 {{ $bold_titulo_header_style }} {{ $italic_titulo_header_style }}" id="titulo_header">{{ $input_titulo_header }}</p>
                 <p class="{{ $stylealineacionTexto }} {{ $styletamanoTextoHeader }} w-100 {{ $bold_titulo_parrafo_style }} {{ $italic_titulo_parrafo_style }}" id="parrafo-header" style="color: {{ $color_texto }};">{{ $input_texto_header }}</p>
-                <a href="{{ $direccionar_boton_header }}" class="btns btn-landing mt-5 {{ $styletamanoBotonHeader }} {{ $bold_boton_parrafo_style }} {{ $italic_boton_parrafo_style }}" id="btn_participar_header" style="background-color: {{ $color_boton_header }};">{{ $titulo_boton_header }}</a>
+                <a href="{{ $direccionar_boton_header }}" class="btns btn-landing mt-5 {{ $styletamanoBotonHeader }} {{ $bold_boton_parrafo_style }} {{ $italic_boton_parrafo_style }} {{ $stylealineacionbtnParticipar }}" id="btn_participar_header" style="background-color: {{ $color_boton_header }};margin-top: 15em;margin-bottom: -17px;">{{ $titulo_boton_header }}</a>
             </header>
             <div class="pt-5" id="participar">
                 <section>

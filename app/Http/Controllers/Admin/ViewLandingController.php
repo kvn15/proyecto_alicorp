@@ -118,7 +118,8 @@ class ViewLandingController extends Controller
             'italic-boton-header' => isset($request['italic-boton-header']) ? 1 : 0,
             'tamanoBotonHeader' => $request["tamanoBotonHeader"],
             'color-boton-header' => $request["color-boton-header"],
-            'titulo-boton-header' => $request["titulo-boton-header"]
+            'titulo-boton-header' => $request["titulo-boton-header"],
+            'alineacionbtnParticipar' => $request["alineacionbtnParticipar"],
         ];
 
         $como_participar = [

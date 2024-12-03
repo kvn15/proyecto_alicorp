@@ -85,8 +85,8 @@
         <div>
             @component('admin.components.cardpromo')
                 @slot('img_promo')
-                    @if (isset($project->ruta_img))
-                        {{asset('backend/img/promo-1.jpg')}}
+                    @if (isset($project->ruta_img) && !empty($project->ruta_img))
+                        {{'/storage/'.$project->ruta_img}}
                     @else
                         {{asset('backend/img/thumbnail.png')}}
                     @endif

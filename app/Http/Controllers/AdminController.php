@@ -29,6 +29,7 @@ class AdminController extends Controller
             'projects.game_id',
             'projects.created_at',
             'projects.updated_at',
+            'projects.ruta_img',
             'proyect_types.ruta_name',
             'proyect_types.name',
             DB::raw('COUNT(participants.id) as participant_count')
@@ -43,6 +44,7 @@ class AdminController extends Controller
             'projects.fecha_fin_proyecto',
             'projects.game_id',
             'projects.created_at',
+            'projects.ruta_img',
             'proyect_types.ruta_name',
             'proyect_types.name',
             'projects.updated_at'

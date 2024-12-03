@@ -18,11 +18,12 @@
                 <div class="w-100">
                     @foreach ($inicio['projects'] as $project)
                     @php
-                        $ruta = $project
+                        $ruta = $project;
+                        $imgLogoProyecto = isset($ruta->ruta_img) && !empty($ruta->ruta_img) ? '/storage/'.$ruta->ruta_img : asset('backend/img/thumbnail.png');
                     @endphp
                     <div class="card-w-full">
                         <div class="info-container">
-                            <a href="{{ route($project->ruta_name.'.show.overview', $project->id ) }}"><img class="img-fluid" src="{{asset('backend/img/thumbnail.png')}}" alt=""></a>
+                            <a href="{{ route($project->ruta_name.'.show.overview', $project->id ) }}"><img class="img-fluid" src="{{$imgLogoProyecto}}" alt=""></a>
                             <div class="info-card">
                                 <p class="title-card"><a href="{{ route($project->ruta_name.'.show.overview', $project->id) }}">{{ $project->nombre_promocion }}</a></p>
                                 <p>{{ $project->name }}</p>
@@ -99,8 +100,8 @@
                         @foreach ($inicio["landing"] as $landing)
                         @component('admin.components.cardpromo')
                             @slot('img_promo')
-                                @if (isset($landing->ruta_img))
-                                    {{asset('backend/img/promo-1.jpg')}}
+                                @if (isset($landing->ruta_img) && !empty($landing->ruta_img))
+                                    {{'/storage/'.$landing->ruta_img}}
                                 @else
                                     {{asset('backend/img/thumbnail.png')}}
                                 @endif
@@ -133,8 +134,8 @@
                         @foreach ($inicio["web"] as $web)
                         @component('admin.components.cardpromo')
                             @slot('img_promo')
-                                @if (isset($web->ruta_img))
-                                    {{asset('backend/img/promo-1.jpg')}}
+                                @if (isset($web->ruta_img) && !empty($web->ruta_img))
+                                    {{'/storage/'.$web->ruta_img}}
                                 @else
                                     {{asset('backend/img/thumbnail.png')}}
                                 @endif
@@ -167,8 +168,8 @@
                         @foreach ($inicio["campana"] as $campana)
                         @component('admin.components.cardpromo')
                             @slot('img_promo')
-                                @if (isset($campana->ruta_img))
-                                    {{asset('backend/img/promo-1.jpg')}}
+                                @if (isset($campana->ruta_img) && !empty($campana->ruta_img))
+                                    {{'/storage/'.$campana->ruta_img}}
                                 @else
                                     {{asset('backend/img/thumbnail.png')}}
                                 @endif

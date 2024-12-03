@@ -456,6 +456,11 @@
             $color_boton_header = $pagina_principal && $pagina_principal["color-boton-header"] ? $pagina_principal["color-boton-header"] : '#ffffff';
 
             $titulo_boton_header = $pagina_principal && isset($pagina_principal["titulo-boton-header"]) ? $pagina_principal["titulo-boton-header"] : 'PARTICIPAR';
+
+            $alineacionbtnParticipar1 = isset($pagina_principal["alineacionbtnParticipar"]) && $pagina_principal["alineacionbtnParticipar"] == 1 ? 'checked' : '';
+            $alineacionbtnParticipar2 = isset($pagina_principal["alineacionbtnParticipar"]) ? ($pagina_principal["alineacionbtnParticipar"] == 2 ? 'checked' : '') : 'checked';
+            $alineacionbtnParticipar3 = isset($pagina_principal["alineacionbtnParticipar"]) && $pagina_principal["alineacionbtnParticipar"] == 3 ? 'checked' : '';
+            $stylealineacionbtnParticipar = isset($pagina_principal["alineacionbtnParticipar"]) && $pagina_principal["alineacionbtnParticipar"]  == 1 ? "me-auto" : (isset($pagina_principal["alineacionbtnParticipar"]) && $pagina_principal["alineacionbtnParticipar"]  == 2 ? ""  :  (isset($pagina_principal["alineacionbtnParticipar"]) && $pagina_principal["alineacionbtnParticipar"]  == 3 ? "ms-auto"  : ""));
         @endphp
         <div class="d-none" id="pagina_principal">
             <div class="border-bottom py-2">
@@ -726,6 +731,21 @@
                             
                             <input type="radio" class="btn-check" name="tamanoBotonHeader" id="tamanoBotonHeader3" autocomplete="off" value="3" {{ $tamanoBotonHeader3 }}>
                             <label class="btn btn-outline-text" for="tamanoBotonHeader3"><small><b>Grande</b></small></label>
+                        </div>
+
+                    </li>
+                    <li class="my-2">
+                        <p class="my-1">Alineación</p>
+                        
+                        <div class="btn-group" role="group">
+                            <input type="radio" class="btn-check" name="alineacionbtnParticipar" id="alineacionbtnParticipar1" autocomplete="off" value="1" {{ $alineacionbtnParticipar1 }}>
+                            <label class="btn btn-outline-text" for="alineacionbtnParticipar1"><small><b><i class="fas fa-align-left"></i></b></small></label>
+                            
+                            <input type="radio" class="btn-check" name="alineacionbtnParticipar" id="alineacionbtnParticipar2" autocomplete="off" {{ $alineacionbtnParticipar2 }} value="2">
+                            <label class="btn btn-outline-text" for="alineacionbtnParticipar2"><small><b><i class="fas fa-align-center"></i></b></small></label>
+                            
+                            <input type="radio" class="btn-check" name="alineacionbtnParticipar" id="alineacionbtnParticipar3" autocomplete="off" value="3" {{ $alineacionbtnParticipar3 }}>
+                            <label class="btn btn-outline-text" for="alineacionbtnParticipar3"><small><b><i class="fas fa-align-right"></i></b></small></label>
                         </div>
 
                     </li>
@@ -1856,7 +1876,7 @@
                     {{-- <img class="img-fluid" src="{{$imagen_subir}}" alt="" id="imagen-header"> --}}
                     <p class="{{ $stylealineacionTitulo }} {{ $styleTamanoTituloHeader }} w-100 {{ $bold_titulo_header_style }} {{ $italic_titulo_header_style }}" id="titulo_header">{{ $input_titulo_header }}</p>
                     <p class="{{ $stylealineacionTexto }} {{ $styletamanoTextoHeader }} w-100 {{ $bold_titulo_parrafo_style }} {{ $italic_titulo_parrafo_style }}" id="parrafo-header" style="color: {{ $color_texto }};">{{ $input_texto_header }}</p>
-                    <a href="{{ $direccionar_boton_header }}" class="btns btn-landing {{ $styletamanoBotonHeader }} {{ $bold_boton_parrafo_style }} {{ $italic_boton_parrafo_style }}" id="btn_participar_header" style="background-color: {{ $color_boton_header }};margin-top: 12em;">{{ $titulo_boton_header }}</a>
+                    <a href="{{ $direccionar_boton_header }}" class="btns btn-landing {{ $styletamanoBotonHeader }} {{ $bold_boton_parrafo_style }} {{ $italic_boton_parrafo_style }} {{ $stylealineacionbtnParticipar }}" id="btn_participar_header" style="background-color: {{ $color_boton_header }};margin-top: 15em;margin-bottom: -17px;">{{ $titulo_boton_header }}</a>
                 </header>
                 <div class="pt-5" id="participar">
                     <section>
@@ -2510,6 +2530,24 @@
         btn_participar_header.classList.add('fs-1')
         btn_participar_header.classList.remove('fs-3')
         btn_participar_header.classList.remove('fs-6')
+    })
+
+    // alineacion
+    const alineacionBtnParticipar1 = document.getElementById('alineacionbtnParticipar1')
+    const alineacionBtnParticipar2 = document.getElementById('alineacionbtnParticipar2')
+    const alineacionBtnParticipar3 = document.getElementById('alineacionbtnParticipar3')
+
+    alineacionBtnParticipar1.addEventListener("change", function() {
+        btn_participar_header.classList.remove('ms-auto')
+        btn_participar_header.classList.add('me-auto')
+    })
+    alineacionBtnParticipar2.addEventListener("change", function() {
+        btn_participar_header.classList.remove('me-auto')
+        btn_participar_header.classList.remove('ms-auto')
+    })
+    alineacionBtnParticipar3.addEventListener("change", function() {
+        btn_participar_header.classList.add('ms-auto')
+        btn_participar_header.classList.remove('me-auto')
     })
 
     // color

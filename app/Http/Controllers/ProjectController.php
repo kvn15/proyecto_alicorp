@@ -29,10 +29,28 @@ class ProjectController extends Controller
             return response()->json(['message' => 'Proyecto no encontrado.'], 404);
         }
 
+        $ruta = $request["valor_img_logo"] ?? "";
+
+        // Almacenar la imagen en el directorio deseado
+        if ($request->hasFile('logo_proyecto') && isset($request["logo_proyecto"]) && !empty($request["logo_proyecto"])) {
+            if(isset($project->ruta_img) && !empty($project->ruta_img)){
+                // Obtener la ruta de la imagen
+                $rutaLogo = public_path($project->ruta_img); // Suponiendo que la ruta está almacenada en 'ruta'
+
+                // Eliminar el archivo del sistema
+                if (file_exists($rutaLogo)) {
+                    unlink($rutaLogo); // Eliminar el archivo
+                }
+            }
+
+            $ruta = $request->file('logo_proyecto')->store('imagenes', 'public'); // Almacena en storage/app/public/imagenes
+        }
+        
         $project->update([
             'nombre_promocion' => $request->name_promo,
             'desc_promocion' => $request->desc_promo,
             'marcas' => $request->marca_select,
+            'ruta_img' => $ruta
         ]);
 
         return response()->json(['success' => true, 'message' => 'Cambios guardados correctamente.']);
@@ -95,7 +113,7 @@ class ProjectController extends Controller
         $ruta = $request["valor_img"];
 
         // Almacenar la imagen en el directorio deseado
-        if ($request->hasFile('imagen') && isset($request["imagen"])) {
+        if ($request->hasFile('imagen') && isset($request["imagen"]) && !empty($request["imagen"])) {
             if(isset($project->ruta_fav) && !empty($project->ruta_fav)){
                 // Obtener la ruta de la imagen
                 $rutaFav = public_path($project->ruta_fav); // Suponiendo que la ruta está almacenada en 'ruta'

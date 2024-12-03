@@ -23,7 +23,7 @@
 
 @section('inicio_dash')
 <style>
-.btn-delete-img {
+.btn-delete-img, .btn-delete-img2 {
     position: absolute;
     top: -10px;
     right: -10px;
@@ -60,7 +60,7 @@
                 <input type="hidden" name="id" id="id" value="{{ $project->id }}">
                 {{-- Proyecto --}}
                 <div class="tab-pane fade active show" id="nav-proyecto" role="tabpanel" aria-labelledby="nav-proyecto-tab">
-                    <form method="POST" class="row" id="form-info-pro" action="{{ route('project.config.proyecto', $project->id) }}">
+                    <form method="POST" class="row" id="form-info-pro" action="{{ route('project.config.proyecto', $project->id) }}"  enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="col-12 d-flex justify-content-between mb-4">
@@ -142,6 +142,23 @@
                                         <option>Marca 9</option>
                                     </select>
                                 </div>
+                            </div>
+                        </div>
+                        @php
+                            $imgLogoProyectoRuta = isset($project->ruta_img) && !empty($project->ruta_img) ? $project->ruta_img : '';
+                            $imgLogoProyecto = isset($project->ruta_img) && !empty($project->ruta_img) ? '/storage/'.$project->ruta_img : asset('backend/img/thumbnail.png');
+                        @endphp
+                        <div class="col-12 row border-bottom pb-3 mb-4 py-3">
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label for="desc_promo"><small><b>Cargar Logo Proyecto</b></small></label>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-5">
+                                <input type="file" name="logo_proyecto" id="logo_proyecto" hidden>
+                                <label for="logo_proyecto" style="cursor: pointer;" class="position-relative">
+                                    <button type="button" class="btn-delete-img2">X</button>
+                                    <img src="{{ $imgLogoProyecto }}" alt="logo proyecto" class="img-thumbnail" id="img_logo_proyecto" style="max-width: 225px; max-height: 225px">
+                                </label>
+                                <input type="hidden" name="valor_img_logo" id="valor_img_logo" value="{{ $imgLogoProyectoRuta }}">
                             </div>
                         </div>
                     </form>
@@ -476,24 +493,24 @@
     </script>
     <script>
         
-    const img_fav_subir = document.getElementById("img-fav-subir")
-    document.getElementById('imagen').addEventListener('change', function(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            
-            reader.onload = function(e) {
-                const preview = document.getElementById('preview-imagen');
-                const upload = document.getElementById('upload-imagen')
-                preview.style.display = 'flex'; // Muestra la imagen
-                upload.classList.add("d-none")
-                preview.classList.remove("d-none")
-                img_fav_subir.src = e.target.result;
-            };
+        const img_fav_subir = document.getElementById("img-fav-subir")
+        document.getElementById('imagen').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const preview = document.getElementById('preview-imagen');
+                    const upload = document.getElementById('upload-imagen')
+                    preview.style.display = 'flex'; // Muestra la imagen
+                    upload.classList.add("d-none")
+                    preview.classList.remove("d-none")
+                    img_fav_subir.src = e.target.result;
+                };
 
-            reader.readAsDataURL(file); // Lee la imagen como una URL de datos
-        }
-    });
+                reader.readAsDataURL(file); // Lee la imagen como una URL de datos
+            }
+        });
     </script>
     <script src="{{ asset('backend/js/admin/configuracionLanding.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
@@ -645,6 +662,24 @@
     <script>
         
     $(document).ready(function () {
+        $(document).on('click','.btn-delete-img2', function () {
+            const valor_file = $(this).parent().parent().find('#logo_proyecto');
+            const valor_img = $(this).parent().parent().find('#valor_img_logo');
+            const preview_img = $(this).parent().parent().find('#img_logo_proyecto');
+
+            Swal.fire({
+                icon: 'question',
+                title: '¿Seguro de eliminar la imagen?',
+                showConfirmButton: true,
+                showCancelButton: true
+            }).then((swal) => {
+                if (swal.isConfirmed) {
+                    preview_img.attr('src', '{{ asset('backend/img/thumbnail.png') }}')
+                    valor_file.val(null)
+                    valor_img.val(null)
+                }
+            })
+        });
         $(document).on('click','.btn-delete-img', function () {
             const valor_img = $(this).parent().parent().find('#valor_img');
             const valorImg = $(this).parent().parent().find('#img-fav-subir');
@@ -670,5 +705,16 @@
             })
         });
     });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#logo_proyecto').change(function (e) {
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                    $('#img_logo_proyecto').attr('src', event.target.result).show();
+                };
+                reader.readAsDataURL(e.target.files[0]);
+            });
+        });
     </script>
 @endsection

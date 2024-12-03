@@ -31,12 +31,14 @@
         <x-admin.menu-reg ruta="{{$project['landing']->project_type->ruta_name}}" id="{{ $project['landing']->id }}" />
         <div class="body-right">
             <h3>Overview</h3>
-
+            @php
+                $imgLogoProyecto = isset($project["landing"]->ruta_img) && !empty($project["landing"]->ruta_img) ? '/storage/'.$project["landing"]->ruta_img : asset('backend/img/thumbnail.png');
+            @endphp
             <div class="row">
                 <div class="col-12">
                     <div class="card-w-full">
                         <div class="info-container">
-                            <a href="{{ route('landing_promocional.show.overview', $project["landing"]->id ) }}"><img class="img-fluid" src="{{asset('backend/img/thumbnail.png')}}" alt=""></a>
+                            <a href="{{ route('landing_promocional.show.overview', $project["landing"]->id ) }}"><img class="img-fluid" src="{{$imgLogoProyecto}}" alt=""></a>
                             <div class="info-card">
                                 <p class="title-card"><a href="{{ route('landing_promocional.show.overview', $project["landing"]->id) }}">{{ $project["landing"]->nombre_promocion }}</a></p>
                                 <p>{{ $project["landing"]->desc_promocion }}</p>
