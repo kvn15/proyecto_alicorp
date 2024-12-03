@@ -350,7 +350,7 @@
                             <option value="#formulario-participar" {{ $direccionar_1 == '#formulario-participar' ? 'selected' : '' }}>Formulario Participar</option>
                             <option value="#ganadores" {{ $direccionar_1 == '#ganadores' ? 'selected' : '' }}>Ganadores</option>
                             <option value="#preguntas-frecuentes" {{ $direccionar_1 == '#preguntas-frecuentes' ? 'selected' : '' }}>Preguntas Frecuentes</option>
-                            <option value="">Términos y condiciones</option>
+                            <option value="#terminos_condiciones" {{ $direccionar_1 == '#terminos_condiciones' ? 'selected' : '' }}>Términos y condiciones</option>
                         </select>
                     </li>
                     <li class="my-2">
@@ -362,7 +362,7 @@
                             <option value="#formulario-participar" {{ $direccionar_2 == '#formulario-participar' ? 'selected' : '' }}>Formulario Participar</option>
                             <option value="#ganadores" {{ $direccionar_2 == '#ganadores' ? 'selected' : '' }}>Ganadores</option>
                             <option value="#preguntas-frecuentes" {{ $direccionar_2 == '#preguntas-frecuentes' ? 'selected' : '' }}>Preguntas Frecuentes</option>
-                            <option value="">Términos y condiciones</option>
+                            <option value="#terminos_condiciones" {{ $direccionar_2 == '#terminos_condiciones' ? 'selected' : '' }}>Términos y condiciones</option>
                         </select>
                     </li>
                     <li class="my-2">
@@ -374,7 +374,7 @@
                             <option value="#formulario-participar" {{ $direccionar_3 == '#formulario-participar' ? 'selected' : '' }}>Formulario Participar</option>
                             <option value="#ganadores" {{ $direccionar_3 == '#ganadores' ? 'selected' : '' }}>Ganadores</option>
                             <option value="#preguntas-frecuentes" {{ $direccionar_3 == '#preguntas-frecuentes' ? 'selected' : '' }}>Preguntas Frecuentes</option>
-                            <option value="#terminos_condiciones" selected>Términos y condiciones</option>
+                            <option value="#terminos_condiciones" {{ $direccionar_3 == '#terminos_condiciones' ? 'selected' : '' }}>Términos y condiciones</option>
                         </select>
                     </li>
                     <li class="my-2">
@@ -386,7 +386,7 @@
                             <option value="#formulario-participar" {{ $direccionar_4 == '#formulario-participar' ? 'selected' : '' }}>Formulario Participar</option>
                             <option value="#ganadores" {{ $direccionar_4 == '#ganadores' ? 'selected' : '' }}>Ganadores</option>
                             <option value="#preguntas-frecuentes" {{ $direccionar_4 == '#preguntas-frecuentes' ? 'selected' : '' }}>Preguntas Frecuentes</option>
-                            <option value="">Términos y condiciones</option>
+                            <option value="#terminos_condiciones" {{ $direccionar_4 == '#terminos_condiciones' ? 'selected' : '' }}>Términos y condiciones</option>
                         </select>
                     </li>
                 </ul>
@@ -1799,7 +1799,7 @@
                 color: {{ $color_lista }};
             }
             .accordion-button:not(.collapsed) {
-                box-shadow: inset 0 calc(-1 * 1px) 0 var(--border-participar) !important;
+                box-shadow: inset 0 calc(-1 * 1px) 0 var(--border-participar);
             }
         </style>
         <div class="landing_page position-relative">
@@ -1817,18 +1817,32 @@
                                     <i class="fas fa-bars" style="color: #fff;"></i>
                                 </button>
                                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                    @php
+                                        $dominio = isset($project->dominio) ? $project->dominio : '';
+                                        $terminosView = route("terminos", $dominio);
+
+                                        $target_1 = isset($direccionar_1) && $direccionar_1 == '#terminos_condiciones' ? '_blank' : '';
+                                        $target_2 = isset($direccionar_2) && $direccionar_2 == '#terminos_condiciones' ? '_blank' : '';
+                                        $target_3 = isset($direccionar_3) && $direccionar_3 == '#terminos_condiciones' ? '_blank' : '';
+                                        $target_4 = isset($direccionar_4) && $direccionar_4 == '#terminos_condiciones' ? '_blank' : '';
+
+                                        $direccionar_1 = isset($direccionar_1) ? ($direccionar_1 == '#terminos_condiciones' ? $terminosView : $direccionar_1) : '';
+                                        $direccionar_2 = isset($direccionar_2) ? ($direccionar_2 == '#terminos_condiciones' ? $terminosView : $direccionar_2) : '';
+                                        $direccionar_3 = isset($direccionar_3) ? ($direccionar_3 == '#terminos_condiciones' ? $terminosView : $direccionar_3) : '';
+                                        $direccionar_4 = isset($direccionar_4) ? ($direccionar_4 == '#terminos_condiciones' ? $terminosView : $direccionar_4) : '';
+                                    @endphp
                                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex" style="gap: 3rem;">
                                         <li class="nav-item">
-                                            <a class="navegacion_1_menu nav-link active item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" aria-current="page" href="#participar" id="{{ $direccionar_1 }}">{{ $navegacion_1 }}</a>
+                                            <a class="navegacion_1_menu nav-link active item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" aria-current="page"  target="{{ $target_1 }}" href="{{ $direccionar_1 }}" id="{{ $direccionar_1 }}">{{ $navegacion_1 }}</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="navegacion_2_menu nav-link item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" href="#preguntas-frecuentes" id="{{ $direccionar_2 }}">{{ $navegacion_2 }}</a>
+                                            <a class="navegacion_2_menu nav-link item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" target="{{ $target_2 }}" href="{{ $direccionar_2 }}" id="{{ $direccionar_2 }}">{{ $navegacion_2 }}</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="navegacion_3_menu nav-link item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" href="#" id="{{ $direccionar_3 }}">{{ $navegacion_3 }}</a>
+                                            <a class="navegacion_3_menu nav-link item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" target="{{ $target_3 }}" href="{{ $direccionar_3 }}" id="{{ $direccionar_3 }}">{{ $navegacion_3 }}</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="navegacion_4_menu nav-link item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" href="#ganadores" id="{{ $direccionar_4 }}">{{ $navegacion_4 }}</a>
+                                            <a class="navegacion_4_menu nav-link item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" target="{{ $target_4 }}" href="{{ $direccionar_4 }}" id="{{ $direccionar_4 }}">{{ $navegacion_4 }}</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -2679,23 +2693,48 @@
     const direccionar_4 = document.getElementById("direccionar_4");
 
     direccionar_1.addEventListener('change', function(event) {
-        const item = document.getElementById("navegacion_1_menu")
-        item.setAttribute("href", event.target.value)
+        const item = document.querySelector(".navegacion_1_menu")
+        console.log(event.target.value)
+        if (event.target.value == "#terminos_condiciones") {
+            item.setAttribute("href", '{{ $terminosView }}')
+            item.setAttribute("target", '_blank')
+        } else {
+            item.setAttribute("href", event.target.value)
+            item.setAttribute("target", '')
+        }
     });
 
     direccionar_2.addEventListener('change', function(event) {
-        const item = document.getElementById("navegacion_2_menu")
-        item.setAttribute("href", event.target.value)
+        const item = document.querySelector(".navegacion_2_menu")
+        if (event.target.value == "#terminos_condiciones") {
+            item.setAttribute("href", '{{ $terminosView }}')
+            item.setAttribute("target", '_blank')
+        } else {
+            item.setAttribute("href", event.target.value)
+            item.setAttribute("target", '')
+        }
     });
 
     direccionar_3.addEventListener('change', function(event) {
-        const item = document.getElementById("navegacion_3_menu")
-        item.setAttribute("href", event.target.value)
+        const item = document.querySelector(".navegacion_3_menu")
+        if (event.target.value == "#terminos_condiciones") {
+            item.setAttribute("href", '{{ $terminosView }}')
+            item.setAttribute("target", '_blank')
+        } else {
+            item.setAttribute("href", event.target.value)
+            item.setAttribute("target", '')
+        }
     });
 
     direccionar_4.addEventListener('change', function(event) {
-        const item = document.getElementById("navegacion_4_menu")
-        item.setAttribute("href", event.target.value)
+        const item = document.querySelector(".navegacion_4_menu")
+        if (event.target.value == "#terminos_condiciones") {
+            item.setAttribute("href", '{{ $terminosView }}')
+            item.setAttribute("target", '_blank')
+        } else {
+            item.setAttribute("href", event.target.value)
+            item.setAttribute("target", '')
+        }
     });
 </script>
 <script>
@@ -3191,20 +3230,17 @@
     
     // COlor borde
     const border_input_pregunta = document.getElementById("border-input-pregunta");
-    const accordionButton = document.querySelector('.accordion-button:not(.collapsed)');
     const border_pregunta = document.getElementById("border-pregunta");
     const section_pregunta = document.querySelector("#preguntas-frecuentes section");
 
     border_input_pregunta.addEventListener("input", function(event) {
         border_pregunta.value = event.target.value
         section_pregunta.style.borderColor = event.target.value
-        accordionButton.style.boxShadow = `inset 0 calc(-1 * 1px) 0 ${event.target.value}`
     })
 
     border_pregunta.addEventListener('input', function(event) {
         border_input_pregunta.value = this.value
         section_pregunta.style.borderColor = this.value
-        accordionButton.style.boxShadow = `inset 0 calc(-1 * 1px) 0 ${event.target.value}`
     })
 
     // estilo texto
@@ -3305,12 +3341,14 @@
     const color_borde_input_pregunta = document.getElementById("color-borde-input-pregunta");
     const color_borde_pregunta = document.getElementById("color-borde-pregunta");
     const accordion_item = document.querySelectorAll('.accordion-item')
+    const accordionButton = document.querySelector('.accordion-button:not(.collapsed)');
 
     color_borde_input_pregunta.addEventListener("input", function(event) {
         color_borde_pregunta.value = event.target.value
         accordion_item.forEach(a => {
             a.style.borderColor = event.target.value
         })
+        accordionButton.style.boxShadow = `inset 0 calc(-1 * 1px) 0 ${event.target.value}`
     })
 
     color_borde_pregunta.addEventListener('input', function(event) {
@@ -3318,6 +3356,7 @@
         accordion_item.forEach(a => {
             a.style.borderColor = this.value
         })
+        accordionButton.style.boxShadow = `inset 0 calc(-1 * 1px) 0 ${event.target.value}`
     })
 
     // pregunta 1

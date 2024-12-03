@@ -23,6 +23,9 @@
 </head>
 
 @php
+$dominio = isset($project->dominio) ? $project->dominio : '';
+@endphp
+@php
 $encabezado = isset($landing->encabezado) && !empty($landing->encabezado) ? json_decode($landing->encabezado) : null;
 $color_menu = $encabezado ? $encabezado->color_menu : '#000000';
 $logo_subir = $encabezado ? '/storage/'.$encabezado->logo_subir : $imgNulo;
@@ -606,18 +609,31 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
                                 <i class="fas fa-bars" style="color: #fff;"></i>
                             </button>
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                @php
+                                    $terminosView = route("terminos", $dominio);
+
+                                    $target_1 = isset($direccionar_1) && $direccionar_1 == '#terminos_condiciones' ? '_blank' : '';
+                                    $target_2 = isset($direccionar_2) && $direccionar_2 == '#terminos_condiciones' ? '_blank' : '';
+                                    $target_3 = isset($direccionar_3) && $direccionar_3 == '#terminos_condiciones' ? '_blank' : '';
+                                    $target_4 = isset($direccionar_4) && $direccionar_4 == '#terminos_condiciones' ? '_blank' : '';
+
+                                    $direccionar_1 = isset($direccionar_1) ? ($direccionar_1 == '#terminos_condiciones' ? $terminosView : $direccionar_1) : '';
+                                    $direccionar_2 = isset($direccionar_2) ? ($direccionar_2 == '#terminos_condiciones' ? $terminosView : $direccionar_2) : '';
+                                    $direccionar_3 = isset($direccionar_3) ? ($direccionar_3 == '#terminos_condiciones' ? $terminosView : $direccionar_3) : '';
+                                    $direccionar_4 = isset($direccionar_4) ? ($direccionar_4 == '#terminos_condiciones' ? $terminosView : $direccionar_4) : '';
+                                @endphp
                                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex" style="gap: 3rem;">
                                     <li class="nav-item">
-                                        <a class="nav-link active item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" aria-current="page" href="#participar" id="{{ $direccionar_1 }}">{{ $navegacion_1 }}</a>
+                                        <a class="nav-link active item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" target="{{ $target_1 }}" aria-current="page" href="{{ $direccionar_1 }}" id="{{ $direccionar_1 }}">{{ $navegacion_1 }}</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" href="#preguntas-frecuentes" id="{{ $direccionar_2 }}">{{ $navegacion_2 }}</a>
+                                        <a class="nav-link item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" target="{{ $target_2 }}" href="{{ $direccionar_2 }}" id="{{ $direccionar_2 }}">{{ $navegacion_2 }}</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}"  target="_blank"  href="{{ route("terminos", $project->dominio) }}" id="{{ $direccionar_3 }}">{{ $navegacion_3 }}</a>
+                                        <a class="nav-link item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}"  target="{{ $target_3 }}"  href="{{ $direccionar_3 }}" id="{{ $direccionar_3 }}">{{ $navegacion_3 }}</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" href="#ganadores" id="{{ $direccionar_4 }}">{{ $navegacion_4 }}</a>
+                                        <a class="nav-link item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" target="{{ $target_4 }}" href="{{ $direccionar_4 }}" id="{{ $direccionar_4 }}">{{ $navegacion_4 }}</a>
                                     </li>
                                 </ul>
                             </div>
@@ -647,7 +663,7 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
                             <img class="img-fluid" src="{{$participar_3}}" alt="" id="item_participar_3">
                         </aside>
                     </div>
-                    <a href="{{ route("terminos", $project->dominio) }}" target="_blank" class="btns btn-landing {{ $styletamanoBotonComo }} {{ $bold_boton_como_style }} {{ $italic_boton_como_style }}" id="btn-como" style="background-color: {{ $color_boton_como }} !important;">{{ $input_buttom_como }}</a>
+                    <a href="{{ route("terminos", $dominio) }}" target="_blank" class="btns btn-landing {{ $styletamanoBotonComo }} {{ $bold_boton_como_style }} {{ $italic_boton_como_style }}" id="btn-como" style="background-color: {{ $color_boton_como }} !important;">{{ $input_buttom_como }}</a>
                 </section>
             </div>
             <script>
