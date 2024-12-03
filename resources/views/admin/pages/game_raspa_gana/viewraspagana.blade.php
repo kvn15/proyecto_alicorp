@@ -464,7 +464,6 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
             success: function(data) {
                 // Procesar los datos devueltos
                 console.log(data)
-                $("#img-header-premio").remove();
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
