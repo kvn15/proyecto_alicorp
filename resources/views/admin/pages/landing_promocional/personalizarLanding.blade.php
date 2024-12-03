@@ -665,7 +665,7 @@
                                 <div id="upload-imagen" class="{{ isset($imagen_subir_url) && !empty($imagen_subir_url) ? 'd-none' : '' }} upload_img">
                                     <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                     <h6>Click para Actualizar</h6>
-                                    <p>PNG, JPG (max. 1,000x1,000px)</p>
+                                    <p>PNG, JPG (max. 150x150px)</p>
                                 </div>
                                 <div>
                                     <img class="img-fluid" id="preview-imagen" src="{{ $imagen_subir_url }}">
@@ -866,7 +866,7 @@
                                     <div id="upload-participar-1" class="{{ isset($participar_1_url) && !empty($participar_1_url) ? 'd-none' : '' }} upload_img">
                                         <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                         <h6>Click para Actualizar</h6>
-                                        <p>PNG, JPG (max. 1,000x1,000px)</p>
+                                        <p>PNG, JPG (max. 500x500px)</p>
                                     </div>
                                     <div>
                                         <img class="img-fluid" id="preview_participar_1" src="{{ $participar_1_url }}">
@@ -887,7 +887,7 @@
                                     <div id="upload-participar-2" class="{{ isset($participar_2_url) && !empty($participar_2_url) ? 'd-none' : '' }} upload_img">
                                         <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                         <h6>Click para Actualizar</h6>
-                                        <p>PNG, JPG (max. 1,000x1,000px)</p>
+                                        <p>PNG, JPG (max. 500x500px)</p>
                                     </div>
                                     <div>
                                         <img class="img-fluid" id="preview_participar_2" src="{{ $participar_2_url }}">
@@ -908,7 +908,7 @@
                                     <div id="upload-participar-3" class="{{ isset($participar_3_url) && !empty($participar_3_url) ? 'd-none' : '' }} upload_img">
                                         <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                         <h6>Click para Actualizar</h6>
-                                        <p>PNG, JPG (max. 1,000x1,000px)</p>
+                                        <p>PNG, JPG (max. 500x500px)</p>
                                     </div>
                                     <div>
                                         <img class="img-fluid" id="preview_participar_3" src="{{ $participar_3_url }}">

@@ -519,7 +519,7 @@
                                         <div id="upload-logo" class="{{ isset($logo_principal_url) && !empty($logo_principal_url) ? 'd-none' : '' }} upload_img">
                                             <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                             <h6>Click para Actualizar</h6>
-                                            <p>PNG, JPG (max. 1,000x1,000px)</p>
+                                            <p>PNG, JPG (max. 200x200px)</p>
                                         </div>
                                         <div>
                                             <img class="img-fluid" id="preview-logo" src="{{ $logo_principal_url }}">
@@ -580,7 +580,7 @@
                                         <div id="upload-gano" class="{{ isset($titulo_subir_url) && !empty($titulo_subir_url) ? 'd-none' : '' }} upload_img">
                                             <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                             <h6>Click para Actualizar</h6>
-                                            <p>PNG, JPG (max. 1,000x1,000px)</p>
+                                            <p>PNG, JPG (max. 300x300px)</p>
                                         </div>
                                         <div>
                                             <img class="img-fluid" id="preview-gano" src="{{ $titulo_subir_url }}">
@@ -650,7 +650,7 @@
                                         <div id="upload-premio-{{ $value->orden }}" class="{{ isset($imgUrl) && !empty($imgUrl) ? 'd-none' : '' }} upload_img">
                                             <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                             <h6>Click para Actualizar</h6>
-                                            <p>PNG, JPG (max. 1,000x1,000px)</p>
+                                            <p>PNG, JPG (max. 300x300px)</p>
                                         </div>
                                         <div>
                                             <img class="img-fluid" id="preview-premio-{{ $value->orden }}" src="{{ $imgUrl }}">
@@ -672,7 +672,7 @@
                                         <div id="upload-sigue" class="{{ isset($urlSigue) && !empty($urlSigue) ? 'd-none' : '' }} upload_img">
                                             <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                             <h6>Click para Actualizar</h6>
-                                            <p>PNG, JPG (max. 1,000x1,000px)</p>
+                                            <p>PNG, JPG (max. 300x300px)</p>
                                         </div>
                                         <div>
                                             <img class="img-fluid" id="preview-sigue" src="{{ $urlSigue }}">
