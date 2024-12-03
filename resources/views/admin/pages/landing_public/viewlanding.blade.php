@@ -614,7 +614,7 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
                                         <a class="nav-link item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" href="#preguntas-frecuentes" id="{{ $direccionar_2 }}">{{ $navegacion_2 }}</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" href="#" id="{{ $direccionar_3 }}">{{ $navegacion_3 }}</a>
+                                        <a class="nav-link item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}"  target="_blank"  href="{{ route("terminos", $project->dominio) }}" id="{{ $direccionar_3 }}">{{ $navegacion_3 }}</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" href="#ganadores" id="{{ $direccionar_4 }}">{{ $navegacion_4 }}</a>
@@ -647,7 +647,7 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
                             <img class="img-fluid" src="{{$participar_3}}" alt="" id="item_participar_3">
                         </aside>
                     </div>
-                    <button class="btns btn-landing {{ $styletamanoBotonComo }} {{ $bold_boton_como_style }} {{ $italic_boton_como_style }}" id="btn-como" style="background-color: {{ $color_boton_como }} !important;">{{ $input_buttom_como }}</button>
+                    <a href="{{ route("terminos", $project->dominio) }}" target="_blank" class="btns btn-landing {{ $styletamanoBotonComo }} {{ $bold_boton_como_style }} {{ $italic_boton_como_style }}" id="btn-como" style="background-color: {{ $color_boton_como }} !important;">{{ $input_buttom_como }}</a>
                 </section>
             </div>
             <script>

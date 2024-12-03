@@ -16,6 +16,32 @@ use Illuminate\Support\Facades\Auth;
 
 class ViewLandingController extends Controller
 {
+    public function terminos($hub) {
+        $project = Project::where('dominio',$hub)->where('status', 1)->first();
+        
+        if(!isset($project)){
+            return back();
+        }
+
+        $fechaActual = Carbon::now('America/Lima')->startOfDay();
+        if (isset($project->fecha_fin_proyecto)) {
+            if ($fechaActual->toDateTimeString() > $project->fecha_fin_proyecto) {
+                return redirect()->route('index')->with('projecto', 'La landing se encuentra finalizada');
+            }
+        }
+
+        $landing = Landing::where('project_id', $project->id)->first();
+        $ganadores = Participant::where('project_id', $project->id)->where('ganador', 1)->get();;
+
+        $landingPage = [
+            'project' => $project,
+            'landing' => $landing,
+            'user' => null,
+            'ganadores' => $ganadores
+        ];
+
+        return view('admin.pages.landing_public.terminosCondiciones', compact('landingPage'));
+    }
     //
     public function index($hub) {
         $project = Project::where('dominio',$hub)->where('status', 1)->first();
