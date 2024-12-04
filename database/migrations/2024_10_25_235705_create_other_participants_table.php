@@ -19,9 +19,9 @@ class CreateOtherParticipantsTable extends Migration
             $table->string("apellidos");
             $table->string("tipo_doc");
             $table->string("nro_documento")->unique();
-            $table->string("edad")->unique();
-            $table->string("telefono")->unique();
-            $table->string("correo")->unique();
+            $table->string("edad");
+            $table->string("telefono");
+            $table->string("correo");
             $table->timestamps();
         });
     }
