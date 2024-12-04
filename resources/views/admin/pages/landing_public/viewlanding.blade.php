@@ -677,8 +677,8 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
                     @if (session('mensajeError'))
                         Swal.fire({
                             icon: 'error',
-                            title: {{ session('mensajeError') }}
-                        })
+                            title: @json(session('mensajeError'))
+                        });
                     @endif
                 });
             </script>

@@ -454,105 +454,110 @@ class ViewLandingController extends Controller
 
     public function register(Request $request, $id) {
 
-        $project = Project::where('id', $id)->first();
+        try {
+            $project = Project::where('id', $id)->first();
 
-        $fechaActual = Carbon::now('America/Lima')->startOfDay();
-        if (isset($project->fecha_fin_participar)) {
-            if ($fechaActual->toDateTimeString() > $project->fecha_fin_participar) {
-                return redirect()->back()->with('mensajeError', 'La participación para esta landing ha finalizado.');;
+            $fechaActual = Carbon::now('America/Lima')->startOfDay();
+            if (isset($project->fecha_fin_participar)) {
+                if ($fechaActual->toDateTimeString() > $project->fecha_fin_participar) {
+                    return redirect()->back()->with('mensajeError', 'La participación para esta landing ha finalizado.');;
+                }
             }
-        }
 
-        // Almacenar la imagen en el directorio deseado
-        $ruta = '';
-        if ($request->hasFile('imagen')) {
-            $ruta = $request->file('imagen')->store('landing', 'public'); // Almacena en storage/app/public/imagenes
-        }
+            // Almacenar la imagen en el directorio deseado
+            $ruta = '';
+            if ($request->hasFile('imagen')) {
+                $ruta = $request->file('imagen')->store('landing', 'public'); // Almacena en storage/app/public/imagenes
+            }
 
-        // Verificar si el codigo ya existe
-        $isCodigo = Participant::where('project_id', $id)->where('codigo', $request->codigo)->first();
+            // Verificar si el codigo ya existe
+            $isCodigo = Participant::where('project_id', $id)->where('codigo', $request->codigo)->first();
 
-        if (isset($isCodigo)) {
-            return redirect()->back()->with('mensajeError', 'El N° de LOTE ya existe.');;
-        }
+            if (isset($isCodigo)) {
+                return redirect()->back()->with('mensajeError', 'El N° de LOTE ya existe.');;
+            }
 
-        $other_participant_id = null;
+            $other_participant_id = null;
 
-        $userId = isset(Auth::user()->id) ? Auth::user()->id : null;
+            $userId = isset(Auth::user()->id) ? Auth::user()->id : null;
 
-        if ($userId == null || !isset($userId)) {
-            // Si existe el dni
-            $otherParticipant = OtherParticipant::where('nro_documento', $request->documento)->first();
+            if ($userId == null || !isset($userId)) {
+                // Si existe el dni
+                $otherParticipant = OtherParticipant::where('nro_documento', $request->documento)->first();
 
 
-            if (isset($otherParticipant)) {
+                if (isset($otherParticipant)) {
 
-                $otherParticipantTel = OtherParticipant::where('nro_documento', '<>', $request->documento)->where('telefono', $request->telefono)->first();
+                    $otherParticipantTel = OtherParticipant::where('nro_documento', '<>', $request->documento)->where('telefono', $request->telefono)->first();
 
-                if (isset($otherParticipantTel)) {
-                    return redirect()->back()->with('mensajeError', 'El numero de telefono ya se encuentra registrado.');;
+                    if (isset($otherParticipantTel)) {
+                        return redirect()->back()->with('mensajeError', 'El numero de telefono ya se encuentra registrado.');;
+                    }
+                    
+                    $otherParticipant->update([
+                        'nombres' => $request->name,
+                        'apellidos' => $request->apellido,
+                        'edad' => $request->edad,
+                        'telefono' => $request->telefono,
+                        'correo' => $request->email
+                    ]);
+
+                    $other_participant_id = $otherParticipant->id;
+                } else {
+
+                    $otherParticipantTel = OtherParticipant::where('telefono', $request->telefono)->first();
+
+                    if (isset($otherParticipantTel)) {
+                        return redirect()->back()->with('mensajeError', 'El numero de telefono ya se encuentra registrado.');
+                    }
+
+                    $otherParticipant = OtherParticipant::create([
+                        'nombres' => $request->name,
+                        'apellidos' => $request->apellido,
+                        'edad' => $request->edad,
+                        'telefono' => $request->telefono,
+                        'correo' => $request->email,
+                        'tipo_doc' => $request->tipo_doc,
+                        'nro_documento' => $request->documento,
+                    ]);
+
+                    $other_participant_id = $otherParticipant->id;
                 }
                 
-                $otherParticipant->update([
-                    'nombres' => $request->name,
-                    'apellidos' => $request->apellido,
-                    'edad' => $request->edad,
-                    'telefono' => $request->telefono,
-                    'correo' => $request->email
-                ]);
-
-                $other_participant_id = $otherParticipant->id;
-            } else {
-
-                $otherParticipantTel = OtherParticipant::where('telefono', $request->telefono)->first();
-
-                if (isset($otherParticipantTel)) {
-                    return redirect()->back()->with('mensajeError', 'El numero de telefono ya se encuentra registrado.');;
-                }
-
-                $otherParticipant = OtherParticipant::create([
-                    'nombres' => $request->name,
-                    'apellidos' => $request->apellido,
-                    'edad' => $request->edad,
-                    'telefono' => $request->telefono,
-                    'correo' => $request->email,
-                    'tipo_doc' => $request->tipo_doc,
-                    'nro_documento' => $request->documento,
-                ]);
-
-                $other_participant_id = $otherParticipant->id;
             }
             
+            $participant = new Participant();
+            $participant->project_id = $id;
+            $participant->user_id = $userId;
+            $participant->other_participant_id = $other_participant_id;
+            $participant->terminos_condiciones = 1;
+            $participant->codigo = $request->codigo;
+            $participant->codigo_valido = 1;
+            $participant->participaciones = 1;
+            $participant->file_producto = $ruta;
+            $participant->punto_entrega = isset($request->punto_venta) && !empty($request->punto_venta) ? $request->punto_venta : null;
+            $participant->save();
+
+            if (isset(Auth::user()->id)) {
+
+                $user= User::findOrFail(Auth::user()->id);
+                // Actualizar usuario
+                $user->update([
+                    'name' => $request->name,
+                    'apellido' => $request->apellido,
+                    'tipo_documento' => $request->tipo_doc,
+                    'documento' => $request->documento,
+                    'edad' => $request->edad,
+                    'telefono' => $request->telefono
+                ]);
+            }
+
+            $uuid = Str::uuid()->toString();
+
+            return redirect()->back()->with('mensajeSuccess', 'Registro Exitoso');
+        } catch (\Throwable $th) {
+            // dd($th); // Depurar la excepción
+            return redirect()->back()->with('mensajeError', 'Ocurrio un error inesperado.');
         }
-        
-        $participant = new Participant();
-        $participant->project_id = $id;
-        $participant->user_id = $userId;
-        $participant->other_participant_id = $other_participant_id;
-        $participant->terminos_condiciones = 1;
-        $participant->codigo = $request->codigo;
-        $participant->codigo_valido = 1;
-        $participant->participaciones = 1;
-        $participant->file_producto = $ruta;
-        $participant->punto_entrega = isset($request->punto_venta) && !empty($request->punto_venta) ? $request->punto_venta : null;
-        $participant->save();
-
-        if (isset(Auth::user()->id)) {
-
-            $user= User::findOrFail(Auth::user()->id);
-            // Actualizar usuario
-            $user->update([
-                'name' => $request->name,
-                'apellido' => $request->apellido,
-                'tipo_documento' => $request->tipo_doc,
-                'documento' => $request->documento,
-                'edad' => $request->edad,
-                'telefono' => $request->telefono
-            ]);
-        }
-
-        $uuid = Str::uuid()->toString();
-
-        return redirect()->back()->with('mensajeSuccess', 'Registro Exitoso');
     }
 }
