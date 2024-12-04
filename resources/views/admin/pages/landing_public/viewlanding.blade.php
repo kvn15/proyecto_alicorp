@@ -801,7 +801,7 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
                                 </button>
                                 </h2>
                                 <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                                <div class="accordion-body" id="respuesta-1-landing">
+                                <div class="accordion-body" id="respuesta-1-landing" style="color: {{ $color_text_pregunta }} !important;">
                                     {{ $respuesta1 }}
                                 </div>
                                 </div>
@@ -813,7 +813,7 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
                                 </button>
                                 </h2>
                                 <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                <div class="accordion-body" id="respuesta-2-landing">
+                                <div class="accordion-body" id="respuesta-2-landing" style="color: {{ $color_text_pregunta }} !important;">
                                     {{ $respuesta2 }}
                                 </div>
                                 </div>
@@ -825,7 +825,7 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
                                 </button>
                                 </h2>
                                 <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                <div class="accordion-body"  id="respuesta-3-landing">
+                                <div class="accordion-body"  id="respuesta-3-landing" style="color: {{ $color_text_pregunta }} !important;">
                                     {{ $respuesta3 }}
                                 </div>
                                 </div>
@@ -837,7 +837,7 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
                                 </button>
                                 </h2>
                                 <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                <div class="accordion-body"  id="respuesta-4-landing">
+                                <div class="accordion-body"  id="respuesta-4-landing" style="color: {{ $color_text_pregunta }} !important;">
                                     {{ $respuesta4 }}
                                 </div>
                                 </div>
