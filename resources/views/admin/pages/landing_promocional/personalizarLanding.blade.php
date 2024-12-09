@@ -1978,58 +1978,58 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>73897044</td>
-                                        <td>Kevin Blas Huamán</td>
+                                        <td>15547569</td>
+                                        <td>Lorem Ipsu brsss</td>
                                         <td>Articulo 1</td>
                                     </tr>
                                     <tr>
-                                        <td>73897044</td>
-                                        <td>Kevin Blas Huamán</td>
+                                        <td>15547569</td>
+                                        <td>Lorem Ipsu brsss</td>
                                         <td>Articulo 1</td>
                                     </tr>
                                     <tr>
-                                        <td>73897044</td>
-                                        <td>Kevin Blas Huamán</td>
+                                        <td>15547569</td>
+                                        <td>Lorem Ipsu brsss</td>
                                         <td>Articulo 1</td>
                                     </tr>
                                     <tr>
-                                        <td>73897044</td>
-                                        <td>Kevin Blas Huamán</td>
+                                        <td>15547569</td>
+                                        <td>Lorem Ipsu brsss</td>
                                         <td>Articulo 1</td>
                                     </tr>
                                     <tr>
-                                        <td>73897044</td>
-                                        <td>Kevin Blas Huamán</td>
+                                        <td>15547569</td>
+                                        <td>Lorem Ipsu brsss</td>
                                         <td>Articulo 1</td>
                                     </tr>
                                     <tr>
-                                        <td>73897044</td>
-                                        <td>Kevin Blas Huamán</td>
+                                        <td>15547569</td>
+                                        <td>Lorem Ipsu brsss</td>
                                         <td>Articulo 1</td>
                                     </tr>
                                     <tr>
-                                        <td>73897044</td>
-                                        <td>Kevin Blas Huamán</td>
+                                        <td>15547569</td>
+                                        <td>Lorem Ipsu brsss</td>
                                         <td>Articulo 1</td>
                                     </tr>
                                     <tr>
-                                        <td>73897044</td>
-                                        <td>Kevin Blas Huamán</td>
+                                        <td>15547569</td>
+                                        <td>Lorem Ipsu brsss</td>
                                         <td>Articulo 1</td>
                                     </tr>
                                     <tr>
-                                        <td>73897044</td>
-                                        <td>Kevin Blas Huamán</td>
+                                        <td>15547569</td>
+                                        <td>Lorem Ipsu brsss</td>
                                         <td>Articulo 1</td>
                                     </tr>
                                     <tr>
-                                        <td>73897044</td>
-                                        <td>Kevin Blas Huamán</td>
+                                        <td>15547569</td>
+                                        <td>Lorem Ipsu brsss</td>
                                         <td>Articulo 1</td>
                                     </tr>
                                     <tr>
-                                        <td>73897044</td>
-                                        <td>Kevin Blas Huamán</td>
+                                        <td>15547569</td>
+                                        <td>Lorem Ipsu brsss</td>
                                         <td>Articulo 1</td>
                                     </tr>
                                 </tbody>
