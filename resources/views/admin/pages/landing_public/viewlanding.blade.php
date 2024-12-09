@@ -860,9 +860,9 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
                         </div>
                     </div> --}}
 
-                    <div style="border-color: {{ $border_pregunta }} !important;" class="border rounded">
-                        <div class="border-bottom" style="border-color: {{ $border_pregunta }} !important;">
-                            <div class="top-acordion d-flex justify-content-between align-items-center px-3 py-3 border-bottom" style="border-color: {{ $border_pregunta }} !important; cursor: pointer;">
+                    <div style="border-color: {{ $color_border_pregunta }} !important;" class="border rounded">
+                        <div class="border-bottom" style="border-color: {{ $color_border_pregunta }} !important;">
+                            <div class="top-acordion d-flex justify-content-between align-items-center px-3 py-3 border-bottom" style="border-color: {{ $color_border_pregunta }} !important; cursor: pointer;">
                                 <p class="m-0" style="color: {{ $color_text_pregunta }} !important;">
                                     {{ $pregunta1 }}
                                 </p>
@@ -874,8 +874,8 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
                                 </p>
                             </div>
                         </div>
-                        <div class="border-bottom" style="border-color: {{ $border_pregunta }} !important;">
-                            <div class="top-acordion d-flex justify-content-between align-items-center px-3 py-3 border-bottom" style="border-color: {{ $border_pregunta }} !important; cursor: pointer;" >
+                        <div class="border-bottom" style="border-color: {{ $color_border_pregunta }} !important;">
+                            <div class="top-acordion d-flex justify-content-between align-items-center px-3 py-3 border-bottom" style="border-color: {{ $color_border_pregunta }} !important; cursor: pointer;" >
                                 <p class="m-0" style="color: {{ $color_text_pregunta }} !important;">
                                     {{ $pregunta2 }}
                                 </p>
@@ -887,8 +887,8 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
                                 </p>
                             </div>
                         </div>
-                        <div class="border-bottom" style="border-color: {{ $border_pregunta }} !important;">
-                            <div class="top-acordion d-flex justify-content-between align-items-center px-3 py-3 border-bottom" style="border-color: {{ $border_pregunta }} !important; cursor: pointer;" >
+                        <div class="border-bottom" style="border-color: {{ $color_border_pregunta }} !important;">
+                            <div class="top-acordion d-flex justify-content-between align-items-center px-3 py-3 border-bottom" style="border-color: {{ $color_border_pregunta }} !important; cursor: pointer;" >
                                 <p class="m-0" style="color: {{ $color_text_pregunta }} !important;">
                                     {{ $pregunta3 }}
                                 </p>
@@ -901,7 +901,7 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
                             </div>
                         </div>
                         <div>
-                            <div class="top-acordion d-flex justify-content-between align-items-center px-3 py-3 border-bottom" style="border-color: {{ $border_pregunta }} !important; cursor: pointer;" >
+                            <div class="top-acordion d-flex justify-content-between align-items-center px-3 py-3 border-bottom" style="border-color: {{ $color_border_pregunta }} !important; cursor: pointer;" >
                                 <p class="m-0" style="color: {{ $color_text_pregunta }} !important;">
                                     {{ $pregunta4 }}
                                 </p>
