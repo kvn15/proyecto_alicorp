@@ -1588,11 +1588,12 @@
             }
 
             header {
-                min-height: 600px;
+                height: 600px;
                 background-size: cover;
                 background-repeat: no-repeat;
-                padding: 3em;
-                padding-top: 8em;
+                /* padding: 3em; */
+                padding: 0px 2em;
+                /* padding-top: 8em; */
             }
 
             .btn-landing {
@@ -1872,11 +1873,15 @@
                 </div>
             </div>
             <div class="w-100">
-                <header id="header" class="w-100 d-flex flex-column justify-content-center align-items-center" style="gap: 1.2rem;background-image: url({{$banner_subir}});">
-                    {{-- <img class="img-fluid" src="{{$imagen_subir}}" alt="" id="imagen-header"> --}}
-                    <p class="{{ $stylealineacionTitulo }} {{ $styleTamanoTituloHeader }} w-100 {{ $bold_titulo_header_style }} {{ $italic_titulo_header_style }}" id="titulo_header">{{ $input_titulo_header }}</p>
-                    <p class="{{ $stylealineacionTexto }} {{ $styletamanoTextoHeader }} w-100 {{ $bold_titulo_parrafo_style }} {{ $italic_titulo_parrafo_style }}" id="parrafo-header" style="color: {{ $color_texto }};">{{ $input_texto_header }}</p>
-                    <a href="{{ $direccionar_boton_header }}" class="btns btn-landing {{ $styletamanoBotonHeader }} {{ $bold_boton_parrafo_style }} {{ $italic_boton_parrafo_style }} {{ $stylealineacionbtnParticipar }}" id="btn_participar_header" style="background-color: {{ $color_boton_header }};margin-top: 15em;margin-bottom: -17px;">{{ $titulo_boton_header }}</a>
+                <header id="header" class="w-100" style="background-image: url({{$banner_subir}});">
+                    <div style="width: 100%; height: 500px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                        {{-- <img class="img-fluid" src="{{$imagen_subir}}" alt="" id="imagen-header"> --}}
+                        <p class="{{ $stylealineacionTitulo }} {{ $styleTamanoTituloHeader }} w-100 {{ $bold_titulo_header_style }} {{ $italic_titulo_header_style }}" id="titulo_header">{{ $input_titulo_header }}</p>
+                        <p class="{{ $stylealineacionTexto }} {{ $styletamanoTextoHeader }} w-100 {{ $bold_titulo_parrafo_style }} {{ $italic_titulo_parrafo_style }}" id="parrafo-header" style="color: {{ $color_texto }};">{{ $input_texto_header }}</p>
+                    </div>
+                    <div style="width: 100%; height: 100px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                        <a href="{{ $direccionar_boton_header }}" class="btns btn-landing {{ $styletamanoBotonHeader }} {{ $bold_boton_parrafo_style }} {{ $italic_boton_parrafo_style }} {{ $stylealineacionbtnParticipar }}" id="btn_participar_header" style="background-color: {{ $color_boton_header }};">{{ $titulo_boton_header }}</a>
+                    </div>
                 </header>
                 <div class="pt-5" id="participar">
                     <section>

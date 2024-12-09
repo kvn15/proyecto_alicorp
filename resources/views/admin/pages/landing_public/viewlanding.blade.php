@@ -366,11 +366,12 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
         }
 
         header {
-            min-height: 600px;
+            height: 600px;
             background-size: cover;
             background-repeat: no-repeat;
-            padding: 3em;
-            padding-top: 8em;
+            /* padding: 3em; */
+            padding: 0px 2em;
+            /* padding-top: 8em; */
         }
 
         .btn-landing {
@@ -598,6 +599,16 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
         .accordion-button:not(.collapsed) {
             box-shadow: inset 0 calc(-1 * 1px) 0 var(--border-participar) !important;
         }
+
+        .rotate-icon-top {
+            transform: rotate(180deg); 
+            transition: transform 0.2s ease;
+        }
+
+        .rotate-icon-bottom {
+            transform: rotate(0deg); 
+            transition: transform 0.2s ease;
+        }
     </style>
 
     <div class="landing_page position-relative">
@@ -649,11 +660,15 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
             </div>
         </div>
         <div class="w-100">
-            <header id="header" class="w-100 d-flex flex-column justify-content-center align-items-center" style="gap: 1.2rem;background-image: url({{$banner_subir}});">
-                {{-- <img class="img-fluid" src="{{$imagen_subir}}" alt="" id="imagen-header"> --}}
-                <p class="{{ $stylealineacionTitulo }} {{ $styleTamanoTituloHeader }} w-100 {{ $bold_titulo_header_style }} {{ $italic_titulo_header_style }}" id="titulo_header">{{ $input_titulo_header }}</p>
-                <p class="{{ $stylealineacionTexto }} {{ $styletamanoTextoHeader }} w-100 {{ $bold_titulo_parrafo_style }} {{ $italic_titulo_parrafo_style }}" id="parrafo-header" style="color: {{ $color_texto }};">{{ $input_texto_header }}</p>
-                <a href="{{ $direccionar_boton_header }}" class="btns btn-landing mt-5 {{ $styletamanoBotonHeader }} {{ $bold_boton_parrafo_style }} {{ $italic_boton_parrafo_style }} {{ $stylealineacionbtnParticipar }}" id="btn_participar_header" style="background-color: {{ $color_boton_header }};margin-top: 15em;margin-bottom: -17px;">{{ $titulo_boton_header }}</a>
+            <header id="header" class="w-100" style="background-image: url({{$banner_subir}});">
+                <div style="width: 100%; height: 500px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    {{-- <img class="img-fluid" src="{{$imagen_subir}}" alt="" id="imagen-header"> --}}
+                    <p class="{{ $stylealineacionTitulo }} {{ $styleTamanoTituloHeader }} w-100 {{ $bold_titulo_header_style }} {{ $italic_titulo_header_style }}" id="titulo_header">{{ $input_titulo_header }}</p>
+                    <p class="{{ $stylealineacionTexto }} {{ $styletamanoTextoHeader }} w-100 {{ $bold_titulo_parrafo_style }} {{ $italic_titulo_parrafo_style }}" id="parrafo-header" style="color: {{ $color_texto }};">{{ $input_texto_header }}</p>
+                </div>
+                <div style="width: 100%; height: 100px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <a href="{{ $direccionar_boton_header }}" class="btns btn-landing {{ $styletamanoBotonHeader }} {{ $bold_boton_parrafo_style }} {{ $italic_boton_parrafo_style }} {{ $stylealineacionbtnParticipar }}" id="btn_participar_header" style="background-color: {{ $color_boton_header }};">{{ $titulo_boton_header }}</a>
+                </div>
             </header>
             <div class="pt-5" id="participar">
                 <section>
@@ -792,7 +807,7 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
                 <section style="border-color: {{ $border_pregunta }} !important;">
                     <h1 class="text-center title-participar {{ $bold_titulo_pregunta_style }} {{ $italic_titulo_pregunta_style }} {{ $styletamanoTituloPregunta }}" id="pregunta-title" style="color: {{ $color_titulo_pregunta }} !important;">{{ $input_titulo_pregunta }}</h1>
                     <div class="w-100">
-                        <div class="accordion" id="accordionExample">
+                        {{-- <div class="accordion" id="accordionExample">
                             <div class="accordion-item" style="border-color: {{ $color_border_pregunta }} !important;">
                                 <h2 class="accordion-header">
                                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" 
@@ -843,6 +858,61 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
                                 </div>
                             </div>
                         </div>
+                    </div> --}}
+
+                    <div style="border-color: {{ $border_pregunta }} !important;" class="border rounded">
+                        <div class="border-bottom" style="border-color: {{ $border_pregunta }} !important;">
+                            <div class="top-acordion d-flex justify-content-between align-items-center px-3 py-3 border-bottom" style="border-color: {{ $border_pregunta }} !important; cursor: pointer;">
+                                <p class="m-0" style="color: {{ $color_text_pregunta }} !important;">
+                                    {{ $pregunta1 }}
+                                </p>
+                                <span class="icon-acordion rotate-icon-top" style="color: {{ $color_text_pregunta }} !important;"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="bottom-acordion" style="color: {{ $color_text_pregunta }} !important;">
+                                <p class="mb-0 px-3 py-3" style="font-size: 13px;">
+                                    {{ $respuesta1 }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="border-bottom" style="border-color: {{ $border_pregunta }} !important;">
+                            <div class="top-acordion d-flex justify-content-between align-items-center px-3 py-3 border-bottom" style="border-color: {{ $border_pregunta }} !important; cursor: pointer;" >
+                                <p class="m-0" style="color: {{ $color_text_pregunta }} !important;">
+                                    {{ $pregunta2 }}
+                                </p>
+                                <span class="icon-acordion" style="color: {{ $color_text_pregunta }} !important;"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="bottom-acordion" style="color: {{ $color_text_pregunta }} !important; display: none;">
+                                <p class="mb-0 px-3 py-3" style="font-size: 13px;">
+                                    {{ $respuesta2 }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="border-bottom" style="border-color: {{ $border_pregunta }} !important;">
+                            <div class="top-acordion d-flex justify-content-between align-items-center px-3 py-3 border-bottom" style="border-color: {{ $border_pregunta }} !important; cursor: pointer;" >
+                                <p class="m-0" style="color: {{ $color_text_pregunta }} !important;">
+                                    {{ $pregunta3 }}
+                                </p>
+                                <span class="icon-acordion" style="color: {{ $color_text_pregunta }} !important;"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="bottom-acordion" style="color: {{ $color_text_pregunta }} !important; display: none;">
+                                <p class="mb-0 px-3 py-3" style="font-size: 13px;">
+                                    {{ $respuesta3 }}
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="top-acordion d-flex justify-content-between align-items-center px-3 py-3 border-bottom" style="border-color: {{ $border_pregunta }} !important; cursor: pointer;" >
+                                <p class="m-0" style="color: {{ $color_text_pregunta }} !important;">
+                                    {{ $pregunta4 }}
+                                </p>
+                                <span class="icon-acordion" style="color: {{ $color_text_pregunta }} !important;"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="bottom-acordion" style="color: {{ $color_text_pregunta }} !important; display: none;">
+                                <p class="mb-0 px-3 py-3" style="font-size: 13px;">
+                                    {{ $respuesta4 }}
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </section>
             </div>
@@ -873,18 +943,47 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
 </script>
 <script>
     $(document).ready(function () {
+        $(document).on('click', '.top-acordion', function () {
+            const text = $(this).parent().find(".bottom-acordion");
+            const icon = $(this).parent().find(".icon-acordion");
+
+            $(".icon-acordion").removeClass('rotate-icon-top')
+            $(".icon-acordion").addClass('rotate-icon-bottom')
+
+            
+            $(".bottom-acordion").slideUp();
+            
+
+            setTimeout(() => {
+
+                if (icon.hasClass('rotate-icon-top')) {
+                    icon.removeClass('rotate-icon-top')
+                    icon.addClass('rotate-icon-bottom')
+                } else {
+                    $(text).slideDown();
+                    icon.removeClass('rotate-icon-bottom')
+                    icon.addClass('rotate-icon-top')
+                }
+            }, 1);
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
         var arrayRedes = {!! json_encode($redes_sociales_array) !!};
         function addRedesLanding() {
 
             var html = ``;
 
-            arrayRedes.forEach(a => {
-                html += `
-                    <a href="${a.enlace}">
-                        <i class="fab fa-${a.name} redes_icon" style="font-size: 3.2rem;color: {{ $color_icon_redes }};"></i>
-                    </a>
-                `;
-            })
+            if (arrayRedes.length > 0 && arrayRedes != '[]') {
+                arrayRedes.forEach(a => {
+                    html += `
+                        <a href="${a.enlace}">
+                            <i class="fab fa-${a.name} redes_icon" style="font-size: 3.2rem;color: {{ $color_icon_redes }};"></i>
+                        </a>
+                    `;
+                })
+            }
 
             $("#landing_redes").html(html)
         }

@@ -69,7 +69,7 @@
                                 <small>Actualiza la información del proyecto</small>
                             </div>
                             <div class="d-flex" style="gap: 0.7rem">
-                                <button type="button" class="btn btn-outline-secondary" style="align-self: center">Cancelar</button>
+                                {{-- <button type="button" class="btn btn-outline-secondary" style="align-self: center" id="cancelar_proyecto">Cancelar</button> --}}
                                 <button type="submit" class="btn btn-alicorp" style="align-self: center" id="btn-info-pro">Guardar</button>
                             </div>
                         </div>
@@ -156,7 +156,17 @@
                                 <input type="file" name="logo_proyecto" id="logo_proyecto" hidden>
                                 <label for="logo_proyecto" style="cursor: pointer;" class="position-relative">
                                     <button type="button" class="btn-delete-img2">X</button>
-                                    <img src="{{ $imgLogoProyecto }}" alt="logo proyecto" class="img-thumbnail" id="img_logo_proyecto" style="max-width: 225px; max-height: 225px">
+                                    <div id="upload_logo_none" class="{{ !isset($imgLogoProyectoRuta) || empty($imgLogoProyectoRuta) ? 'd-flex' : 'd-none' }} flex-column justify-content-center align-items-center border rounded p-2" style="width: 200px;height: 225px;">
+                                        <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
+                                        <h6 style="color: #027A48;">Click para Actualizar</h6>
+                                        <p style="font-size: 12px;">PNG, JPG (max. 200 x 225 px)</p>
+                                    </div>
+                                    <img 
+                                        src="{{ $imgLogoProyecto }}" 
+                                        alt="logo proyecto"
+                                        class="img-thumbnail {{ !isset($imgLogoProyectoRuta) || empty($imgLogoProyectoRuta) ? 'd-none' : 'd-block' }}" 
+                                        id="img_logo_proyecto" 
+                                        style="max-width: 225px; max-height: 225px">
                                 </label>
                                 <input type="hidden" name="valor_img_logo" id="valor_img_logo" value="{{ $imgLogoProyectoRuta }}">
                             </div>
@@ -173,7 +183,7 @@
                                 <small>Actualiza la información del dominio</small>
                             </div>
                             <div class="d-flex" style="gap: 0.7rem">
-                                <button type="button" class="btn btn-outline-secondary" style="align-self: center">Cancelar</button>
+                                {{-- <button type="button" class="btn btn-outline-secondary" style="align-self: center" id="cancelar_dominio">Cancelar</button> --}}
                                 <button type="submit" class="btn btn-alicorp" style="align-self: center">Guardar</button>
                             </div>
                         </div>
@@ -201,7 +211,7 @@
                                 <small>Actualiza la información de la duración del proyecto</small>
                             </div>
                             <div class="d-flex" style="gap: 0.7rem">
-                                <button type="button" class="btn btn-outline-secondary" style="align-self: center">Cancelar</button>
+                                {{-- <button type="button" class="btn btn-outline-secondary" style="align-self: center"  id="cancelar_vigencia">Cancelar</button> --}}
                                 <button type="submit" class="btn btn-alicorp" style="align-self: center">Guardar</button>
                             </div>
                         </div>
@@ -249,7 +259,7 @@
                                 <small>Actualiza los estilos  del proyecto</small>
                             </div>
                             <div class="d-flex" style="gap: 0.7rem">
-                                <button type="button" class="btn btn-outline-secondary" style="align-self: center">Cancelar</button>
+                                {{-- <button type="button" class="btn btn-outline-secondary" style="align-self: center" id="cancelar_estilos">Cancelar</button> --}}
                                 <button type="submit" class="btn btn-alicorp" style="align-self: center">Guardar</button>
                             </div>
                         </div>
@@ -325,7 +335,7 @@
                                 <small>Actualiza los Premios del proyecto</small>
                             </div>
                             <div class="d-flex" style="gap: 0.7rem">
-                                <button type="button" class="btn btn-outline-secondary" style="align-self: center">Cancelar</button>
+                                {{-- <button type="button" class="btn btn-outline-secondary" style="align-self: center" id="cancelar_premios">Cancelar</button> --}}
                                 <button type="submit" class="btn btn-alicorp" style="align-self: center">Guardar</button>
                             </div>
                         </div>
@@ -395,7 +405,7 @@
                                 <small>Actualiza las Restricciones del proyecto</small>
                             </div>
                             <div class="d-flex" style="gap: 0.7rem">
-                                <button type="button" class="btn btn-outline-secondary" style="align-self: center">Cancelar</button>
+                                {{-- <button type="button" class="btn btn-outline-secondary" style="align-self: center" id="cancelar_condicionales">Cancelar</button> --}}
                                 <button type="submit" class="btn btn-alicorp" style="align-self: center">Guardar</button>
                             </div>
                         </div>
@@ -438,7 +448,7 @@
                                 <small>Actualiza el estado del proyecto</small>
                             </div>
                             <div class="d-flex" style="gap: 0.7rem">
-                                <button type="button" class="btn btn-outline-secondary" style="align-self: center">Cancelar</button>
+                                {{-- <button type="button" class="btn btn-outline-secondary" style="align-self: center" id="cancelar_estados">Cancelar</button> --}}
                                 <button type="submit" class="btn btn-alicorp" style="align-self: center">Guardar</button>
                             </div>
                         </div>
@@ -666,6 +676,7 @@
             const valor_file = $(this).parent().parent().find('#logo_proyecto');
             const valor_img = $(this).parent().parent().find('#valor_img_logo');
             const preview_img = $(this).parent().parent().find('#img_logo_proyecto');
+            const upload_logo_none = $(this).parent().parent().find('#upload_logo_none');
 
             Swal.fire({
                 icon: 'question',
@@ -674,9 +685,14 @@
                 showCancelButton: true
             }).then((swal) => {
                 if (swal.isConfirmed) {
-                    preview_img.attr('src', '{{ asset('backend/img/thumbnail.png') }}')
+                    // preview_img.attr('src', '{{ asset('backend/img/thumbnail.png') }}')
                     valor_file.val(null)
                     valor_img.val(null)
+                    $(upload_logo_none).addClass('d-flex');
+                    $(upload_logo_none).removeClass('d-none');
+                    $('#img_logo_proyecto').removeClass('d-block');
+                    $('#img_logo_proyecto').addClass('d-none');
+                    
                 }
             })
         });
@@ -709,11 +725,16 @@
     <script>
         $(document).ready(function () {
             $('#logo_proyecto').change(function (e) {
+                const upload_logo_none = $(this).parent().parent().find('#upload_logo_none');
                 var reader = new FileReader();
                 reader.onload = function (event) {
                     $('#img_logo_proyecto').attr('src', event.target.result).show();
                 };
                 reader.readAsDataURL(e.target.files[0]);
+                $(upload_logo_none).removeClass('d-flex');
+                $(upload_logo_none).addClass('d-none');
+                $('#img_logo_proyecto').addClass('d-block');
+                $('#img_logo_proyecto').removeClass('d-none');
             });
         });
     </script>
