@@ -791,9 +791,14 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
                             </thead>
                             <tbody>
                                 @foreach ($ganadoresArray as $item)
+                                @php
+                                    $name = isset($item->user->name) ? $item->user->name : $item->other_participant->nombres;
+                                    $apellido = isset($item->user->apellido) ? $item->user->apellido : $item->other_participant->apellidos;
+                                    $documento = isset($item->user->documento) ? $item->user->documento : $item->other_participant->nro_documento;
+                                @endphp
                                 <tr>
-                                    <td>{{ $item->user->documento }}</td>
-                                    <td>{{ $item->user->name }} {{ $item->user->apellido }}</td>
+                                    <td>{{ $documento}}</td>
+                                    <td>{{ $name }} {{ $apellido }}</td>
                                     <td>{{ $item->award_project->nombre_premio }}</td>
                                 </tr>
                                 @endforeach
