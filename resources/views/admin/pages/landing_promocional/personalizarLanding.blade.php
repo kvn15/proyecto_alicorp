@@ -243,12 +243,12 @@
                                     <img class="img-fluid" src="{{asset('backend/svg/menu-left.svg')}}" alt="">
                                 </label>
                             </div>
-                            <div>
+                            {{-- <div>
                                 <input hidden type="radio" name="distribucion_menu" id="menu-right" value="1" class="distribucion_menu" checked>
                                 <label for="menu-right" class="d-flex align-items-center border border-3 p-2 cursor menu-right">
                                     <img class="img-fluid" src="{{asset('backend/svg/menu-right.svg')}}" alt="">
                                 </label>
-                            </div>
+                            </div> --}}
                         </div>
                     </li>
                     <li class="my-2">
@@ -312,7 +312,7 @@
                                             <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="#98A2B3"/>
                                         </svg>
                                     </label>
-                                    <input hidden type="checkbox" name="italic-menu" id="italic-menu" value="1" {{ $italic_menu }}>
+                                    <input  hidden type="checkbox" name="italic-menu" id="italic-menu" value="1" {{ $italic_menu }}>
                                 </div>
                             </div>
                         </div>
@@ -480,12 +480,12 @@
                                     <img src="{{asset('backend/svg/distri-horizontal.svg')}}" alt="">
                                 </label>
                             </div>
-                            <div>
+                            {{-- <div>
                                 <input hidden type="radio" name="distribucion" id="vertical" value="1" class="distribucion">
                                 <label for="vertical" class="d-flex align-items-center border border-3 p-2 cursor vertical">
                                     <img src="{{asset('backend/svg/vertical.svg')}}" alt="">
                                 </label>
-                            </div>
+                            </div> --}}
                         </div>
                     </li>
                     <li>
@@ -4072,6 +4072,99 @@
             $(".item_landing_menu").removeClass('active');
             $(this).addClass('active');
         });
+
+        // ///
+        // $("label[for='bold-menu']").click(function (e) { 
+        //     // $("#bold-menu").prop('checked', true);
+        //     $("#italic-menu").prop('checked', false);
+        // });
+
+        // $("label[for='italic-menu']").click(function (e) { 
+        //     e.preventDefault();
+        //     $("#italic-menu").prop('checked', true);
+        //     $("#bold-menu").prop('checked', false);
+        // });
+        
+        // ///
+        // $("#bold-titulo-header").click(function (e) { 
+        //     e.preventDefault();
+        //     $("#italic-titulo-header").prop('checked', false);
+        // });
+
+        // $("#italic-titulo-header").click(function (e) { 
+        //     e.preventDefault();
+        //     $("#bold-titulo-header").prop('checked', false);
+        // });
+        // ///
+        // $("#bold-titulo-parrafo").click(function (e) { 
+        //     e.preventDefault();
+        //     $("#italic-titulo-parrafo").prop('checked', false);
+        // });
+
+        // $("#italic-titulo-parrafo").click(function (e) { 
+        //     e.preventDefault();
+        //     $("#bold-titulo-parrafo").prop('checked', false);
+        // });
+        // /// 
+        // $("#bold-boton-parrafo").click(function (e) { 
+        //     e.preventDefault();
+        //     $("#italic-boton-header").prop('checked', false);
+        // });
+
+        // $("#italic-boton-header").click(function (e) { 
+        //     e.preventDefault();
+        //     $("#bold-boton-parrafo").prop('checked', false);
+        // });
+        // /// 
+        // $("#bold-titulo-como").click(function (e) { 
+        //     e.preventDefault();
+        //     $("#italic-titulo-como").prop('checked', false);
+        // });
+
+        // $("#italic-titulo-como").click(function (e) { 
+        //     e.preventDefault();
+        //     $("#bold-titulo-como").prop('checked', false);
+        // });
+        // ///  
+        // $("#bold-titulo-formulario").click(function (e) { 
+        //     e.preventDefault();
+        //     $("#italic-titulo-formulario").prop('checked', false);
+        // });
+
+        // $("#italic-titulo-formulario").click(function (e) { 
+        //     e.preventDefault();
+        //     $("#bold-titulo-formulario").prop('checked', false);
+        // });
+        // /// 
+        // $("#bold-titulo-ganador").click(function (e) { 
+        //     e.preventDefault();
+        //     $("#italic-titulo-ganador").prop('checked', false);
+        // });
+
+        // $("#italic-titulo-ganador").click(function (e) { 
+        //     e.preventDefault();
+        //     $("#bold-titulo-ganador").prop('checked', false);
+        // });
+        // ///   
+        // $("#bold-titulo-pregunta").click(function (e) { 
+        //     e.preventDefault();
+        //     $("#italic-titulo-pregunta").prop('checked', false);
+        // });
+
+        // $("#italic-titulo-pregunta").click(function (e) { 
+        //     e.preventDefault();
+        //     $("#bold-titulo-pregunta").prop('checked', false);
+        // });
+        // /// 
+        // $("#bold-titulo-redes").click(function (e) { 
+        //     e.preventDefault();
+        //     $("#italic-titulo-redes").prop('checked', false);
+        // });
+
+        // $("#italic-titulo-redes").click(function (e) { 
+        //     e.preventDefault();
+        //     $("#bold-titulo-redes").prop('checked', false);
+        // });
     });
 </script>
 @endsection

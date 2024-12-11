@@ -330,7 +330,7 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
             --bg-nav: #080808;
             --buttom-header: #cd0a10;
             --color-buttom-header: #fff;
-            --border-participar: @php $border_input_como @endphp;
+            --border-participar: @php echo $border_input_como @endphp;
             --title-participar: #fbbb01;
             --buttom-participar: #fbbb01;
             --buttom-vermas: #fbbb01;
