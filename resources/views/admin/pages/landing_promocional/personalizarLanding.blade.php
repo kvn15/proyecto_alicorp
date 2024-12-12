@@ -302,17 +302,17 @@
                                     <input hidden type="checkbox" name="bold-menu" id="bold-menu" value="1" {{ $bold_menu }}>
                                     <label for="bold-menu" class="d-flex align-items-center cursor">
                                         <svg width="11" height="14" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg" id="svg_bold_menu">
-                                            <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="#98A2B3"/>
+                                            <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="{{ $bold_menu == 'checked' ? '#000' : '#98A2B3' }}"/>
                                         </svg>
                                     </label>
                                 </div>
                                 <div class="p-1 cursor italic">
                                     <label for="italic-menu" class="d-flex align-items-center cursor">
                                         <svg width="12" height="14" viewBox="0 0 12 14" xmlns="http://www.w3.org/2000/svg" id="svg_italic_menu">
-                                            <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="#98A2B3"/>
+                                            <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="{{ $italic_menu == 'checked' ? '#000' : '#98A2B3' }}"/>
                                         </svg>
                                     </label>
-                                    <input  hidden type="checkbox" name="italic-menu" id="italic-menu" value="1" {{ $italic_menu }}>
+                                    <input hidden type="checkbox" name="italic-menu" id="italic-menu" value="1" {{ $italic_menu }}>
                                 </div>
                             </div>
                         </div>
@@ -533,14 +533,14 @@
                                 <input hidden type="checkbox" name="bold-titulo-header" id="bold-titulo-header" {{ $bold_titulo_header }}>
                                 <label for="bold-titulo-header" class="d-flex align-items-center cursor">
                                     <svg width="11" height="14" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg" id="svg_bold">
-                                        <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="#98A2B3"/>
+                                        <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="{{ $bold_titulo_header == 'checked' ? '#000' : '#98A2B3' }}"/>
                                     </svg>
                                 </label>
                             </div>
                             <div class="p-1 cursor italic">
                                 <label for="italic-titulo-header" class="d-flex align-items-center cursor">
                                     <svg width="12" height="14" viewBox="0 0 12 14" xmlns="http://www.w3.org/2000/svg" id="svg_italic">
-                                        <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="#98A2B3"/>
+                                        <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="{{ $italic_titulo_header == 'checked' ? '#000' : '#98A2B3' }}"/>
                                     </svg>
                                 </label>
                                 <input hidden type="checkbox" name="italic-titulo-header" id="italic-titulo-header" {{ $italic_titulo_header }}>
@@ -601,14 +601,14 @@
                                 <input hidden type="checkbox" name="bold-titulo-parrafo" id="bold-titulo-parrafo" {{ $bold_titulo_parrafo }}>
                                 <label for="bold-titulo-parrafo" class="d-flex align-items-center cursor">
                                     <svg width="11" height="14" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg" id="svg_bold_texto">
-                                        <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="#98A2B3"/>
+                                        <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="{{ $bold_titulo_parrafo == 'checked' ? '#000' : '#98A2B3' }}"/>
                                     </svg>
                                 </label>
                             </div>
                             <div class="p-1 cursor italic">
                                 <label for="italic-titulo-parrafo" class="d-flex align-items-center cursor">
                                     <svg width="12" height="14" viewBox="0 0 12 14" xmlns="http://www.w3.org/2000/svg" id="svg_italic_texto">
-                                        <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="#98A2B3"/>
+                                        <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="{{ $italic_titulo_parrafo == 'checked' ? '#000' : '#98A2B3' }}"/>
                                     </svg>
                                 </label>
                                 <input hidden type="checkbox" name="italic-titulo-parrafo" id="italic-titulo-parrafo" {{ $italic_titulo_parrafo }}>
@@ -704,14 +704,14 @@
                                 <input hidden type="checkbox" name="bold-boton-parrafo" id="bold-boton-header" {{ $bold_boton_parrafo }}>
                                 <label for="bold-boton-header" class="d-flex align-items-center cursor">
                                     <svg width="11" height="14" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg" id="svg_bold_btn_header">
-                                        <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="#98A2B3"/>
+                                        <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="{{ $bold_boton_parrafo == 'checked' ? '#000' : '#98A2B3' }}"/>
                                     </svg>
                                 </label>
                             </div>
                             <div class="p-1 cursor italic">
                                 <label for="italic-boton-header" class="d-flex align-items-center cursor">
                                     <svg width="12" height="14" viewBox="0 0 12 14" xmlns="http://www.w3.org/2000/svg" id="svg_italic_btn_header">
-                                        <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="#98A2B3"/>
+                                        <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="{{ $italic_boton_parrafo == 'checked' ? '#000' : '#98A2B3' }}"/>
                                     </svg>
                                 </label>
                                 <input hidden type="checkbox" name="italic-boton-header" id="italic-boton-header" {{ $italic_boton_parrafo }}>
@@ -832,14 +832,14 @@
                                 <input hidden type="checkbox" name="bold-titulo-como" id="bold-titulo-como" {{ $bold_titulo_como }}>
                                 <label for="bold-titulo-como" class="d-flex align-items-center cursor">
                                     <svg width="11" height="14" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg" id="svg_bold_como">
-                                        <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="#98A2B3"/>
+                                        <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="{{ $bold_titulo_como == 'checked' ? '#000' : '#98A2B3' }}"/>
                                     </svg>
                                 </label>
                             </div>
                             <div class="p-1 cursor italic">
                                 <label for="italic-titulo-como" class="d-flex align-items-center cursor">
                                     <svg width="12" height="14" viewBox="0 0 12 14" xmlns="http://www.w3.org/2000/svg" id="svg_italic_como">
-                                        <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="#98A2B3"/>
+                                        <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="{{ $italic_titulo_como == 'checked' ? '#000' : '#98A2B3' }}"/>
                                     </svg>
                                 </label>
                                 <input hidden type="checkbox" name="italic-titulo-como" id="italic-titulo-como" {{ $italic_titulo_como }}>
@@ -954,14 +954,14 @@
                                 <input hidden type="checkbox" name="bold-boton-como" id="bold-boton-como" {{ $bold_boton_como }}>
                                 <label for="bold-boton-como" class="d-flex align-items-center cursor">
                                     <svg width="11" height="14" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg" id="svg_bold_como_btn">
-                                        <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="#98A2B3"/>
+                                        <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="{{ $bold_boton_como == 'checked' ? '#000' : '#98A2B3' }}"/>
                                     </svg>
                                 </label>
                             </div>
                             <div class="p-1 cursor italic">
                                 <label for="italic-boton-como" class="d-flex align-items-center cursor">
                                     <svg width="12" height="14" viewBox="0 0 12 14" xmlns="http://www.w3.org/2000/svg" id="svg_italic_como_btn">
-                                        <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="#98A2B3"/>
+                                        <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="{{ $italic_boton_como == 'checked' ? '#000' : '#98A2B3' }}"/>
                                     </svg>
                                 </label>
                                 <input hidden type="checkbox" name="italic-boton-como" id="italic-boton-como" {{ $italic_boton_como }}>
@@ -1061,14 +1061,14 @@
                                 <input hidden type="checkbox" name="bold-titulo-formulario" id="bold-titulo-formulario" {{ $bold_titulo_formulario }}>
                                 <label for="bold-titulo-formulario" class="d-flex align-items-center cursor">
                                     <svg width="11" height="14" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg" id="svg_bold_formulario">
-                                        <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="#98A2B3"/>
+                                        <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="{{ $bold_titulo_formulario == 'checked' ? '#000' : '#98A2B3' }}"/>
                                     </svg>
                                 </label>
                             </div>
                             <div class="p-1 cursor italic">
                                 <label for="italic-titulo-formulario" class="d-flex align-items-center cursor">
                                     <svg width="12" height="14" viewBox="0 0 12 14" xmlns="http://www.w3.org/2000/svg" id="svg_italic_formulariio">
-                                        <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="#98A2B3"/>
+                                        <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="{{ $italic_titulo_formulario == 'checked' ? '#000' : '#98A2B3' }}"/>
                                     </svg>
                                 </label>
                                 <input hidden type="checkbox" name="italic-titulo-formulario" id="italic-titulo-formulario" {{ $italic_titulo_formulario }}>
@@ -1128,14 +1128,14 @@
                                 <input hidden type="checkbox" name="bold-boton-formulario" id="bold-boton-formulario" {{ $bold_boton_formulario }}>
                                 <label for="bold-boton-formulario" class="d-flex align-items-center cursor">
                                     <svg width="11" height="14" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg" id="svg_bold_formulario_btn">
-                                        <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="#98A2B3"/>
+                                        <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="{{ $bold_boton_formulario == 'checked' ? '#000' : '#98A2B3' }}"/>
                                     </svg>
                                 </label>
                             </div>
                             <div class="p-1 cursor italic">
                                 <label for="italic-boton-formulario" class="d-flex align-items-center cursor">
                                     <svg width="12" height="14" viewBox="0 0 12 14" xmlns="http://www.w3.org/2000/svg" id="svg_italic_formulariio_btn">
-                                        <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="#98A2B3"/>
+                                        <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="{{ $italic_boton_formulario == 'checked' ? '#000' : '#98A2B3' }}"/>
                                     </svg>
                                 </label>
                                 <input hidden type="checkbox" name="italic-boton-formulario" id="italic-boton-formulario" {{ $italic_boton_formulario }}>
@@ -1221,14 +1221,14 @@
                                 <input hidden type="checkbox" name="bold-titulo-ganador" id="bold-titulo-ganador" {{ $bold_titulo_ganador }}>
                                 <label for="bold-titulo-ganador" class="d-flex align-items-center cursor">
                                     <svg width="11" height="14" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg" id="svg_bold_ganador">
-                                        <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="#98A2B3"/>
+                                        <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="{{ $bold_titulo_ganador == 'checked' ? '#000' : '#98A2B3' }}"/>
                                     </svg>
                                 </label>
                             </div>
                             <div class="p-1 cursor italic">
                                 <label for="italic-titulo-ganador" class="d-flex align-items-center cursor">
                                     <svg width="12" height="14" viewBox="0 0 12 14" xmlns="http://www.w3.org/2000/svg" id="svg_italic_ganador">
-                                        <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="#98A2B3"/>
+                                        <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="{{ $italic_titulo_ganador == 'checked' ? '#000' : '#98A2B3' }}"/>
                                     </svg>
                                 </label>
                                 <input hidden type="checkbox" name="italic-titulo-ganador" id="italic-titulo-ganador" {{ $italic_titulo_ganador }}>
@@ -1342,14 +1342,14 @@
                                 <input hidden type="checkbox" name="bold-titulo-pregunta" id="bold-titulo-pregunta" {{ $bold_titulo_pregunta }}>
                                 <label for="bold-titulo-pregunta" class="d-flex align-items-center cursor">
                                     <svg width="11" height="14" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg" id="svg_bold_pregunta">
-                                        <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="#98A2B3"/>
+                                        <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="{{ $bold_titulo_pregunta == 'checked' ? '#000' : '#98A2B3' }}"/>
                                     </svg>
                                 </label>
                             </div>
                             <div class="p-1 cursor italic">
                                 <label for="italic-titulo-pregunta" class="d-flex align-items-center cursor">
                                     <svg width="12" height="14" viewBox="0 0 12 14" xmlns="http://www.w3.org/2000/svg" id="svg_italic_pregunta">
-                                        <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="#98A2B3"/>
+                                        <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="{{ $italic_titulo_pregunta == 'checked' ? '#000' : '#98A2B3' }}"/>
                                     </svg>
                                 </label>
                                 <input hidden type="checkbox" name="italic-titulo-pregunta" id="italic-titulo-pregunta" {{ $italic_titulo_pregunta }}>
@@ -1475,14 +1475,14 @@
                                 <input hidden type="checkbox" name="bold-titulo-redes" id="bold-titulo-redes" {{ $bold_titulo_redes }}>
                                 <label for="bold-titulo-redes" class="d-flex align-items-center cursor">
                                     <svg width="11" height="14" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg" id="svg_bold_redes">
-                                        <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="#98A2B3"/>
+                                        <path d="M8.6 6.79C9.57 6.12 10.25 5.02 10.25 4C10.25 1.74 8.5 0 6.25 0H0V14H7.04C9.13 14 10.75 12.3 10.75 10.21C10.75 8.69 9.89 7.39 8.6 6.79ZM3 2.5H6C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5H3V2.5ZM6.5 11.5H3V8.5H6.5C7.33 8.5 8 9.17 8 10C8 10.83 7.33 11.5 6.5 11.5Z" fill="{{ $bold_titulo_redes == 'checked' ? '#000' : '#98A2B3' }}"/>
                                     </svg>
                                 </label>
                             </div>
                             <div class="p-1 cursor italic">
                                 <label for="italic-titulo-redes" class="d-flex align-items-center cursor">
                                     <svg width="12" height="14" viewBox="0 0 12 14" xmlns="http://www.w3.org/2000/svg" id="svg_italic_redes">
-                                        <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="#98A2B3"/>
+                                        <path d="M4 0V3H6.21L2.79 11H0V14H8V11H5.79L9.21 3H12V0H4Z" fill="{{ $italic_titulo_redes == 'checked' ? '#000' : '#98A2B3' }}"/>
                                     </svg>
                                 </label>
                                 <input hidden type="checkbox" name="italic-titulo-redes" id="italic-titulo-redes" {{ $italic_titulo_redes }}>
@@ -2326,23 +2326,37 @@
 
     bold_titulo_header.addEventListener('change', function(event) {
         const svg_bold = document.querySelector('#svg_bold path')
+        const svg_italic = document.querySelector('#svg_italic path')
         if (this.checked) {
             titulo_header.classList.add('fw-bold')
+            titulo_header.classList.remove('fst-italic')
             svg_bold.setAttribute('fill', '#000');
+
+            bold_titulo_header.checked = true;
+            italic_titulo_header.checked = false;
+            svg_italic.setAttribute('fill', '#98A2B3');
         } else {
             titulo_header.classList.remove('fw-bold')
             svg_bold.setAttribute('fill', '#98A2B3');
+            bold_titulo_header.checked = false;
         }
     })
 
     italic_titulo_header.addEventListener('change', function(event) {
         const svg_italic = document.querySelector('#svg_italic path')
+        const svg_bold = document.querySelector('#svg_bold path')
         if (this.checked) {
             titulo_header.classList.add('fst-italic')
+            titulo_header.classList.remove('fw-bold')
             svg_italic.setAttribute('fill', '#000');
+
+            italic_titulo_header.checked = true;
+            bold_titulo_header.checked = false;
+            svg_bold.setAttribute('fill', '#98A2B3');
         } else {
             titulo_header.classList.remove('fst-italic')
             svg_italic.setAttribute('fill', '#98A2B3');
+            italic_titulo_header.checked = false;
         }
     })
 
@@ -2358,23 +2372,37 @@
     bold_titulo_parrafo.addEventListener('change', function(event) {
         console.log(this.checked)
         const svg_bold = document.querySelector('#svg_bold_texto path')
+        const svg_italic = document.querySelector('#svg_italic_texto path')
         if (this.checked) {
             titulo_parrafo.classList.add('fw-bold')
+            titulo_parrafo.classList.remove('fst-italic')
             svg_bold.setAttribute('fill', '#000');
+
+            bold_titulo_parrafo.checked = true;
+            italic_titulo_parrafo.checked = false;
+            svg_italic.setAttribute('fill', '#98A2B3');
         } else {
             titulo_parrafo.classList.remove('fw-bold')
             svg_bold.setAttribute('fill', '#98A2B3');
+            bold_titulo_parrafo.checked = false;
         }
     })
 
     italic_titulo_parrafo.addEventListener('change', function(event) {
         const svg_italic = document.querySelector('#svg_italic_texto path')
+        const svg_bold = document.querySelector('#svg_bold_texto path')
         if (this.checked) {
             titulo_parrafo.classList.add('fst-italic')
+            titulo_parrafo.classList.remove('fw-bold')
             svg_italic.setAttribute('fill', '#000');
+
+            italic_titulo_parrafo.checked = true;
+            bold_titulo_parrafo.checked = false;
+            svg_bold.setAttribute('fill', '#98A2B3');
         } else {
             titulo_parrafo.classList.remove('fst-italic')
             svg_italic.setAttribute('fill', '#98A2B3');
+            italic_titulo_parrafo.checked = false;
         }
     })
 
@@ -2492,23 +2520,37 @@
 
     bold_boton_header.addEventListener('change', function(event) {
         const svg_bold = document.querySelector('#svg_bold_btn_header path')
+        const svg_italic = document.querySelector('#svg_italic_btn_header path')
         if (this.checked) {
             btn_participar_header.classList.add('fw-bold')
+            btn_participar_header.classList.remove('fst-italic')
             svg_bold.setAttribute('fill', '#000');
+
+            bold_boton_header.checked = true;
+            italic_boton_header.checked = false;
+            svg_italic.setAttribute('fill', '#98A2B3');
         } else {
             btn_participar_header.classList.remove('fw-bold')
             svg_bold.setAttribute('fill', '#98A2B3');
+            bold_boton_header.checked = false;
         }
     })
     
     italic_boton_header.addEventListener('change', function(event) {
         const svg_italic = document.querySelector('#svg_italic_btn_header path')
+        const svg_bold = document.querySelector('#svg_bold_btn_header path')
         if (this.checked) {
             btn_participar_header.classList.add('fst-italic')
+            btn_participar_header.classList.remove('fw-bold')
             svg_italic.setAttribute('fill', '#000');
+
+            italic_boton_header.checked = true;
+            bold_boton_header.checked = false;
+            svg_bold.setAttribute('fill', '#98A2B3');
         } else {
             btn_participar_header.classList.remove('fst-italic')
             svg_italic.setAttribute('fill', '#98A2B3');
+            italic_boton_header.checked = false;
         }
     })
 
@@ -2614,31 +2656,45 @@
 
     bold_menu.addEventListener('change', function(event) {
         const svg_bold = document.querySelector('#svg_bold_menu path')
+        const svg_italic = document.querySelector('#svg_italic_menu path')
         if (this.checked) {
             item_landing_menu.forEach(menu => {
+                menu.classList.remove('fst-italic')
                 menu.classList.add('fw-bold')
             })
             svg_bold.setAttribute('fill', '#000');
+
+            bold_menu.checked = true;
+            italic_menu.checked = false;
+            svg_italic.setAttribute('fill', '#98A2B3');
         } else {
             item_landing_menu.forEach(menu => {
                 menu.classList.remove('fw-bold')
             })
             svg_bold.setAttribute('fill', '#98A2B3');
+            bold_menu.checked = false;
         }
     })
 
     italic_menu.addEventListener('change', function(event) {
+        const svg_bold = document.querySelector('#svg_bold_menu path')
         const svg_italic = document.querySelector('#svg_italic_menu path')
         if (this.checked) {
             item_landing_menu.forEach(menu => {
                 menu.classList.add('fst-italic')
+                menu.classList.remove('fw-bold')
             })
             svg_italic.setAttribute('fill', '#000');
+
+            italic_menu.checked = true;
+            bold_menu.checked = false;
+            svg_bold.setAttribute('fill', '#98A2B3');
         } else {
             item_landing_menu.forEach(menu => {
                 menu.classList.remove('fst-italic')
             })
             svg_italic.setAttribute('fill', '#98A2B3');
+            italic_menu.checked = false;
         }
     })
 
@@ -2804,23 +2860,37 @@
 
     bold_titulo_como.addEventListener('change', function(event) {
         const svg_bold = document.querySelector('#svg_bold_como path')
+        const svg_italic = document.querySelector('#svg_italic_como path')
         if (this.checked) {
             title_como.classList.add('fw-bold')
+            title_como.classList.remove('fst-italic')
             svg_bold.setAttribute('fill', '#000');
+            
+            bold_titulo_como.checked = true;
+            italic_titulo_como.checked = false;
+            svg_italic.setAttribute('fill', '#98A2B3');
         } else {
             title_como.classList.remove('fw-bold')
             svg_bold.setAttribute('fill', '#98A2B3');
+            bold_titulo_como.checked = false;
         }
     })
 
     italic_titulo_como.addEventListener('change', function(event) {
         const svg_italic = document.querySelector('#svg_italic_como path')
+        const svg_bold = document.querySelector('#svg_bold_como path')
         if (this.checked) {
             title_como.classList.add('fst-italic')
+            title_como.classList.remove('fw-bold')
             svg_italic.setAttribute('fill', '#000');
+
+            italic_titulo_como.checked = true;
+            bold_titulo_como.checked = false;
+            svg_bold.setAttribute('fill', '#98A2B3');
         } else {
             title_como.classList.remove('fst-italic')
             svg_italic.setAttribute('fill', '#98A2B3');
+            italic_titulo_como.checked = false;
         }
     })
 
@@ -2935,23 +3005,37 @@
 
     bold_boton_como.addEventListener('change', function(event) {
         const svg_bold = document.querySelector('#svg_bold_como_btn path')
+        const svg_italic = document.querySelector('#svg_italic_como_btn path')
         if (this.checked) {
             btn_como.classList.add('fw-bold')
+            btn_como.classList.remove('fst-italic')
             svg_bold.setAttribute('fill', '#000');
+            
+            bold_boton_como.checked = true;
+            italic_boton_como.checked = false;
+            svg_italic.setAttribute('fill', '#98A2B3');
         } else {
             btn_como.classList.remove('fw-bold')
             svg_bold.setAttribute('fill', '#98A2B3');
+            bold_boton_como.checked = false;
         }
     })
 
     italic_boton_como.addEventListener('change', function(event) {
         const svg_italic = document.querySelector('#svg_italic_como_btn path')
+        const svg_bold = document.querySelector('#svg_bold_como_btn path')
         if (this.checked) {
             btn_como.classList.add('fst-italic')
+            btn_como.classList.remove('fw-bold')
             svg_italic.setAttribute('fill', '#000');
+            
+            italic_boton_como.checked = true;
+            bold_boton_como.checked = false;
+            svg_bold.setAttribute('fill', '#98A2B3');
         } else {
             btn_como.classList.remove('fst-italic')
             svg_italic.setAttribute('fill', '#98A2B3');
+            italic_boton_como.checked = false;
         }
     })
 
@@ -3020,23 +3104,37 @@
 
     bold_titulo_formulario.addEventListener('change', function(event) {
         const svg_bold = document.querySelector('#svg_bold_formulario path')
+        const svg_italic = document.querySelector('#svg_italic_formulariio path')
         if (this.checked) {
             title_formulario_participar.classList.add('fw-bold')
+            title_formulario_participar.classList.remove('fst-italic')
             svg_bold.setAttribute('fill', '#000');
+
+            bold_titulo_formulario.checked = true;
+            italic_titulo_formulario.checked = false;
+            svg_italic.setAttribute('fill', '#98A2B3');
         } else {
             title_formulario_participar.classList.remove('fw-bold')
             svg_bold.setAttribute('fill', '#98A2B3');
+            bold_titulo_formulario.checked = false;
         }
     })
 
     italic_titulo_formulario.addEventListener('change', function(event) {
         const svg_italic = document.querySelector('#svg_italic_formulariio path')
+        const svg_bold = document.querySelector('#svg_bold_formulario path')
         if (this.checked) {
             title_formulario_participar.classList.add('fst-italic')
+            title_formulario_participar.classList.remove('fw-bold')
             svg_italic.setAttribute('fill', '#000');
+
+            italic_titulo_formulario.checked = true;
+            bold_titulo_formulario.checked = false;
+            svg_bold.setAttribute('fill', '#98A2B3');
         } else {
             title_formulario_participar.classList.remove('fst-italic')
             svg_italic.setAttribute('fill', '#98A2B3');
+            italic_titulo_formulario.checked = false;
         }
     })
 
@@ -3108,23 +3206,37 @@
 
     bold_boton_formulario.addEventListener('change', function(event) {
         const svg_bold = document.querySelector('#svg_bold_formulario_btn path')
+        const svg_italic = document.querySelector('#svg_italic_formulariio_btn path')
         if (this.checked) {
             btn_formulario.classList.add('fw-bold')
+            btn_formulario.classList.remove('fst-italic')
             svg_bold.setAttribute('fill', '#000');
+
+            bold_boton_formulario.checked = true;
+            italic_boton_formulario.checked = false;
+            svg_italic.setAttribute('fill', '#98A2B3');
         } else {
             btn_formulario.classList.remove('fw-bold')
             svg_bold.setAttribute('fill', '#98A2B3');
+            bold_boton_formulario.checked = false;
         }
     })
 
     italic_boton_formulario.addEventListener('change', function(event) {
         const svg_italic = document.querySelector('#svg_italic_formulariio_btn path')
+        const svg_bold = document.querySelector('#svg_bold_formulario_btn path')
         if (this.checked) {
             btn_formulario.classList.add('fst-italic')
+            btn_formulario.classList.remove('fw-bold')
             svg_italic.setAttribute('fill', '#000');
+
+            italic_boton_formulario.checked = true;
+            bold_boton_formulario.checked = false;
+            svg_bold.setAttribute('fill', '#98A2B3');
         } else {
             btn_formulario.classList.remove('fst-italic')
             svg_italic.setAttribute('fill', '#98A2B3');
+            italic_boton_formulario.checked = false;
         }
     })
 
@@ -3191,24 +3303,39 @@
     const ganador_title = document.getElementById("ganador-title");
 
     bold_titulo_ganador.addEventListener('change', function(event) {
-        const svg_bold = document.querySelector('#svg_bold_formulario path')
+        const svg_bold = document.querySelector('#svg_bold_ganador path')
+        const svg_italic = document.querySelector('#svg_italic_ganador path')
         if (this.checked) {
             ganador_title.classList.add('fw-bold')
+            ganador_title.classList.remove('fst-italic')
             svg_bold.setAttribute('fill', '#000');
+
+            bold_titulo_ganador.checked = true;
+            italic_titulo_ganador.checked = false;
+            svg_italic.setAttribute('fill', '#98A2B3');
         } else {
             ganador_title.classList.remove('fw-bold')
             svg_bold.setAttribute('fill', '#98A2B3');
+            bold_titulo_ganador.checked = false;
         }
     })
 
     italic_titulo_ganador.addEventListener('change', function(event) {
-        const svg_italic = document.querySelector('#svg_italic_formulariio path')
+        const svg_italic = document.querySelector('#svg_italic_ganador path')
+        const svg_bold = document.querySelector('#svg_bold_ganador path')
         if (this.checked) {
             ganador_title.classList.add('fst-italic')
+            ganador_title.classList.remove('fw-bold')
             svg_italic.setAttribute('fill', '#000');
+
+            italic_titulo_ganador.checked = true;
+            bold_titulo_ganador.checked = false;
+            svg_bold.setAttribute('fill', '#98A2B3');
         } else {
             ganador_title.classList.remove('fst-italic')
             svg_italic.setAttribute('fill', '#98A2B3');
+
+            italic_titulo_ganador.checked = false;
         }
     })
 
@@ -3293,23 +3420,37 @@
 
     bold_titulo_pregunta.addEventListener('change', function(event) {
         const svg_bold = document.querySelector('#svg_bold_pregunta path')
+        const svg_italic = document.querySelector('#svg_italic_pregunta path')
         if (this.checked) {
             pregunta_title.classList.add('fw-bold')
+            pregunta_title.classList.remove('fst-italic')
             svg_bold.setAttribute('fill', '#000');
+
+            bold_titulo_pregunta.checked = true;
+            italic_titulo_pregunta.checked = false;
+            svg_italic.setAttribute('fill', '#98A2B3');
         } else {
             pregunta_title.classList.remove('fw-bold')
             svg_bold.setAttribute('fill', '#98A2B3');
+            bold_titulo_pregunta.checked = false;
         }
     })
 
     italic_titulo_pregunta.addEventListener('change', function(event) {
         const svg_italic = document.querySelector('#svg_italic_pregunta path')
+        const svg_bold = document.querySelector('#svg_bold_pregunta path')
         if (this.checked) {
             pregunta_title.classList.add('fst-italic')
+            pregunta_title.classList.remove('fw-bold')
             svg_italic.setAttribute('fill', '#000');
+
+            italic_titulo_pregunta.checked = true;
+            bold_titulo_pregunta.checked = false;
+            svg_bold.setAttribute('fill', '#98A2B3');
         } else {
             pregunta_title.classList.remove('fst-italic')
             svg_italic.setAttribute('fill', '#98A2B3');
+            italic_titulo_pregunta.checked = false;
         }
     })
 
@@ -3465,23 +3606,37 @@
 
     bold_titulo_redes.addEventListener('change', function(event) {
         const svg_bold = document.querySelector('#svg_bold_redes path')
+        const svg_italic = document.querySelector('#svg_italic_redes path')
         if (this.checked) {
             redes_title.classList.add('fw-bold')
+            redes_title.classList.remove('fst-italic')
             svg_bold.setAttribute('fill', '#000');
+
+            bold_titulo_redes.checked = true;
+            italic_titulo_redes.checked = false;
+            svg_italic.setAttribute('fill', '#98A2B3');
         } else {
             redes_title.classList.remove('fw-bold')
             svg_bold.setAttribute('fill', '#98A2B3');
+            bold_titulo_redes.checked = false;
         }
     })
 
     italic_titulo_redes.addEventListener('change', function(event) {
         const svg_italic = document.querySelector('#svg_italic_redes path')
+        const svg_bold = document.querySelector('#svg_bold_redes path')
         if (this.checked) {
             redes_title.classList.add('fst-italic')
+            redes_title.classList.remove('fw-bold')
             svg_italic.setAttribute('fill', '#000');
+
+            italic_titulo_redes.checked = true;
+            bold_titulo_redes.checked = false;
+            svg_bold.setAttribute('fill', '#98A2B3');
         } else {
             redes_title.classList.remove('fst-italic')
             svg_italic.setAttribute('fill', '#98A2B3');
+            italic_titulo_redes.checked = false;
         }
     })
 
