@@ -285,6 +285,30 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
             background-color: #E620200D;
         }
 </style>
+
+<style>
+    @media (max-width: 575.98px) { 
+        .text-header {
+            padding: 1rem 0px;
+        }
+
+        .container {
+            width: 100%;
+            height: 29em;
+        }
+
+        #scratch {
+            width: 100%;
+            height: 400px;
+        }
+        .base {
+            top: 5%;
+        }
+        #scratch {
+            top: 45%;
+        }
+    }
+</style>
 <body>
     @php
         $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
@@ -308,7 +332,7 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
                 </div>
                 <canvas id="scratch" height="450"></canvas>
                 <div class="btn_content">
-                    <button type="button" class="btn-memoria d-none" style="background-color: #fff;" id="continar_casino">Continuar</button>
+                    <button type="button" class="btn-memoria d-none text-uppercase" style="background-color: #fff;" id="continar_casino">Continuar</button>
                 </div>
             </div>
         </div>
@@ -318,7 +342,7 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
             </div>
             <div class="d-flex flex-column align-items-center justify-content-center w-100">
                 <img class="img-fluid" src="{{ $imgPremio }}" alt="" id="premio_img"  style="max-width: 400px;">
-                <h4 class="text-white my-2" style="font-weight: 700;">{{ $namePremio }}</h4>
+                <h4 class="text-white my-2 d-none" style="font-weight: 700;">{{ $namePremio }}</h4>
             </div>
             <div class="{{ $styleBotones }} justify-content-center" id="btn_content">
                 <a href="{{ route($tipoJuego."juego.view.registro.raspagana", $project->dominio) }}" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">IR A REGISTRO</a>

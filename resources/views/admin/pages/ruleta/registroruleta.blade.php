@@ -22,13 +22,14 @@
     .content-game {
         width: 100%;
         min-height: 100vh;
+        padding: 1.3rem 0px;
         background-repeat: no-repeat;
         background-size: 100% 100%;
         background-position:  center;
         background-image: url({{ $fondo }});
     }
     .h-100-vh {
-        height: 100vh;
+        min-height: 100vh;
     }
 
     form label {
@@ -129,6 +130,25 @@
         font-style: italic;
     }
 </style>
+
+<style>
+    @media (max-width: 575.98px) { 
+        .content_politicas_terminos  {
+            padding: 1.5rem !important
+        }
+        h1.text_politicas_color, h1.text_terminos_color {
+            font-size: 2em;
+        }
+        .botonera-terminos {
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .botonera-terminos button,
+        .botonera-terminos a {
+            font-size: 1.1rem !important;
+        }
+    }
+</style>
 <body>
     @php
         $tipoJuego = $data["project"]->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
@@ -136,146 +156,148 @@
     <form method="POST" action="{{ route($tipoJuego."juego.post.registro.ruleta", $data["project"]->id) }}" enctype="multipart/form-data" class="content-game" id="form_registro_game">
         @csrf
         @method('POST')
-        <div class="container h-100-vh ">
-            <div class="{{ $data["project"]->project_type_id == 3 ? 'd-flex' : 'd-none' }} flex-column justify-content-center align-items-center h-100" id="punto_venta_content">
-                <div class="d-flex content_select mt-3">
-                    <div class="content_left_select">
-                        <b>Seleccionar punto de venta</b>
+        <div class="container h-100-vh d-flex align-items-center">
+            <div class="d-block">
+                <div class="{{ $data["project"]->project_type_id == 3 ? 'd-flex' : 'd-none' }} flex-column justify-content-center align-items-center h-100" id="punto_venta_content">
+                    <div class="d-flex content_select mt-3">
+                        <div class="content_left_select">
+                            <b>Seleccionar punto de venta</b>
+                        </div>
+                        <select name="punto_venta" id="punto_venta" class="select_punto">
+                            <option value="">Mercados o autoservicios</option>
+                            @foreach ($data["puntoVenta"] as $index => $item)
+                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
-                    <select name="punto_venta" id="punto_venta" class="select_punto">
-                        <option value="">Mercados o autoservicios</option>
-                        @foreach ($data["puntoVenta"] as $index => $item)
-                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                        @endforeach
-                    </select>
                 </div>
-            </div>
-            <div class="row h-100 {{ $data["project"]->project_type_id == 3 ? 'd-none' : '' }}" id="form-registro">
-                <div class="col-12 col-lg-4 d-flex flex-column justify-content-center">
-                    <img class="img-fluid" src="{{ asset('backend/img/recurso_form.png') }}" alt="">
-                </div>
-                <div class="col-12 col-lg-8 ps-5 d-flex flex-column justify-content-center">
-                    <h1 class="w-75 text-white border-bottom mb-5" style="font-weight: 700">REGISTRATE</h1>
-                    <div class="col-12">
-                        @if(session('mensaje'))
-                        <div class="alert alert-warning">
-                            {{ session('mensaje') }}
-                        </div>
-                        @endif
+                <div class="row h-100 {{ $data["project"]->project_type_id == 3 ? 'd-none' : '' }}" id="form-registro">
+                    <div class="col-12 col-lg-4 d-flex flex-column justify-content-center">
+                        <img class="img-fluid" src="{{ asset('backend/img/recurso_form.png') }}" alt="">
                     </div>
-                    @php
-                        $name = isset($data["user"]->name) ? $data["user"]->name : '';
-                        $apellido = isset($data["user"]->apellido) ? $data["user"]->apellido : '';
-                        $tipo_documento = isset($data["user"]->tipo_documento) ? $data["user"]->tipo_documento : '';
-                        $documento = isset($data["user"]->documento) ? $data["user"]->documento : '';
-                        $edad = isset($data["user"]->edad) ? $data["user"]->edad : '';
-                        $telefono = isset($data["user"]->telefono) ? $data["user"]->telefono : '';
-                        $email = isset($data["user"]->email) ? $data["user"]->email : '';
-                    @endphp
-                    <div action="" class="row">
-                        <div class="col-12 col-lg-6 mb-2">
-                            <label for="name">Nombre</label>
-                            <input type="text" name="name" id="name" class="form-registro" value="{{ $name }}">
+                    <div class="col-12 col-lg-8 ps-5 d-flex flex-column justify-content-center">
+                        <h1 class="w-75 text-white border-bottom mb-5" style="font-weight: 700">REGISTRATE</h1>
+                        <div class="col-12">
+                            @if(session('mensaje'))
+                            <div class="alert alert-warning">
+                                {{ session('mensaje') }}
+                            </div>
+                            @endif
                         </div>
-                        <div class="col-12 col-lg-6 mb-2">
-                            <label for="apellido">Apellido</label>
-                            <input type="text" name="apellido" id="apellido" class="form-registro" value="{{ $apellido }}">
-                        </div>
-                        <div class="col-12 col-lg-6 mb-2">
-                            <label for="tipo_doc">Tipo de documento</label>
-                            {{-- <input type="text" name="tipo_doc" id="tipo_doc" class="form-registro"> --}}
-                            <select name="tipo_doc" id="tipo_doc" class="form-registro">
-                                <option value="DNI" {{ $tipo_documento == 'DNI' ? 'selected' : '' }}>DNI</option>
-                                <option value="C.EXT" {{ $tipo_documento == 'C.EXT' ? 'selected' : '' }}>C.EXT</option>
-                                <option value="PASAPORTE" {{ $tipo_documento == 'PASAPORTE' ? 'selected' : '' }}>PASAPORTE</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-lg-6 mb-2">
-                            <label for="documento">N° de documento</label>
-                            <input type="text" name="documento" id="documento" class="form-registro" value="{{ $documento }}">
-                        </div>
-                        <div class="col-12 col-lg-6 mb-2">
-                            <label for="edad">Edad (*Mayores de 18 años)</label>
-                            <input type="number" name="edad" id="edad" class="form-registro" min="18" value="{{ $edad }}">
-                        </div>
-                        <div class="col-12 col-lg-6 mb-2">
-                            <label for="telefono">N° telefónico</label>
-                            <input type="text" name="telefono" id="telefono" class="form-registro" value="{{ $telefono }}">
-                        </div>
-                        <div class="col-12 col-lg-6 mb-2">
-                            <label for="email">Correo electronico</label>
-                            <input type="email" name="email" id="email" class="form-registro" value="{{ $email }}">
-                        </div>
-                        <div class="col-12 col-lg-6 mb-2">
-                            <label for="codigo">N° de LOTE + foto de producto</label>
-                            <input type="text" name="codigo" id="codigo" class="form-registro">
+                        @php
+                            $name = isset($data["user"]->name) ? $data["user"]->name : '';
+                            $apellido = isset($data["user"]->apellido) ? $data["user"]->apellido : '';
+                            $tipo_documento = isset($data["user"]->tipo_documento) ? $data["user"]->tipo_documento : '';
+                            $documento = isset($data["user"]->documento) ? $data["user"]->documento : '';
+                            $edad = isset($data["user"]->edad) ? $data["user"]->edad : '';
+                            $telefono = isset($data["user"]->telefono) ? $data["user"]->telefono : '';
+                            $email = isset($data["user"]->email) ? $data["user"]->email : '';
+                        @endphp
+                        <div action="" class="row">
+                            <div class="col-12 col-lg-6 mb-2">
+                                <label for="name">Nombre</label>
+                                <input type="text" name="name" id="name" class="form-registro" value="{{ $name }}">
+                            </div>
+                            <div class="col-12 col-lg-6 mb-2">
+                                <label for="apellido">Apellido</label>
+                                <input type="text" name="apellido" id="apellido" class="form-registro" value="{{ $apellido }}">
+                            </div>
+                            <div class="col-12 col-lg-6 mb-2">
+                                <label for="tipo_doc">Tipo de documento</label>
+                                {{-- <input type="text" name="tipo_doc" id="tipo_doc" class="form-registro"> --}}
+                                <select name="tipo_doc" id="tipo_doc" class="form-registro">
+                                    <option value="DNI" {{ $tipo_documento == 'DNI' ? 'selected' : '' }}>DNI</option>
+                                    <option value="C.EXT" {{ $tipo_documento == 'C.EXT' ? 'selected' : '' }}>C.EXT</option>
+                                    <option value="PASAPORTE" {{ $tipo_documento == 'PASAPORTE' ? 'selected' : '' }}>PASAPORTE</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-lg-6 mb-2">
+                                <label for="documento">N° de documento</label>
+                                <input type="text" name="documento" id="documento" class="form-registro" value="{{ $documento }}">
+                            </div>
+                            <div class="col-12 col-lg-6 mb-2">
+                                <label for="edad">Edad (*Mayores de 18 años)</label>
+                                <input type="number" name="edad" id="edad" class="form-registro" min="18" value="{{ $edad }}">
+                            </div>
+                            <div class="col-12 col-lg-6 mb-2">
+                                <label for="telefono">N° telefónico</label>
+                                <input type="text" name="telefono" id="telefono" class="form-registro" value="{{ $telefono }}">
+                            </div>
+                            <div class="col-12 col-lg-6 mb-2">
+                                <label for="email">Correo electronico</label>
+                                <input type="email" name="email" id="email" class="form-registro" value="{{ $email }}">
+                            </div>
+                            <div class="col-12 col-lg-6 mb-2">
+                                <label for="codigo">N° de LOTE + foto de producto</label>
+                                <input type="text" name="codigo" id="codigo" class="form-registro">
 
-                            <input type="file" name="imagen" id="imagen" class="form-control mt-2">
-                        </div>
-                        <div class="col-12 d-flex justify-content-between my-2">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="1" name="checkTerminos" id="checkTerminos" checked>
-                                <label class="form-check-label" for="checkTerminos">
-                                  Acepto terminos y condiciones
-                                </label>
+                                <input type="file" name="imagen" id="imagen" class="form-control mt-2">
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="1" name="checkDatos" id="checkDatos" checked>
-                                <label class="form-check-label" for="checkDatos">
-                                  Deseo usar mis datos para crear un usuario en plataforma web
-                                </label>
+                            <div class="col-12 d-flex justify-content-between my-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="1" name="checkTerminos" id="checkTerminos" checked>
+                                    <label class="form-check-label" for="checkTerminos">
+                                    Acepto terminos y condiciones
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="1" name="checkDatos" id="checkDatos" checked>
+                                    <label class="form-check-label" for="checkDatos">
+                                    Deseo usar mis datos para crear un usuario en plataforma web
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="1" name="checkPoliticas" id="checkPoliticas" checked>
+                                    <label class="form-check-label" for="checkPoliticas">
+                                    Acepto politca de prvacidad de datos
+                                    </label>
+                                </div>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="1" name="checkPoliticas" id="checkPoliticas" checked>
-                                <label class="form-check-label" for="checkPoliticas">
-                                  Acepto politca de prvacidad de datos
-                                </label>
+                            <div class="col-12 d-flex justify-content-center">
+                                <button type="button" class="btn-jugar" id="btn_jugar">JUGAR</button>
                             </div>
-                        </div>
-                        <div class="col-12 d-flex justify-content-center">
-                            <button type="button" class="btn-jugar" id="btn_jugar">JUGAR</button>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="container h-100 d-flex align-items-center d-none" id="poltica-privacidad">
-                @php
-                $gameRuleta = $data["gameRuleta"]; 
-                $politicas = isset($gameRuleta["politicas"]) && !empty($gameRuleta["politicas"]) && !empty(json_decode($gameRuleta["politicas"], true)['politicas_value']) ? json_decode($gameRuleta["politicas"], true)['politicas_value'] : 'Conste por el presente documento, yo ____________, identificado con _______________, (en adelante él/la "CEDENTE"), expresa su voluntad expresa de ceder de forma gratuita, a favor de ALICORP S.A.A., con RUC Nº 20100055237, con domicilio legal  en avenida Argentina 4793, Carmen de la Legua Reynoso, Callao y a sus subsidiarias (en adelante, ALICORP o la EMPRESA), los derechos de explotación y uso de su imagen, cesión que se realiza sin limitación alguna, de acuerdo al artículo 15 del código civil; en los términos que se detallan a continuación:
-                        PRIMERO: OBJETO DE SESIÓN
-                        <br>
-                        <br>
-                        1.1. Él, La CEDENTE cede y transfiere de forma total e integra, gratuita e ilimitada a nivel mundial, a LA EMPRESA todos los derechos de uso de su imagen que aparecerá en el video, fotografías y cualquier otro medio de captación de imágenes que elaborará y será de propiedad de LA EMPRESA.';
-                $colorPolitica = isset($gameRuleta["politicas"]) && !empty($gameRuleta["politicas"]) && !empty(json_decode($gameRuleta["politicas"], true)['color-politica-btn']) ? json_decode($gameRuleta["politicas"], true)['color-politica-btn'] : '#000000';
-                @endphp
-                <div class="content_politicas_terminos text-center p-5">
-                    <h1 class="w-75 m-auto text_politicas_color" style="color: {{ $colorPolitica }} !important;border-color: {{ $colorPolitica }} !important;">POLÍTICA DE PRIVACIDAD</h1>
-                    <p class="mt-4 text_politicas_color" id="text_politicas" style="color: {{ $colorPolitica }} !important;">
-                        @php
-                            echo $politicas;
-                        @endphp
-                    </p>
-                    <div class="d-flex justify-content-between mt-5">
-                        <button type="button" class="btn_politicas text-uppercase" id="aceptar_politica" style="color: {{ $colorPolitica }} !important;">Aceptar y contnuar</button>
-                        <a href="{{ route('index') }}" class="btn_politicas text-uppercase" style="text-decoration: none; color: {{ $colorPolitica }} !important;">No Aceptar y salir</a>
+                <div class="container h-100 d-flex align-items-center d-none" id="poltica-privacidad">
+                    @php
+                    $gameRuleta = $data["gameRuleta"]; 
+                    $politicas = isset($gameRuleta["politicas"]) && !empty($gameRuleta["politicas"]) && !empty(json_decode($gameRuleta["politicas"], true)['politicas_value']) ? json_decode($gameRuleta["politicas"], true)['politicas_value'] : 'Conste por el presente documento, yo ____________, identificado con _______________, (en adelante él/la "CEDENTE"), expresa su voluntad expresa de ceder de forma gratuita, a favor de ALICORP S.A.A., con RUC Nº 20100055237, con domicilio legal  en avenida Argentina 4793, Carmen de la Legua Reynoso, Callao y a sus subsidiarias (en adelante, ALICORP o la EMPRESA), los derechos de explotación y uso de su imagen, cesión que se realiza sin limitación alguna, de acuerdo al artículo 15 del código civil; en los términos que se detallan a continuación:
+                            PRIMERO: OBJETO DE SESIÓN
+                            <br>
+                            <br>
+                            1.1. Él, La CEDENTE cede y transfiere de forma total e integra, gratuita e ilimitada a nivel mundial, a LA EMPRESA todos los derechos de uso de su imagen que aparecerá en el video, fotografías y cualquier otro medio de captación de imágenes que elaborará y será de propiedad de LA EMPRESA.';
+                    $colorPolitica = isset($gameRuleta["politicas"]) && !empty($gameRuleta["politicas"]) && !empty(json_decode($gameRuleta["politicas"], true)['color-politica-btn']) ? json_decode($gameRuleta["politicas"], true)['color-politica-btn'] : '#000000';
+                    @endphp
+                    <div class="content_politicas_terminos text-center p-5">
+                        <h1 class="w-75 m-auto text_politicas_color" style="color: {{ $colorPolitica }} !important;border-color: {{ $colorPolitica }} !important;">POLÍTICA DE PRIVACIDAD</h1>
+                        <p class="mt-4 text_politicas_color" id="text_politicas" style="color: {{ $colorPolitica }} !important;">
+                            @php
+                                echo $politicas;
+                            @endphp
+                        </p>
+                        <div class="d-flex justify-content-between mt-5 botonera-terminos">
+                            <button type="button" class="btn_politicas text-uppercase" id="aceptar_politica" style="color: {{ $colorPolitica }} !important;">ACEPTAR Y CONTINUAR</button>
+                            <a href="{{ route('index') }}" class="btn_politicas text-uppercase" style="text-decoration: none; color: {{ $colorPolitica }} !important;">No Aceptar y salir</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="container h-100 d-flex align-items-center d-none" id="terminos-condiciones">
-                @php
-                    $terminos = isset($gameRuleta["terminos"]) && !empty($gameRuleta["terminos"]) && !empty(json_decode($gameRuleta["terminos"], true)['terminos_value']) ? json_decode($gameRuleta["terminos"], true)['terminos_value'] : "Vigencia: Lima: del 15.03.2024 al 17.05.2024, Provincia: del 22.03.2024 al 07.04.2024, los días viernes, sábados y domingos, de 9:00 a.m. a 2:00 p.m. Válida en los mercados participantes de las ciudades de Lima, Arequipa, Trujillo, Huancayo y Chiclayo. Participan solo mayores de 18 años que realicen en el mercado participante la compra mínima de: (i) de 02 pastas corta o larga Don Vittorio, en cualquiera de sus presentaciones y (ii) ubiquen a la impulsadora, quien les permitirá participar en el “Juego de la Ruleta Virtual” y según el resultado podrá llevarse o no, uno de los premios disponibles. Stock total de premios en los mercados participantes: Lima: (i) 500 kits Don Vittorio (incluye: 01 bolso notex, 01 spaguetti Don Vittorio de 450g, 01 salsa roja Don Vittorio de 200 g), (ii) 225 coladores, (iii) 500 cucharones de pasta, Provincia: (i) 180 kits N°1 Don Vittorio (incluye: 01 bolso notex, 01 spaguetti Don Vittorio de 450 g), (ii) 222 kits N°2 Don Vittorio (incluye: 01 bolso notex, 01 codito Don Vittorio de 250 g), 300 kits N°3 Don Vittorio (incluye: 01 bolso notex, 01 salsa roja Don Vittorio de 200 g). Más información en https://www.alicorp.com.pe/pe/es/promociones/ o al número 01 7089300.";
-                    $colorTermino = isset($gameRuleta["terminos"]) && !empty($gameRuleta["terminos"]) && !empty(json_decode($gameRuleta["terminos"], true)['color-termino-btn']) ? json_decode($gameRuleta["terminos"], true)['color-termino-btn'] : '#000000';
-                @endphp
-                <div class="content_politicas_terminos text-center p-5">
-                    <h1 class="w-75 m-auto text_terminos_color" style="color: {{ $colorTermino }} !important;border-color: {{ $colorTermino }} !important;">TÉRMINOS Y CONDICIONES</h1>
-                    <p class="mt-4 text_terminos_color" id="text_terminos" style="color: {{ $colorTermino }} !important;">
-                        @php
-                            echo $terminos;
-                        @endphp
-                    </p>
-                    <div class="d-flex justify-content-between mt-5">
-                        <button type="submit" class="btn_terminos text-uppercase" id="aceptar_terminos" style="color: {{ $colorTermino }} !important;">Aceptar y contnuar</button>
-                        <a href="{{ route('index') }}" class="btn_terminos text-uppercase" style="text-decoration: none; color: {{ $colorTermino }} !important;">No Aceptar y salir</a>
+                <div class="container h-100 d-flex align-items-center d-none" id="terminos-condiciones">
+                    @php
+                        $terminos = isset($gameRuleta["terminos"]) && !empty($gameRuleta["terminos"]) && !empty(json_decode($gameRuleta["terminos"], true)['terminos_value']) ? json_decode($gameRuleta["terminos"], true)['terminos_value'] : "Vigencia: Lima: del 15.03.2024 al 17.05.2024, Provincia: del 22.03.2024 al 07.04.2024, los días viernes, sábados y domingos, de 9:00 a.m. a 2:00 p.m. Válida en los mercados participantes de las ciudades de Lima, Arequipa, Trujillo, Huancayo y Chiclayo. Participan solo mayores de 18 años que realicen en el mercado participante la compra mínima de: (i) de 02 pastas corta o larga Don Vittorio, en cualquiera de sus presentaciones y (ii) ubiquen a la impulsadora, quien les permitirá participar en el “Juego de la Ruleta Virtual” y según el resultado podrá llevarse o no, uno de los premios disponibles. Stock total de premios en los mercados participantes: Lima: (i) 500 kits Don Vittorio (incluye: 01 bolso notex, 01 spaguetti Don Vittorio de 450g, 01 salsa roja Don Vittorio de 200 g), (ii) 225 coladores, (iii) 500 cucharones de pasta, Provincia: (i) 180 kits N°1 Don Vittorio (incluye: 01 bolso notex, 01 spaguetti Don Vittorio de 450 g), (ii) 222 kits N°2 Don Vittorio (incluye: 01 bolso notex, 01 codito Don Vittorio de 250 g), 300 kits N°3 Don Vittorio (incluye: 01 bolso notex, 01 salsa roja Don Vittorio de 200 g). Más información en https://www.alicorp.com.pe/pe/es/promociones/ o al número 01 7089300.";
+                        $colorTermino = isset($gameRuleta["terminos"]) && !empty($gameRuleta["terminos"]) && !empty(json_decode($gameRuleta["terminos"], true)['color-termino-btn']) ? json_decode($gameRuleta["terminos"], true)['color-termino-btn'] : '#000000';
+                    @endphp
+                    <div class="content_politicas_terminos text-center p-5">
+                        <h1 class="w-75 m-auto text_terminos_color" style="color: {{ $colorTermino }} !important;border-color: {{ $colorTermino }} !important;">TÉRMINOS Y CONDICIONES</h1>
+                        <p class="mt-4 text_terminos_color" id="text_terminos" style="color: {{ $colorTermino }} !important;">
+                            @php
+                                echo $terminos;
+                            @endphp
+                        </p>
+                        <div class="d-flex justify-content-between mt-5 botonera-terminos">
+                            <button type="submit" class="btn_terminos text-uppercase" id="aceptar_terminos" style="color: {{ $colorTermino }} !important;">ACEPTAR Y CONTINUAR</button>
+                            <a href="{{ route('index') }}" class="btn_terminos text-uppercase" style="text-decoration: none; color: {{ $colorTermino }} !important;">No Aceptar y salir</a>
+                        </div>
                     </div>
                 </div>
             </div>

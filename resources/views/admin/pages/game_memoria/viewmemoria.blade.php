@@ -68,7 +68,7 @@
     }
     .juego_memorio_content {
         width: 100%;
-        height: 100vh;
+        min-height: 100vh;
         font-family: var({{$estiloFont}}) !important;
     }
     button, p, b, a, span, div {
@@ -229,6 +229,24 @@
         color: #d5542e;
     }
 </style>
+<style>
+    @media (max-width: 320px) { 
+    .card {
+        width: 130px;
+        height: 130px;
+    }
+    }
+    @media (min-width: 321px) and  (max-width: 575.98px) { 
+        .board {
+            grid-template-columns: repeat(2, auto) !important;
+        }
+    }
+    @media (min-width: 576px) and (max-width: 767.98px) { 
+        .board {
+            grid-template-columns: repeat(3, auto) !important;
+        }
+    }
+</style>
 <body>
     @php
     
@@ -335,7 +353,7 @@
             </div>
             <div class="d-flex flex-column align-items-center justify-content-center w-100">
                 <img class="img-fluid mb-2" src="{{ $imgPremio }}" alt=""  id="premio_img" style="max-width: 370px;">
-                <h4 class="text-white" style="font-weight: 700;" id="h4Premio">{{ $namePremio }}</h4>
+                <h4 class="text-white d-none" style="font-weight: 700;" id="h4Premio">{{ $namePremio }}</h4>
             </div>
             <div class="{{ $styleBotones }} justify-content-center" id="btn_content">
                 <a href="{{ route($tipoJuego."juego.view.registro", $project->dominio) }}" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }};">IR A REGISTRO</a>
@@ -510,6 +528,8 @@
                     // ocultar
                     document.getElementById("contenido_juego").classList.remove('d-block')
                     document.getElementById("contenido_juego").classList.add('d-none')
+                    document.getElementById("img-header-premio").classList.remove('d-none')
+                    document.getElementById("img-header-premio").classList.add('d-block')
                     ganador()
                     console.log('a la bd')
                 }, 1500);
@@ -528,6 +548,8 @@
 
                     document.getElementById("premio_img").src = "{{ $urlSigue }}";
                     document.getElementById("h4Premio").textContent = 'Sigue Intentando'
+                    document.getElementById("img-header-premio").classList.remove('d-block')
+                    document.getElementById("img-header-premio").classList.add('d-none')
                 }, 1500);
             }
 

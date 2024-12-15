@@ -95,14 +95,29 @@
         transform: rotate(270deg);
     }
     .center-circle {
-        width: 500px;
-        height: 100%;
+        /* width: 500px;
+        height: 100%; */
         border-radius: 50%;
         background-color: transparent;
-        position: absolute;
+        /* position: absolute;
         top: 50%;
-        transform: translateY(-50%);
+        transform: translateY(-50%); */
         border: 20px solid #F8B903;
+    }
+    .content-canvas {
+        width: auto;
+        position: relative;
+    }
+    .content-canvas::after {
+        content: "";
+        width: 0;
+        height: 0;
+        border-top: 10px solid transparent;
+        border-bottom: 15px solid transparent;
+        border-right: 30px solid #F8B903;
+        position: absolute;
+        top: 47.6%;
+        right: 4%;
     }
     .triangle {
         width: 0;
@@ -244,6 +259,10 @@
             max-width: 500px;
             margin: auto;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
         }
 
         .content_premio .content_premio_img {
@@ -290,6 +309,19 @@
             display: flex;
             align-items: center;
         }
+    #logo_header {
+        max-width: 300px;
+    }
+    
+    @media (max-width: 575.98px) { 
+        #inicio_juego {
+            padding: 0;
+        }
+
+        .header  {
+            padding: 0;
+        }
+    }
 </style>
 <body>
     
@@ -377,7 +409,7 @@
         <div id="inicio_juego" class=" d-block">
             <div class="text-center ctn-data">
                 {{-- <h1 class="{{ $styleTamano }} mb-4 {{ $styleBold }} {{ $italicTitulo }} {{ $styleAlineacion }}" id="titulo_header" style="color: #fff;">GIRA Y GANA CON</h1> --}}
-                <img style="width: 300px;" src="{{ $logo_inicio }}" alt="" id="logo_header">
+                <img class="img-fluid" src="{{ $logo_inicio }}" alt="" id="logo_header">
             </div>
             <div class="w-100 d-flex justify-content-center">
                 <button class="btn-jugar" id="btn_header">JUGAR</button>
@@ -394,10 +426,12 @@
             </div>
             <div style="overflow: hidden;" class="text-center">
                 <div class="wheel">
-                    <canvas id="canvas" width="500" height="500"></canvas>
-                    <div class="center-circle">
-                        <div class="triangle"></div>
+                    <div class="content-canvas">
+                        <canvas id="canvas" width="500" height="500" class="center-circle"></canvas>
                     </div>
+                    {{-- <div class="center-circle">
+                        <div class="triangle"></div>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -410,7 +444,7 @@
                 <div class="content_premio_img">
                     <img class="img-fluid" src="{{ $urlImagenPremio }}" alt="" id="premio_first" style="max-width: 300px;">
                 </div>
-                <h5 id="title_premio">{{ $projectPremio[0]["nombre_premio"] }}</h5>
+                <h5 id="title_premio" class="d-none">{{ $projectPremio[0]["nombre_premio"] }}</h5>
                 <div class="{{ $styleBotones }} justify-content-center" style="gap: 0.4em;" id="btn_content">
                     <a href="{{ route($tipoJuego."juego.view.registro.ruleta", $project->dominio) }}" class="btn_premio" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">IR A REGISTRO</a>
                     <a href="{{ route("index") }}" class="btn_premio" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">IR A HOME</a>
@@ -660,10 +694,14 @@
             const premio = data.find(d => d.name == posicion);
             // Agregar id
             $("#idPremio").val(premio.id);
-            // if (premio.name == "Sigue Intentando") {
-                
-            // } 
-            // else {
+            if (premio.name == "Sigue Intentando") {
+                $("#logo_ganaste").addClass("d-none");
+                $("#logo_ganaste").removeClass("d-block");
+            } else {
+                $("#logo_ganaste").removeClass("d-none");
+                $("#logo_ganaste").addClass("d-block");
+            }
+            // else { 
                 $("#premio_first").attr('src', `${premio.img}`);
                 $("#title_premio").html(premio.name);
                 $("#fin_juego").removeClass('d-none');
