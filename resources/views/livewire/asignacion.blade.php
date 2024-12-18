@@ -39,8 +39,30 @@
                         <td>{{ $value->sales_point->name }}</td>
                         <td>{{ $value->xplorer->name }}</td>
                         <td>{{ $value->xplorer->documento }}</td>
-                        <td>{{ $value->award_project->nombre_premio }}</td>
-                        <td>{{ $value->qty_premio }}</td>
+                        <td>
+                            @if (isset($value->award_project->nombre_premio))
+                                <span class="badge text-bg-success" style="background-color: #05CD991A !important;color: #05CD99 !important;font-weight: 700;">{{ $value->award_project->nombre_premio }}</span>
+                            @else
+                                @foreach ($value->premio_pdvs as $item)
+                                    <span class="badge text-bg-success" style="background-color: #05CD991A !important;color: #05CD99 !important;font-weight: 700;">{{ $item->award_project->nombre_premio }}</span>
+                                @endforeach
+                            @endif
+                        </td>
+                        <td>
+                            @if (isset($value->qty_premio))
+                                {{ $value->qty_premio }}
+                            @else
+                                @php
+                                    $sum = 0;
+                                @endphp
+                                @foreach ($value->premio_pdvs as $item)
+                                    @php
+                                        $sum += (int) $item->qty_premio;
+                                    @endphp
+                                @endforeach
+                                {{ $sum }}
+                            @endif
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -51,7 +73,7 @@
 
     {{-- Modal Agregar --}}
     <div wire:ignore.self class="modal fade" id="modalAgregar" tabindex="-1" aria-labelledby="exampleModalAgregar" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered  modal-lg">
             <form wire:submit.prevent="store" class="modal-content">
                 <div class="modal-header" style="background-color: #ED1B2F; color: #fff;">
                     <h1 class="modal-title fs-5" id="exampleModalAgregar">Agregar Xplorer</h1>
@@ -88,7 +110,8 @@
                         </select>
                         @error('xplorer') <span class="text-danger">Xplorer es requerida.</span> @enderror
                     </div>
-                    <div class="col-12 col-lg-6 mb-2">
+                    <hr>
+                    <div class="col-12 col-lg-5 my-2">
                         <label for="premio" class="form-label">Premio</label>
                         <select name="premio" id="premio" class="form-select" wire:model="premio">
                             <option>Seleccione</option>
@@ -98,10 +121,51 @@
                         </select>
                         @error('premio') <span class="text-danger">Premio es requerida.</span> @enderror
                     </div>
-                    <div class="col-12 col-lg-6 mb-2">
+                    <div class="col-12 col-lg-3 my-2">
                         <label for="qty_premio" class="form-label">Qty Premio</label>
-                        <input type="number" name="qty_premio" id="qty_premio" class="form-control" wire:model="qty_premio">
+                        <input type="number" name="qty_premio" id="qty_premio" class="form-control" wire:model="qty_premio" min="1" value="1">
                         @error('qty_premio') <span class="text-danger">Cantidad de Premio es requerida.</span> @enderror
+                    </div>
+                    <div class="col-12 col-lg-2 my-2 d-flex justify-content-center align-items-end">
+                        <button type="button" class="btn btn-primary" style="background-color: #ED1B2F; color: #fff; border: 0;"
+                        wire:click="addTablePremio"
+                        >Agregar</button>
+                    </div>
+
+                    <div class="col-12 mt-2">
+                        <table class="table table-bordered w-100">
+                            <thead>
+                                <tr>
+                                    <th>Premio</th>
+                                    <th>Cantidad</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($lPremios as $item)
+                                <tr>
+                                    <td>
+                                        {{ $item["premioName"] }}
+                                    </td>
+                                    <td>
+                                        {{ $item["cantidad"] }}
+                                    </td>
+                                    <td>
+                                        {{-- <button type="button" class="btn btn-primary" style="background-color: #0f76fc; color: #fff; border: 0;"
+                                            wire:click="getPremioById({{ $item['premioId'] }})"
+                                        >
+                                            Editar
+                                        </button> --}}
+                                        <button type="button" class="btn btn-primary" style="background-color: #ED1B2F; color: #fff; border: 0;"
+                                            wire:click="deletePremio({{ $item['premioId'] }})"
+                                        >
+                                            Eliminar
+                                        </button>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -114,7 +178,7 @@
 
     {{-- Modal Editar --}}
     <div wire:ignore.self class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="exampleModalEditar" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
             <form wire:submit.prevent="update" class="modal-content">
                 <div class="modal-header" style="background-color: #ED1B2F; color: #fff;">
                     <h1 class="modal-title fs-5" id="exampleModalEditar">Editar Xplorer</h1>
@@ -152,9 +216,9 @@
                         </select>
                         @error('xplorer') <span class="text-danger">Xplorer es requerida.</span> @enderror
                     </div>
-                    <div class="col-12 col-lg-6 mb-2">
+                    <div class="col-12 col-lg-5 my-2">
                         <label for="premio" class="form-label">Premio</label>
-                        <select name="premio" id="premio" class="form-select" wire:model="premio">
+                        <select name="premio" id="premio" class="form-select" wire:model="premio" {{ $this->textBtnAdd == "Editar" ? 'disabled' : '' }}>
                             <option>Seleccione</option>
                             @foreach ($premios as $item)
                                 <option value="{{ $item->id }}">{{ $item->nombre_premio }}</option>
@@ -162,10 +226,55 @@
                         </select>
                         @error('premio') <span class="text-danger">Premio es requerida.</span> @enderror
                     </div>
-                    <div class="col-12 col-lg-6 mb-2">
+                    <div class="col-12 col-lg-4 my-2">
                         <label for="qty_premio" class="form-label">Qty Premio</label>
-                        <input type="number" name="qty_premio" id="qty_premio" class="form-control" wire:model="qty_premio">
+                        <input type="number" name="qty_premio" id="qty_premio" class="form-control" wire:model="qty_premio" min="1" value="1">
                         @error('qty_premio') <span class="text-danger">Cantidad de Premio es requerida.</span> @enderror
+                    </div>
+                    <div class="col-12 col-lg-3 my-2 d-flex justify-content-center align-items-end">
+                        <button type="button" class="btn btn-primary me-1" style="background-color: #ED1B2F; color: #fff; border: 0;"
+                        wire:click="addTablePremio"
+                        >
+                        {{ $textBtnAdd }}
+                    </button>
+                        <button type="button" class="btn btn-primary" style="background-color: #2e2e2e; color: #fff; border: 0;" wire:click="cancelar()"
+                        >Cancelar</button>
+                    </div>
+
+                    <div class="col-12 mt-2">
+                        <table class="table table-bordered w-100">
+                            <thead>
+                                <tr>
+                                    <th>Premio</th>
+                                    <th>Cantidad</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($lPremios as $item)
+                                <tr>
+                                    <td>
+                                        {{ $item["premioName"] }}
+                                    </td>
+                                    <td>
+                                        {{ $item["cantidad"] }}
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" style="background-color: #0f76fc; color: #fff; border: 0;"
+                                            wire:click="getListaById({{ $item['premioId'] }})"
+                                        >
+                                            Editar
+                                        </button>
+                                        <button type="button" class="btn btn-primary" style="background-color: #ED1B2F; color: #fff; border: 0;"
+                                            wire:click="deletePremio({{ $item['premioId'] }})"
+                                        >
+                                            Eliminar
+                                        </button>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <div class="modal-footer">
