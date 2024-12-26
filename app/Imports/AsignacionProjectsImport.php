@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Models\AsignacionProject;
 use App\Models\AwardProject;
+use App\Models\PremioPdv;
 use App\Models\SalesPoint;
 use App\Models\Xplorer;
 use Carbon\Carbon;
@@ -27,7 +28,7 @@ class AsignacionProjectsImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         // buscar nombre de xplorer
-        $xplorer = Xplorer::where('documento', $row['documento'])->first();
+        $xplorer = Xplorer::where('name', $row['xplorer'])->first();
         $sales_point = SalesPoint::where('name', $row['punto_venta'])->first();
         $award_project = AwardProject::where('project_id', $this->project_id)->where('nombre_premio', $row['premio'])->first();
 
@@ -35,7 +36,7 @@ class AsignacionProjectsImport implements ToModel, WithHeadingRow
         if (!$xplorer) {
             // Manejar el caso cuando no se encuentra el xplorer
             // Por ejemplo, lanzar una excepción o asignar un valor por defecto
-            throw new \Exception("Xplorer no encontrado para el documento: " . $row['documento']);
+            throw new \Exception("Xplorer no encontrado: " . $row['xplorer']);
         }
 
         if (!$sales_point) {
@@ -48,21 +49,49 @@ class AsignacionProjectsImport implements ToModel, WithHeadingRow
             throw new \Exception("Premio no encontrado: " . $row['premio']);
         }
 
-        $asignacionRepeat = AsignacionProject::where('xplorer_id', $xplorer->id)->where('sales_point_id', $sales_point->id)->where('award_project_id', $award_project->id)->get();
+        // $asignacionRepeat = AsignacionProject::where('xplorer_id', $xplorer->id)->where('sales_point_id', $sales_point->id)->where('award_project_id', $award_project->id)->get();
 
-        if (count($asignacionRepeat) > 0) {
-            throw new \Exception($xplorer->name.' ya se encuentra asignado a '.$row['punto_venta'].' con este premio: '.$row['premio']);
-        }
+        // if (count($asignacionRepeat) > 0) {
+        //     throw new \Exception($xplorer->name.' ya se encuentra asignado a '.$row['punto_venta'].' con este premio: '.$row['premio']);
+        // }
+
+        $asignacionRepeat = AsignacionProject::where('project_id', $this->project_id)->where('xplorer_id', $xplorer->id)->where('sales_point_id', $sales_point->id)->where('fecha_inicio', $this->convertDate($row['fecha_inicio']))->where('fecha_fin', $this->convertDate($row['fecha_fin']))->first();
+
+        if (isset($asignacionRepeat) && !empty($asignacionRepeat)) {
+
+            $premioPdv = PremioPdv::where('asignacion_project_id', $asignacionRepeat->id)->where('award_project_id', $award_project->id)->get();
+
+            if (count($premioPdv) > 0) {
+                throw new \Exception($xplorer->name.' ya tiene asignado este premio: '.$row['premio'] . ' en el punto de venta "' . $row['punto_venta'] .'" (Asignacion con ID: '.$asignacionRepeat->id.')');
+            }
+
+            return new PremioPdv([
+                'asignacion_project_id' => $asignacionRepeat->id,
+                'award_project_id' => $award_project->id,
+                'qty_premio' => $row['qty_premio'],
+                'probabilidad' => $row["probabilidad"]
+            ]);
+
+            # code...
+        } else {
         
-        return new AsignacionProject([
-            'project_id' => $this->project_id,
-            'fecha_inicio' => $this->convertDate($row['fecha_inicio']),
-            'fecha_fin' => $this->convertDate($row['fecha_fin']),
-            'xplorer_id' => $xplorer->id,
-            'sales_point_id' => $sales_point->id,
-            'award_project_id' => $award_project->id,
-            'qty_premio' => $row['qty_premio'],
-        ]);
+            $asignacion = AsignacionProject::create([
+                'project_id' => $this->project_id,
+                'fecha_inicio' => $this->convertDate($row['fecha_inicio']),
+                'fecha_fin' => $this->convertDate($row['fecha_fin']),
+                'xplorer_id' => $xplorer->id,
+                'sales_point_id' => $sales_point->id,
+                'award_project_id' => null,
+                'qty_premio' => null,
+            ]);
+
+            return new PremioPdv([
+                'asignacion_project_id' => $asignacion->id,
+                'award_project_id' => $award_project->id,
+                'qty_premio' => $row['qty_premio'],
+                'probabilidad' => $row["probabilidad"]
+            ]);
+        }
     }
 
     private function convertDate($date)

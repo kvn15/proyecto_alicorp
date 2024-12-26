@@ -140,7 +140,7 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
     }
     .base,
     #scratch {
-        height: 450px;
+        height: 490px;
         width: 450px;
         position: absolute;
         transform: translate(-50%, -50%);
@@ -186,8 +186,8 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
     }
 
     .img-premio {
-        width: 80%;
-        height: 70%;
+        /* width: 80%;
+        height: 70%; */
         margin: auto;
     }
 

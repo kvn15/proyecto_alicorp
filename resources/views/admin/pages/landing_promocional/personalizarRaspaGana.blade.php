@@ -48,7 +48,7 @@
     }
     .base,
     #scratch {
-        height: 450px;
+        height: 490px;
         width: 450px;
         position: absolute;
         transform: translate(-50%, -50%);
@@ -94,8 +94,8 @@
     }
 
     .img-premio {
-        width: 80%;
-        height: 70%;
+        /* width: 80%;
+        height: 70%; */
         margin: auto;
     }
 

@@ -11,7 +11,7 @@ class PremioPdv extends Model
 
     protected $table = 'premio_pdvs';
 
-    protected $fillable = ['asignacion_project_id', 'award_project_id', 'qty_premio'];
+    protected $fillable = ['asignacion_project_id', 'award_project_id', 'qty_premio', 'probabilidad'];
 
     public function asignacion_projects()
     {

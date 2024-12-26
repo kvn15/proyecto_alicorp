@@ -22,7 +22,7 @@
     .content-game {
         width: 100%;
         min-height: 100vh;
-        padding: 1.3rem 0px;
+        /* padding: 1.3rem 0px; */
         background-repeat: no-repeat;
         background-size: 100% 100%;
         background-position:  center;
@@ -156,8 +156,8 @@
         @method('POST')
         
         <div class="container h-100-vh d-flex align-items-center">
-            <div class="d-block">
-                <div class="{{ $data["project"]->project_type_id == 3 ? 'd-flex' : 'd-none' }} flex-column justify-content-center align-items-center h-100" id="punto_venta_content">
+            <div class="d-block w-100">
+                <div class="{{ $data["project"]->project_type_id == 3 ? 'd-flex' : 'd-none' }} w-100 flex-column justify-content-center align-items-center h-100" id="punto_venta_content">
                     <div class="d-flex content_select mt-3">
                         <div class="content_left_select">
                             <b>Seleccionar punto de venta</b>
@@ -171,9 +171,9 @@
                     </div>
                 </div>
                 <div class="row h-100 {{ $data["project"]->project_type_id == 3 ? 'd-none' : '' }}" id="form-registro">
-                    <div class="col-12 col-lg-4 d-flex flex-column justify-content-center">
-                    </div>
-                    <div class="col-12 col-lg-8 ps-5 d-flex flex-column justify-content-center">
+                    {{-- <div class="col-12 col-lg-4 d-flex flex-column justify-content-center">
+                    </div> --}}
+                    <div class="col-12 col-lg-8 ps-5 d-flex flex-column justify-content-center m-auto">
                         <h1 class="w-75 text-white border-bottom mb-5" style="font-weight: 700">REGISTRATE</h1>
                         <div class="col-12">
                             @if(session('mensaje'))
@@ -183,13 +183,13 @@
                             @endif
                         </div>
                         @php
-                            $name = isset($data["user"]->name) ? $data["user"]->name : '';
-                            $apellido = isset($data["user"]->apellido) ? $data["user"]->apellido : '';
-                            $tipo_documento = isset($data["user"]->tipo_documento) ? $data["user"]->tipo_documento : '';
-                            $documento = isset($data["user"]->documento) ? $data["user"]->documento : '';
-                            $edad = isset($data["user"]->edad) ? $data["user"]->edad : '';
-                            $telefono = isset($data["user"]->telefono) ? $data["user"]->telefono : '';
-                            $email = isset($data["user"]->email) ? $data["user"]->email : '';
+                            $name = isset($data["user"]->name) && $data["project"]->project_type_id != 3 ? $data["user"]->name : '';
+                            $apellido = isset($data["user"]->apellido) && $data["project"]->project_type_id != 3 ? $data["user"]->apellido : '';
+                            $tipo_documento = isset($data["user"]->tipo_documento) && $data["project"]->project_type_id != 3 ? $data["user"]->tipo_documento : '';
+                            $documento = isset($data["user"]->documento) && $data["project"]->project_type_id != 3 ? $data["user"]->documento : '';
+                            $edad = isset($data["user"]->edad) && $data["project"]->project_type_id != 3 ? $data["user"]->edad : '';
+                            $telefono = isset($data["user"]->telefono) && $data["project"]->project_type_id != 3 ? $data["user"]->telefono : '';
+                            $email = isset($data["user"]->email) && $data["project"]->project_type_id != 3 ? $data["user"]->email : '';
                         @endphp
                         <div action="" class="row">
                             <div class="col-12 col-lg-6 mb-2">

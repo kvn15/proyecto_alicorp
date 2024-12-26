@@ -22,7 +22,7 @@
     .content-game {
         width: 100%;
         min-height: 100vh;
-        padding: 1.3rem 0px;
+        /* padding: 1.3rem 0px; */
         background-repeat: no-repeat;
         background-size: 100% 100%;
         background-position:  center;
@@ -157,8 +157,8 @@
         @csrf
         @method('POST')
         <div class="container h-100-vh d-flex align-items-center">
-            <div class="d-block">
-                <div class="{{ $data["project"]->project_type_id == 3 ? 'd-flex' : 'd-none' }} flex-column justify-content-center align-items-center h-100" id="punto_venta_content">
+            <div class="d-block w-100">
+                <div class="{{ $data["project"]->project_type_id == 3 ? 'd-flex' : 'd-none' }}  w-100 flex-column justify-content-center align-items-center h-100" id="punto_venta_content">
                     <div class="d-flex content_select mt-3">
                         <div class="content_left_select">
                             <b>Seleccionar punto de venta</b>
@@ -172,10 +172,10 @@
                     </div>
                 </div>
                 <div class="row h-100 {{ $data["project"]->project_type_id == 3 ? 'd-none' : '' }}" id="form-registro">
-                    <div class="col-12 col-lg-4 d-flex flex-column justify-content-center">
-                        <img class="img-fluid" src="{{ asset('backend/img/recurso_form.png') }}" alt="">
+                    <div class="col-12 d-flex justify-content-center mb-2">
+                        <img class="img-fluid" src="{{ asset('backend/img/recurso_form.png') }}" alt="" style="max-width: 350px;">
                     </div>
-                    <div class="col-12 col-lg-8 ps-5 d-flex flex-column justify-content-center">
+                    <div class="col-12 col-lg-8 ps-5 d-flex flex-column justify-content-center mx-auto">
                         <h1 class="w-75 text-white border-bottom mb-5" style="font-weight: 700">REGISTRATE</h1>
                         <div class="col-12">
                             @if(session('mensaje'))

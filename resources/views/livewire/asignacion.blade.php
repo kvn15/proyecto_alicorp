@@ -111,7 +111,7 @@
                         @error('xplorer') <span class="text-danger">Xplorer es requerida.</span> @enderror
                     </div>
                     <hr>
-                    <div class="col-12 col-lg-5 my-2">
+                    <div class="col-12 col-lg-3 my-2">
                         <label for="premio" class="form-label">Premio</label>
                         <select name="premio" id="premio" class="form-select" wire:model="premio">
                             <option>Seleccione</option>
@@ -126,6 +126,32 @@
                         <input type="number" name="qty_premio" id="qty_premio" class="form-control" wire:model="qty_premio" min="1" value="1">
                         @error('qty_premio') <span class="text-danger">Cantidad de Premio es requerida.</span> @enderror
                     </div>
+                    <div class="col-12 col-lg-3 my-2">
+                        <label for="probabilidad" class="form-label">Probabilidad</label>
+                        <select name="prob_no_premio" id="prob_no_premio" class="form-select w-100" wire:model="probabilidad">
+                            <option value="0" selected>0</option>
+                            <option value="10" selected>10</option>
+                            <option value="15" selected>15</option>
+                            <option value="20" selected>20</option>
+                            <option value="25" selected>25</option>
+                            <option value="30" selected>30</option>
+                            <option value="35" selected>35</option>
+                            <option value="40" selected>40</option>
+                            <option value="45" selected>45</option>
+                            <option value="50" selected>50</option>
+                            <option value="55" selected>55</option>
+                            <option value="60" selected>60</option>
+                            <option value="65" selected>65</option>
+                            <option value="70" selected>70</option>
+                            <option value="75" selected>75</option>
+                            <option value="80" selected>80</option>
+                            <option value="85" selected>85</option>
+                            <option value="90" selected>90</option>
+                            <option value="95" selected>95</option>
+                            <option value="100" selected>100</option>
+                        </select>
+                        @error('probabilidad') <span class="text-danger">Probabilidad es requerida.</span> @enderror
+                    </div>
                     <div class="col-12 col-lg-2 my-2 d-flex justify-content-center align-items-end">
                         <button type="button" class="btn btn-primary" style="background-color: #ED1B2F; color: #fff; border: 0;"
                         wire:click="addTablePremio"
@@ -138,6 +164,7 @@
                                 <tr>
                                     <th>Premio</th>
                                     <th>Cantidad</th>
+                                    <th>Probabilidad</th>
                                     <th>Acción</th>
                                 </tr>
                             </thead>
@@ -149,6 +176,9 @@
                                     </td>
                                     <td>
                                         {{ $item["cantidad"] }}
+                                    </td>
+                                    <td>
+                                        {{ $item["probabilidad"] }}
                                     </td>
                                     <td>
                                         {{-- <button type="button" class="btn btn-primary" style="background-color: #0f76fc; color: #fff; border: 0;"
@@ -216,7 +246,7 @@
                         </select>
                         @error('xplorer') <span class="text-danger">Xplorer es requerida.</span> @enderror
                     </div>
-                    <div class="col-12 col-lg-5 my-2">
+                    <div class="col-12 col-lg-3 my-2">
                         <label for="premio" class="form-label">Premio</label>
                         <select name="premio" id="premio" class="form-select" wire:model="premio" {{ $this->textBtnAdd == "Editar" ? 'disabled' : '' }}>
                             <option>Seleccione</option>
@@ -226,10 +256,36 @@
                         </select>
                         @error('premio') <span class="text-danger">Premio es requerida.</span> @enderror
                     </div>
-                    <div class="col-12 col-lg-4 my-2">
+                    <div class="col-12 col-lg-3 my-2">
                         <label for="qty_premio" class="form-label">Qty Premio</label>
                         <input type="number" name="qty_premio" id="qty_premio" class="form-control" wire:model="qty_premio" min="1" value="1">
                         @error('qty_premio') <span class="text-danger">Cantidad de Premio es requerida.</span> @enderror
+                    </div>
+                    <div class="col-12 col-lg-3 my-2">
+                        <label for="probabilidad" class="form-label">Probabilidad</label>
+                        <select name="prob_no_premio" id="prob_no_premio" class="form-select w-100" wire:model="probabilidad">
+                            <option value="0" selected>0</option>
+                            <option value="10" selected>10</option>
+                            <option value="15" selected>15</option>
+                            <option value="20" selected>20</option>
+                            <option value="25" selected>25</option>
+                            <option value="30" selected>30</option>
+                            <option value="35" selected>35</option>
+                            <option value="40" selected>40</option>
+                            <option value="45" selected>45</option>
+                            <option value="50" selected>50</option>
+                            <option value="55" selected>55</option>
+                            <option value="60" selected>60</option>
+                            <option value="65" selected>65</option>
+                            <option value="70" selected>70</option>
+                            <option value="75" selected>75</option>
+                            <option value="80" selected>80</option>
+                            <option value="85" selected>85</option>
+                            <option value="90" selected>90</option>
+                            <option value="95" selected>95</option>
+                            <option value="100" selected>100</option>
+                        </select>
+                        @error('probabilidad') <span class="text-danger">Probabilidad es requerida.</span> @enderror
                     </div>
                     <div class="col-12 col-lg-3 my-2 d-flex justify-content-center align-items-end">
                         <button type="button" class="btn btn-primary me-1" style="background-color: #ED1B2F; color: #fff; border: 0;"
@@ -247,6 +303,7 @@
                                 <tr>
                                     <th>Premio</th>
                                     <th>Cantidad</th>
+                                    <th>Probabilidad</th>
                                     <th>Acción</th>
                                 </tr>
                             </thead>
@@ -258,6 +315,9 @@
                                     </td>
                                     <td>
                                         {{ $item["cantidad"] }}
+                                    </td>
+                                    <td>
+                                        {{ $item["probabilidad"] }}
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-primary" style="background-color: #0f76fc; color: #fff; border: 0;"

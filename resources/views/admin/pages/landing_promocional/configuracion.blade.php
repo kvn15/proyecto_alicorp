@@ -432,6 +432,9 @@
                                 <h5>Asignación PDV</h5>
                                 <small>Actualiza las Asignaciones de PDV a Xplorers</small>
                             </div>
+                            <div>
+                                <livewire:punto-venta />
+                            </div>
                         </div>
                     </div>
                     <livewire:asignacion :projectId="$project->id"/>

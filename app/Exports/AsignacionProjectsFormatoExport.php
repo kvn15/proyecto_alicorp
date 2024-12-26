@@ -13,8 +13,8 @@ class AsignacionProjectsFormatoExport implements FromCollection
     public function collection()
     {
         return collect([
-            ['fecha_inicio', 'fecha_fin', 'documento', 'punto_venta', 'premio', 'qty_premio'], // Encabezados de columnas
-            ['', '', '', '', '', ''], // Agregar una fila vacía para la entrada de datos
+            ['fecha_inicio', 'fecha_fin', 'xplorer', 'punto_venta', 'premio', 'qty_premio', 'probabilidad'], // Encabezados de columnas
+            ['', '', '', '', '', '', ''], // Agregar una fila vacía para la entrada de datos
             // Puedes agregar más filas predeterminadas si es necesario
         ]);
     }

@@ -31,7 +31,7 @@ class Asignacion extends Component
     public $premios, $sales_point, $xplorers;
 
     // Agregar
-    public $idAsignacion, $fecha_ini, $fecha_fin, $punto_venta, $xplorer, $premio, $qty_premio;
+    public $idAsignacion, $fecha_ini, $fecha_fin, $punto_venta, $xplorer, $premio, $qty_premio, $probabilidad;
 
     public $file;
 
@@ -108,7 +108,8 @@ class Asignacion extends Component
                 PremioPdv::create([
                     'asignacion_project_id' => $asignacion->id,
                     'award_project_id' => $value["premioId"],
-                    'qty_premio' => $value["cantidad"]
+                    'qty_premio' => $value["cantidad"],
+                    'probabilidad' => $value["probabilidad"]
                 ]);
             }
     
@@ -158,6 +159,7 @@ class Asignacion extends Component
             $this->punto_venta = $asignacion->sales_point_id;
             $this->premio = $asignacion->award_project_id;
             $this->qty_premio = $asignacion->qty_premio;
+            $this->probabilidad = $asignacion->probabilidad;
             $premios = PremioPdv::where('asignacion_project_id', $asignacion->id)->get();
             foreach ($premios as $key => $value) {
                 $premioKick = AwardProject::where("id", $value->award_project_id)->first();
@@ -165,7 +167,8 @@ class Asignacion extends Component
                     "id" => $value->id,
                     "premioId" => $value->award_project_id,
                     "premioName" => $premioKick->nombre_premio,
-                    "cantidad" => $value->qty_premio
+                    "cantidad" => $value->qty_premio,
+                    "probabilidad" => $value->probabilidad
                 ];
                 $this->lPremios = array_merge($this->lPremios, [$premioObj]);
             }
@@ -183,6 +186,7 @@ class Asignacion extends Component
         $this->punto_venta = '';
         $this->premio = '';
         $this->qty_premio = '';
+        $this->probabilidad = '0';
         $this->lPremios = [];
     }
 
@@ -221,7 +225,8 @@ class Asignacion extends Component
                 
                 $asignacionPdv->update([
                     'award_project_id' => $resultado["premioId"],
-                    'qty_premio' => $resultado["cantidad"]
+                    'qty_premio' => $resultado["cantidad"],
+                    'probabilidad' => $resultado["probabilidad"]
                 ]);
 
             } else {
@@ -239,7 +244,8 @@ class Asignacion extends Component
             PremioPdv::create([
                 'asignacion_project_id' => $asignacion->id,
                 'award_project_id' => $value["premioId"],
-                'qty_premio' => $value["cantidad"]
+                'qty_premio' => $value["cantidad"],
+                'probabilidad' => $value["probabilidad"]
             ]);
         }
         
@@ -250,6 +256,7 @@ class Asignacion extends Component
         ]);
     }
 
+    // Carga de excel
     public function updatedFile()
     {
         $this->validate([
@@ -272,6 +279,8 @@ class Asignacion extends Component
             ]);
         }
     }
+
+    // Descargar formato
     public function downloadExcel()
     {
         return Excel::download(new AsignacionProjectsFormatoExport, 'formato_asignacion.xlsx');
@@ -288,6 +297,7 @@ class Asignacion extends Component
                 foreach ($this->lPremios as &$item) {
                     if ($item['premioId'] == $idPremio) {
                         $item['cantidad'] = $this->qty_premio;  // Cambiar el nombre
+                        $item['probabilidad'] = $this->probabilidad;
                     }
                 }
                 $this->cancelar();
@@ -297,7 +307,8 @@ class Asignacion extends Component
                     "id" => 0,
                     "premioId" => $idPremio,
                     "premioName" => $premioKick->nombre_premio,
-                    "cantidad" => $this->qty_premio
+                    "cantidad" => $this->qty_premio,
+                    "probabilidad" => $this->probabilidad
                 ];
         
                 $premioIds = array_column($this->lPremios, 'premioId');
@@ -314,6 +325,7 @@ class Asignacion extends Component
     
                     $this->premio = null;
                     $this->qty_premio = null;
+                    $this->probabilidad = '0';
                 }
             }
         } else {
@@ -341,12 +353,14 @@ class Asignacion extends Component
         $resultado = $preimioAssig->where('premioId', $premioId)->first();
         $this->premio = $resultado["premioId"];
         $this->qty_premio = $resultado["cantidad"];
+        $this->probabilidad = $resultado["probabilidad"];
         $this->textBtnAdd = "Editar";
     }
 
     public function cancelar()  {
         $this->premio = null;
         $this->qty_premio = null;
+        $this->probabilidad = '0';
         $this->textBtnAdd = "Agregar";
     }
 }
