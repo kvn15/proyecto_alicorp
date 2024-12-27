@@ -84,15 +84,9 @@
                                             <label for="selectMarca" class="form-label">Seleccionar Marca</label>
                                             {{-- <input type="text" id="nombrePromocion" class="form-control form-input-alicorp" placeholder="Escribir"> --}}
                                             <select class="form-select form-input-alicorp" id="selectMarca" data-placeholder="Escoja las marcas" multiple>
-                                                <option>Marca 1</option>
-                                                <option>Marca 2</option>
-                                                <option>Marca 3</option>
-                                                <option>Marca 4</option>
-                                                <option>Marca 5</option>
-                                                <option>Marca 6</option>
-                                                <option>Marca 8</option>
-                                                <option>Marca 7</option>
-                                                <option>Marca 9</option>
+                                                @foreach ($lmarcas as $item)
+                                                    <option>{{ $item->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>

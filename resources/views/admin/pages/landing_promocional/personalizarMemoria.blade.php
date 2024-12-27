@@ -319,7 +319,7 @@
 
                     <ul class="list-unstyled ps-4 mt-2 collapseOneGame" >
                         <li>
-                            <p class="mb-2">Banner</p>
+                            <p class="mb-2">Fondo</p>
                             <div class="img-subir">
                                 <button type="button" class="btn-delete-img">X</button>
                                 <label for="banner-subir">
@@ -327,7 +327,7 @@
                                         <div id="upload-banner" class="{{ isset($bgMemoria_url) && !empty($bgMemoria_url) ? 'd-none' : '' }} upload_img">
                                             <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                             <h6>Click para Actualizar</h6>
-                                            <p>PNG, JPG (max. 1,000x1,000px)</p>
+                                            <p>PNG, JPG (max. 1,500x1,060px)</p>
                                         </div>
                                         <div>
                                             <img class="img-fluid" id="preview-banner" src="{{ $bgMemoria_url }}">

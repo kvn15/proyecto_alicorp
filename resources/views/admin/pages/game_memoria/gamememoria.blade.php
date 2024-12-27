@@ -177,7 +177,7 @@
                     </div>
                 </div>
                 <div class="row h-100 {{ $data["project"]->project_type_id == 3 ? 'd-none' : '' }}" id="form-registro">
-                    <div class="col-12 d-flex justify-content-center mb-2">
+                    <div class="col-12 d-flex justify-content-center d-none">
                         <img class="img-fluid" src="{{ $imgLogo }}" alt="" style="max-width: 350px;">
                         {{-- <br>
                         <br>

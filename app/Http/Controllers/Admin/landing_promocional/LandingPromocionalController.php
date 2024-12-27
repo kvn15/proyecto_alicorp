@@ -7,6 +7,7 @@ use App\Models\AwardProject;
 use App\Models\GameView;
 use App\Models\KeepTrying;
 use App\Models\Landing;
+use App\Models\Marca;
 use App\Models\Participant;
 use App\Models\Project;
 use App\Models\RaspaGana;
@@ -182,7 +183,14 @@ class LandingPromocionalController extends Controller
             $project->fecha_fin_participar = $project->fecha_fin_participar ? Carbon::parse($project->fecha_fin_participar)->format('Y-m-d') : null;
         }
 
-        return view('admin.pages.landing_promocional.configuracion', compact('project'));
+        $lmarcas = Marca::where("status", 1)->get();
+
+        $data = [
+            "project" => $project,
+            "marcas" => $lmarcas
+        ];
+
+        return view('admin.pages.landing_promocional.configuracion', compact('data'));
     }
 
     // metodos

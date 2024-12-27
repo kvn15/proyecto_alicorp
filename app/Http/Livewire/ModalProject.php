@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Game;
+use App\Models\Marca;
 use App\Models\Project;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Request;
@@ -16,6 +17,7 @@ class ModalProject extends Component
     public $tipo_promocion = '1', $game, $nombre_promocion, $desc_promocion, $marcas, $game_select, $gameText;
     public $tipoProyecto;
     public $idProyecto, $nombreProyectoCreado;
+    public $lmarcas = [];
 
     protected $listeners = ['hallChanged' => 'change'];
 
@@ -78,6 +80,7 @@ class ModalProject extends Component
     {
         $this->pageActual = $pageActual;
         $this->game = Game::all();
+        $this->lmarcas = Marca::where("status", 1)->get();
     }
 
     public function render()

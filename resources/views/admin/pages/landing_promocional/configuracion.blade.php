@@ -1,3 +1,8 @@
+@php
+    $project = $data["project"];
+    $marcas = $data["marcas"];
+@endphp
+
 @extends('admin.pages.inicio.layout')
 
 @section('header_left')
@@ -131,15 +136,9 @@
                                 {{-- <input type="text" name="tipo_promocion" id="tipo_promocion" class="form-control w-100"> --}}
                                 <div class="w-100">
                                     <select class="form-select" id="small-bootstrap-class-multiple-field" data-placeholder="Escoja las marcas" multiple>
-                                        <option>Marca 1</option>
-                                        <option>Marca 2</option>
-                                        <option>Marca 3</option>
-                                        <option>Marca 4</option>
-                                        <option>Marca 5</option>
-                                        <option>Marca 6</option>
-                                        <option>Marca 8</option>
-                                        <option>Marca 7</option>
-                                        <option>Marca 9</option>
+                                        @foreach ($marcas as $item)
+                                            <option>{{ $item->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>

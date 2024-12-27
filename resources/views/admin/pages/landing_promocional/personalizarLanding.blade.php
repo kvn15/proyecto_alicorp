@@ -497,7 +497,7 @@
                                     <div id="upload-banner" class="{{ isset($banner_subir_url) && !empty($banner_subir_url) ? 'd-none' : '' }} upload_img">
                                         <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
                                         <h6>Click para Actualizar</h6>
-                                        <p>PNG, JPG (max. 1040x750 px)</p>
+                                        <p>PNG, JPG (max. 1040x600 px)</p>
                                     </div>
                                     <div>
                                         <img class="img-fluid" id="preview-banner" src="{{ $banner_subir_url }}">
