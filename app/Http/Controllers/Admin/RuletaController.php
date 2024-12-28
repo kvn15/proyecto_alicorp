@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\NotificacionController;
 use App\Models\AsignacionProject;
 use App\Models\AwardProject;
 use App\Models\KeepTrying;
@@ -593,6 +594,10 @@ class RuletaController extends Controller
             $uuid = Str::uuid()->toString();
 
             session(['punto_venta_ruleta' => $request->punto_venta]);
+
+            // Enviar notificacion a administrador
+            $notificacion = new NotificacionController();
+            $notificacion->notificacionTyC($participant->id);
 
             return redirect()->route($tipoJuego.'juego.view.ruleta', $project->dominio)->with('claveRuleta', $participant->id);
         } catch (\Throwable $th) {

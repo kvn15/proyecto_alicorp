@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\NotificacionController;
 use App\Models\AsignacionProject;
 use App\Models\AwardProject;
 use App\Models\KeepTrying;
@@ -475,6 +476,10 @@ class RaspaGanaController extends Controller
             $participant->save();
 
             $uuid = Str::uuid()->toString();
+
+            // Enviar notificacion a administrador
+            $notificacion = new NotificacionController();
+            $notificacion->notificacionTyC($participant->id);
 
             session(['punto_venta_raspa' => $request->punto_venta]);
 

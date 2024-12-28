@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\NotificacionController;
 use App\Models\AsignacionProject;
 use App\Models\AwardProject;
 use App\Models\GameView;
@@ -254,6 +255,10 @@ class GameMemoriaController extends Controller
             $uuid = Str::uuid()->toString();
 
             session(['punto_venta_memoria' => $request->punto_venta]);
+
+            // Enviar notificacion a administrador
+            $notificacion = new NotificacionController();
+            $notificacion->notificacionTyC($participant->id);
 
             return redirect()->route($tipoJuego.'juego.view.memoria', $project->dominio)->with('claveMemoria', $participant->id);
         } catch (\Throwable $th) {
