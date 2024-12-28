@@ -37,8 +37,8 @@
                         <td>{{ $value->fecha_inicio }}</td>
                         <td>{{ $value->fecha_fin }}</td>
                         <td>{{ $value->sales_point->name }}</td>
-                        <td>{{ $value->xplorer->name }}</td>
-                        <td>{{ $value->xplorer->documento }}</td>
+                        <td>{{ $value->user->name }}</td>
+                        <td>{{ $value->user->documento }}</td>
                         <td>
                             @if (isset($value->award_project->nombre_premio))
                                 <span class="badge text-bg-success" style="background-color: #05CD991A !important;color: #05CD99 !important;font-weight: 700;">{{ $value->award_project->nombre_premio }}</span>

@@ -457,6 +457,7 @@
         @csrf
         @method('POST')
         <input type="hidden" name="idPremio" id="idPremio" value="0">
+        <input type="hidden" name="idProject" id="idProject" value="{{ $project->id }}">
     </form>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

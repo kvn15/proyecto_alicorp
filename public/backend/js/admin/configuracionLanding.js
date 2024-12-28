@@ -81,6 +81,7 @@ $(document).ready(function() {
                     icon: 'success',
                     title: 'Cambios guardados'
                 })
+                $("#fecha_fin_participar_estado").val($("#fecha_fin_participar").val());
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
@@ -296,6 +297,7 @@ $(document).ready(function() {
                     icon: 'success',
                     title: 'Cambios guardados'
                 })
+                $("#fecha_fin_participar").val($("#fecha_fin_participar_estado").val());
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('Error en la solicitud AJAX:', textStatus, errorThrown);

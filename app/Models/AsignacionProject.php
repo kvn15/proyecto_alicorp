@@ -9,7 +9,13 @@ class AsignacionProject extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['project_id','xplorer_id','fecha_inicio','fecha_fin','sales_point_id','award_project_id','qty_premio'];
+    protected $fillable = ['project_id','xplorer_id','fecha_inicio','fecha_fin','sales_point_id','award_project_id','qty_premio', 'user_id'];
+
+
+    // Relacion categoria - Uno a Uno
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
     // Relacion categoria - Uno a Uno
     public function xplorer() {
@@ -34,12 +40,12 @@ class AsignacionProject extends Model
     public static function search($search) {
         return empty($search) ? static::query()
             : static::query()
-                ->with(['xplorer', 'sales_point', 'award_project'])
+                ->with(['user', 'sales_point', 'award_project'])
                 ->where('asignacion_projects.id', 'like', '%'.$search.'%')
                 ->orWhere('qty_premio', 'like', '%'.$search.'%')
                 ->orWhere('asignacion_projects.fecha_inicio', 'like', '%'.$search.'%')
                 ->orWhere('asignacion_projects.fecha_fin', 'like', '%'.$search.'%')
-                ->orWhereHas('xplorer', function ($q) use ($search) {
+                ->orWhereHas('user', function ($q) use ($search) {
                     $q->where('name', 'like', '%'.$search.'%')
                         ->orWhere('email', 'like', '%'.$search.'%')
                         ->orWhere('documento', 'like', '%'.$search.'%');

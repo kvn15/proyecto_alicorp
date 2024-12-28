@@ -6,7 +6,8 @@ use App\Models\Game;
 use App\Models\Marca;
 use App\Models\Project;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Request;
+use voku\helper\Ascii;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class ModalProject extends Component
@@ -23,6 +24,9 @@ class ModalProject extends Component
 
     public function submit() {
         
+        $texto = Ascii::to_ascii($this->nombre_promocion);
+        $url = Str::of($texto)->lower()->replace(' ', '_')->slug('-');
+
         $proyecto = new Project();
         $proyecto->project_type_id = $this->tipo_promocion;
         $proyecto->nombre_promocion = $this->nombre_promocion;
@@ -30,7 +34,8 @@ class ModalProject extends Component
         $proyecto->marcas = $this->marcas;
         $proyecto->game_id = $this->game_select;
         $proyecto->admin_id  = auth()->id();
-        $proyecto->fecha_ini_proyecto = Carbon::now();;
+        $proyecto->fecha_ini_proyecto = Carbon::now();
+        $proyecto->dominio = $url;
 
         $proyecto->save();
 

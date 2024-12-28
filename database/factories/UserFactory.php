@@ -25,6 +25,14 @@ class UserFactory extends Factory
         ];
     }
 
+    // Método para generar un usuario xplorer
+    public function xplorer()
+    {
+        return $this->state([
+            'is_xplorer' => 1,
+        ]);
+    }
+
     /**
      * Indicate that the model's email address should be unverified.
      *

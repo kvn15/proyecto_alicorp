@@ -43,9 +43,18 @@ class PaticipanteTable extends Component
             ->leftjoin('other_participants', 'other_participants.id', '=', 'participants.other_participant_id')
             ->select('participants.*', 'users.name', 'users.telefono', 'users.email', 'users.documento', 'other_participants.nombres', 'other_participants.correo', 'other_participants.nro_documento', 'other_participants.telefono as telefonoOther');
         
-        if (!empty($this->fechaIni) && !empty($this->fechaFin)) {
-            $participant->whereBetween('participants.created_at', [$this->fechaIni, $this->fechaFin]);
+        // if (!empty($this->fechaIni) && !empty($this->fechaFin)) {
+        //     $participant->whereBetween('participants.created_at', [$this->fechaIni, $this->fechaFin]);
+        // }
+        
+        if (!empty($this->fechaIni)) {
+            $participant->whereDate('participants.created_at','>=', $this->fechaIni);
         }
+
+        if (!empty($this->fechaFin)) {
+            $participant->whereDate('participants.created_at', '<=', $this->fechaFin);
+        }
+
         if (!empty($this->tyc) || $this->tyc == "0") {
             $participant->where('participants.terminos_condiciones', $this->tyc);
             $this->emit('terminosCondiciones');

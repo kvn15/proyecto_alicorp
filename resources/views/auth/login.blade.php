@@ -3,7 +3,7 @@
 <section class="perfil2">
     <div class="container">
         <div class="row">
-            <form method="POST" action="{{ route('login') }}" class="formulario d-flex ">
+            <form method="POST" action="{{ route('login.post') }}" class="formulario d-flex ">
                 @csrf
                 <div class="col-md-6">
                     <div class="contact-title">
@@ -52,7 +52,7 @@
                         <p>¿No tienes una cuenta?</p>
                     </div>
                     <div class="mt-3">
-                        <button class="btn btn-light" >
+                        <button type="button" class="btn btn-light" >
                             <a href="{{ route('register') }}">Registrate</a>
                         </button>
                     </div>

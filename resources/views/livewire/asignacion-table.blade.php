@@ -67,13 +67,17 @@
                     <tr>    
                         <td>{{ $value->id }}</td>
                         <td>{{ $value->created_at }}</td>
-                        <td>{{ $value->xplorer->name }}</td>
-                        <td>{{ $value->xplorer->documento }}</td>
+                        <td>{{ $value->user->name }}</td>
+                        <td>{{ $value->user->documento }}</td>
                         <td>{{ $value->sales_point->name }}</td>
                         <td>{{ $value->fecha_inicio }}</td>
                         <td>{{ $value->fecha_fin }}</td>
-                        <td>1</td>
-                        <td>{{ $value->award_project->nombre_premio }}</td>
+                        <td>{{ count($value->premio_pdvs) }}</td>
+                        <td>
+                            @foreach ($value->premio_pdvs as $item)
+                                <span class="badge text-bg-success" style="background-color: #05CD991A !important;color: #05CD99 !important;font-weight: 700;">{{ $item->award_project->nombre_premio }}</span>
+                            @endforeach
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>

@@ -46,7 +46,7 @@ return [
         ],
         'xplorer' => [
             'driver' => 'session',
-            'provider' => 'xplorers',
+            'provider' => 'users',
         ],
         'adminPanel' => [
             'driver' => 'session',

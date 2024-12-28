@@ -8,7 +8,7 @@ use App\Models\AsignacionProject;
 use App\Models\AwardProject;
 use App\Models\PremioPdv;
 use App\Models\SalesPoint;
-use App\Models\Xplorer;
+use App\Models\User;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -50,11 +50,12 @@ class Asignacion extends Component
     {
         $asignacion = AsignacionProject::search($this->search)
             ->where('asignacion_projects.project_id', $this->projectId)
-            ->with('xplorer')
-            ->join('xplorers', 'xplorers.id', '=', 'asignacion_projects.xplorer_id')
+            ->with('user')
+            // ->leftJoin('xplorers', 'xplorers.id', '=', 'asignacion_projects.xplorer_id')
             ->leftJoin('award_projects', 'award_projects.id', '=', 'asignacion_projects.award_project_id')
+            ->join('users', 'users.id', '=', 'asignacion_projects.user_id')
             ->join('sales_points', 'sales_points.id', '=', 'asignacion_projects.sales_point_id')
-            ->select('asignacion_projects.*', 'xplorers.name', 'xplorers.email', 'sales_points.name', 'award_projects.nombre_premio')
+            ->select('asignacion_projects.*', 'users.name', 'users.email', 'sales_points.name', 'award_projects.nombre_premio')
             ->orderBy($this->sortColumnName, $this->sortDirection)->simplePaginate(10);
 
         return view('livewire.asignacion', compact('asignacion'));
@@ -65,13 +66,13 @@ class Asignacion extends Component
         $this->projectId = $projectId;
         $this->premios = AwardProject::where("project_id", $projectId)->get();
         $this->sales_point = SalesPoint::where('status', 1)->get();
-        $this->xplorers = Xplorer::all();
+        $this->xplorers = User::where('is_xplorer', 1)->get();
     }
 
     public function allDatas() {
         $this->premios = AwardProject::where("project_id", $this->projectId)->get();
         $this->sales_point = SalesPoint::where('status', 1)->get();
-        $this->xplorers = Xplorer::all();
+        $this->xplorers = User::where('is_xplorer', 1)->get();
     }
  
     public function search()
@@ -92,10 +93,18 @@ class Asignacion extends Component
                 ]);
                 return;
             }
+
+            if ($this->fecha_ini > $this->fecha_fin) {
+                $this->dispatchBrowserEvent('swal:alert', [
+                    'title' => 'La fecha de inicio no puede ser mayor a la fecha de fin.',
+                    'icon' => 'error',
+                ]);
+                return;
+            }
             
             $asignacion = AsignacionProject::create([
                 'project_id' => $this->projectId,
-                'xplorer_id' => $this->xplorer,
+                'user_id' => $this->xplorer,
                 'fecha_inicio' => $this->fecha_ini,
                 'fecha_fin' => $this->fecha_fin,
                 'sales_point_id' => $this->punto_venta,
@@ -153,7 +162,7 @@ class Asignacion extends Component
         if ($value) {
             $asignacion = AsignacionProject::where('id', $key)->first();
             $this->idAsignacion = $asignacion->id;
-            $this->xplorer = $asignacion->xplorer_id;
+            $this->xplorer = $asignacion->user_id;
             $this->fecha_ini = $asignacion->fecha_inicio;
             $this->fecha_fin = $asignacion->fecha_fin;
             $this->punto_venta = $asignacion->sales_point_id;
@@ -203,9 +212,17 @@ class Asignacion extends Component
             ]);
             return;
         }
+
+        if ($this->fecha_ini > $this->fecha_fin) {
+            $this->dispatchBrowserEvent('swal:alert', [
+                'title' => 'La fecha de inicio no puede ser mayor a la fecha de fin.',
+                'icon' => 'error',
+            ]);
+            return;
+        }
         
         $asignacion->update([
-            'xplorer_id' => $this->xplorer,
+            'user_id' => $this->xplorer,
             'fecha_inicio' => $this->fecha_ini,
             'fecha_fin' => $this->fecha_fin,
             'sales_point_id' => $this->punto_venta,

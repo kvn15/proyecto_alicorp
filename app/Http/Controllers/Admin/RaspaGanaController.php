@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AsignacionProject;
 use App\Models\AwardProject;
 use App\Models\KeepTrying;
 use App\Models\OtherParticipant;
 use App\Models\Participant;
+use App\Models\PremioPdv;
 use App\Models\Project;
 use App\Models\RaspaGana;
 use App\Models\User;
@@ -259,12 +261,31 @@ class RaspaGanaController extends Controller
             }
         }
 
-        if ($project->project_type_id != 3) { // no es campaña
-            if (!isset(Auth::user()->id)) {
-                return redirect()->route('login');
-            }
+        // if ($project->project_type_id != 3) { // no es campaña
+        //     if (!isset(Auth::user()->id)) {
+        //         return redirect()->route('login');
+        //     }
         
-            $user = User::find(Auth::user()->id);
+        //     $user = User::find(Auth::user()->id);
+        // }
+        
+        // Juegos campaña necesitas auth
+        if (!isset(Auth::user()->id)) {
+            return redirect()->route('login');
+        }
+    
+        $user = User::find(Auth::user()->id);
+
+        if ($project->project_type_id == 3) {
+            if ($user->is_xplorer != 1) {
+                return redirect()->route('index')->with('projecto', 'No tiene permitido ingresar a este juego.');
+            }
+
+            $asignacion = AsignacionProject::where('project_id', $project->id)->where('user_id', $user->id)->get();
+
+            if (count($asignacion) == 0) {
+                return redirect()->route('index')->with('projecto', 'No tiene acceso a este juego.');
+            }
         }
 
         // Vista Proyecto
@@ -275,13 +296,13 @@ class RaspaGanaController extends Controller
 
         $gameRaspaGana = RaspaGana::where('project_id', $project->id)->first();
 
-        $puntoVenta = DB::table("projects")
-        ->join('asignacion_projects', 'asignacion_projects.project_id', '=', 'projects.id')
-        ->join('sales_points', 'sales_points.id', '=', 'asignacion_projects.sales_point_id')
-        ->select('sales_points.id', 'sales_points.name')
-        ->where('projects.id', $project->id)
-        ->distinct()
-        ->get()->toArray();
+        $puntoVenta = DB::table("sales_points")
+            ->join('asignacion_projects', 'asignacion_projects.sales_point_id', 'sales_points.id')
+            ->where('asignacion_projects.project_id', $project->id)
+            ->where('asignacion_projects.user_id', $user->id)
+            ->select('sales_points.*')
+            ->distinct()
+            ->get()->toArray();
 
         $data = [
             'project' => $project,
@@ -316,7 +337,7 @@ class RaspaGanaController extends Controller
             $isCodigo = Participant::where('project_id', $id)->where('codigo', $request->codigo)->first();
 
             if (isset($isCodigo)) {
-                return redirect()->route($tipoJuego.'juego.view.registro.raspagana', $project->dominio)->with('mensaje', 'El N° de LOTE ya existe.');
+                return redirect()->route($tipoJuego.'juego.view.registro.raspagana', $project->dominio)->with('mensaje', 'El N° de LOTE ya existe.')->withInput();
             }
 
             $other_participant_id = null;
@@ -337,6 +358,19 @@ class RaspaGanaController extends Controller
 
                     $other_participant_id = $otherParticipant->id;
                 } else {
+
+                    $isCorreo = OtherParticipant::where('correo', $request->email)->get();
+
+                    if (count($isCorreo) > 0) {
+                        return redirect()->route($tipoJuego.'juego.view.registro.raspagana', $project->dominio)->with('mensaje', 'El correo ya se encuentra registrado.')->withInput();
+                    }
+
+                    $isTelefono = OtherParticipant::where('telefono', $request->telefono)->get();
+
+                    if (count($isTelefono) > 0) {
+                        return redirect()->route($tipoJuego.'juego.view.registro.raspagana', $project->dominio)->with('mensaje', 'El telefono ya se encuentra registrado.')->withInput();
+                    }
+
                     $otherParticipant = OtherParticipant::create([
                         'nombres' => $request->name,
                         'apellidos' => $request->apellido,
@@ -352,7 +386,81 @@ class RaspaGanaController extends Controller
                 
             }
 
-            $userId = isset(Auth::user()->id) ? Auth::user()->id : null;
+            $userId = isset(Auth::user()->id) && $project->project_type_id != 3 ? Auth::user()->id : null;
+
+            if ($project->project_type_id != 3) {
+
+                $user= User::findOrFail(Auth::user()->id);
+
+                if (trim($request->documento) == $user->documento) {
+                
+                    // Actualizar usuario
+                    $user->update([
+                        'name' => $request->name,
+                        'apellido' => $request->apellido,
+                        'tipo_documento' => $request->tipo_doc,
+                        'documento' => $request->documento,
+                        'edad' => $request->edad,
+                        'telefono' => $request->telefono
+                    ]);
+                } else {
+                    $user= User::where('documento', trim($request->documento))->first();
+
+                    $userId = null;
+                    if (isset($user) && !empty($user)) {
+                        // Actualizar usuario
+                        $user->update([
+                            'name' => $request->name,
+                            'apellido' => $request->apellido,
+                            'tipo_documento' => $request->tipo_doc,
+                            'documento' => trim($request->documento),
+                            'edad' => $request->edad,
+                            'telefono' => $request->telefono
+                        ]);
+                    } else {
+                        // Si existe el dni
+                        $otherParticipant = OtherParticipant::where('nro_documento', trim($request->documento))->first();
+
+                        if (isset($otherParticipant)) {
+                            
+                            $otherParticipant->update([
+                                'nombres' => $request->name,
+                                'apellidos' => $request->apellido,
+                                'edad' => $request->edad,
+                                'telefono' => $request->telefono,
+                                'correo' => $request->email
+                            ]);
+
+                            $other_participant_id = $otherParticipant->id;
+                        } else {
+
+                            $isCorreo = OtherParticipant::where('correo', $request->email)->get();
+
+                            if (count($isCorreo) > 0) {
+                                return redirect()->route($tipoJuego.'juego.view.registro.raspagana', $project->dominio)->with('mensaje', 'El correo ya se encuentra registrado.')->withInput();
+                            }
+
+                            $isTelefono = OtherParticipant::where('telefono', $request->telefono)->get();
+
+                            if (count($isTelefono) > 0) {
+                                return redirect()->route($tipoJuego.'juego.view.registro.raspagana', $project->dominio)->with('mensaje', 'El telefono ya se encuentra registrado.')->withInput();
+                            }
+
+                            $otherParticipant = OtherParticipant::create([
+                                'nombres' => $request->name,
+                                'apellidos' => $request->apellido,
+                                'edad' => $request->edad,
+                                'telefono' => $request->telefono,
+                                'correo' => $request->email,
+                                'tipo_doc' => $request->tipo_doc,
+                                'nro_documento' => trim($request->documento),
+                            ]);
+
+                            $other_participant_id = $otherParticipant->id;
+                        }
+                    }
+                }
+            }
             
             $participant = new Participant();
             $participant->project_id = $id;
@@ -366,33 +474,26 @@ class RaspaGanaController extends Controller
             $participant->punto_entrega = isset($request->punto_venta) && !empty($request->punto_venta) ? $request->punto_venta : null;
             $participant->save();
 
-            if ($project->project_type_id != 3) {
-
-                $user= User::findOrFail(Auth::user()->id);
-
-                // Actualizar usuario
-                $user->update([
-                    'name' => $request->name,
-                    'apellido' => $request->apellido,
-                    'tipo_documento' => $request->tipo_doc,
-                    'documento' => $request->documento,
-                    'edad' => $request->edad,
-                    'telefono' => $request->telefono
-                ]);
-            }
-
             $uuid = Str::uuid()->toString();
+
+            session(['punto_venta_raspa' => $request->punto_venta]);
 
             return redirect()->route($tipoJuego.'juego.view.raspagana', $project->dominio)->with('claveRaspaGana', $participant->id);
         } catch (\Throwable $th) {
-            return redirect()->route($tipoJuego.'juego.view.registro.raspagana', $project->dominio)->with('mensaje', 'Ocurrio un error inesperado.');
+            return redirect()->route($tipoJuego.'juego.view.registro.raspagana', $project->dominio)->with('mensaje', 'Ocurrio un error inesperado.')->withInput();
         }
     }
 
     // Verificar ganador
     public function updateGanador(Request $request, $id) {
+
+        $project = Project::where('id', $id)->first();
         
-        $premio = AwardProject::where('id', $request->premio_id)->first();
+        if ($project->project_type_id == 3) { 
+            $premio = PremioPdv::where('id', $request->premio_id)->first();
+        } else {
+            $premio = AwardProject::where('id', $request->premio_id)->first();
+        }
 
         $participante = Participant::where('id', $request->idParticipante)->first();
 
@@ -400,19 +501,38 @@ class RaspaGanaController extends Controller
             $participante->update([
                 'ganador' => 0,
             ]);
-        }else { // Gano
-            $participante->update([
-                'ganador' => 1,
-                'award_project_id' => $request->premio_id,
-                'fecha_premio' => Carbon::now()
-            ]);
+        }else {
 
-            // Reducir el stock del premio
-            $premio = AwardProject::findOrFail($request->premio_id);
-            $premio->update([
-                "stock" =>  $premio->stock - 1
-            ]);
-            // Reducir cantidad de premio en asignacion
+            if ($project->project_type_id == 3) { 
+
+                // Gano
+                $participante->update([
+                    'ganador' => 1,
+                    'award_project_id' => $premio->award_project_id,
+                    'fecha_premio' => Carbon::now()
+                ]);
+                
+                $premio = PremioPdv::where('id', $request->premio_id)->first();
+                $premio->update([
+                    "qty_premio" =>  $premio->qty_premio - 1
+                ]);
+
+            } else { // Gano
+
+                $participante->update([
+                    'ganador' => 1,
+                    'award_project_id' => $request->premio_id,
+                    'fecha_premio' => Carbon::now()
+                ]);
+
+                // Reducir el stock del premio
+                $premio = AwardProject::findOrFail($request->premio_id);
+                $premio->update([
+                    "stock" =>  $premio->stock - 1
+                ]);
+                // Reducir cantidad de premio en asignacion
+            }
+            
         }
 
         return response()->json([
@@ -422,8 +542,21 @@ class RaspaGanaController extends Controller
 
     public function obtenerPremio($projectId) {
         // Obtener todos los premios con su probabilidad
-        $premios = AwardProject::where('project_id', $projectId)->where('stock','>',0)->get();
         $project = Project::findOrFail($projectId);
+        if ($project->project_type_id == 3) {
+            $premios = DB::table('award_projects')
+            ->join('premio_pdvs', 'premio_pdvs.award_project_id', 'award_projects.id')
+            ->join('asignacion_projects', 'asignacion_projects.id', 'premio_pdvs.asignacion_project_id')
+            ->where('asignacion_projects.project_id', $projectId)
+            ->where('asignacion_projects.sales_point_id', intval(session('punto_venta_raspa')))
+            ->where('asignacion_projects.user_id', Auth::user()->id)
+            ->where('premio_pdvs.qty_premio', '>', 0)
+            ->select('premio_pdvs.id', 'award_projects.nombre_premio', 'award_projects.imagen', 'premio_pdvs.probabilidad')
+            ->get();
+        } else {
+            $premios = AwardProject::where('project_id', $projectId)->where('stock','>',0)->get();
+        }
+
         $sigueIntentando = KeepTrying::where('project_id', $projectId)->first();
     
         // Crear un array acumulativo para la probabilidad

@@ -29,7 +29,8 @@ class User extends Authenticatable
         'documento',
         'tipo_documento',
         'edad',
-        'apellido'
+        'apellido',
+        'is_xplorer'
     ];
 
     /**
@@ -54,5 +55,10 @@ class User extends Authenticatable
     public function asignancion()
     {
         return $this->belongsTo(Asignancion::class);
+    }
+
+    public function asignacion_project()
+    {
+        return $this->belongsTo(AsignacionProject::class);
     }
 }

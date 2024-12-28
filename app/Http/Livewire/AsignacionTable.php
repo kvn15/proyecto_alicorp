@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Admin\Asignancion;
 use App\Models\AsignacionProject;
 use App\Models\SalesPoint;
 use Livewire\Component;
@@ -40,18 +39,18 @@ class AsignacionTable extends Component
     {
         $asignacion = AsignacionProject::search($this->search)
             ->where('asignacion_projects.project_id', $this->projectId)
-            ->with('xplorer')
-            ->join('xplorers', 'xplorers.id', '=', 'asignacion_projects.xplorer_id')
-            ->join('award_projects', 'award_projects.id', '=', 'asignacion_projects.award_project_id')
+            ->with('user')
+            ->join('users', 'users.id', '=', 'asignacion_projects.user_id')
+            ->leftJoin('award_projects', 'award_projects.id', '=', 'asignacion_projects.award_project_id')
             ->join('sales_points', 'sales_points.id', '=', 'asignacion_projects.sales_point_id')
-            ->select('asignacion_projects.*', 'xplorers.name', 'xplorers.email', 'sales_points.name', 'award_projects.nombre_premio');
+            ->select('asignacion_projects.*', 'users.name', 'users.email', 'sales_points.name', 'award_projects.nombre_premio');
 
         if (!empty($this->fechaIni)) {
-            $asignacion->where('asignacion_projects.fecha_inicio','>=', $this->fechaIni);
+            $asignacion->whereDate('asignacion_projects.fecha_inicio','>=', $this->fechaIni);
         }
 
         if (!empty($this->fechaFin)) {
-            $asignacion->where('asignacion_projects.fecha_fin', '<=', $this->fechaFin);
+            $asignacion->whereDate('asignacion_projects.fecha_fin', '<=', $this->fechaFin);
         }
 
         if (!empty($this->punto)) {

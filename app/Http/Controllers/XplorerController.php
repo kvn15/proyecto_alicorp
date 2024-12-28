@@ -15,13 +15,23 @@ class XplorerController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
 
-        if (Auth::guard('xplorer')->attempt($credentials)) {
-            return redirect()->intended('/xplorer/dashboard');
+        $validated = $request->validate([
+            'email' => 'required|max:100',
+            'password' => 'required'
+        ]);
+        
+        if(!Auth::guard('xplorer')->attempt($request->only('email','password'))){
+            return back()->with('mensaje', 'Creedenciales Incorrectas');
         }
 
-        return back()->withErrors(['email' => 'Las credenciales no son correctas']);
+        $user = auth('xplorer')->user();
+        
+        if ($user->is_xplorer == 0) {
+            return back()->with('mensaje', 'Creedenciales Incorrectas');
+        }
+
+        return redirect()->route('xplorer.dashboard');
     }
 
     public function logout(Request $request)

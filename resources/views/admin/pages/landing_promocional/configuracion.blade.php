@@ -471,7 +471,7 @@
                                 <label for="fecha_fin_participar"><small><b>Fecha de finalización para participar</b></small></label>
                             </div>
                             <div class="col-12 col-md-6 col-lg-5">
-                                <input type="date" name="fecha_fin_participar" id="fecha_fin_participar" class="form-control w-100" value="{{ $project->fecha_fin_participar }}">
+                                <input type="date" name="fecha_fin_participar" id="fecha_fin_participar_estado" class="form-control w-100" value="{{ $project->fecha_fin_participar }}">
                             </div>
                         </div>
                     </form>
@@ -639,11 +639,18 @@
                     processData: false, // No procesar los datos
                     success: function(data) {
                         // Procesar los datos devueltos
-                        toastr.success(data.message); 
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Cambios guardados'
+                        })
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
-                        toastr.error('Ocurrió un error al procesar la solicitud.');
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Ocurrió un error al procesar la solicitud.'
+                        })
                     }
                 });
             });

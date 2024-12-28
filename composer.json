@@ -16,11 +16,13 @@
         "livewire/livewire": "^2.12",
         "maatwebsite/excel": "^3.1",
         "spatie/laravel-permission": "^5.11",
+        "voku/portable-ascii": "^1.6",
         "wire-elements/modal": "^1.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
+        "laravel-lang/common": "^3.1",
         "laravel-lang/lang": "^12.17",
         "laravel/breeze": "^1.10",
         "laravel/sail": "^1.0.1",

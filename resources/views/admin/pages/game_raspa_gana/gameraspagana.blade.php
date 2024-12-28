@@ -59,7 +59,7 @@
         border-radius: 45px;
         padding: 0.1em 0.5em;
         font-weight: 500;
-        margin-top: 1.4em;
+        margin-top: 0.7em;
     }
 
     .content_politicas_terminos {
@@ -157,7 +157,7 @@
         
         <div class="container h-100-vh d-flex align-items-center">
             <div class="d-block w-100">
-                <div class="{{ $data["project"]->project_type_id == 3 ? 'd-flex' : 'd-none' }} w-100 flex-column justify-content-center align-items-center h-100" id="punto_venta_content">
+                <div class="{{ $data["project"]->project_type_id == 3 && !session('mensaje') ? 'd-flex' : 'd-none' }} w-100 flex-column justify-content-center align-items-center h-100" id="punto_venta_content">
                     <div class="d-flex content_select mt-3">
                         <div class="content_left_select">
                             <b>Seleccionar punto de venta</b>
@@ -170,11 +170,11 @@
                         </select>
                     </div>
                 </div>
-                <div class="row h-100 {{ $data["project"]->project_type_id == 3 ? 'd-none' : '' }}" id="form-registro">
+                <div class="row h-100 {{ $data["project"]->project_type_id == 3 && !session('mensaje') ? 'd-none' : '' }}" id="form-registro">
                     {{-- <div class="col-12 col-lg-4 d-flex flex-column justify-content-center">
                     </div> --}}
                     <div class="col-12 col-lg-8 ps-5 d-flex flex-column justify-content-center m-auto">
-                        <h1 class="w-75 text-white border-bottom mb-5" style="font-weight: 700">REGISTRATE</h1>
+                        <h1 class="w-75 text-white border-bottom mb-3" style="font-weight: 700">REGISTRATE</h1>
                         <div class="col-12">
                             @if(session('mensaje'))
                             <div class="alert alert-warning">
@@ -182,6 +182,7 @@
                             </div>
                             @endif
                         </div>
+                        @if ($data["project"]->project_type_id != 3)
                         @php
                             $name = isset($data["user"]->name) && $data["project"]->project_type_id != 3 ? $data["user"]->name : '';
                             $apellido = isset($data["user"]->apellido) && $data["project"]->project_type_id != 3 ? $data["user"]->apellido : '';
@@ -191,7 +192,7 @@
                             $telefono = isset($data["user"]->telefono) && $data["project"]->project_type_id != 3 ? $data["user"]->telefono : '';
                             $email = isset($data["user"]->email) && $data["project"]->project_type_id != 3 ? $data["user"]->email : '';
                         @endphp
-                        <div action="" class="row">
+                        <div class="row">
                             <div class="col-12 col-lg-6 mb-2">
                                 <label for="name">Nombre</label>
                                 <input type="text" name="name" id="name" class="form-registro" value="{{ $name }}">
@@ -231,7 +232,7 @@
 
                                 <input type="file" name="imagen" id="imagen" class="form-control mt-2">
                             </div>
-                            <div class="col-12 d-flex justify-content-between my-2">
+                            <div class="col-12 d-flex justify-content-between mt-2">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="1" name="checkTerminos" id="checkTerminos" checked>
                                     <label class="form-check-label" for="checkTerminos">
@@ -255,6 +256,72 @@
                                 <button type="button" class="btn-jugar" id="btn_jugar">JUGAR</button>
                             </div>
                         </div>
+                        @else
+                        <div class="row">
+                            <div class="col-12 col-lg-6 mb-2">
+                                <label for="name">Nombre</label>
+                                <input type="text" name="name" id="name" class="form-registro" value="{{ old('name') }}">
+                            </div>
+                            <div class="col-12 col-lg-6 mb-2">
+                                <label for="apellido">Apellido</label>
+                                <input type="text" name="apellido" id="apellido" class="form-registro" value="{{ old('apellido') }}">
+                            </div>
+                            <div class="col-12 col-lg-6 mb-2">
+                                <label for="tipo_doc">Tipo de documento</label>
+                                {{-- <input type="text" name="tipo_doc" id="tipo_doc" class="form-registro"> --}}
+                                <select name="tipo_doc" id="tipo_doc" class="form-registro">
+                                    <option value="DNI" {{ old('tipo_doc') == 'DNI' ? 'selected' : '' }}>DNI</option>
+                                    <option value="C.EXT" {{ old('tipo_doc') == 'C.EXT' ? 'selected' : '' }}>C.EXT</option>
+                                    <option value="PASAPORTE" {{ old('tipo_doc') == 'PASAPORTE' ? 'selected' : '' }}>PASAPORTE</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-lg-6 mb-2">
+                                <label for="documento">N° de documento</label>
+                                <input type="text" name="documento" id="documento" class="form-registro" value="{{ old('documento') }}">
+                            </div>
+                            <div class="col-12 col-lg-6 mb-2">
+                                <label for="edad">Edad (*Mayores de 18 años)</label>
+                                <input type="number" name="edad" id="edad" class="form-registro" min="18" value="{{ old('edad') }}">
+                            </div>
+                            <div class="col-12 col-lg-6 mb-2">
+                                <label for="telefono">N° telefónico</label>
+                                <input type="text" name="telefono" id="telefono" class="form-registro" value="{{ old('telefono') }}">
+                            </div>
+                            <div class="col-12 col-lg-6 mb-2">
+                                <label for="email">Correo electronico</label>
+                                <input type="email" name="email" id="email" class="form-registro" value="{{ old('email') }}">
+                            </div>
+                            <div class="col-12 col-lg-6 mb-2">
+                                <label for="codigo">N° de LOTE + foto de producto</label>
+                                <input type="text" name="codigo" id="codigo" class="form-registro" value="{{ old('codigo') }}">
+
+                                <input type="file" name="imagen" id="imagen" class="form-control mt-2">
+                            </div>
+                            <div class="col-12 d-flex justify-content-between mt-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="1" name="checkTerminos" id="checkTerminos" checked>
+                                    <label class="form-check-label" for="checkTerminos">
+                                    Acepto terminos y condiciones
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="1" name="checkDatos" id="checkDatos" checked>
+                                    <label class="form-check-label" for="checkDatos">
+                                    Deseo usar mis datos para crear un usuario en plataforma web
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="1" name="checkPoliticas" id="checkPoliticas" checked>
+                                    <label class="form-check-label" for="checkPoliticas">
+                                    Acepto politca de prvacidad de datos
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex justify-content-center">
+                                <button type="button" class="btn-jugar" id="btn_jugar">JUGAR</button>
+                            </div>
+                        </div>
+                        @endif
                     </div>
                 </div>
                 @php
