@@ -477,9 +477,12 @@ class RaspaGanaController extends Controller
 
             $uuid = Str::uuid()->toString();
 
-            // Enviar notificacion a administrador
-            $notificacion = new NotificacionController();
-            $notificacion->notificacionTyC($participant->id);
+            $variable = env('MAIL_USERNAME');
+            if (isset($variable) && $variable != null && $variable != '') {
+                // Enviar notificacion a administrador
+                $notificacion = new NotificacionController();
+                $notificacion->notificacionTyC($participant->id);
+            }
 
             session(['punto_venta_raspa' => $request->punto_venta]);
 

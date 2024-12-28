@@ -595,9 +595,12 @@ class RuletaController extends Controller
 
             session(['punto_venta_ruleta' => $request->punto_venta]);
 
-            // Enviar notificacion a administrador
-            $notificacion = new NotificacionController();
-            $notificacion->notificacionTyC($participant->id);
+            $variable = env('MAIL_USERNAME');
+            if (isset($variable) && $variable != null && $variable != '') {
+                // Enviar notificacion a administrador
+                $notificacion = new NotificacionController();
+                $notificacion->notificacionTyC($participant->id);
+            }
 
             return redirect()->route($tipoJuego.'juego.view.ruleta', $project->dominio)->with('claveRuleta', $participant->id);
         } catch (\Throwable $th) {
