@@ -183,5 +183,10 @@ class AdminController extends Controller
 
         return redirect('/admin/login');
     }
+
+    public function xplorer_admin() {
+
+        return view('admin.pages.xplorer_admin.xplorer_admin');
+    }
     
 }

@@ -30,7 +30,8 @@ class User extends Authenticatable
         'tipo_documento',
         'edad',
         'apellido',
-        'is_xplorer'
+        'is_xplorer',
+        'status'
     ];
 
     /**
@@ -60,5 +61,17 @@ class User extends Authenticatable
     public function asignacion_project()
     {
         return $this->belongsTo(AsignacionProject::class);
+    }
+
+    public static function search($search) {
+        return empty($search) ? static::query()
+            : static::query()
+                ->orWhere('name', 'like', '%'.$search.'%')
+                ->orWhere('apellido', 'like', '%'.$search.'%')
+                ->orWhere('telefono', 'like', '%'.$search.'%')
+                ->orWhere('email', 'like', '%'.$search.'%')
+                ->orWhere('documento', 'like', '%'.$search.'%')
+                ->orWhere('edad', 'like', '%'.$search.'%')
+                ->orWhere('tipo_documento', 'like', '%'.$search.'%');
     }
 }

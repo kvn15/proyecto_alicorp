@@ -533,10 +533,11 @@ class GameMemoriaController extends Controller
             ->where('asignacion_projects.sales_point_id', intval(session('punto_venta_memoria')))
             ->where('asignacion_projects.user_id', Auth::user()->id)
             ->where('premio_pdvs.qty_premio', '>', 0)
+            // ->where('award_projects.status', 1)
             ->select('premio_pdvs.id', 'award_projects.nombre_premio', 'award_projects.imagen', 'premio_pdvs.probabilidad')
             ->get();
         } else {
-            $premios = AwardProject::where('project_id', $projectId)->where('stock','>',0)->get();
+            $premios = AwardProject::where('project_id', $projectId)->where('status', 1)->where('stock','>',0)->get();
         }
     
         // Crear un array acumulativo para la probabilidad

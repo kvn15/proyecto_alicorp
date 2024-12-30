@@ -326,7 +326,7 @@ class LandingPromocionalController extends Controller
         $project = Project::where('id', $id)
                             ->first();
         $gameMemoria = GameView::where('project_id', $id)->first();
-        $projectPremio = AwardProject::where('project_id', $id)->get();
+        $projectPremio = AwardProject::where('project_id', $id)->where('status', 1)->get();
         $premio = $this->obtenerPremio($id);
         $sigueIntentando = KeepTrying::where('project_id', $id)->first();
 
@@ -346,7 +346,7 @@ class LandingPromocionalController extends Controller
         $project = Project::where('id', $id)
                             ->first();
         $gameRaspaGana = RaspaGana::where('project_id', $id)->first();
-        $projectPremio = AwardProject::where('project_id', $id)->get();
+        $projectPremio = AwardProject::where('project_id', $id)->where('status', 1)->get();
         $premio = $this->obtenerPremio($id);
         $sigueIntentando = KeepTrying::where('project_id', $id)->first();
 
@@ -366,8 +366,8 @@ class LandingPromocionalController extends Controller
         $project = Project::where('id', $id)
                             ->first();
         $gameRuleta = Roulette::where('project_id', $id)->first();
-        $projectPremio = AwardProject::where('project_id', $id)->get();
-        $premioRuleta = DB::table('award_projects')->where('project_id', $id)->select('id', 'nombre_premio as name', DB::raw("CONCAT('/storage/', imagen) AS img"))->get();
+        $projectPremio = AwardProject::where('project_id', $id)->where('status', 1)->get();
+        $premioRuleta = DB::table('award_projects')->where('project_id', $id)->where('status', 1)->select('id', 'nombre_premio as name', DB::raw("CONCAT('/storage/', imagen) AS img"))->get();
         $premio = $this->obtenerPremio($id);
         $sigueIntentando = KeepTrying::where('project_id', $id)->first();
 
@@ -385,7 +385,7 @@ class LandingPromocionalController extends Controller
 
     public function obtenerPremio($projectId) {
         // Obtener todos los premios con su probabilidad
-        $premios = AwardProject::where('project_id', $projectId)->where('stock','>',0)->get();
+        $premios = AwardProject::where('project_id', $projectId)->where('status', 1)->where('stock','>',0)->get();
         $project = Project::findOrFail($projectId);
         $sigueIntentando = KeepTrying::where('project_id', $projectId)->first();
     

@@ -9,5 +9,5 @@ class AwardProject extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['project_id', 'orden', 'nombre_premio', 'stock', 'probabilidad', 'imagen', 'imagen_premio'];
+    protected $fillable = ['project_id', 'orden', 'nombre_premio', 'stock', 'probabilidad', 'imagen', 'imagen_premio', 'status'];
 }

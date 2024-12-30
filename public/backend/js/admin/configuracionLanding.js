@@ -128,22 +128,33 @@ $(document).ready(function() {
 
         var formData = new FormData(this);
 
+        var premioId = document.getElementsByName("idPremio[]");
         var nro_premio = document.getElementsByName("nro_premio[]");
         var premioNombre = document.getElementsByName("nombre_premio_1[]");
         var premioStock = document.getElementsByName("stock_premio_1[]");
         var premioProbabilidad = document.getElementsByName("probabilidad_premio_1[]");
 
         var lPremioConcat = [];
-        
+        var lPremioConcatDelete = [];
+        console.log(lPremio)
         for (let i = 0; i < lPremio.length; i++) {
             const nroPremio = i + 1;
             const nombre = premioNombre[i].value;
             const stock = premioStock[i].value;
             const probabilidad = premioProbabilidad[i].value;
-            lPremioConcat.push([nroPremio,nombre,stock,probabilidad])
+            const id = premioId[i].value;
+            lPremioConcat.push([nroPremio,nombre,stock,probabilidad,id])
         }
 
+        const lPremioDelete = lPremiobd.map( premio => {
+            console.log(lPremio.find(pre => Number(pre.id) === Number(premio.id)))
+            if (!lPremio.find(pre => Number(pre.id) === Number(premio.id))) {
+                return [premio.id]
+            }
+        }).filter(pre => pre)
+
         formData.append('lPremioConcat', JSON.stringify(lPremioConcat))
+        formData.append('lPremioConcatDelete', JSON.stringify(lPremioDelete))
 
         $.ajax({
             url: $(this).attr('action'), // URL de la ruta
@@ -170,21 +181,21 @@ $(document).ready(function() {
     });
     
     var lPremio = []
+    var lPremiobd = []
 
     $("#cantidad_premio").change((e) => {
-        console.log(lPremio)
 
         const NroPremio = $("#cantidad_premio").val();
 
         if (lPremio.length > 0 && lPremio.length != NroPremio) {
             lPremio = lPremio.filter(premio => premio.nro_premio <= NroPremio);
-            console.log(lPremio)
         }
 
         if (lPremio.length === 0) {
             lPremio = []
         }
 
+        var premioId = document.getElementsByName("idPremio[]");
         var premioNombre = document.getElementsByName("nombre_premio_1[]");
         var premioStock = document.getElementsByName("stock_premio_1[]");
         var premioProbabilidad = document.getElementsByName("probabilidad_premio_1[]");
@@ -193,14 +204,27 @@ $(document).ready(function() {
         for (let i = 0; i < +NroPremio; i++) {
 
             if (!lPremio || !lPremio.find(premio => premio.nro_premio === i + 1)) {
-                lPremioTemp.push({
-                    nro_premio: i + 1,
-                    nombre_premio: '',
-                    stock: 0,
-                    probabilidad: 0
-                })
+                console.log(lPremiobd.find(premio => premio.nro_premio === i + 1))
+                if (lPremiobd.find((premio, index) => index === i)) {
+                    const premioV = lPremiobd.find((premio, index) => index === i);
+                    lPremioTemp.push({
+                        id: premioV.id ?? 0,
+                        nro_premio: i + 1,
+                        nombre_premio: premioV.nombre_premio,
+                        stock: premioV.stock,
+                        probabilidad: premioV.probabilidad
+                    })
+                } else {
+                    lPremioTemp.push({
+                        nro_premio: i + 1,
+                        nombre_premio: '',
+                        stock: 0,
+                        probabilidad: 0
+                    })
+                }
             } else {
                 lPremioTemp.push({
+                    id: premioId[i].value ?? 0,
                     nro_premio: i + 1,
                     nombre_premio: premioNombre[i].value ?? '',
                     stock: premioStock[i].value ?? 0,
@@ -221,11 +245,13 @@ $(document).ready(function() {
         lPremio.forEach(premio => {
             html += `
                 <div class="col-12 row border-bottom pb-3 mb-4">
+
                     <div class="col-12 col-md-6 col-lg-3">
                         <label for=""><small><b>Premio ${premio.nro_premio}</b></small></label>
                     </div>
                     <div class="col-12 col-md-6 col-lg-7">
                         <input type="hidden" name="nro_premio[]" id="nro_premio[]" value="${premio.nro_premio}">
+                        <input type="hidden" name="idPremio[]" id="idPremio[]" value="${premio.id ?? 0}">
                         <div class="mb-2 row">
                             <label for="nombre_premio_1[]" class="col-sm-4">Nombre del Premio ${premio.nro_premio}</label>
                             <div class="col-sm-8">
@@ -270,9 +296,16 @@ $(document).ready(function() {
             success: function (response) {
                 if (response) {
                     if (response?.data != undefined || response?.data != null) {
-                        console.log(response)
-                        lPremio = response.data.premio ?? []
+                        lPremioAll = response.data.premio ?? []
                         $("#prob_no_premio").val(response.data.project.prob_no_premio);
+                        lPremio = lPremioAll.filter(pre => pre.status == 1).map(premio => {
+                            return {
+                                ...premio,
+                                nro_premio: premio.orden
+                            }
+                        })
+                        lPremiobd = [...lPremioAll]
+                        console.log(lPremiobd)
                         agregarPremio(lPremio)
                     }
                 }

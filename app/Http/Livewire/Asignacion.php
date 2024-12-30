@@ -64,13 +64,13 @@ class Asignacion extends Component
     public function mount($projectId) 
     {
         $this->projectId = $projectId;
-        $this->premios = AwardProject::where("project_id", $projectId)->get();
+        $this->premios = AwardProject::where("project_id", $projectId)->where('status', 1)->get();
         $this->sales_point = SalesPoint::where('status', 1)->get();
         $this->xplorers = User::where('is_xplorer', 1)->get();
     }
 
     public function allDatas() {
-        $this->premios = AwardProject::where("project_id", $this->projectId)->get();
+        $this->premios = AwardProject::where("project_id", $this->projectId)->where('status', 1)->get();
         $this->sales_point = SalesPoint::where('status', 1)->get();
         $this->xplorers = User::where('is_xplorer', 1)->get();
     }

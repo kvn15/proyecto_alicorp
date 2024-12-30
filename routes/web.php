@@ -64,6 +64,9 @@ Route::prefix('admin')->group(function () {
     Route::post('/dashboard/grabar/Perfil', [AdminController::class, 'StoreProfile'])->name('dashboard.grabar.perfil');
     Route::post('/dashboard/password/Perfil', [AdminController::class, 'UpdatePassword'])->name('dashboard.password.perfil');
 
+    //xlorer admin
+    Route::get('/dashboard/config-admin-xplorer', [AdminController::class, 'xplorer_admin'])->name('dashboard.xplorer_admin');
+    
     // mis proyectos
     Route::get('/dashboard/mis-proyectos', [AdminController::class, 'dashboardMio'])->name('admin.dashboard.mio');
     Route::get('/dashboard/juegosWeb/mis-proyectos', [AdminController::class, 'juegosWebMio'])->name('admin.dashboard.juegosWeb.mio');

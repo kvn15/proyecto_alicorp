@@ -50,6 +50,12 @@ $adminData = App\Models\Admin::find(1);
                         <p>Configuración</p>
                     </a> 
                 </li>
+                <li class="nav-item"> 
+                    <a href="{{ route('dashboard.xplorer_admin') }}" class="nav-link {{ request()->routeIs('dashboard.xplorer_admin') ? 'active' : '' }}"> 
+                        <i class="nav-icon fas fa-users-cog"></i>
+                        <p>Administradores y <br>Xplorers</p>
+                    </a> 
+                </li>
             </ul>
         </nav>
         <nav class="mt-auto"> 

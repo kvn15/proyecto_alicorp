@@ -76,7 +76,7 @@
         <div class="modal-dialog modal-dialog-centered  modal-lg">
             <form wire:submit.prevent="store" class="modal-content">
                 <div class="modal-header" style="background-color: #ED1B2F; color: #fff;">
-                    <h1 class="modal-title fs-5" id="exampleModalAgregar">Agregar Xplorer</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalAgregar">Asignar Xplorer</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="color: #fff;" wire:click="resetForm"></button>
                 </div>
                 <div class="modal-body row">
@@ -105,7 +105,7 @@
                         <select name="xplorer" id="xplorer" class="form-select" wire:model="xplorer">
                             <option>Seleccione</option>
                             @foreach ($xplorers as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                <option value="{{ $item->id }}" {{ $item->status == 1 ? '' : 'disabled' }}>{{ $item->name }}</option>
                             @endforeach
                         </select>
                         @error('xplorer') <span class="text-danger">Xplorer es requerida.</span> @enderror
@@ -211,7 +211,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <form wire:submit.prevent="update" class="modal-content">
                 <div class="modal-header" style="background-color: #ED1B2F; color: #fff;">
-                    <h1 class="modal-title fs-5" id="exampleModalEditar">Editar Xplorer</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalEditar">Editar Asignación Xplorer</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="color: #fff;"></button>
                 </div>
                 <div class="modal-body row">

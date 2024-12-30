@@ -272,7 +272,7 @@ class RuletaController extends Controller
         $idParticipante = session('claveRuleta');
         
         $gameRuleta = Roulette::where('project_id', $project->id)->first();
-        $projectPremio = AwardProject::where('project_id', $project->id)->get();
+        $projectPremio = AwardProject::where('project_id', $project->id)->where('status', 1)->get();
 
         if ($project->project_type_id == 3) {
             $premioRuleta = DB::table('award_projects')
@@ -281,11 +281,12 @@ class RuletaController extends Controller
             ->where('asignacion_projects.project_id', $project->id)
             ->where('asignacion_projects.sales_point_id', intval(session('punto_venta_ruleta')))
             ->where('asignacion_projects.user_id', Auth::user()->id)
+            // ->where('award_projects.status', 1)
             ->where('premio_pdvs.qty_premio', '>', 0)
             ->select('premio_pdvs.id', 'award_projects.nombre_premio as name', DB::raw("CONCAT('/storage/', award_projects.imagen) AS img"))
             ->get();
         } else {
-            $premioRuleta = DB::table('award_projects')->where('project_id', $project->id)->select('id', 'nombre_premio as name', DB::raw("CONCAT('/storage/', imagen) AS img"))->get();
+            $premioRuleta = DB::table('award_projects')->where('project_id', $project->id)->where('status', 1)->select('id', 'nombre_premio as name', DB::raw("CONCAT('/storage/', imagen) AS img"))->get();
         }
         
         $premio = $this->obtenerPremio($project->id);
@@ -318,10 +319,11 @@ class RuletaController extends Controller
             ->where('asignacion_projects.sales_point_id', intval(session('punto_venta_ruleta')))
             ->where('asignacion_projects.user_id', Auth::user()->id)
             ->where('premio_pdvs.qty_premio', '>', 0)
+            // ->where('award_projects.status', 1)
             ->select('premio_pdvs.id', 'award_projects.nombre_premio', 'award_projects.imagen', 'premio_pdvs.probabilidad')
             ->get();
         } else {
-            $premios = AwardProject::where('project_id', $projectId)->where('stock','>',0)->get();
+            $premios = AwardProject::where('project_id', $projectId)->where('status', 1)->where('status', 1)->where('stock','>',0)->get();
         }
         
         // Crear un array acumulativo para la probabilidad

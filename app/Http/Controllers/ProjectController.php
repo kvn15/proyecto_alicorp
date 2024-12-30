@@ -146,6 +146,7 @@ class ProjectController extends Controller
         ]);
 
         $arrayPremio = json_decode($request->lPremioConcat, true);
+        $arrayPremioDelete = json_decode($request->lPremioConcatDelete, true);
 
         $project = Project::findOrFail($id);
 
@@ -161,20 +162,43 @@ class ProjectController extends Controller
         // Crear premios
         $premio = AwardProject::where('project_id', $id);
 
-        $premio->delete();
-
         foreach ($arrayPremio as $key => $value) {
             $orden = $value[0];
             $name = $value[1];
             $stock = $value[2];
             $probabilidad = $value[3];
+            $idPremio = $value[4];
 
-            AwardProject::create([
-                'project_id' => $id, 
-                'orden' => $orden, 
-                'nombre_premio' => $name, 
-                'stock' => $stock, 
-                'probabilidad' => $probabilidad, 
+            $existPremio = AwardProject::where('id', $idPremio)->get();
+
+            if (isset($existPremio) && !empty($existPremio) && count($existPremio) > 0) { //existe
+                $premio = AwardProject::where('id', $idPremio)->first();
+                
+                $premio->update([
+                    'orden' => $orden, 
+                    'nombre_premio' => $name, 
+                    'stock' => $stock, 
+                    'probabilidad' => $probabilidad, 
+                    'status' => 1, 
+                ]);
+            } else {
+                AwardProject::create([
+                    'project_id' => $id, 
+                    'orden' => $orden, 
+                    'nombre_premio' => $name, 
+                    'stock' => $stock, 
+                    'probabilidad' => $probabilidad, 
+                ]);
+            }
+        }
+
+        foreach ($arrayPremioDelete as $key => $value) {
+            $id = $value[0];
+            
+            $premio = AwardProject::where('id', $id)->first();
+
+            $premio->update([
+                'status' => 0
             ]);
         }
 
@@ -183,7 +207,7 @@ class ProjectController extends Controller
 
     public function obtenerPremio($id) {
 
-        $premio = AwardProject::where('project_id', $id)->get();
+        $premio = AwardProject::where('project_id', $id)->orderBy('status', 'desc')->orderBy('orden', 'asc')->get();
         $project = Project::findOrFail($id);
         
         $premios = $premio->map(function ($pre) {
@@ -192,6 +216,7 @@ class ProjectController extends Controller
                 'nombre_premio' => $pre->nombre_premio ,
                 'stock' => $pre->stock,
                 'probabilidad' => $pre->probabilidad,
+                'status' => $pre->status,
             ];
         });
 
