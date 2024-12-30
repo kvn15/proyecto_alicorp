@@ -17,7 +17,6 @@ use App\Http\Controllers\AdminPanel\AdminPanelController;
 use App\Http\Controllers\AdminPanel\HomeInicioController;
 use App\Http\Controllers\AdminPanel\CalendarioController;
 use App\Http\Controllers\AdminPanel\PromocionesController;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\VistaController;
 
@@ -41,6 +40,8 @@ Route::controller(alicorpController::class)->group(function () {
     Route::get('/reclamacion', 'reclamacion')->name('reclamacion');
     Route::get('/promocion', 'promocion')->name('promocion');
     Route::get('/calendario', 'calendario')->name('calendario');
+
+    //Route::post('/login', 'login')->name('loginA');
 
 });
 
@@ -126,6 +127,10 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/cliente/contrasena', [alicorpController::class, 'contrasena'])->name('cliente.contrasena');
     Route::post('cliente/password/update', [alicorpController::class, 'UpdatePassword'])->name('cliente.password.update');
     Route::post('/cliente/profile/update', [alicorpController::class, 'UpdateProfile'])->name('cliente.update.user');
+
+    Route::get('/cliente/promociones', [alicorpController::class, 'promociones'])->name('cliente.promociones');
+    Route::get('/cliente/juegos', [alicorpController::class, 'juegoss'])->name('cliente.juegos');
+    Route::get('/cliente/ganados', [alicorpController::class, 'ganados'])->name('cliente.ganados');
 });
 
 Route::controller(XplorerController::class)->group(function () {
@@ -137,7 +142,7 @@ Route::controller(XplorerController::class)->group(function () {
 Route::middleware('auth:xplorer')->group(function () {
     Route::get('/xplorer/dashboard', function () {
         return view('xplorer.dashboard');
-    })->name('xplorer.dashboard');
+    });
 });
 
 Route::controller(AdminPanelController::class)->group(function () {
@@ -147,7 +152,7 @@ Route::controller(AdminPanelController::class)->group(function () {
 });
 
 Route::controller(HomeInicioController::class)->group(function () {
-    Route::get('/adminPanel/inicio/dashboard', 'dashboard')->name('adminPanel.dashboard');
+    //Route::get('/adminPanel/inicio/dashboard', 'dashboard')->name('adminPanel.dashboard');
     Route::post('adminPanel/store/slider', 'StoreSlider')->name('adminPanel.store.slider');
     Route::post('/adminPanel/update/slider','UpdateSlider')->name('adminPanel.update.slider');
 
@@ -261,17 +266,7 @@ Route::get('/export-ganador/{id}', [ParticipantController::class, 'exportGanador
 Route::get('/export-asignacion/{id}', [ParticipantController::class, 'exportAsignacion'])->name("export.asignacion");
 
 
-// require __DIR__.'/auth.php';
+require __DIR__.'/auth.php';
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
-// Login
-Route::controller(AuthController::class)->group( function () {
-    Route::get('/login', 'index')->name('login');
-    Route::post('/login', 'login')->name('login.post');
-    Route::post('/logout', 'logout')->name('logout');
-    Route::get('/register', 'register')->name('register');
-    Route::post('/register', 'create')->name('create');
-});

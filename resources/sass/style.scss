@@ -3,6 +3,7 @@
 @import 'components/buttons';
 
 @import 'paginas/juegos';
+@import 'paginas/ganados';
 @import 'paginas/promociones';
 @import 'paginas/dashboard';
 @import 'paginas/configuracion';
@@ -590,57 +591,63 @@ html {
     align-items: center;
 
     .formulario{
+        background: #ffffff 0% 0% no-repeat padding-box;
+        box-shadow: 5px 10px 20px #00000029;
+        border-radius: 68px;
+        opacity: 1;
         margin: 0 auto;
         border: 1px solid white;
         padding: 80px;
-        border-radius: 70px;
-        width: 900px;
+        width: 538px;
+        height: 488px;
+        padding-top: 35px;
 
         .contact-title{
-            width: 47%;
+            
             h2{
-                font-size: 58px;
-                font-family: 'CBold';
-                font-weight: 900;
-                color: white;            
+                font-family: "Barlow", serif;
+                font-weight: 800;
+                font-style: normal;
+                font-size: 3.6rem;
+                color: #FB0000;      
+                opacity: 1;   
+                letter-spacing: 0.5px;   
+                text-align: center;
             }
+
             h3{
-                position: relative;
-                bottom: 21px;
-                font-size: 40px;
-                font-family: 'CBold';
-                font-weight: 900;
-                color: white;            
-            }
-            .hr-contact{
-                position: relative;
-                bottom: 21px;
-                border-top: 5px solid white;
-                width: 30%;
+                font-family: "Barlow", serif;
+                font-weight: 400;
+                font-style: normal;
+                color: #848484;
+                text-align: center;
+                letter-spacing: 0.2px;
+                opacity: 1;
+                font-size: 1.9rem;
             }
         }
 
-        label{
-            font-size: 15px;
-            font-family: 'CBold';
-            font-weight: 900;
-            color: white;  
-        }
+        // label{
+        //     font-size: 15px;
+        //     font-family: 'CBold';
+        //     font-weight: 900;
+        //     color: white;  
+        // }
 
-        input {
-            border-radius: 25px;
-            background-color: #FE4D56;
-            border-color: #FE4D56;
-            border: 1px solid #FE4D56;            
-        }
+        // input {
+        //     border-radius: 25px;
+        //     background-color: #FE4D56;
+        //     border-color: #FE4D56;
+        //     border: 1px solid #FE4D56;            
+        // }
 
-        textarea{
-            height: 150px;
-            border-radius: 25px;
-            background-color: #FE4D56;
-            border-color: #FE4D56;
-            border: 1px solid #FE4D56;
-        }
+        // textarea{
+        //     height: 150px;
+        //     border-radius: 25px;
+        //     background-color: #FE4D56;
+        //     border-color: #FE4D56;
+        //     border: 1px solid #FE4D56;
+        // }
 
         button{
             cursor: pointer;
@@ -656,59 +663,70 @@ html {
         }
 
         .grupo-inicio{
-            h2{
-                font-size: 28px;
-                font-family: 'CBold';
-                font-weight: 900;
-                color: white;  
+            margin-top: 4rem;
+            .input-group {
+                margin-bottom: 20px;
+                position: relative;
             }
-        }
 
-        h3{
-            
-            bottom: 21px;
-            font-size: 19px;
-            font-family: 'CBold';
-            font-weight: 900;
-            color: white;            
-        }
+            .linea_input {
+                width: 100%;
+                border: none;
+                border-bottom: 1px solid #ccc;
+                padding: 10px 5px;
+                font-size: 14px;
+                outline: none;
+                transition: border-color 0.3s;
+                background-color: transparent;
+            }
 
-        .sesion{
-            
-            img{
-                width: 25px;
-                height: 25px;
-                margin-right: 10px;
-                border: 1px solid white;
-                border-radius: 5px;
-                background-color: white;
-                padding: 5px;
-                cursor: pointer;
-            }            
-        }
+            input:focus {
+                border-bottom: 1px solid #007bff;
+            }
 
-        hr{
-            border: none;
-            height: 3px;
-            color: white;
-            background-color: white
-        }
+            .forget_pass{
+                color: #4D4F5C;
+                font-family: sans-serif;
+                font-size: 1.2rem;
+            }
 
-        .reg-perfil{
-            p{
-                font-size: 17px;
-                font-family: 'CBold';
-                font-weight: 900;
-                color: white; 
+            .btn_login{
+                .ing{
+                    width: 16rem;
+                    background-color: #FB0000;
+                    color: #ffffff;
+                }
+
+                .reg{
+                    width: 16rem;
+                    border: 1px solid #FB0000;
+                    background-color: transparent;
+                    
+                    a{
+                        text-decoration: none;
+                        color: #FB0000;
+                    }
+                }
+            }
+
+            .redes_login{
+                h3{
+                    color: #4D4F5C;
+                    font-family: sans-serif;
+                    font-size: 1.5rem;
+                    text-align: center;
+                }
+                .sesion{
+
+                    img{
+                        width: 3rem;
+                        height: 3rem;
+                    }
+                }
             }
         }
     }
-
-    .hola-perfil{
-        bottom: -130px;
-        left: 332px;
-        width: 413.80px;    
-    }   
+ 
 }
 
 @media screen and (max-width: 576px){

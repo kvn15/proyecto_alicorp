@@ -1,66 +1,102 @@
 @charset "UTF-8";
+.juegos .card .card-body {
+  top: 15rem;
+  left: 1rem;
+}
+.juegos .card .card-title {
+  color: #FFFFFF !important;
+}
+.juegos .card-text {
+  color: #848484;
+  font-size: 1.5rem !important;
+}
+.juegos .card-footer {
+  background-color: transparent !important;
+}
+.juegos .card-footer .btn {
+  border-radius: 10px 10px 10px 10px;
+  width: 30%;
+}
+.juegos .imagenes {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow: hidden;
+  /* Evita que las imágenes se desborden */
+}
+.juegos .imagenes .ruleta {
+  position: relative;
+  right: 5px;
+  width: 300px;
+  height: 300px;
+}
+.juegos .image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  transition: transform 0.5s ease-in-out;
+}
+.juegos .image2 {
+  position: relative;
+  top: -60px;
+  left: 20px;
+  transform: rotate(0deg) scale(0.5);
+  /* Inicialmente más pequeña y sin rotar */
+  opacity: 0;
+  /* Oculta la imagen */
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  /* Suaviza la transición */
+}
+.juegos .card:hover .image1 {
+  transform: rotate(-10deg) scale(1.2);
+  /* Gira 10 grados hacia la izquierda */
+  transition: transform 0.3s ease;
+  /* Añade una animación suave opcional */
+}
+.juegos .card:hover .image2 {
+  transform: rotate(-20deg) scale(1);
+  /* Gira 20 grados hacia la izquierda y escala al tamaño original */
+  opacity: 1;
+  /* Muestra la imagen */
+}
+.juegos .roulette {
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  background: url("ruleta.png") no-repeat center/cover; /* Cambia 'ruleta.png' por la ruta de tu imagen */
+  border-radius: 50%;
+  transition: transform 0.5s ease;
+}
+.juegos .roulette img {
+  width: 150px;
+  height: 150px;
+}
+
 .separador-juegos {
   margin-top: 5rem;
 }
 
-.juegos {
-  background-color: #FD000D;
+.ganados .card-title {
+  width: 50%;
 }
-.juegos .bloque-1 {
-  margin-top: 5rem;
-  margin-left: 15rem;
+.ganados .card-text {
+  color: #848484;
+  font-size: 1.5rem !important;
 }
-.juegos .titulo-juego {
-  font-family: "CoprAltBlack";
-  font-size: 8rem;
-  color: white;
+.ganados .card-footer {
+  background-color: transparent !important;
 }
-.juegos .hr-juego {
-  background: white;
-  height: 0.7rem;
-  width: 23rem;
-  opacity: 1;
-}
-.juegos .button {
-  font-size: 1.9rem;
-  font-family: "CoprAltMed";
-  cursor: pointer;
-}
-.juegos .button--perfil-2 {
-  background-color: #ffffff;
-  color: white;
-  padding: 0px;
-  border-radius: 11.5rem;
-  border: none;
-  transition: background-color 0.3s ease;
-  width: 27.5rem;
-  height: 3.6rem;
-  color: #FD000D;
-  font-weight: 800;
-}
-.juegos .button--perfil-2:hover {
-  background-color: "";
-}
-.juegos .button .contador {
-  font-size: 3rem;
-  font-weight: 800;
-}
-.juegos .button .parti {
-  line-height: 1.6rem;
-}
-.juegos img {
-  width: 30rem;
-  height: auto;
-  border-radius: 1.5rem;
-  margin-top: 4rem;
-}
-.juegos .juego-card {
-  display: flex;
-  align-items: center;
+.ganados .card-footer .btn {
+  border-radius: 10px 10px 10px 10px;
+  width: 30%;
 }
 
 .promociones {
-  background-color: #FD000D;
+  background-color: red;
 }
 .promociones .fondo-blanco {
   background-color: white !important;
@@ -121,8 +157,12 @@
   left: 68px;
 }
 
+@font-face {
+  font-family: "GoodMorning";
+  src: url('../fonts/Gold-Bold.otf') format('opentype'), url('../fonts/Gold-Bold.ttf') format('truetype');
+}
 .dashboard {
-  background: #FD000D;
+  margin-top: 10rem;
 }
 .dashboard .margenT25 {
   margin-top: 2.5rem;
@@ -338,6 +378,56 @@
 .dashboard .img_back img {
   width: 150rem;
 }
+.dashboard .sidebar {
+  background-color: transparent;
+  height: 100vh;
+  padding: 15px;
+  position: fixed;
+  overflow-y: auto;
+  z-index: 1050;
+}
+.dashboard .sidebar img {
+  width: 18rem;
+  height: 6rem;
+}
+.dashboard .sidebar a {
+  text-decoration: none;
+  font-family: "Barlow", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.dashboard .sidebar i {
+  padding-right: 1rem;
+}
+.dashboard .sidebar i,
+.dashboard .sidebar span {
+  color: #202020;
+  font-size: 2rem;
+}
+.dashboard .main-content {
+  margin-left: 400px; /* Ajusta según el ancho del sidebar */
+}
+.dashboard .main-content h1 {
+  font-family: "Barlow", serif;
+  font-weight: 800;
+  font-style: bold;
+  font-size: 4.5rem;
+}
+.dashboard .main-content .avatar img {
+  height: 12rem;
+  width: 12rem;
+  border-color: #e74c3c;
+}
+.dashboard .main-content .fecha_hora p {
+  color: #47464A;
+  font-size: 1.5rem;
+}
+.dashboard .main-content .titulo-main p {
+  font-family: "Gold-Bold";
+  font-size: 3.1rem;
+  font-weight: bold;
+  color: #FB0000;
+}
 
 .pie_dashboard {
   background: #FD000D;
@@ -355,7 +445,7 @@
 
 @font-face {
   font-family: "Gotham";
-  src: url("../fonts/Gotham-Black.otf") format("opentype");
+  src: url('../fonts/Gotham-Black.otf') format('opentype'), url('../fonts/Gotham-Black.ttf') format('truetype');
 }
 .configuracion {
   background-color: #FD000D;
@@ -521,23 +611,23 @@
 
 @font-face {
   font-family: "CBlack";
-  src: url("../fonts/CorporativeBlack.otf") format("opentype");
+  src: url('../fonts/CorporativeBlack.otf') format('opentype'), url('../fonts/CorporativeBlack.ttf') format('truetype');
 }
 @font-face {
   font-family: "CBold";
-  src: url("../fonts/CorporativeBold.otf") format("opentype");
+  src: url('../fonts/CorporativeBold.otf') format('opentype'), url('../fonts/CorporativeBold.ttf') format('truetype');
 }
 @font-face {
   font-family: "CoprAltMed";
-  src: url("../fonts/CorporativeAltMedium.otf") format("opentype");
+  src: url('../fonts/CorporativeAltMedium.otf') format('opentype'), url('../fonts/CorporativeAltMedium.ttf') format('truetype');
 }
 @font-face {
   font-family: "CoprAltBlack";
-  src: url("../fonts/CorporativeAltBlack.otf") format("opentype");
+  src: url('../fonts/CorporativeAltBlack.otf') format('opentype'), url('../fonts/CorporativeAltBlack.ttf') format('truetype');
 }
 @font-face {
   font-family: "Gotham";
-  src: url("../fonts/Gotham-Black.otf") format("opentype");
+  src: url('../fonts/Gotham-Black.otf') format('opentype'), url('../fonts/Gotham-Black.ttf') format('truetype');
 }
 .separador {
   margin-bottom: 300px;
@@ -995,53 +1085,36 @@ li.submenu:hover ul {
   align-items: center;
 }
 .perfil2 .formulario {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.1607843137);
+  border-radius: 68px;
+  opacity: 1;
   margin: 0 auto;
   border: 1px solid white;
   padding: 80px;
-  border-radius: 70px;
-  width: 900px;
-}
-.perfil2 .formulario .contact-title {
-  width: 47%;
+  width: 538px;
+  height: 488px;
+  padding-top: 35px;
 }
 .perfil2 .formulario .contact-title h2 {
-  font-size: 58px;
-  font-family: "CBold";
-  font-weight: 900;
-  color: white;
+  font-family: "Barlow", serif;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 3.6rem;
+  color: #FB0000;
+  opacity: 1;
+  letter-spacing: 0.5px;
+  text-align: center;
 }
 .perfil2 .formulario .contact-title h3 {
-  position: relative;
-  bottom: 21px;
-  font-size: 40px;
-  font-family: "CBold";
-  font-weight: 900;
-  color: white;
-}
-.perfil2 .formulario .contact-title .hr-contact {
-  position: relative;
-  bottom: 21px;
-  border-top: 5px solid white;
-  width: 30%;
-}
-.perfil2 .formulario label {
-  font-size: 15px;
-  font-family: "CBold";
-  font-weight: 900;
-  color: white;
-}
-.perfil2 .formulario input {
-  border-radius: 25px;
-  background-color: #FE4D56;
-  border-color: #FE4D56;
-  border: 1px solid #FE4D56;
-}
-.perfil2 .formulario textarea {
-  height: 150px;
-  border-radius: 25px;
-  background-color: #FE4D56;
-  border-color: #FE4D56;
-  border: 1px solid #FE4D56;
+  font-family: "Barlow", serif;
+  font-weight: 400;
+  font-style: normal;
+  color: #848484;
+  text-align: center;
+  letter-spacing: 0.2px;
+  opacity: 1;
+  font-size: 1.9rem;
 }
 .perfil2 .formulario button {
   cursor: pointer;
@@ -1054,45 +1127,54 @@ li.submenu:hover ul {
   padding-right: 20px;
   cursor: pointer;
 }
-.perfil2 .formulario .grupo-inicio h2 {
-  font-size: 28px;
-  font-family: "CBold";
-  font-weight: 900;
-  color: white;
+.perfil2 .formulario .grupo-inicio {
+  margin-top: 4rem;
 }
-.perfil2 .formulario h3 {
-  bottom: 21px;
-  font-size: 19px;
-  font-family: "CBold";
-  font-weight: 900;
-  color: white;
+.perfil2 .formulario .grupo-inicio .input-group {
+  margin-bottom: 20px;
+  position: relative;
 }
-.perfil2 .formulario .sesion img {
-  width: 25px;
-  height: 25px;
-  margin-right: 10px;
-  border: 1px solid white;
-  border-radius: 5px;
-  background-color: white;
-  padding: 5px;
-  cursor: pointer;
-}
-.perfil2 .formulario hr {
+.perfil2 .formulario .grupo-inicio .linea_input {
+  width: 100%;
   border: none;
-  height: 3px;
-  color: white;
-  background-color: white;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 5px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s;
+  background-color: transparent;
 }
-.perfil2 .formulario .reg-perfil p {
-  font-size: 17px;
-  font-family: "CBold";
-  font-weight: 900;
-  color: white;
+.perfil2 .formulario .grupo-inicio input:focus {
+  border-bottom: 1px solid #007bff;
 }
-.perfil2 .hola-perfil {
-  bottom: -130px;
-  left: 332px;
-  width: 413.8px;
+.perfil2 .formulario .grupo-inicio .forget_pass {
+  color: #4D4F5C;
+  font-family: sans-serif;
+  font-size: 1.2rem;
+}
+.perfil2 .formulario .grupo-inicio .btn_login .ing {
+  width: 16rem;
+  background-color: #FB0000;
+  color: #ffffff;
+}
+.perfil2 .formulario .grupo-inicio .btn_login .reg {
+  width: 16rem;
+  border: 1px solid #FB0000;
+  background-color: transparent;
+}
+.perfil2 .formulario .grupo-inicio .btn_login .reg a {
+  text-decoration: none;
+  color: #FB0000;
+}
+.perfil2 .formulario .grupo-inicio .redes_login h3 {
+  color: #4D4F5C;
+  font-family: sans-serif;
+  font-size: 1.5rem;
+  text-align: center;
+}
+.perfil2 .formulario .grupo-inicio .redes_login .sesion img {
+  width: 3rem;
+  height: 3rem;
 }
 
 @media screen and (max-width: 576px) {

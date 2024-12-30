@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Auth;
 use Illuminate\Support\Facades\Hash;
-
 use App\Models\Project;
+use App\Models\Xplorer;
+use Illuminate\Support\Facades\DB;
 
 class alicorpController extends Controller
 {
@@ -53,6 +54,53 @@ class alicorpController extends Controller
         $dashboard = 'dashboard';
         return view('cliente.dashboard',compact($dashboard));
     }
+    // public function dashboard()
+    // {
+    //     $projects = Project::select(
+    //         'projects.id',
+    //         'projects.nombre_promocion', // Incluye los demás campos necesarios
+    //         'projects.status',
+    //         'projects.fecha_ini_proyecto',
+    //         'projects.fecha_fin_proyecto',
+    //         'projects.game_id',
+    //         'projects.created_at',
+    //         'projects.updated_at',
+    //         'projects.ruta_img',
+    //         'proyect_types.ruta_name',
+    //         'proyect_types.name',
+    //         DB::raw('COUNT(participants.id) as participant_count')
+    //     )
+    //     ->leftJoin('proyect_types', 'proyect_types.id', '=', 'projects.project_type_id')
+    //     ->leftJoin('participants', 'participants.project_id', '=', 'projects.id')
+    //     ->groupBy(
+    //         'projects.id',
+    //         'projects.nombre_promocion',
+    //         'projects.status',
+    //         'projects.fecha_ini_proyecto',
+    //         'projects.fecha_fin_proyecto',
+    //         'projects.game_id',
+    //         'projects.created_at',
+    //         'projects.ruta_img',
+    //         'proyect_types.ruta_name',
+    //         'proyect_types.name',
+    //         'projects.updated_at'
+    //     ) // Incluye todas las columnas seleccionadas
+    //     ->orderBy('projects.created_at', 'desc')
+    //     ->limit(3)
+    //     ->get();
+    //     $landing = Project::where('project_type_id', 1)->orderBy('created_at', 'desc')->get();
+    //     $web = Project::where('project_type_id', 2)->orderBy('created_at', 'desc')->get();
+    //     $campana = Project::where('project_type_id', 3)->orderBy('created_at', 'desc')->get();
+
+    //     $inicio = [
+    //         "projects" => $projects,
+    //         "landing" => $landing,
+    //         "web" => $web,
+    //         "campana" => $campana,
+    //     ];
+
+    //     return view('admin.pages.inicio.inicio', compact('inicio'));
+    // }
 
     public function configuracion(){
         $configuracion = 'configuracion';
@@ -112,5 +160,37 @@ class alicorpController extends Controller
         return view('calendario');
     }
 
+
+    //login para xplorer y usuarios clientes
+
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        // Intenta autenticar con la tabla `users`
+        if (Auth::guard('web')->attempt($credentials)) {
+            return redirect()->intended('/dashboard');
+        }
+
+        // Si falla, intenta autenticar con la tabla `xplorers`
+        if (Auth::guard('xplorer')->attempt($credentials)) {
+            return redirect()->intended('/xplorer/dashboard');
+        }
+
+        // Si ambos fallan, retorna un error
+        return back()->withErrors(['email' => 'Credenciales incorrectas.'])->withInput();
+    }
+
+    public function promociones(){
+        return view('cliente.promociones');
+    }
+
+    public function juegoss(){
+        return view('cliente.juegos');
+    }
+
+    public function ganados(){
+        return view('cliente.ganados');
+    }
 }
 

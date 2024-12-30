@@ -3,69 +3,69 @@
 <section class="perfil2">
     <div class="container">
         <div class="row">
-            <form method="POST" action="{{ route('login.post') }}" class="formulario d-flex ">
+            <form method="POST" action="{{ route('login') }}" class="formulario d-flex flex-column">
                 @csrf
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="contact-title">
-                        <h2>Hola, </h2>
-                        <h3>Bienvenid@</h3>                        
-                    </div>                    
-                </div>  
-                 
-                <div class="col-md-6 grupo-inicio">
-                    <x-auth-validation-errors class="mb-4" :errors="$errors" />
-                    <h2 class="mb-5">Iniciar Sesión</h2>
-                        <form  >
-                            
-                            <div class="mb-3 row align-items-center">
-                                <label for="email" class="col-sm-5 nombres">Correo Electrónico</label>
-                                <div class="col-sm-10">
-                                <input type="email" class="form-control" id="email" name="email" required autofocus>
-                                </div>
-                            </div>
-                            <div class="mb-3 row align-items-center">
-                                <label for="password" class="col-sm-5 col-form-label">Password</label>
-                                <div class="col-sm-10">
-                                <input type="password" name="password" class="form-control" id="password" required autocomplete="current-password">
-                                </div>
-                            </div>
-                        
-                            <div class="mt-5">
-                                <button class="btn btn-light">Ingresar</button>
-                            </div>
-                        
+                        <h2>Bienvenido de regreso </h2>
+                        <h3>Ingresa a tu cuenta</h3>
+                    </div>
+                </div>
 
-                    <div class="d-flex mt-5 justify-content-between align-item-center">
-                        <div>
-                            <h3>Ingrese sesion con:  </h3>
-                        </div>                        
-                        <div class="sesion">
-                            <img src="img/buscar.png" alt="">
-                            <img src="img/gmail.png" alt="">
-                            <img src="img/facebook.png" alt="">
-                            <img src="img/logotipo-de-apple.png" alt="">
+                <div class="col-md-12 grupo-inicio">
+                    <x-auth-validation-errors class="mb-4" :errors="$errors" />
+
+                    <div class="mb-3 input-group">                     
+                        <input class="linea_input" type="email" id="email" name="email" required autofocus placeholder="Correo Electrónico">                        
+                    </div>
+
+                    <div class="mb-4 input-group">
+                        <input class="linea_input" type="password" name="password" id="password" required
+                                autocomplete="current-password" placeholder="Password">
+                    </div>
+
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                            <label class="form-check-label" for="exampleCheck1">Recuerdame</label>
+                        </div>
+    
+                        <div class="mb-3">
+                            <button class="btn btn-light forget_pass">Olvide mi contraseña</button>
                         </div>
                     </div>
-                    <hr class="mt-3">
 
-                    <div class="reg-perfil mt-4">
-                        <p>¿No tienes una cuenta?</p>
+                    
+                    <div class="d-flex align-items-center justify-content-around btn_login">
+                        <div class="mt-3">
+                            <button class="ing btn btn-light ">Ingresar</button>
+                        </div>
+                        
+                        <div class="mt-3">
+                            <button class=" reg btn btn-light">
+                                <a href="{{ route('register') }}">Registrate</a>
+                            </button>
+                        </div>
                     </div>
-                    <div class="mt-3">
-                        <button type="button" class="btn btn-light" >
-                            <a href="{{ route('register') }}">Registrate</a>
-                        </button>
+                 
+
+                    <div class="d-flex flex-column mt-5 justify-content-between align-item-center redes_login">
+                        <div>
+                            <h3 class="">También puedes ingresar con:</h3>
+                        </div>
+                        <div class="sesion d-flex justify-content-around mt-5">
+                            <img src="img/logotipo-de-apple.png" alt="">
+                            <img src="img/buscar.png" alt="">
+                            <img src="img/facebook.png" alt="">
+                            
+                        </div>
                     </div>
                     
                     
                 </div>
-            </form>
-            <div class="position-absolute hola-perfil">
-                <img src="img/hola.png" alt="" height="450px">
-            </div>
         </div>
     </div>
-  </section>
+</section>
 
 
-  @include('footer')
+@include('footer')

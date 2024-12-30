@@ -1,62 +1,104 @@
+.juegos {
 
-.separador-juegos{
-    margin-top: 5rem;
-}
 
-.juegos{
-    background-color: $color-principal;
-
-    .bloque-1{
-        margin-top: 5rem;
-        margin-left: 15rem;
-    }
-    
-    .titulo-juego{
-        font-family: 'CoprAltBlack';
-        font-size: 8rem;
-        color: white;
-    }
-
-    .hr-juego{
-        background: white;
-        height: 0.7rem;
-        width: 23rem;
-        opacity: 01;
-    }
-
-    .button {
-        font-size: 1.9rem;
-        font-family: 'CoprAltMed';
-        cursor: pointer;
-
-        &--perfil-2 {
-            @include button-style(#ffffff,0px,'',11.5rem,27.5rem);
-            height: 3.6rem;
-            color: $color-principal;           
-            font-weight: 800;
+    .card {
+        .card-body {
+            top: 15rem;
+            left: 1rem;
         }
 
-        .contador{
-            font-size: 3rem;
-            font-weight: 800;
+        .card-title {
+            color: #FFFFFF !important;
         }
-
-        .parti{
-            line-height: 1.6rem;
-        }
-       
     }
 
-    img{
-        width: 30rem;
-        height: auto;
-        border-radius: 1.5rem;
-        margin-top: 4rem;
+
+    .card-text {
+        color: #848484;
+        font-size: 1.5rem !important;
     }
 
-    .juego-card{
+    .card-footer {
+        background-color: transparent !important;
+
+        .btn {
+            border-radius: 10px 10px 10px 10px;
+            width: 30%;
+        }
+    }
+
+    .imagenes {
+        position: absolute;
+        top: 0;
+        right: 0;
+        // width: 100px; /* Puedes ajustar el tamaño según prefieras */
+        // height: 100px;
         display: flex;
-        align-items: center;
+        flex-direction: column;
+        gap: 10px;
+        overflow: hidden;
+        /* Evita que las imágenes se desborden */
+
+        .ruleta {
+            position: relative;
+            //left: 0px;
+            right: 5px;
+            width: 300px;
+            height: 300px;
+        }
     }
 
+    .image {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 50%;
+        //transform: translate(100%, -100%);
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .image2 {
+        position: relative;
+        top: -60px;
+        left: 20px;
+        transform: rotate(0deg) scale(0.5);
+        /* Inicialmente más pequeña y sin rotar */
+        opacity: 0;
+        /* Oculta la imagen */
+        transition: transform 0.5s ease, opacity 0.5s ease;
+        /* Suaviza la transición */
+
+    }
+
+    .card:hover .image1 {
+        //transform: translate(0, 0);
+        transform: rotate(-10deg) scale(1.2);
+        /* Gira 10 grados hacia la izquierda */
+        transition: transform 0.3s ease;
+        /* Añade una animación suave opcional */
+    }
+
+    .card:hover .image2 {
+        //transform: translate(0, 0) rotate(-10deg); /* Para darle un efecto diferente */
+        transform: rotate(-20deg) scale(1);
+        /* Gira 20 grados hacia la izquierda y escala al tamaño original */
+        opacity: 1;
+        /* Muestra la imagen */
+    }
+
+    //ruleta
+
+    .roulette {
+        position: absolute;
+        top: -50px;
+        right: -50px;        
+        background: url('ruleta.png') no-repeat center/cover; /* Cambia 'ruleta.png' por la ruta de tu imagen */
+        border-radius: 50%;
+        transition: transform 0.5s ease;
+
+        img{
+            width: 150px;
+            height: 150px;
+        }
+      }
 }

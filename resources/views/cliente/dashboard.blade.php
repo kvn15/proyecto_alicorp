@@ -1,13 +1,19 @@
 @include('cabecera/header-2')
+
 @php
+    use Carbon\Carbon;
+    Carbon::setLocale('es');
+    $fechaN = Carbon::parse(date(now())); 
+    $monthName = Carbon::parse($fechaN)->locale('es')->isoFormat('MMMM');
     // $sliders = App\Models\AdminPanel\CalendarioPage::all();    
     // $Allcards = App\Models\AdminPanel\CalendarioCard::all();
     $gameWin = App\Models\Participant::where('ganador', 1)->count();
     $gameParti = App\Models\Participant::where('user_id', auth()->id())->sum('participaciones');
     $promos = App\Models\Participant::where('user_id', auth()->id())->distinct('project_id')->count('project_id');
+    $adminData = App\Models\Admin::find(1);
 @endphp
 {{-- @dd($gameParti) --}}
-<section class="dashboard">
+{{-- <section class="dashboard">
     <div class="container-fluid">
         <div class="row">
             <div class="col-5">
@@ -228,4 +234,56 @@
         </div>
     </div>
 </footer>
-@include('footer')
+@include('footer') --}}
+
+<section class="dashboard">
+    <div class="container">
+        <div class="row">
+            <aside class="col-3 sidebar">
+                <img src="{{asset('img/logo-formulario.png')}}" alt="">
+                <div class="sidebar-menu-p mt-5">
+                    <div id="sidebar-menu">
+                        <ul class="metismenu list-unstyled" id="side-menu">
+                            <li>
+                                <a href="{{ route('cliente.promociones') }}" class="waves-effect">
+                                    <i class="fa fa-television"></i>
+                                    <span>Mis Promociones</span>
+                                </a>
+                            </li> 
+                        </ul>
+                        <ul class="metismenu list-unstyled" id="side-menu">
+                            <li>
+                                <a href="{{ route('cliente.juegos') }}" class="waves-effect">
+                                    <i class="fa fa-gamepad"></i>
+                                    <span>Mis Juegos</span>
+                                </a>
+                            </li> 
+                        </ul>
+                        <ul class="metismenu list-unstyled" id="side-menu">
+                            <li>
+                                <a href="{{ route('cliente.ganados') }}" class="waves-effect">
+                                    <i class="fa fa-check-square"></i>
+                                    <span>¡Ganados!</span>
+                                </a>
+                            </li> 
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+            <main class="col main-content">
+                <div class="d-flex align-items-center">
+                    <div class="d-flex flex-column">
+                        <h1>¡Bienvenido, {{ Auth::user()->name }}!</h1>
+                        <div class="fecha_hora">
+                            <p>Hoy es {{ date('d') }} de {{$monthName}} del {{ date('Y') }} | {{ now()->isoFormat('H:mm:ss A') }}</p>
+                        </div>
+                    </div>
+                    <div class="avatar">
+                        <img src="{{ !empty($adminData->profile_image) ? url('img/upload/admin_images/' . $adminData->profile_image) : url('img/upload/no_image.jpg') }}" alt="" class="rounded-circle">
+                    </div>
+                </div>                
+                @yield('content')
+            </main>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,25 @@
+
+.separador-juegos{
+    margin-top: 5rem;
+}
+
+.ganados{
+
+    .card-title{
+        width: 50%;
+    }
+
+    .card-text{
+        color: #848484;
+        font-size: 1.5rem!important;
+    }
+
+    .card-footer{
+        background-color: transparent!important;
+
+        .btn{
+            border-radius: 10px 10px 10px 10px;
+            width: 30%;
+        }
+    }
+}

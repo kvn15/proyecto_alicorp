@@ -1,8 +1,11 @@
 $font-path: "../fonts/";
 
-@mixin font-face($name, $file) {
-    @font-face {
-      font-family: $name;
-      src: url('#{$font-path}#{$file}.otf') format('opentype');
-    }
+@mixin font-face($name, $file, $formats: ("otf", "ttf")) {
+  @font-face {
+    font-family: $name;
+    src: 
+      #{if(index($formats, "otf"), "url('#{$font-path}#{$file}.otf') format('opentype')", "")},
+      #{if(index($formats, "ttf"), "url('#{$font-path}#{$file}.ttf') format('truetype')", "")};
+  }
 }
+
