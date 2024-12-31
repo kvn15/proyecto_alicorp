@@ -23,5 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(GameSeeder::class);
         $this->call(XplorerSeeder::class);
         $this->call(PointSaleSeeder::class);
+        $this->call(MarcaSeeder::class);
+        $this->call(XplorerUserSeeder::class);
     }
 }
