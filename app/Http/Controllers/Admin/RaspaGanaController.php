@@ -249,15 +249,19 @@ class RaspaGanaController extends Controller
     public function index($hub) {
         
         // Obtener proyecto
-        $project = Project::where('dominio', $hub)->where('status', 1)->where('game_id', 1)->first();
+        $project = Project::where('dominio', $hub)->where('status','<>', 0)->where('game_id', 1)->first();
 
         if(!isset($project)){
             return redirect()->route('index')->with('projecto', 'El juego no existe o no esta publicado.');
         }
 
         $fechaActual = Carbon::now('America/Lima')->startOfDay();
-        if (isset($project->fecha_fin_proyecto)) {
-            if ($fechaActual->toDateTimeString() > $project->fecha_fin_proyecto) {
+        
+        if (isset($project->fecha_fin_proyecto) || isset($project->fecha_fin_participar)) {
+            if ($fechaActual->toDateTimeString() > $project->fecha_fin_participar || $fechaActual->toDateTimeString() > $project->fecha_fin_proyecto || $project->status == 2) {
+                $project->update([
+                    'status' => 2
+                ]);
                 return redirect()->route('index')->with('projecto', 'El juego se encuentra finalizado.');
             }
         }

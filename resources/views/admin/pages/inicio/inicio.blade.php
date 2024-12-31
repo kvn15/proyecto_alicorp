@@ -35,13 +35,19 @@
                             <div class="item-etapa">
                                 <span class="title-etapa"><b>Estado</b></span>
                                 <div class="body-etapa">
-                                    @if ($project->status)
+                                    @if ($project->status == 1)
                                     <div class="bage-activo">
                                         Activo
                                     </div>
-                                    @else
+                                    @endif
+                                    @if ($project->status == 0)
                                     <div class="bage-inactivo">
                                         Inactivo
+                                    </div>
+                                    @endif
+                                    @if ($project->status == 2)
+                                    <div class="bage-finalizado">
+                                        Finalizado
                                     </div>
                                     @endif
                                 </div>

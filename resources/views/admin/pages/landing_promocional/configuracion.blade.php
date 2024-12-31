@@ -15,13 +15,19 @@
 @endsection
 
 @section('header_right')
-@if ($project->status)
-<button type="button" class="btn btn-inactivo">
+@if ($project->status == 1)
+<button type="button" class="btn btn-activo" id="btn_status">
     Activo
 </button>
-@else
-<button type="button" class="btn btn-inactivo">
+@endif
+@if ($project->status == 0)
+<button type="button" class="btn btn-inactivo" id="btn_status">
     Inactivo
+</button>
+@endif
+@if ($project->status == 2)
+<button type="button" class="btn btn-finalizado" id="btn_status">
+    Finalizado
 </button>
 @endif
 @endsection

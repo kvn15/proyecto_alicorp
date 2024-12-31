@@ -10,13 +10,19 @@
 @endsection
 
 @section('header_right')
-@if ($project["landing"]->status)
-<button type="button" class="btn btn-inactivo">
+@if ($project["landing"]->status == 1)
+<button type="button" class="btn btn-activo" id="btn_status">
     Activo
 </button>
-@else
-<button type="button" class="btn btn-inactivo">
+@endif
+@if ($project["landing"]->status == 0)
+<button type="button" class="btn btn-inactivo" id="btn_status">
     Inactivo
+</button>
+@endif
+@if ($project["landing"]->status == 2)
+<button type="button" class="btn btn-finalizado" id="btn_status">
+    Finalizado
 </button>
 @endif
 @endsection

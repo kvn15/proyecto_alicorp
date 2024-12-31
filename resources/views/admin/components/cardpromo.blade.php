@@ -8,17 +8,20 @@
         <p class="m-0"><b>{{ $name_promo }}</b></p>
         <p class="m-0">Fecha: {{ $fecha_promo }}</p>
     </div>
-    @if (!isset($status_promo) || $status_promo != '1')
-    <div class="card-footer">
-        <div class="bage-inactivo">
-            Inactivo
-        </div>
+    
+    @if ($status_promo == '1')
+    <div class="bage-activo">
+        Activo
     </div>
-    @else
-    <div class="card-footer">
-        <div class="bage-activo">
-            Activo
-        </div>
+    @endif
+    @if ($status_promo == '0')
+    <div class="bage-inactivo">
+        Inactivo
+    </div>
+    @endif
+    @if ($status_promo == '2')
+    <div class="bage-finalizado">
+        Finalizado
     </div>
     @endif
 

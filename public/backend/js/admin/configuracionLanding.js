@@ -331,6 +331,26 @@ $(document).ready(function() {
                     title: 'Cambios guardados'
                 })
                 $("#fecha_fin_participar").val($("#fecha_fin_participar_estado").val());
+                if ($("#status").val() == '0') {
+                    $("#btn_status").removeClass('btn-inactivo');
+                    $("#btn_status").removeClass('btn-activo');
+                    $("#btn_status").addClass('btn-inactivo');
+                    $("#btn_status").removeClass('btn-finalizado');
+                    $("#btn_status").html('Inactivo');
+                } 
+                if ($("#status").val() == '1') {
+                    $("#btn_status").removeClass('btn-activo');
+                    $("#btn_status").removeClass('btn-inactivo');
+                    $("#btn_status").removeClass('btn-finalizado');
+                    $("#btn_status").addClass('btn-activo');
+                    $("#btn_status").html('Activo');
+                } 
+                if ($("#status").val() == '2') {
+                    $("#btn_status").removeClass('btn-activo');
+                    $("#btn_status").removeClass('btn-inactivo');
+                    $("#btn_status").addClass('btn-finalizado');
+                    $("#btn_status").html('Finalizado');
+                } 
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('Error en la solicitud AJAX:', textStatus, errorThrown);

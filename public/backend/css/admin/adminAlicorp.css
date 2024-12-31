@@ -298,6 +298,17 @@ hr {
     font-size: 13px;
 }
 
+.bage-finalizado {
+    border: 1px solid #0cb9ee;
+    color: #0cb9ee;
+    font-weight: 700;
+    border-radius: 6px;
+    padding: 0.1rem 0.7rem;
+    text-transform: uppercase;
+    max-width: 100px;
+    font-size: 13px;
+}
+
 .btn-activo {
     background-color: #fff;
     border: 1px solid #78B928;
@@ -324,6 +335,20 @@ hr {
     background-color: #fff;
     border: 1px solid #868686;
     color: #868686;
+}
+
+.btn-finalizado {
+    background-color: #fff;
+    border: 1px solid #0cb9ee;
+    color: #0cb9ee;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.btn-finalizado:hover {
+    background-color: #fff;
+    border: 1px solid #0cb9ee;
+    color: #0cb9ee;
 }
 
 
