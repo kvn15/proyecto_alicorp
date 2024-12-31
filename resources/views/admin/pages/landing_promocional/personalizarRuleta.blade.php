@@ -166,7 +166,7 @@
         .ctn-data {
             width: 100%;
             max-width: 490px;
-            margin-right: auto;
+            /* margin-right: auto; */
         }
 
         .btn-jugar {
@@ -977,7 +977,7 @@
         </form>
         <div class="col-9 p-0">
             <div class="h-100" style="background-image: url({{ $fondo }}); background-size: cover;" id="juego_ruleta">
-                <div id="inicio_juego" class=" d-none">
+                <div id="inicio_juego" class=" d-none align-items-center">
                     <div class="text-center ctn-data">
                         <h1 class="{{ $styleTamano }} mb-4 {{ $styleBold }} {{ $italicTitulo }} {{ $styleAlineacion }} d-none" id="titulo_header" style="color: #fff;"></h1>
                         <img style="width: 300px;" src="{{ $logo_inicio }}" alt="" id="logo_header">
