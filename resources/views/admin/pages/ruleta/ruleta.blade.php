@@ -80,7 +80,7 @@
         height: 100%;
     }
     .header {
-        padding: 40px;
+        padding: 20px;
         color: #fff;
         margin: 0 auto;
         margin-bottom: 10px;
@@ -144,7 +144,7 @@
 
     canvas {
         width: 100%;
-        max-width: 500px !important;
+        max-width: 700px !important;
     }
 </style>
 <style>
@@ -225,7 +225,7 @@
         .ctn-data {
             width: 100%;
             max-width: 490px;
-            margin-right: auto;
+            /* margin-right: auto; */
         }
 
         .btn-jugar {
@@ -406,7 +406,7 @@
         $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
     @endphp
     <div class="h-100 d-flex flex-column justify-content-center" style="background-image: url({{ $fondo }}); background-size: cover; min-height: 100vh;" id="juego_ruleta">
-        <div id="inicio_juego" class=" d-block">
+        <div id="inicio_juego" class="w-100 d-flex flex-column align-items-center justify-content-center">
             <div class="text-center ctn-data">
                 {{-- <h1 class="{{ $styleTamano }} mb-4 {{ $styleBold }} {{ $italicTitulo }} {{ $styleAlineacion }}" id="titulo_header" style="color: #fff;">GIRA Y GANA CON</h1> --}}
                 <img class="img-fluid" src="{{ $logo_inicio }}" alt="" id="logo_header">
@@ -418,7 +418,7 @@
         <div class="content-game d-none" id="juego">
             <div class="header text-center">
                 <h1 class="{{ $styleTamanoGame }} {{ $styleBoldGame }} {{ $italicTituloGame }} {{ $styleAlineacionGame }} d-none" id="titulo_juego" style="color: #fff;">GIRA Y GANA CON</h1>
-                <img style="width: 300px;" src="{{ $logo_juego }}" alt="" id="logo_juego" style="max-width: 250px;">
+                <img style="max-width: 300px;" src="{{ $logo_juego }}" alt="" id="logo_juego">
                 <p id="winner" class="d-none">NONE</p>
             </div>
             <div class="w-100 d-flex justify-content-center">
@@ -427,7 +427,7 @@
             <div style="overflow: hidden;" class="text-center">
                 <div class="wheel">
                     <div class="content-canvas">
-                        <canvas id="canvas" width="500" height="500" class="center-circle"></canvas>
+                        <canvas id="canvas" width="515" height="515" class="center-circle"></canvas>
                     </div>
                     {{-- <div class="center-circle">
                         <div class="triangle"></div>
@@ -602,7 +602,7 @@
                 ctx.save();
                 ctx.translate(centerX, centerY);
                 ctx.rotate(toRad((startDeg + endDeg) / 2 ));
-                ctx.drawImage(img, 76, -60, 130, 130); // Ajusta las coordenadas y el tamaño de la imagen
+                ctx.drawImage(img, 88, -80, 150, 170); // Ajusta las coordenadas y el tamaño de la imagen
                 // ctx.drawImage(img, 100, 0,40, 40); // Ajusta la posición y tamaño
                 ctx.restore();
                 // Draw image

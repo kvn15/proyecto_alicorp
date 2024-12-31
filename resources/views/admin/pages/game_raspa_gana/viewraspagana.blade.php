@@ -126,7 +126,7 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
     body {
         height: 100vh;
     }
-    button, p, b, a, span, div {
+    body, button, p, b, a, span, div {
         font-family: var({{$estiloFont}}) !important;
     }
     .container {
@@ -134,7 +134,7 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
         height: 31em;
         position: absolute;
         transform: translate(-50%, -50%);
-        top: 57%;
+        top: 50%;
         left: 50%;
         border-radius: 0.6em;
     }
@@ -161,7 +161,6 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
 
     .base {
         background-color: transparent;
-        font-family: "Poppins", sans-serif;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -188,12 +187,13 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
     .img-premio {
         /* width: 80%;
         height: 70%; */
+        width: 100%;
         margin: auto;
     }
 
     .text-header {
         text-align: center;
-        padding: 2em;
+        padding: 5%;
     }
 
     .text-header img  {
@@ -289,7 +289,7 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
 <style>
     @media (max-width: 575.98px) { 
         .text-header {
-            padding: 1rem 0px;
+            padding: 5% 0px;
         }
 
         .container {
@@ -324,7 +324,7 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
         <div id="card-raspa">
             <div class="text-header">
                 {{-- <p id="parrafo-header {{ $styleBold }} {{  $italicTitulo }} {{ $styleTamano }} {{ $styleAlineacion }}" style="color: #fff;">{{ $tituloTexto }}</p> --}}
-                <img id="logo_casino" src="{{ $logo_principal }}" alt="" style="max-width: 250px;">
+                <img id="logo_casino" src="{{ $logo_principal }}" alt="" style="max-width: 300px;">
             </div>
             <div class="container">
                 <div class="base">
@@ -336,7 +336,7 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
                 </div>
             </div>
         </div>
-        <div id="card-premio" class="d-none">
+        <div id="card-premio" class="d-none flex-column align-items-center justify-content-center" style="width: 100%; height: 100%;">
             <div class="d-flex justify-content-center pt-4 w-100 pb-4">
                 <img class="img-fluid" src="{{ $titulo_subir }}" alt="" id="img-header-premio"  style="max-width: 350px;">
             </div>
@@ -498,7 +498,7 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
 </script>
 <script>
     $('#continar_casino').on('click', function () {
-        $("#card-premio").removeClass("d-none").addClass('d-block');
+        $("#card-premio").removeClass("d-none").addClass('d-flex');
         $("#card-raspa").removeClass("d-block").addClass('d-none');
     });
 </script>

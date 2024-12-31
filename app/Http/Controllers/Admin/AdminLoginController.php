@@ -31,8 +31,16 @@ class AdminLoginController extends Controller
             'email' => $request->email,
             'password' => $request->password
         ], $request->remember)) {
-            // Si es exitoso, redirigir al dashboard
-            return redirect()->intended(route('admin.dashboard'));
+
+            $admin = Auth::guard('admin')->user();
+            if ($admin->status == 1) {
+                // Si el 'status' es 1, redirigir al dashboard
+                return redirect()->intended(route('admin.dashboard'));
+            } else {
+                // Si el 'status' no es 1, cerrar sesión y redirigir con mensaje de error
+                Auth::guard('admin')->logout();
+                return redirect()->route('admin.login')->withErrors(['email' => 'Tu cuenta está inactiva.']);
+            }
         }
 
         // Si falla, redirigir de vuelta al formulario de login con datos

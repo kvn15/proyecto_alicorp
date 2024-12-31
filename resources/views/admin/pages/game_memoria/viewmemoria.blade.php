@@ -70,6 +70,10 @@
         width: 100%;
         min-height: 100vh;
         font-family: var({{$estiloFont}}) !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
     button, p, b, a, span, div {
         font-family: var({{$estiloFont}}) !important;
@@ -322,10 +326,10 @@
         <input type="hidden" id="premio_id" name="premio_id" value="{{ $premioSelect['premio_id'] }}">
     </form>
     <div class="juego_memorio_content" id="juego_memorio_content" style="{{ $bgMemoria }} background-size: cover;">
-        <div class="contenido_juego d-block" id="contenido_juego">
+        <div class="contenido_juego d-flex flex-column align-items-center justify-content-center w-100 h-100" id="contenido_juego">
             {{-- <p class="{{ $styleAlineacion }} {{ $styleTamano }} w-100 mt-0 mb-0 pt-2 {{ $styleBold }} {{ $italicTitulo }}" id="parrafo-header" style="color: {{ $color }};">{{ $tituloTexto }}</p> --}}
-            <div class="d-flex justify-content-center pt-4">
-                <img class="img-fluid" id="logo_memoria" src="{{ '/storage/'.$imgLogo }}" alt="" style="max-width: 250px;">
+            <div class="d-flex justify-content-center pt-2">
+                <img class="img-fluid" id="logo_memoria" src="{{ '/storage/'.$imgLogo }}" alt="" style="max-width: 300px;">
             </div>
             <div class="game">
                 <div class="controls">
@@ -347,8 +351,8 @@
                 </div>
             </div>
         </div>
-        <div class="win-game d-none" id="win-game">
-            <div class="d-flex justify-content-center pt-4 w-100 mb-3">
+        <div class="win-game d-none flex-column align-items-center justify-content-center w-100 h-100" id="win-game">
+            <div class="d-flex justify-content-center pt-2 w-100 mb-3">
                 <img class="img-fluid" src="{{ '/storage/'.$imgLogoPremio }}" alt="" id="img-header-premio" style="max-width: 350px;">
             </div>
             <div class="d-flex flex-column align-items-center justify-content-center w-100">
@@ -523,10 +527,10 @@
                     flippedCards[0].classList.remove('scale-trans')
                     flippedCards[1].classList.remove('scale-trans')
                     // mover a vista premiación
-                    document.getElementById("win-game").classList.add('d-block')
+                    document.getElementById("win-game").classList.add('d-flex')
                     document.getElementById("win-game").classList.remove('d-none')
                     // ocultar
-                    document.getElementById("contenido_juego").classList.remove('d-block')
+                    document.getElementById("contenido_juego").classList.remove('d-flex')
                     document.getElementById("contenido_juego").classList.add('d-none')
                     document.getElementById("img-header-premio").classList.remove('d-none')
                     document.getElementById("img-header-premio").classList.add('d-block')
@@ -540,10 +544,10 @@
                 error[0].innerHTML = `ERRORES: ${nErrores}`;
                 setTimeout(() => {
                     // mover a vista premiación
-                    document.getElementById("win-game").classList.add('d-block')
+                    document.getElementById("win-game").classList.add('d-flex')
                     document.getElementById("win-game").classList.remove('d-none')
                     // ocultar
-                    document.getElementById("contenido_juego").classList.remove('d-block')
+                    document.getElementById("contenido_juego").classList.remove('d-flex')
                     document.getElementById("contenido_juego").classList.add('d-none')
 
                     document.getElementById("premio_img").src = "{{ $urlSigue }}";

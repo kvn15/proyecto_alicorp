@@ -16,6 +16,17 @@
                     <img src="{{asset('img/logo-formulario.png')}}" alt="" class="img-fluid logo" width="259" height="75">
                     <h1>Login</h1>
                     <p>Por favor ingresa tus datos para continuar.</p>
+
+                    <!-- Mostrar error de email si existe -->
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                    
                     <form method="POST" action="{{ route('admin.login.submit') }}" class="login">
                         @csrf
@@ -35,7 +46,7 @@
                                 <i class="fa fa-lock" aria-hidden="true"></i>
                             </div>
                             <div class="position-relative eye">
-                                <button id="togglePassword">
+                                <button type="button" id="togglePassword">
                                     <i class="fa fa-eye" aria-hidden="true"></i>
                                 </button>                                
                             </div>                            

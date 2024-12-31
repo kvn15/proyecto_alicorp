@@ -218,9 +218,6 @@ class Xplorer extends Component
                 'telefono' => $this->telefono,
                 'edad' => $this->edad,
             ]);
-            
-            // resetear
-            $this->resetForm();
     
             $this->dispatchBrowserEvent('swal:alert', [
                 'title' => 'Actualización exitosa!',
