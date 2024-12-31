@@ -1,4 +1,4 @@
-@extends('admin.pages.inicio.layout')
+@extends('admin.pages.inicio.layout_xplorer')
 
 @section('header_left')
     <span><b>Configuración</b></span>
@@ -26,9 +26,15 @@
                     <div class="card-body">
                         <h4 class="card-title ">Nombres : {{ $adminData->name }} </h4>
                         <hr>
+                        <h4 class="card-title mt-4">Apellido : {{ $adminData->apellido }} </h4>
+                        <hr>
                         <h4 class="card-title mt-4">Correo Electrónico : {{ $adminData->email }} </h4>
                         <hr>
-                        <a href="{{ route('dashboard.editar.perfil') }}"
+                        <h4 class="card-title mt-4">Nro. Documento : {{ $adminData->documento }} </h4>
+                        <hr>
+                        <h4 class="card-title mt-4">Telefono : {{ $adminData->telefono }} </h4>
+                        <hr>
+                        <a href="{{ route('xplorer.editar.perfil') }}"
                             class="btn btn-info btn-rounded waves-effect waves-light mt-4"> Edit Perfil</a>
 
                     </div>
@@ -59,7 +65,7 @@
                         @endif
 
 {{-- {{ route('update.password') }} --}}
-                        <form method="post" action="{{ route('dashboard.password.perfil')}}">
+                        <form method="post" action="{{ route('xplorer.password.perfil')}}">
                             @csrf
 
                             <div class="row mb-3">

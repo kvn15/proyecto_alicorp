@@ -32,6 +32,11 @@ class AsignacionProject extends Model
         return $this->belongsTo(SalesPoint::class, 'sales_point_id');
     }
 
+    public function project()
+    {
+        return $this->belongsTo(Project::class, 'project_id');
+    }
+
     public function premio_pdvs()
     {
         return $this->hasMany(PremioPdv::class, 'asignacion_project_id');  // Relación uno a muchos

@@ -20,6 +20,11 @@ class Project extends Model
         return $this->belongsTo(Game::class);
     }
 
+    public function asignacion_projects()
+    {
+        return $this->hasMany(AsignacionProject::class);
+    }
+
     public static function search($search, $tipoProyecto) {
         return empty($search) ? static::query()->where('project_type_id', $tipoProyecto) 
             : static::query()

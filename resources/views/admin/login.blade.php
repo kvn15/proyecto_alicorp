@@ -27,6 +27,11 @@
                             </ul>
                         </div>
                     @endif
+                    @if (session('mensaje'))
+                    <div class="alert alert-danger">
+                        {{ session('mensaje') }}
+                    </div>
+                    @endif
                    
                     <form method="POST" action="{{ route('admin.login.submit') }}" class="login">
                         @csrf

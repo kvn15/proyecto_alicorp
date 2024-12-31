@@ -143,9 +143,11 @@ Route::controller(XplorerController::class)->group(function () {
 });
 
 Route::middleware('auth:xplorer')->group(function () {
-    Route::get('/xplorer/dashboard', function () {
-        return view('xplorer.dashboard');
-    });
+    Route::get('/xplorer/juegosCamp', [XplorerController::class, 'juegosCamp'])->name('xplorer.dashboard.juegosCamp');
+    Route::get('/xplorer/configuracion', [XplorerController::class, 'configuracion'])->name('xplorer.dashboard.configuracion');
+    Route::get('/xplorer/editar/Perfil', [XplorerController::class, 'EditProfile'])->name('xplorer.editar.perfil');
+    Route::post('/xplorer/password/Perfil', [XplorerController::class, 'UpdatePassword'])->name('xplorer.password.perfil');
+    Route::post('/xplorer/grabar/Perfil', [XplorerController::class, 'StoreProfile'])->name('xplorer.grabar.perfil');
 });
 
 Route::controller(AdminPanelController::class)->group(function () {

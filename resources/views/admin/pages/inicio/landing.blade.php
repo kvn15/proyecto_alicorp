@@ -18,7 +18,7 @@
         <div class="col-12 my-2">
             <h4 class="mb-4">Landing Promocional</h4>
             <hr>
-            <livewire:proyecto-lista :tipoProyecto="1" />
+            <livewire:proyecto-lista :tipoProyecto="1" :bMisProyectos="request()->routeIs('landing_promocional.index.mio') ? true : false" />
         </div>
     </div>
 </div>

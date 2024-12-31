@@ -16,6 +16,11 @@
                     <img src="{{asset('img/logo-formulario.png')}}" alt="" class="img-fluid logo" width="259" height="75">
                     <h1>Login</h1>
                     <p>Por favor ingresa tus datos para continuar.</p>
+                    @if (session('mensaje'))
+                    <div class="alert alert-danger">
+                        {{ session('mensaje') }}
+                    </div>
+                    @endif
                    
                     <form method="POST" action="{{ route('xplorer.login') }}" class="login">
                         @csrf

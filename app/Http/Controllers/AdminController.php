@@ -52,9 +52,9 @@ class AdminController extends Controller
         ->orderBy('projects.created_at', 'desc')
         ->limit(3)
         ->get();
-        $landing = Project::where('project_type_id', 1)->orderBy('created_at', 'desc')->get();
-        $web = Project::where('project_type_id', 2)->orderBy('created_at', 'desc')->get();
-        $campana = Project::where('project_type_id', 3)->orderBy('created_at', 'desc')->get();
+        $landing = Project::where('project_type_id', 1)->orderBy('created_at', 'desc')->limit(5)->get();
+        $web = Project::where('project_type_id', 2)->orderBy('created_at', 'desc')->limit(5)->get();
+        $campana = Project::where('project_type_id', 3)->orderBy('created_at', 'desc')->limit(5)->get();
 
         $inicio = [
             "projects" => $projects,
@@ -84,10 +84,42 @@ class AdminController extends Controller
 
     public function dashboardMio()
     {
-        $projects = Project::limit(3)->orderBy('created_at', 'desc')->where('admin_id',auth()->id())->get();
-        $landing = Project::where('project_type_id', 1)->orderBy('created_at', 'desc')->where('admin_id',auth()->id())->get();
-        $web = Project::where('project_type_id', 2)->orderBy('created_at', 'desc')->where('admin_id',auth()->id())->get();
-        $campana = Project::where('project_type_id', 3)->orderBy('created_at', 'desc')->where('admin_id',auth()->id())->get();
+        $projects = Project::select(
+            'projects.id',
+            'projects.nombre_promocion', // Incluye los demás campos necesarios
+            'projects.status',
+            'projects.fecha_ini_proyecto',
+            'projects.fecha_fin_proyecto',
+            'projects.game_id',
+            'projects.created_at',
+            'projects.updated_at',
+            'projects.ruta_img',
+            'proyect_types.ruta_name',
+            'proyect_types.name',
+            DB::raw('COUNT(participants.id) as participant_count')
+        )
+        ->leftJoin('proyect_types', 'proyect_types.id', '=', 'projects.project_type_id')
+        ->leftJoin('participants', 'participants.project_id', '=', 'projects.id')
+        ->where('projects.admin_id',auth()->id())
+        ->groupBy(
+            'projects.id',
+            'projects.nombre_promocion',
+            'projects.status',
+            'projects.fecha_ini_proyecto',
+            'projects.fecha_fin_proyecto',
+            'projects.game_id',
+            'projects.created_at',
+            'projects.ruta_img',
+            'proyect_types.ruta_name',
+            'proyect_types.name',
+            'projects.updated_at'
+        ) // Incluye todas las columnas seleccionadas
+        ->orderBy('projects.created_at', 'desc')
+        ->limit(3)
+        ->get();
+        $landing = Project::where('project_type_id', 1)->orderBy('created_at', 'desc')->where('admin_id',auth()->id())->limit(5)->get();
+        $web = Project::where('project_type_id', 2)->orderBy('created_at', 'desc')->where('admin_id',auth()->id())->limit(5)->get();
+        $campana = Project::where('project_type_id', 3)->orderBy('created_at', 'desc')->where('admin_id',auth()->id())->limit(5)->get();
 
         $inicio = [
             "projects" => $projects,
@@ -141,7 +173,7 @@ class AdminController extends Controller
         $data->save();
 
         $notification = array(
-            'message' => 'Perfil de Administrador Actualizado Satisfactoriamente', 
+            'messagePerfil' => 'Perfil de Administrador Actualizado Satisfactoriamente', 
             'alert-type' => 'info'
         );
 
@@ -167,7 +199,7 @@ class AdminController extends Controller
             session()->flash('message','La clave fue cambiado con éxito');
             return redirect()->back();
         } else{
-            session()->flash('message','Las claves no conuerdan');
+            session()->flash('messageError','Las clave no conuerda');
             return redirect()->back();
         }
 

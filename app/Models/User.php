@@ -31,7 +31,8 @@ class User extends Authenticatable
         'edad',
         'apellido',
         'is_xplorer',
-        'status'
+        'status',
+        'profile_image'
     ];
 
     /**

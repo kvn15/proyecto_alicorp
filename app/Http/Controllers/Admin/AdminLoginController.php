@@ -41,10 +41,12 @@ class AdminLoginController extends Controller
                 Auth::guard('admin')->logout();
                 return redirect()->route('admin.login')->withErrors(['email' => 'Tu cuenta está inactiva.']);
             }
+        } else {
+            return back()->with('mensaje', 'Creedenciales Incorrectas');
         }
 
         // Si falla, redirigir de vuelta al formulario de login con datos
-        return redirect()->back()->withInput($request->only('email', 'remember'));
+        // return redirect()->back()->withInput($request->only('email', 'remember'));
     }
 
     public function logout()

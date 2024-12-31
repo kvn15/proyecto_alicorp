@@ -6,8 +6,8 @@
 
 @section('header_center')
 <div class="d-flex">
-  <a href="{{ route('admin.dashboard.juegosCamp') }}" class="btn-proyecto btn-proyectos-left {{ request()->routeIs('admin.dashboard.juegosCamp') ? 'active' : '' }}">Todo los Proyectos</a>
-  <a href="{{ route('admin.dashboard.juegosCamp.mio') }}" class="btn-proyecto btn-proyectos-right {{ request()->routeIs('admin.dashboard.juegosCamp.mio') ? 'active' : '' }}">Mis Proyectos</a>
+  <a href="{{ route('admin.dashboard.juegosWeb') }}" class="btn-proyecto btn-proyectos-left {{ request()->routeIs('admin.dashboard.juegosWeb') ? 'active' : '' }}">Todo los Proyectos</a>
+  <a href="{{ route('admin.dashboard.juegosWeb.mio') }}" class="btn-proyecto btn-proyectos-right {{ request()->routeIs('admin.dashboard.juegosWeb.mio') ? 'active' : '' }}">Mis Proyectos</a>
 </div>
 @endsection
 
@@ -18,7 +18,7 @@
         <div class="col-12 my-2">
             <h4 class="mb-4">Juegos Web</h4>
             <hr>
-            <livewire:proyecto-lista :tipoProyecto="2" />
+            <livewire:proyecto-lista :tipoProyecto="2" :bMisProyectos="request()->routeIs('admin.dashboard.juegosWeb.mio') ? true : false" />
         </div>
     </div>
 </div>
