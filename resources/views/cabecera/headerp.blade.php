@@ -18,7 +18,7 @@
                 <a class="nav-link" href="{{ route('juegos') }}">Juegos</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('nuevo') }}">Lo Nuevo</a>
+                <a class="nav-link" href="{{ route('nuevo') }}">Eventos</a>
             </li>
     </div>
     <div class="perfil d-flex align-items-center justify-content-between">

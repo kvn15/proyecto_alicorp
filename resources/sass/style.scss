@@ -8,6 +8,8 @@
 @import 'paginas/dashboard';
 @import 'paginas/configuracion';
 @import 'paginas/calendario';
+@import 'paginas/nuevo';
+@import 'paginas/juego';
 
 @include font-face('CBlack', 'CorporativeBlack');
 @include font-face('CBold', 'CorporativeBold');
@@ -138,6 +140,15 @@ html {
         padding-left: 0;
     }
 }
+
+.heroe-logueado{
+    max-width: 100%;
+    .hero-image {
+        width: 100%;
+        height: auto;
+    }
+}
+
 
 /*menu principal*/
 #openModalBtn {
@@ -365,7 +376,7 @@ html {
     margin-right: 30px;
 }
 
-/*bloque 2*/
+/*bloque 2  ojo polanca*/
 .bloque2 {
     background-image: url(../img/seccion2.png);
     background-repeat: no-repeat;

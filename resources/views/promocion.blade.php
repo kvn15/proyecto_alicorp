@@ -1,5 +1,5 @@
 @include('cabecera/header')
-@php
+{{-- @php
     $sliders = App\Models\AdminPanel\PromocionesPage::all();    
     $Allcards = App\Models\AdminPanel\PromocionesCard::all();
 @endphp
@@ -89,4 +89,10 @@
       </div>
       <div class="imagen-fondo"></div>
   
+</section> --}}
+
+<section class="promociones">
+    <img src="{{asset('/img/promo1.png')}}" alt="" class="hero-image">
+    <img src="{{asset('/img/promo2.png')}}" alt="" class="hero-image">
+    <img src="{{asset('/img/promo3.png')}}" alt="" class="hero-image">
 </section>

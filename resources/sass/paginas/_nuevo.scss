@@ -1,0 +1,64 @@
+
+@include font-face('Gotham', 'Gold-Bold');
+
+.eventos{
+    background-image: url(../img/eventos.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 80vh;
+
+    .mt-e{
+        margin-top: 10rem;
+    }
+    
+    h2{
+        font-family: "Barlow", serif;
+        font-size: 6.9rem;
+        font-weight: 800;
+        font-style: bold;
+        color: #ffffff;
+    }
+
+    p{
+        font-family: "Barlow", serif;
+        font-size: 2.5rem;
+        font-weight: 400;
+        font-style: normal;
+        color: #ffffff;
+        width: 47%;
+    }
+
+    .card-eventos{
+        top: 33rem;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+
+        .card-title{
+            color: #FB0000;
+            font-family: 'Gold-Bold',sans-serif;
+            font-weight: bold;
+            font-size: 2.2rem;
+        }
+
+        .card-text{
+            color: #848484;
+            font-family: "Barlow", serif;
+            font-size: 1.8rem;
+            width: 100%;
+        }
+
+        .btn-evento{
+            button{
+                border-radius: 15px 15px 15px 15px;
+                width: 28%;
+                padding: 10px 0 10px 0;
+                background-color: #FB0000;
+                border: none;
+                color: #FFFFFF;
+            }
+        }
+    }
+}

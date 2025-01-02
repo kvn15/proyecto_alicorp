@@ -5,37 +5,45 @@
     $promos = App\Models\HomePromociones::all();  
 @endphp
 
-  <section class="carusel">
-    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-          aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-          aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-          aria-label="Slide 3"></button>
+@if (empty(Auth::user()->name))    
+    <section class="carusel">
+      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+            aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+            aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+            aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          @foreach ($sliders as  $key=> $slide)            
+              <div class="carousel-item {{$key == 0 ? 'active':''}}">
+                <img src="{{asset('storage/'.$slide->home_slide)}}" class="d-block w-100 " alt="...">
+              </div>
+          @endforeach
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
-      <div class="carousel-inner">
-        @foreach ($sliders as  $key=> $slide)            
-            <div class="carousel-item {{$key == 0 ? 'active':''}}">
-              <img src="{{asset('storage/'.$slide->home_slide)}}" class="d-block w-100 " alt="...">
-            </div>
-        @endforeach
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
+    </section>
+@else
+  <section class="heroe-logueado">
+    <img src="{{asset('/img/hero1.png')}}" alt="" class="hero-image">
   </section>
-  <main class="bloque2">
-    <div class="container-fluid">
+@endif
+  
+
+  <main class="">
+    {{-- <div class="container-fluid">
       <div class="row">
         <div class="col-lg-12 position-relative gap-5">
           <div class="promociones">
@@ -56,10 +64,6 @@
                 <div class="owl-item"><img src="{{asset('storage/'.$promo->home_promos)}}" height="250px"></div>
                 @endforeach
               </div>
-              {{-- <div class="owl-nav position-relative botones">
-                <div class="owl-prev"><i class="fa fa-chevron-left" aria-hidden="true"></i></div>
-                <div class="owl-next"><i class="fa fa-chevron-right" aria-hidden="true"></i></div>
-              </div> --}}
             </div>
           </div>
         </div>
@@ -92,8 +96,12 @@
         </div>
       </div>
 
-    </div>
+    </div> --}}
+    <section class="promociones">
+      <img src="{{asset('/img/promo1.png')}}" alt="" class="hero-image">
+    </section>
   </main>
+
   @include('footer')
   
   <script>
