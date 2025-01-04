@@ -616,6 +616,12 @@
   font-family: "Gotham";
   src: url('../fonts/Gold-Bold.otf') format('opentype'), url('../fonts/Gold-Bold.ttf') format('truetype');
 }
+:root {
+  --primary-color: rgba(8, 8, 0, 1);
+  --secondary-color: rgba(147, 146, 135, 1);
+  --hover-transform: translateY(20px);
+}
+
 .juego {
   background-image: url(../img/eventos.png);
   background-position: center;
@@ -629,90 +635,139 @@
   color: #EADC75;
   font-size: 3.6rem;
   font-family: "Barlow", serif;
-  font-size: bold;
+  font-weight: bold;
 }
 .juego .titulo-2 h3 {
-  font-size: "Gold-Bold";
+  font-family: "Gold-Bold", serif;
   font-size: 10rem;
-  font-size: bold;
   color: #ffffff;
+  font-weight: bold;
 }
 .juego .titulo-2 p {
   margin-top: 2rem;
-  font-size: "Gold-Bold";
+  font-family: "Gold-Bold", serif;
   font-size: 3rem;
-  font-size: bold;
   color: #ffffff;
   letter-spacing: 0.36px;
   line-height: 3.5rem;
+  font-weight: bold;
 }
 .juego .img-juego-c {
   margin-top: 12rem;
 }
 
 .juegos .sec-juegos {
-  margin-top: 10rem;
-  margin-bottom: 10rem;
+  margin: 10rem 0;
 }
 .juegos .card {
   width: 90%;
   max-width: 300px;
   border-radius: 40px;
-  overflow: hidden; /* Para evitar que la imagen "salga" del card */
+  overflow: hidden;
   display: flex;
+  justify-content: flex-end;
   flex-direction: column;
   background: linear-gradient(263deg, rgb(2, 0, 36) 5%, rgb(9, 9, 121) 48%, rgb(0, 212, 255) 96%);
   position: relative;
 }
-.juegos .img-transicion {
-  min-height: 100px;
-}
-.juegos .img-transicion {
+.juegos .card .img-transicion {
   display: flex;
   justify-content: end;
-  padding-top: 15px;
-  padding-right: 15px;
+}
+.juegos .card .back {
+  width: 50px;
+  opacity: 0;
 }
 .juegos .card img {
   width: 90px;
   object-fit: cover;
   transition: transform 0.5s ease, scale 0.5s ease;
+  position: absolute;
+  top: 1rem;
 }
 .juegos .card:hover img {
-  transform: rotate(-50deg) scale(1.5); /* Rotar a la izquierda (-10 grados) y agrandar (1.2 veces) */
+  transform: rotate(-50deg) scale(1.5);
 }
-.juegos .galletex {
-  transition: transform 0.3s ease; /* Animación suave */
+.juegos .card:hover .back {
+  opacity: 1;
+  right: -5rem;
+  top: 5rem;
 }
-.juegos .card img.back {
-  transform: rotate(10deg) scale(1.2); /* Posición inicial (oculta y girada) */
-  opacity: 0; /* Totalmente invisible */
+.juegos .card .card-content {
+  margin-top: 40px;
+  padding: 26px;
 }
-.juegos .card:hover img.back {
-  transform: rotate(-50deg) scale(1); /* Girar a su posición normal y ajustar el tamaño */
-  opacity: 1; /* Hacer visible la imagen secundaria */
-  top: 50px;
-  right: -9rem;
-}
-.juegos .card-content {
-  padding: 16px;
-}
-.juegos .card-title {
+.juegos .card .card-title {
   font-family: "Gotham", serif;
-  font-size: 3rem;
+  font-size: 2.5rem;
   margin: 0;
 }
-.juegos .card-subtitle {
+.juegos .card .card-subtitle {
   font-family: "Gold-Bold", serif;
   font-size: 2rem;
   margin: 8px 0;
   color: #ffffff;
 }
-.juegos .card-footer {
+.juegos .card .card-footer {
   padding: 16px;
   background-color: #f0f0f0;
   font-size: 0.9em;
   color: #555;
+}
+.juegos .card-2 {
+  background: linear-gradient(263deg, var(--primary-color) 0%, var(--secondary-color) 48%);
+}
+.juegos .card-2 .carta,
+.juegos .card-2 .carta2,
+.juegos .card-2 .carta3 {
+  position: absolute;
+  transition: transform 0.4s ease, opacity 0.4s ease, z-index 0.2s;
+  z-index: 2;
+}
+.juegos .card-2 .carta {
+  width: 80px;
+  transform: rotate(-35deg);
+  z-index: 3;
+  top: -8px;
+}
+.juegos .card-2 .carta2 {
+  opacity: 0;
+  width: 50px;
+  transform: rotate(-40deg);
+  right: 15px;
+}
+.juegos .card-2 .carta3 {
+  opacity: 0;
+  width: 50px;
+  transform: rotate(-10deg);
+  right: 8rem;
+  top: -15px;
+}
+.juegos .card-2:hover .carta, .juegos .card-2:hover .carta2, .juegos .card-2:hover .carta3 {
+  opacity: 1;
+}
+.juegos .card-2:hover .carta {
+  transform: var(--hover-transform);
+}
+.juegos .card-2:hover .carta2 {
+  z-index: 1;
+}
+.juegos .card-2:hover .carta3 {
+  z-index: 0;
+}
+.juegos .card-2 .card-content {
+  margin-top: 40px;
+  padding: 26px;
+}
+.juegos .card-2 .card-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.juegos .card-2 .card-subtitle {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
 }
 .juegos .card-3 {
   background: linear-gradient(263deg, rgb(36, 36, 0) 0%, rgb(247, 232, 7) 48%, rgb(247, 232, 7) 84%);
@@ -724,8 +779,14 @@
   right: -108px;
 }
 .juegos .card-3 .card-content {
-  margin-top: 30px;
+  margin-top: 40px;
   padding: 26px;
+}
+.juegos .card-3 .card-title {
+  font-size: 2rem;
+}
+.juegos .card-3 .card-subtitle {
+  line-height: 20px;
 }
 
 @font-face {

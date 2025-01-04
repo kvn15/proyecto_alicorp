@@ -1,135 +1,213 @@
 @include font-face('Gotham', 'Gold-Bold');
-.juego{
-    background-image: url(../img/eventos.png);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
 
-    .titulo-2{
-        margin-top: 17rem;       
-        h2{
-            color: #EADC75;
-            font-size: 3.6rem;
-            font-family: "Barlow", serif;
-            font-size: bold;
-        }
-        h3{
-            font-size: 'Gold-Bold';
-            font-size: 10rem;
-            font-size: bold;
-            color: #ffffff;
-        }
-        p{
-            margin-top: 2rem;
-            font-size: 'Gold-Bold';
-            font-size: 3rem;
-            font-size: bold;
-            color: #ffffff;
-            letter-spacing: 0.36px;
-            line-height: 3.5rem;
-        }
-    }
-
-    .img-juego-c{
-        margin-top: 12rem;  
-    }
-
+:root {
+  --primary-color: rgba(8, 8, 0, 1);
+  --secondary-color: rgba(147, 146, 135, 1);
+  --hover-transform: translateY(20px);
 }
 
-.juegos{
 
-    .sec-juegos{
-        margin-top: 10rem;
-        margin-bottom: 10rem;
+.juego {
+  background-image: url(../img/eventos.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  .titulo-2 {
+    margin-top: 17rem;
+
+    h2 {
+      color: #EADC75;
+      font-size: 3.6rem;
+      font-family: "Barlow", serif;
+      font-weight: bold;
     }
 
-    .card {
-        width: 90%;
-        max-width: 300px;
-        //background: #fff;
-        border-radius: 40px;
-        overflow: hidden;/* Para evitar que la imagen "salga" del card */
-        display: flex;
-        flex-direction: column;
-        background: linear-gradient(263deg, rgba(2,0,36,1) 5%, rgba(9,9,121,1) 48%, rgba(0,212,255,1) 96%);
-        position: relative;
-      }
+    h3 {
+      font-family: "Gold-Bold", serif;
+      font-size: 10rem;
+      color: #ffffff;
+      font-weight: bold;
+    }
 
-      .img-transicion{
-        min-height: 100px;
-      }
+    p {
+      margin-top: 2rem;
+      font-family: "Gold-Bold", serif;
+      font-size: 3rem;
+      color: #ffffff;
+      letter-spacing: 0.36px;
+      line-height: 3.5rem;
+      font-weight: bold;
+    }
+  }
 
-      .img-transicion{
-        display: flex;
-        justify-content: end;
-        padding-top: 15px;
-        padding-right: 15px;
-      }
+  .img-juego-c {
+    margin-top: 12rem;
+  }
+}
+
+.juegos {
+  .sec-juegos {
+    margin: 10rem 0;
+  }
+
+  .card {
+    width: 90%;
+    max-width: 300px;
+    border-radius: 40px;
+    overflow: hidden;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    background: linear-gradient(263deg, rgba(2, 0, 36, 1) 5%, rgba(9, 9, 121, 1) 48%, rgba(0, 212, 255, 1) 96%);
+    position: relative;
+
+    .img-transicion{
+      display: flex;
+      justify-content: end;
+    }
+
+    .back{
+      width: 50px;
+      opacity: 0;
+
+    }
+
+    img {
+      width: 90px;
+      object-fit: cover;
+      transition: transform 0.5s ease, scale 0.5s ease;
+      position: absolute;
+      top: 1rem;
+    }
+
+    &:hover img {
+      transform: rotate(-50deg) scale(1.5);
+    }
+
+    &:hover .back{
+      opacity: 1;
+      right: -5rem;
+      top: 5rem;
+    }
+
+    .card-content {
+      margin-top: 40px;
+      padding: 26px;
+    }
+
+    .card-title {
+      font-family: "Gotham", serif;
+      font-size: 2.5rem;
+      margin: 0;
+    }
+
+    .card-subtitle {
+      font-family: "Gold-Bold", serif;
+      font-size: 2rem;
+      margin: 8px 0;
+      color: #ffffff;
+    }
+
+    .card-footer {
+      padding: 16px;
+      background-color: #f0f0f0;
+      font-size: 0.9em;
+      color: #555;
+    }
+  }
+
+  .card-2 {
+    background: linear-gradient(263deg, var(--primary-color) 0%, var(--secondary-color) 48%);
   
-      .card img {
-        width: 90px;
-        object-fit: cover;
-        transition: transform 0.5s ease, scale 0.5s ease;
-      }
-
-      .card:hover img {
-        transform: rotate(-50deg) scale(1.5); /* Rotar a la izquierda (-10 grados) y agrandar (1.2 veces) */
-      }
-
-      .galletex{
-        transition: transform 0.3s ease; /* Animación suave */
-      }
-
-      .card img.back {
-        transform: rotate(10deg) scale(1.2); /* Posición inicial (oculta y girada) */
-        opacity: 0; /* Totalmente invisible */
-      }
-
-      .card:hover img.back {
-        transform: rotate(-50deg) scale(1); /* Girar a su posición normal y ajustar el tamaño */
-        opacity: 1; /* Hacer visible la imagen secundaria */
-        top: 50px;
-        right: -9rem;
-      }
+    .carta,
+    .carta2,
+    .carta3 {
+      position: absolute;
+      transition: transform 0.4s ease, opacity 0.4s ease, z-index 0.2s;
+      z-index: 2;
+    }
   
-      .card-content {
-        padding: 16px;
-      }
+    .carta {
+      width: 80px;
+      transform: rotate(-35deg);
+      z-index: 3;
+      top: -8px;
+    }
   
-      .card-title {
-        font-family: "Gotham", serif;
-        font-size: 3rem;
-        margin: 0;
-      }
+    .carta2 {
+      opacity: 0;
+      width: 50px;
+      transform: rotate(-40deg);
+      right: 15px;
+    }
   
-      .card-subtitle {
-        font-family: "Gold-Bold", serif;
-        font-size: 2rem;
-        margin: 8px 0;
-        color: #ffffff;
-      }
+    .carta3 {
+      opacity: 0;
+      width: 50px;
+      transform: rotate(-10deg);
+      right: 8rem;
+      top: -15px;
+    }
   
-      .card-footer { 
-        padding: 16px;
-        background-color: #f0f0f0;
-        font-size: 0.9em;
-        color: #555;
-      }
+    &:hover .carta,
+    &:hover .carta2,
+    &:hover .carta3 {
+      opacity: 1;
+    }
+  
+    &:hover .carta {
+      transform: var(--hover-transform);
+    }
+  
+    &:hover .carta2 {
+      z-index: 1;
+    }
+  
+    &:hover .carta3 {
+      z-index: 0;
+    }
 
-      .card-3{
-        background: linear-gradient(263deg, rgba(36,36,0,1) 0%, rgba(247,232,7,1) 48%, rgba(247,232,7,1) 84%);
+    .card-content {
+      margin-top: 40px;
+      padding: 26px;
+    }
+  
+    .card-title {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+  
+    .card-subtitle {
+      font-size: 1rem;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+  }
+  
 
-        img{
-          width: 250px;
-          position: absolute;
-          top: -90px;
-          right: -108px;
-        }
+  .card-3 {
+    background: linear-gradient(263deg, rgba(36, 36, 0, 1) 0%, rgba(247, 232, 7, 1) 48%, rgba(247, 232, 7, 1) 84%);
 
-        .card-content {
-          margin-top: 30px;
-          padding: 26px;
-        }
-    
-      }
+    img {
+      width: 250px;
+      position: absolute;
+      top: -90px;
+      right: -108px;
+    }
+
+    .card-content {
+      margin-top: 40px;
+      padding: 26px;
+    }
+
+    .card-title{
+      font-size: 2rem;
+    }
+
+    .card-subtitle {
+      line-height: 20px;
+    }
+  }
 }
