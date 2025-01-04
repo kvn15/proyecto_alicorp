@@ -22,17 +22,22 @@ class Participant extends Model
     'ganador',
     'participaciones',
     ];
-    
+
     // Relacion categoria - Uno a Uno
     public function user() {
         return $this->belongsTo(User::class, 'user_id');
     }
-    
+
+    // Relacion categoria - Uno a Uno
+    public function project() {
+        return $this->belongsTo(Project::class);
+    }
+
     // Relacion categoria - Uno a Uno
     public function award_project() {
         return $this->belongsTo(AwardProject::class, 'award_project_id');
     }
-    
+
     // Relacion categoria - Uno a Uno
     public function other_participant() {
         return $this->belongsTo(OtherParticipant::class, 'other_participant_id');

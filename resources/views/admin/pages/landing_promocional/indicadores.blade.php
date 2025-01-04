@@ -36,8 +36,8 @@
         {{-- Indicadores card --}}
         <div class="row indicador">
             <div class="col-12 col-sm-6 col-md-3">
-                <div class="info-box"> 
-                    <span class="info-box-icon"> 
+                <div class="info-box">
+                    <span class="info-box-icon">
                         <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="28" cy="28" r="28" fill="#F4F7FE"/>
                             <g clip-path="url(#clip0_110_2307)">
@@ -50,19 +50,19 @@
                             </defs>
                         </svg>
                     </span>
-                    <div class="info-box-content"> 
-                        <span class="info-box-text">Vistas</span> 
+                    <div class="info-box-content">
+                        <span class="info-box-text">Vistas</span>
                         <span class="info-box-number">
                             {{ $project["NroVistas"] }}
-                        </span> 
+                        </span>
                     </div>
                 </div>
             </div>
             <div class="col-12 col-sm-6 col-md-3">
-                <div class="info-box"> 
+                <div class="info-box">
                     <div class="info-box-content"> <span class="info-box-text">Participantes</span> <span class="info-box-number">
                         {{ $project["NroParticipantes"] }}</span> </div>
-                    <span class="info-box-icon"> 
+                    <span class="info-box-icon">
                         <svg width="64" height="46" viewBox="0 0 64 46" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="58.0737" y="45.5704" width="45.5705" height="5.33286" rx="2.66643" transform="rotate(-90 58.0737 45.5704)" fill="#E9EDF7"/>
                             <rect x="58.0737" y="45.5704" width="10.8668" height="5.33286" rx="2.66643" transform="rotate(-90 58.0737 45.5704)" fill="#E62020"/>
@@ -79,7 +79,7 @@
                 </div>
             </div>
             <div class="col-12 col-sm-6 col-md-3">
-                <div class="info-box"> 
+                <div class="info-box">
                     <span class="info-box-icon">
                         <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="28" cy="28" r="28" fill="#F4F7FE"/>
@@ -121,7 +121,7 @@
                 <div class="border-card card-right">
                     <div class="d-flex justify-content-between">
                         <div class="d-flex mb-4 align-items-center" style="gap: 0.8em">
-                            <h5 class="mb-0">Usuarios</h5> 
+                            <h5 class="mb-0">Usuarios</h5>
                             <span class="separate">|</span>
                             <span class="leyenda">
                                 <span class="leyenda-circle leyenda-success"></span>
@@ -133,7 +133,7 @@
                             </span>
                         </div>
 
-                        <div>
+                        {{-- <div>
                             <select class="select-chart">
                                 <option value="" selected>Todo</option>
                                 <option value="">Enero</option>
@@ -149,7 +149,7 @@
                                 <option value="">Noviembre</option>
                                 <option value="">Diciembre</option>
                             </select>
-                        </div>
+                        </div> --}}
                     </div>
                     <canvas id="areaChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                 </div>
@@ -198,10 +198,10 @@
                 <div class="border-card card-right">
                     <div class="d-flex justify-content-between">
                         <div class="d-flex mb-2 align-items-center" style="gap: 0.8em">
-                            <h5 class="mb-0">Participantes</h5> 
+                            <h5 class="mb-0">Participantes</h5>
                         </div>
 
-                        <div>
+                        {{-- <div>
                             <select class="select-chart">
                                 <option value="" selected>Todo</option>
                                 <option value="">Enero</option>
@@ -217,7 +217,7 @@
                                 <option value="">Noviembre</option>
                                 <option value="">Diciembre</option>
                             </select>
-                        </div>
+                        </div> --}}
                     </div>
                     <canvas id="myChart" width="400" height="200"></canvas>
                 </div>
@@ -226,7 +226,7 @@
                 <div class="border-card card-right">
                     <div class="d-flex justify-content-between mb-3">
                         <div>
-                            <h5 class="mb-0">KPis</h5> 
+                            <h5 class="mb-0">KPis</h5>
                         </div>
                         <div>
                             <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -243,10 +243,12 @@
                         </div>
                     </div>
                     <div class="w-100" style="font-size: 14px; font-weight: 500">
-                        {{-- <div class="d-flex justify-content-between mb-3">
-                            <span>KPI nro 1</span>
-                            <span>12,200</span>
-                        </div> --}}
+                        @foreach ($project["kpis"] as $item)
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>{{ $item["name"] }}</span>
+                            <span>{{ $item["data"] }}</span>
+                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -337,7 +339,7 @@
             label: 'Participantes',
             data: participantes.split('|'), // Datos para cada mes
             backgroundColor: [
-                '#E9EDF7', '#E9EDF7', '#E9EDF7', '#E9EDF7', '#E9EDF7', '#E9EDF7', 
+                '#E9EDF7', '#E9EDF7', '#E9EDF7', '#E9EDF7', '#E9EDF7', '#E9EDF7',
                 '#E9EDF7', '#E9EDF7', '#E9EDF7', '#E9EDF7', '#E9EDF7', '#E9EDF7'
             ],
             borderWidth: 1,
@@ -399,7 +401,7 @@
             onClick: (e, elements) => {
                 // Reiniciar el color de todas las barras
                 data.datasets[0].backgroundColor = Array(data.labels.length).fill('#E9EDF7');
-                
+
                 if (elements.length > 0) {
                     // Obtener el índice de la barra seleccionada
                     const index = elements[0].index;
@@ -408,14 +410,14 @@
 
                     // Activar la barra seleccionada
                     data.datasets[0].backgroundColor[index] = '#FD000D'; // Pintar de rojo la barra seleccionada
-                    
+
                     // Configurar la posición de la línea horizontal centrada en la barra seleccionada
                     config.options.plugins.annotation.annotations.line1.display = true; // Hacer visible la línea
                     config.options.plugins.annotation.annotations.line1.xMin = 0; // Iniciar en el borde izquierdo
                     config.options.plugins.annotation.annotations.line1.xMax = data.labels.length - 1; // Terminar en el borde derecho
                     config.options.plugins.annotation.annotations.line1.yMin = barValue - 10; // Mantener en el valor de la barra seleccionada menos un margen
                     config.options.plugins.annotation.annotations.line1.yMax = barValue - 10; // Asegurar que sea horizontal
-                    
+
                     // Habilitar la etiqueta y asignar el número correspondiente a la derecha de la línea
                     config.options.plugins.annotation.annotations.line1.label.enabled = true;
                     config.options.plugins.annotation.annotations.line1.label.content = barValue;
