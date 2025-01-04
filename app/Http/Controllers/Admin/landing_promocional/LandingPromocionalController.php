@@ -35,7 +35,7 @@ class LandingPromocionalController extends Controller
     {
         //
     }
-    
+
     public function show($id)
     {
         $landing = Project::where('id', $id)
@@ -47,7 +47,7 @@ class LandingPromocionalController extends Controller
         // Obtener ultimos ganadores
         $ultParticipantes = Participant::where('project_id', $id)->orderBy('created_at', 'desc')->limit(8)->get();
         $ultGanadores = Participant::where('project_id', $id)->where('ganador', 1)->orderBy('created_at', 'desc')->limit(8)->get();
-        
+
         // Obtener los meses
         $startDate = Carbon::parse($landing->fecha_ini_proyecto);
         $endDate = Carbon::now()->endOfYear(); // O puedes usar otra fecha como '2024-12-31'
@@ -61,7 +61,7 @@ class LandingPromocionalController extends Controller
         //     $startDate->addMonth(); // Sumar un mes
         // }
         // $meses = array_map('ucfirst', $meses);
-        
+
         $meses = $this->obtenerUltimos12Meses();
 
         // obtener las vistas x mes
@@ -104,7 +104,7 @@ class LandingPromocionalController extends Controller
         $startDate = Carbon::parse($landing->fecha_ini_proyecto);
         $endDate = Carbon::now()->endOfYear(); // O puedes usar otra fecha como '2024-12-31'
         $meses = [];
- 
+
         // while ($startDate->lte($endDate)) {
         //     $monthName = $startDate->translatedFormat('F'); // Nombre del mes en español
         //     if (!in_array($monthName, $meses)) {
@@ -135,6 +135,7 @@ class LandingPromocionalController extends Controller
 
         $total7Dias = $this->TotalVistasUltimos7Dias($id);
 
+        $kpis = $this->obtenerKpis($id);
         $project = [
             'landing' => $landing,
             'NroVistas' => $NroVistas,
@@ -146,9 +147,74 @@ class LandingPromocionalController extends Controller
             'participantes' => implode('|',$partcipantes),
             'ultimos7Dias' => $ultimos7Dias,
             'total7Dias' => $total7Dias,
+            'kpis' => $kpis
         ];
 
         return view('admin.pages.landing_promocional.indicadores', compact('project'));
+    }
+
+    public function obtenerKpis($idProject) {
+
+        // Obtener cantidad usuarios registrados
+        $project = Project::find($idProject);
+
+        $ganadores = $project->participants()->where('ganador', 1)->count();
+        $participantes = $project->participants()->count();
+        $tasa_ganadores = $participantes > 0 ? ($ganadores / $participantes) * 100 : 0;
+
+        $coleccion = collect();
+
+        $coleccion->push(['name' => 'Tasa de ganadores', 'data' => $tasa_ganadores.'%' ]);
+
+        $anioActual = Carbon::now()->year;
+        $mesActual = Carbon::now()->month;
+
+        $mesAnterior = Carbon::now()->subMonth(); // Restar un mes
+        $anioAnterior = $mesAnterior->year;
+        $mesAnterior = $mesAnterior->month;
+
+        // Obtener visitas
+        $visitasActual = ViewProject::where('project_id', $idProject)
+        ->whereYear('created_at', $anioActual)
+        ->whereMonth('created_at', $mesActual)
+        ->count();
+
+        $visitasMesAnterior = ViewProject::where('project_id', $idProject)
+        ->whereYear('created_at', $anioAnterior) // Comparar año
+        ->whereMonth('created_at', $mesAnterior) // Comparar mes;
+        ->count();
+
+        $tasaCrecimiento = $visitasMesAnterior > 0 && $visitasActual > 0 ? (($visitasActual - $visitasMesAnterior) / $visitasMesAnterior) * 100 : ($visitasActual > 0 ? ($visitasActual / $visitasActual) * 100 : 0);
+
+        $coleccion->push(['name' => 'Tasa de crecimiento Vistas al mes anterior', 'data' => $tasaCrecimiento.'%' ]);
+
+        // Tasa de perdedores
+        $perdedores = $project->participants()->where('ganador','<>', 1)->count();
+
+        $tasa_perdedores = $perdedores > 0 ? ($perdedores/$participantes)*100 : 0 ;
+
+        $coleccion->push(['name' => 'Tasa de perdedores', 'data' => $tasa_perdedores.'%' ]);
+
+        // Cantidad de premios entregados
+        $coleccion->push(['name' => 'Premios Ganados', 'data' => $ganadores ]);
+
+        $usuariosReg = DB::table("participants")
+            ->join('users', 'users.id', '=', 'participants.user_id')
+            ->where('participants.project_id', $idProject)
+            ->distinct()
+            ->count('users.id');  // Contar por 'users.id'
+
+        $otherReg = DB::table("participants")
+        ->join('other_participants', 'other_participants.id', '=', 'participants.other_participant_id')
+        ->where('participants.project_id', $idProject)
+        ->distinct()
+        ->count('other_participants.id');
+
+        // Cantidad de participantes registrados
+        $coleccion->push(['name' => 'Participantes Registrados', 'data' => $otherReg + $usuariosReg ]);
+
+
+        return $coleccion->all();
     }
 
     public function participante($id)
@@ -157,14 +223,14 @@ class LandingPromocionalController extends Controller
                             ->first();
         return view('admin.pages.landing_promocional.participantes', compact('landing'));
     }
-    
+
     public function ganador($id)
     {
         $landing = Project::where('id', $id)
                             ->first();
         return view('admin.pages.landing_promocional.ganadores', compact('landing'));
     }
-    
+
     public function asignacion($id)
     {
         $landing = Project::where('id', $id)
@@ -211,7 +277,7 @@ class LandingPromocionalController extends Controller
                     ->groupBy('month')
                     ->orderBy('month')
                     ->get();
-                    
+
         // Reemplazar los valores en el array base si existen datos
         foreach ($vistasPorMes as $vista) {
             if (isset($meses[$vista->month])) {
@@ -249,7 +315,7 @@ class LandingPromocionalController extends Controller
                     ->groupBy('month')
                     ->orderBy('month')
                     ->get();
-        
+
         // Reemplazar los valores en el array base si existen datos
         foreach ($participantePorMes as $participante) {
             if (isset($meses[$participante->month])) {
@@ -304,12 +370,12 @@ class LandingPromocionalController extends Controller
         $totalUltimos7Dias = ViewProject::where('project_id', $id)
             ->whereBetween('created_at', [$fechaInicio, $fechaFin])
             ->count();
-            
+
         return $totalUltimos7Dias;
     }
 
     public function personalizarLanding($id) {
-        
+
         $project = Project::where('id', $id)
                             ->first();
 
@@ -322,7 +388,7 @@ class LandingPromocionalController extends Controller
     }
 
     public function personalizarJuego($id) {
-        
+
         $project = Project::where('id', $id)
                             ->first();
         $gameMemoria = GameView::where('project_id', $id)->first();
@@ -342,7 +408,7 @@ class LandingPromocionalController extends Controller
     }
 
     public function personalizarJuegoRaspaGana($id) {
-        
+
         $project = Project::where('id', $id)
                             ->first();
         $gameRaspaGana = RaspaGana::where('project_id', $id)->first();
@@ -362,7 +428,7 @@ class LandingPromocionalController extends Controller
     }
 
     public function personalizarRuleta($id) {
-        
+
         $project = Project::where('id', $id)
                             ->first();
         $gameRuleta = Roulette::where('project_id', $id)->first();
@@ -388,7 +454,7 @@ class LandingPromocionalController extends Controller
         $premios = AwardProject::where('project_id', $projectId)->where('status', 1)->where('stock','>',0)->get();
         $project = Project::findOrFail($projectId);
         $sigueIntentando = KeepTrying::where('project_id', $projectId)->first();
-    
+
         // Crear un array acumulativo para la probabilidad
         $acumulado = [];
         $total = 0;
@@ -397,7 +463,7 @@ class LandingPromocionalController extends Controller
         if (isset($sigueIntentando) && !empty($sigueIntentando)) {
             $rutaSigue = $sigueIntentando["imagen"];
         }
-    
+
         foreach ($premios as $premio) {
             $total += $premio->probabilidad;
             $acumulado[] = [
@@ -414,10 +480,10 @@ class LandingPromocionalController extends Controller
             'imagen' => $rutaSigue,
             'prob_acum' => $total
         ];
-    
+
         // Generar un número aleatorio entre 1 y 100
         $random = rand(1, $total);
-    
+
         // Buscar el premio que corresponde al número aleatorio
         foreach ($acumulado as $item) {
             if ($random <= $item['prob_acum']) {

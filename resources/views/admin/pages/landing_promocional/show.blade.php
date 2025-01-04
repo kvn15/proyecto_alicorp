@@ -115,7 +115,7 @@
                                             $rutaVisitar = route('landing.view', $project["landing"]->dominio);
                                         } else {
                                             if ($project["landing"]->project_type_id == 2) { // Juego Web
-                                                
+
                                                 if ($project["landing"]->game_id == 1) {
                                                     $rutaVisitar = route('juegoWeb.juego.view.registro.raspagana', $project["landing"]->dominio);
                                                 } else if($project["landing"]->game_id == 2) {
@@ -123,10 +123,10 @@
                                                 } else {
                                                     $rutaVisitar = route('juegoWeb.juego.view.registro', $project["landing"]->dominio);
                                                 }
-                                                
+
 
                                             } else {
-                                                
+
                                                 if ($project["landing"]->game_id == 1) {
                                                     $rutaVisitar = route('juegoCampana.juego.view.registro.raspagana', $project["landing"]->dominio);
                                                 } else if($project["landing"]->game_id == 2) {
@@ -134,11 +134,11 @@
                                                 } else {
                                                     $rutaVisitar = route('juegoCampana.juego.view.registro', $project["landing"]->dominio);
                                                 }
-                                                
+
                                             }
-                                            
+
                                         }
-                                            
+
                                     @endphp
                                         <a href="{{ $rutaVisitar }}" class="btn btn-outline-secondary ms-2" style="align-self: flex-start;font-size: 14px;" target="_blank">Visitar</a>
                                     @endif
@@ -152,7 +152,7 @@
                         <div class="d-flex justify-content-between">
                             <h5 class="mb-4">Funnel</h5>
 
-                            <div>
+                            {{-- <div>
                                 <select class="select-chart">
                                     <option value="" selected>Todo</option>
                                     <option value="">Enero</option>
@@ -168,7 +168,7 @@
                                     <option value="">Noviembre</option>
                                     <option value="">Diciembre</option>
                                 </select>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="chart">
                             <canvas></canvas>
@@ -214,7 +214,7 @@
                     <div class="border-card card-right">
                         <div class="d-flex justify-content-between">
                             <div class="d-flex mb-4 align-items-center" style="gap: 0.8em">
-                                <h5 class="mb-0">Usuarios</h5> 
+                                <h5 class="mb-0">Usuarios</h5>
                                 <span class="separate">|</span>
                                 <span class="leyenda">
                                     <span class="leyenda-circle leyenda-success"></span>
@@ -226,7 +226,7 @@
                                 </span>
                             </div>
 
-                            <div>
+                            {{-- <div>
                                 <select class="select-chart">
                                     <option value="" selected>Todo</option>
                                     <option value="">Enero</option>
@@ -242,7 +242,7 @@
                                     <option value="">Noviembre</option>
                                     <option value="">Diciembre</option>
                                 </select>
-                            </div>
+                            </div> --}}
                         </div>
                         <canvas id="areaChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                     </div>
@@ -329,13 +329,13 @@
         for(let i = 0; i < boxes; i++) {
             let x = Math.round(i*(width / boxes));
 
-            // draw separation lines 
+            // draw separation lines
             ctx.beginPath();
             ctx.moveTo(x + 0.5, 0.5);
             ctx.lineTo(x, height - 20);
             ctx.stroke();
 
-            // draw item area 
+            // draw item area
             ctx.fillStyle = data[i].color;
             ctx.beginPath();
             ctx.moveTo(x, height - 20 - data[i].height);
@@ -441,18 +441,18 @@
                 processData: false, // No procesar los datos
                 success: function(data) {
                     // Procesar los datos devueltos
-                    // toastr.success(data.message); 
+                    // toastr.success(data.message);
                     if (data) {
                         if ($("#status").val() == '1') {
                             $("#status").val('2');
                             $("#publicar").remove();
                             $(".btn_proyecto").removeClass('btn-inactivo').addClass('btn-activo')
                             $(".btn_proyecto").html("Activo")
-                        } 
+                        }
                     }
                     console.log(data)
                     // if (data) {
-                    //     toastr.success('Cambios guadados correctamente'); 
+                    //     toastr.success('Cambios guadados correctamente');
                     // }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
