@@ -6,8 +6,8 @@
                 <span class="input-group-text" id="basic-addon1" style="background-color: transparent; border-right: 0"><i class="bi bi-search"></i></span>
                 <input wire:model.debounce.300ms="search" type="text" class="form-control" placeholder="Buscar" style="border-left: 0">
             </div>
-            
-            <button class="btn btn-outline-danger ms-2" style="align-self: flex-start" data-bs-toggle="modal" data-bs-target="#modalAgregar" wire:click="resetForm"><i class="fas fa-user-plus"></i> Agregar Administrador</button>
+
+            <button class="btn btn-outline-danger ms-2" style="align-self: flex-start" data-bs-toggle="modal" data-bs-target="#modalAgregarT" wire:click="resetForm"><i class="fas fa-user-plus"></i> Agregar Administrador</button>
         </div>
         <div class="col-12">
             <div class="table-responsive table-alicorp">
@@ -24,7 +24,7 @@
                     </thead>
                     <tbody>
                         @foreach ( $admin as $value )
-                        <tr>    
+                        <tr>
                             <td>{{ $value->id }}</td>
                             <td>{{ $value->name }}</td>
                             <td>{{ $value->email  }}</td>
@@ -37,7 +37,7 @@
                                 @endif
                             </td>
                             <td class="flex flex-row" style="gap: 0.5rem;">
-                                <button class="btn btn-outline-info" wire:click="findAdminById({{ $value->id }})" data-bs-toggle="modal" data-bs-target="#modalEditar">
+                                <button class="btn btn-outline-info" wire:click="findAdminById({{ $value->id }})" data-bs-toggle="modal" data-bs-target="#modalEditarT">
                                     <i class="fas fa-user-edit"></i>
                                 </button>
                                 @if ($value->status == 0)
@@ -58,9 +58,9 @@
             </div>
         </div>
     </div>
-    
+
     {{-- Modal Agregar --}}
-    <div wire:ignore.self class="modal fade" id="modalAgregar" tabindex="-1" aria-labelledby="exampleModalAgregar" aria-hidden="true">
+    <div wire:ignore.self class="modal fade" id="modalAgregarT" tabindex="-1" aria-labelledby="exampleModalAgregar" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered  modal-lg">
             <form wire:submit.prevent="store" class="modal-content">
                 <div class="modal-header" style="background-color: #ED1B2F; color: #fff;">
@@ -101,9 +101,9 @@
             </form>
         </div>
     </div>
-    
+
     {{-- Modal Agregar --}}
-    <div wire:ignore.self class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="examplemodalEditar" aria-hidden="true">
+    <div wire:ignore.self class="modal fade" id="modalEditarT" tabindex="-1" aria-labelledby="examplemodalEditar" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered  modal-lg">
             <form wire:submit.prevent="update" class="modal-content">
                 <div class="modal-header" style="background-color: #ED1B2F; color: #fff;">
@@ -134,7 +134,7 @@
             </form>
         </div>
     </div>
-    
+
     <script>
         window.addEventListener('swal:alert', event => {
             Swal.fire({

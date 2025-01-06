@@ -4,17 +4,17 @@
         <button class="btn btn-outline-dark me-2" wire:click="downloadExcel">Descargar Formato</button>
         <label for="file" class="btn btn-outline-dark">Carga Masiva</label>
         <input type="file" wire:model="file" hidden id="file" accept=".xlsx, .xls">
-        <button class="btn btn-outline-danger ms-2" style="align-self: flex-start" data-bs-toggle="modal" data-bs-target="#modalAgregar">Agregar</button>
+        <button class="btn btn-outline-danger ms-2" style="align-self: flex-start" data-bs-toggle="modal" data-bs-target="#modalAgregarG">Agregar</button>
     </div>
     @endif
-    
+
     <div class="col-12 d-flex justify-content-between">
         <div class="col-12 col-lg-4 d-flex justify-content-start position-relative" style="gap: 0.7em">
             <div class="filtro-select-btn d-none" id="premios_ctn">
                 <span>Premio: <span id="premio_text"></span></span>
                 <span class="cursor-pointer" wire:click="removePremio"><i class="bi bi-x-lg"></i></span>
             </div>
-            
+
             <label for="checkFilter" class="btn btn-filtro" style="align-self: baseline;" id="btnFiltro">
                 <i class="bi bi-filter"></i> Filtros
             </label>
@@ -39,7 +39,7 @@
                         <label for="fecha_fin" class="form-label">Fch. Premio Fin</label>
                         <input type="date" name="fecha_fin" id="fecha_fin" class="form-control" wire:model="fecha_fin">
                     </div>
-        
+
                     <div class="col-12">
                         <button type="button" class="btn btn-alicorp w-100" wire:click="filter">Filtrar</button>
                     </div>
@@ -76,7 +76,7 @@
                 </thead>
                 <tbody>
                     @foreach ( $participant as $value )
-                    <tr>    
+                    <tr>
                         <td>{{ $value->id }}</td>
                         <td>{{ $value->created_at }}</td>
                         <td>{{ isset($value->user->name) ? $value->user->name : $value->other_participant->nombres }}</td>
@@ -106,7 +106,7 @@
     </div>
 
     {{-- Modal Agregar --}}
-    <div wire:ignore.self class="modal fade" id="modalAgregar" tabindex="-1" aria-labelledby="exampleModalAgregar" aria-hidden="true">
+    <div wire:ignore.self class="modal fade" id="modalAgregarG" tabindex="-1" aria-labelledby="exampleModalAgregar" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <form wire:submit.prevent="store" class="modal-content">
                 <div class="modal-header" style="background-color: #ED1B2F; color: #fff;">

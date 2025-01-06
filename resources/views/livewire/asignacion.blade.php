@@ -4,14 +4,14 @@
             <button class="btn btn-outline-dark" wire:click="downloadExcel">Descargar Formato</button>
             <label for="file" class="btn btn-outline-dark">Carga Masiva</label>
             <input type="file" wire:model="file" hidden id="file" accept=".xlsx, .xls">
-            <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#modalEditar">Editar</button>
+            <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#modalEditarB">Editar</button>
         </div>
         <div class="d-flex justify-content-end">
             <div class="input-group input-group-tabla mb-3 w-100">
                 <span class="input-group-text" id="basic-addon1" style="background-color: transparent; border-right: 0"><i class="bi bi-search"></i></span>
                 <input wire:model.debounce.300ms="search" type="text" class="form-control form-table" placeholder="Buscar" style="border-left: 0">
             </div>
-            <button class="btn btn-outline-danger ms-2" style="align-self: flex-start" data-bs-toggle="modal" data-bs-target="#modalAgregar" wire:click="allDatas">Agregar</button>
+            <button class="btn btn-outline-danger ms-2" style="align-self: flex-start" data-bs-toggle="modal" data-bs-target="#modalAgregarA" wire:click="allDatas">Agregar</button>
         </div>
     </div>
 
@@ -32,7 +32,7 @@
                 </thead>
                 <tbody>
                     @foreach ( $asignacion as $value )
-                    <tr>    
+                    <tr>
                         <td><input class="form-check-input me-2" type="checkbox" value="1" wire:model="selected.{{ $value->id }}"> {{ $value->id }}</td>
                         <td>{{ $value->fecha_inicio }}</td>
                         <td>{{ $value->fecha_fin }}</td>
@@ -72,7 +72,7 @@
     </div>
 
     {{-- Modal Agregar --}}
-    <div wire:ignore.self class="modal fade" id="modalAgregar" tabindex="-1" aria-labelledby="exampleModalAgregar" aria-hidden="true">
+    <div wire:ignore.self class="modal fade" id="modalAgregarA" tabindex="-1" aria-labelledby="exampleModalAgregar" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered  modal-lg">
             <form wire:submit.prevent="store" class="modal-content">
                 <div class="modal-header" style="background-color: #ED1B2F; color: #fff;">
@@ -207,7 +207,7 @@
     </div>
 
     {{-- Modal Editar --}}
-    <div wire:ignore.self class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="exampleModalEditar" aria-hidden="true">
+    <div wire:ignore.self class="modal fade" id="modalEditarB" tabindex="-1" aria-labelledby="exampleModalEditar" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <form wire:submit.prevent="update" class="modal-content">
                 <div class="modal-header" style="background-color: #ED1B2F; color: #fff;">

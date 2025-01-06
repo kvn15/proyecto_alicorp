@@ -6,7 +6,7 @@
                 <span class="input-group-text" id="basic-addon1" style="background-color: transparent; border-right: 0"><i class="bi bi-search"></i></span>
                 <input wire:model.debounce.300ms="search" type="text" class="form-control" placeholder="Buscar" style="border-left: 0">
             </div>
-            
+
             <button class="btn btn-outline-danger ms-2" style="align-self: flex-start" data-bs-toggle="modal" data-bs-target="#modalAgregar" wire:click="resetForm"><i class="fas fa-user-plus"></i> Agregar Xplorer</button>
         </div>
         <div class="col-12">
@@ -28,7 +28,7 @@
                     </thead>
                     <tbody>
                         @foreach ( $xplorer as $value )
-                        <tr>    
+                        <tr>
                             <td>{{ $value->id }}</td>
                             <td>{{ $value->name }} {{ $value->apellido }}</td>
                             <td>{{ $value->tipo_documento ?? 'DNI' }}</td>
@@ -72,7 +72,7 @@
             </div>
         </div>
     </div>
-    
+
     {{-- Modal Agregar --}}
     <div wire:ignore.self class="modal fade" id="modalAgregar" tabindex="-1" aria-labelledby="exampleModalAgregar" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered  modal-lg">
@@ -137,7 +137,7 @@
             </form>
         </div>
     </div>
-    
+
     {{-- Modal Agregar --}}
     <div wire:ignore.self class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="examplemodalEditar" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered  modal-lg">
@@ -202,7 +202,7 @@
             </form>
         </div>
     </div>
-    
+
     {{-- Modal password --}}
     <div wire:ignore.self class="modal fade" id="modalPass" tabindex="-1" aria-labelledby="examplemodalPass" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered  modal-lg">
