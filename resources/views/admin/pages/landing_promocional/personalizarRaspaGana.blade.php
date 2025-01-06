@@ -2,10 +2,10 @@
 
 
 @php
-    $project = $data["project"]; 
-    $gameRaspaGana = $data["gameRaspaGana"]; 
-    $projectPremio = $data["projectPremio"]; 
-    $premioSelect = $data["premio"]; 
+    $project = $data["project"];
+    $gameRaspaGana = $data["gameRaspaGana"];
+    $projectPremio = $data["projectPremio"];
+    $premioSelect = $data["premio"];
     $sigueIntentando = $data["sigueIntentando"];
 
     $urlSigue = isset($sigueIntentando["imagen"]) && !empty($sigueIntentando["imagen"]) ? '/storage/'.$sigueIntentando["imagen"] : '';
@@ -59,7 +59,7 @@
         border-radius: 0.3em;
     }
 
-    .base {    
+    .base {
         height: 72% !important;
         width: 89% !important;
         transform: rotate(-368deg);
@@ -94,8 +94,8 @@
     }
 
     .img-premio {
-        /* width: 80%;
-        height: 70%; */
+        width: 80%;
+        height: 70%;
         margin: auto;
     }
 
@@ -222,7 +222,7 @@
             padding-bottom: 0.3em;
             font-size: 3em;
             border-bottom: 2px solid #005adc;
-        } 
+        }
 
         .content_politicas_terminos p {
             font-size: 22px;
@@ -245,13 +245,13 @@
 </style>
 
 <script>
-    function subirImagenPremio (event, orden) {  
+    function subirImagenPremio (event, orden) {
         const premio_img = document.getElementById("premio_img")
         const premio_img_2 = document.getElementById("img-premio")
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            
+
             reader.onload = function(e) {
                 const preview = document.getElementById('preview-premio-'+orden.toString());
                 const upload = document.getElementById('upload-premio-'+orden.toString())
@@ -278,7 +278,7 @@
     $principalData = json_decode($principal, true);
     $premioData = json_decode($premio, true);
     $imgNulo = asset('backend/svg/img-null.svg');
-    
+
     $fondo = isset($gameRaspaGana) && !empty($gameRaspaGana->fondo) ? "/storage/".$gameRaspaGana->fondo : $imgNulo;
     $fondo_url = isset($gameRaspaGana) && !empty($gameRaspaGana->fondo) ? '/storage/'.$gameRaspaGana->fondo : "" ;
 
@@ -297,12 +297,12 @@
     $boldTitulo = isset($principalData["bold-titulo-parrafo"]) ? ($principalData["bold-titulo-parrafo"] == 1 ? "checked" : "") : "";
     $italicTitulo = isset($principalData["italic-titulo-parrafo"]) ? ($principalData["italic-titulo-parrafo"] == 1 ? "checked" : "") : "";
     $tituloTexto = isset($principalData["texto-header"]) ? $principalData["texto-header"]  : "";
-    
+
     $tamanoTexto = isset($principalData["tamanoTexto"]) ? $principalData["tamanoTexto"] : "";
     $tamano1 = $tamanoTexto == 1 ? 'checked' : "";
     $tamano2 = $tamanoTexto == 2 ? 'checked' : "";
     $tamano3 = $tamanoTexto == 3 ? 'checked' : "";
-    
+
     $alineacion = isset($principalData["alineacionTexto"]) ? $principalData["alineacionTexto"] : "";
     $alineacion1 = $alineacion == 1 ? 'checked' : "";
     $alineacion2 = $alineacion == 2 ? 'checked' : "";
@@ -340,7 +340,7 @@
             @csrf
             @method('POST')
             <div class="d-block" id="menu_edit">
-                <div class="border-bottom py-2">                   
+                <div class="border-bottom py-2">
                      <button type="button" class="border-0 w-100 text-start" style="background-color: #fff;" id="back_configuracion"><i class="bi bi-box-arrow-left"></i> Personalizar</button>
                 </div>
                 <div class="py-2 border-bottom cursor" id="principal-menu">
@@ -465,14 +465,14 @@
                         </li>
                         <li class="my-2">
                             <p class="my-1">Tamaño Texto</p>
-                            
+
                             <div class="btn-group" role="group">
                                 <input type="radio" class="btn-check" name="tamanoTexto" id="tamanoTexto1" autocomplete="off" {{ $tamano1 }}>
                                 <label class="btn btn-outline-text" for="tamanoTexto1"><small><b>Chico</b></small></label>
-                              
+
                                 <input type="radio" class="btn-check" name="tamanoTexto" id="tamanoTexto2" autocomplete="off" {{ $tamano2 }}>
                                 <label class="btn btn-outline-text" for="tamanoTexto2"><small><b>Mediano</b></small></label>
-                              
+
                                 <input type="radio" class="btn-check" name="tamanoTexto" id="tamanoTexto3" autocomplete="off" {{ $tamano3 }}>
                                 <label class="btn btn-outline-text" for="tamanoTexto3"><small><b>Grande</b></small></label>
                             </div>
@@ -480,14 +480,14 @@
                         </li>
                         <li class="my-2">
                             <p class="my-1">Alineación</p>
-                            
+
                             <div class="btn-group" role="group">
                                 <input type="radio" class="btn-check" name="alineacionTexto" id="alineacionTexto1" autocomplete="off" {{ $alineacion1 }}>
                                 <label class="btn btn-outline-text" for="alineacionTexto1"><small><b><i class="fas fa-align-left"></i></b></small></label>
-                              
+
                                 <input type="radio" class="btn-check" name="alineacionTexto" id="alineacionTexto2" autocomplete="off" {{ $alineacion2 }}>
                                 <label class="btn btn-outline-text" for="alineacionTexto2"><small><b><i class="fas fa-align-center"></i></b></small></label>
-                              
+
                                 <input type="radio" class="btn-check" name="alineacionTexto" id="alineacionTexto3" autocomplete="off" {{ $alineacion3 }}>
                                 <label class="btn btn-outline-text" for="alineacionTexto3"><small><b><i class="fas fa-align-right"></i></b></small></label>
                             </div>
@@ -495,7 +495,7 @@
                         </li>
                         <li class="my-2">
                             <p class="my-1">Color</p>
-                            
+
                             <div class="d-flex" role="group" style="gap: 0.4em;">
                                 <input type="text" class="form-control" id="color-texto-input" name="color-texto-input" value="{{ $color }}">
                                 <input type="color" class="form-control form-control-color p-0" name="color-texto" id="color-texto" value="{{ $color }}">
@@ -601,11 +601,11 @@
                     <ul class="list-unstyled ps-4 mt-2 d-none-2 collapseTwoPremio">
                         <li>
                             <p class="mb-2">Ver Botones</p>
-                            
+
                             <div class="btn-group" role="group">
                                 <input type="radio" class="btn-check" name="verBoton" id="verBoton1" autocomplete="off" value="1" {{ $verBotones1 }}>
                                 <label class="btn btn-outline-text" for="verBoton1"><small><b>No</b></small></label>
-                              
+
                                 <input type="radio" class="btn-check" name="verBoton" id="verBoton2" autocomplete="off" value="2" {{ $verBotones2 }}>
                                 <label class="btn btn-outline-text" for="verBoton2"><small><b>Si</b></small></label>
                             </div>
@@ -613,7 +613,7 @@
                         </li>
                         <li class="my-2">
                             <p class="my-1">Color</p>
-                            
+
                             <div class="d-flex" role="group" style="gap: 0.4em;">
                                 <input type="text" class="form-control" id="color-texto-btn" name="color-texto-btn" value="{{ $btnColor }}">
                                 <input type="color" class="form-control form-control-color p-0" name="color-btn" id="color-btn" value="{{ $btnColor }}">
@@ -622,7 +622,7 @@
                         </li>
                         <li class="my-2">
                             <p class="my-1">Color Fondo</p>
-                            
+
                             <div class="d-flex" role="group" style="gap: 0.4em;">
                                 <input type="text" class="form-control" id="color-btn-bg-input" name="color-btn-bg-input" value="{{ $btnBg }}">
                                 <input type="color" class="form-control form-control-color p-0" name="color-btn-bg" id="color-btn-bg" value="{{ $btnBg }}">
@@ -698,13 +698,13 @@
                 <div class="border-bottom py-2">
                     <button type="button"  class="border-0 w-100 text-start" style="background-color: #fff;" id="back_politicas"><i class="fas fa-chevron-left"></i> Vista Política de privacidad</button>
                 </div>
-                
+
 
                 <div class="py-2 border-bottom">
                     <ul class="list-unstyled ps-4 mt-2">
                         <li>
                             <p class="mb-2">Color Base</p>
-                            
+
                             <div class="d-flex" role="group" style="gap: 0.4em;">
                                 <input type="text" class="form-control" id="color-politica-btn" name="color-politica-btn" value="{{ $colorPolitica }}">
                                 <input type="color" class="form-control form-control-color p-0" id="politica-btn" value="{{ $colorPolitica }}">
@@ -712,7 +712,7 @@
                         </li>
                         <li>
                             <p class="mb-2">Texto</p>
-                            
+
                             <textarea name="politicas_text" id="politicas_text" cols="30" rows="10" class="form-control">{{ str_replace('<br>', '', $politicas) }}</textarea>
                             <input type="hidden" name="politicas_value" id="politicas_value" value="{{ $politicas }}">
                         </li>
@@ -727,12 +727,12 @@
                 <div class="border-bottom py-2">
                     <button type="button"  class="border-0 w-100 text-start" style="background-color: #fff;" id="back_terminos"><i class="fas fa-chevron-left"></i> Vista Terminos y Condiciones</button>
                 </div>
-                
+
                 <div class="py-2 border-bottom">
                     <ul class="list-unstyled ps-4 mt-2">
                         <li>
                             <p class="mb-2">Color Base</p>
-                            
+
                             <div class="d-flex" role="group" style="gap: 0.4em;">
                                 <input type="text" class="form-control" id="color-termino-btn" name="color-termino-btn" value="{{ $colorTermino }}">
                                 <input type="color" class="form-control form-control-color p-0" id="termino-btn" value="{{ $colorTermino }}">
@@ -740,7 +740,7 @@
                         </li>
                         <li>
                             <p class="mb-2">Texto</p>
-                            
+
                             <textarea name="terminos_text" id="terminos_text" cols="30" rows="10" class="form-control">{{ str_replace('<br>', '', $terminos) }}</textarea>
                             <input type="hidden" name="terminos_value" id="terminos_value" value="{{ $terminos }}">
                         </li>
@@ -808,7 +808,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
 </div>
@@ -830,7 +830,7 @@
         canvas.width = canvas.parentElement.clientWidth;
         canvas.height = canvas.parentElement.clientHeight;
         background.onload = function(){
-            context.drawImage(background,0,0,canvas.width,450);   
+            context.drawImage(background,0,0,canvas.width,450);
         }
     };
 
@@ -838,7 +838,7 @@
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            
+
             reader.onload = function(e) {
                 const preview = document.getElementById('preview-raspar');
                 const upload = document.getElementById('upload-raspar')
@@ -858,7 +858,7 @@
                 canvas.width = canvas.parentElement.clientWidth;
                 canvas.height = canvas.parentElement.clientHeight;
                 background.onload = function(){
-                    context.drawImage(background,0,0,canvas.width,450);   
+                    context.drawImage(background,0,0,canvas.width,450);
                 }
             };
 
@@ -953,26 +953,26 @@
 <script>
     const menu_edit = document.getElementById("menu_edit");
     function retornoMenuEdit() {
-        menu_edit.classList.remove('d-none'); 
-        menu_edit.classList.add('d-block'); 
+        menu_edit.classList.remove('d-none');
+        menu_edit.classList.add('d-block');
     }
     function retornoMenuEditNone() {
-        menu_edit.classList.add('d-none'); 
-        menu_edit.classList.remove('d-block'); 
+        menu_edit.classList.add('d-none');
+        menu_edit.classList.remove('d-block');
     }
     const pagina_principal = document.getElementById("pagina_principal");
     const back_principal = document.getElementById("back_principal");
     const principal_menu = document.getElementById("principal-menu");
-    
+
     principal_menu.addEventListener('click', function() {
         retornoMenuEditNone();
-        pagina_principal.classList.add('d-block'); 
-        pagina_principal.classList.remove('d-none'); 
+        pagina_principal.classList.add('d-block');
+        pagina_principal.classList.remove('d-none');
     })
 
     back_principal.addEventListener('click', () => {
-        pagina_principal.classList.remove('d-block'); 
-        pagina_principal.classList.add('d-none'); 
+        pagina_principal.classList.remove('d-block');
+        pagina_principal.classList.add('d-none');
         retornoMenuEdit();
     })
 
@@ -980,29 +980,29 @@
     const encabezado = document.getElementById("encabezado");
     const back_encabezado = document.getElementById("back_encabezado");
     const encabezado_menu = document.getElementById("encabezado-menu");
-    
+
     const card_premio = document.getElementById("card-premio");
     const card_raspa = document.getElementById("card-raspa");
 
     encabezado_menu.addEventListener('click', function() {
         retornoMenuEditNone();
-        encabezado.classList.add('d-block'); 
-        encabezado.classList.remove('d-none'); 
+        encabezado.classList.add('d-block');
+        encabezado.classList.remove('d-none');
 
-        
-        card_raspa.classList.remove('d-block'); 
-        card_raspa.classList.add('d-none'); 
-        card_premio.classList.add('d-block'); 
-        card_premio.classList.remove('d-none'); 
+
+        card_raspa.classList.remove('d-block');
+        card_raspa.classList.add('d-none');
+        card_premio.classList.add('d-block');
+        card_premio.classList.remove('d-none');
     })
     back_encabezado.addEventListener('click', () => {
-        encabezado.classList.remove('d-block'); 
-        encabezado.classList.add('d-none'); 
+        encabezado.classList.remove('d-block');
+        encabezado.classList.add('d-none');
 
-        card_premio.classList.remove('d-block'); 
-        card_premio.classList.add('d-none'); 
-        card_raspa.classList.add('d-block'); 
-        card_raspa.classList.remove('d-none'); 
+        card_premio.classList.remove('d-block');
+        card_premio.classList.add('d-none');
+        card_raspa.classList.add('d-block');
+        card_raspa.classList.remove('d-none');
         retornoMenuEdit();
     })
 
@@ -1013,20 +1013,20 @@
 
     politicas_menu.addEventListener('click', function() {
         retornoMenuEditNone();
-        politicas.classList.add('d-block'); 
-        politicas.classList.remove('d-none'); 
-        poltica_privacidad.classList.remove('d-none'); 
-        
-        card_raspa.classList.remove('d-block'); 
-        card_raspa.classList.add('d-none'); 
+        politicas.classList.add('d-block');
+        politicas.classList.remove('d-none');
+        poltica_privacidad.classList.remove('d-none');
+
+        card_raspa.classList.remove('d-block');
+        card_raspa.classList.add('d-none');
     })
     back_politicas.addEventListener('click', () => {
-        politicas.classList.remove('d-block'); 
-        politicas.classList.add('d-none'); 
-        poltica_privacidad.classList.add('d-none'); 
-        
-        card_raspa.classList.add('d-block'); 
-        card_raspa.classList.remove('d-none'); 
+        politicas.classList.remove('d-block');
+        politicas.classList.add('d-none');
+        poltica_privacidad.classList.add('d-none');
+
+        card_raspa.classList.add('d-block');
+        card_raspa.classList.remove('d-none');
         retornoMenuEdit();
     })
 
@@ -1034,34 +1034,34 @@
     const back_terminos = document.getElementById("back_terminos");
     const terminos_menu = document.getElementById("terminos-menu");
     const terminos_condiciones = document.getElementById("terminos-condiciones");
-    
+
     terminos_menu.addEventListener('click', function() {
         retornoMenuEditNone();
-        terminos.classList.add('d-block'); 
-        terminos.classList.remove('d-none'); 
-        terminos_condiciones.classList.remove('d-none'); 
-        
-        card_raspa.classList.remove('d-block'); 
-        card_raspa.classList.add('d-none'); 
+        terminos.classList.add('d-block');
+        terminos.classList.remove('d-none');
+        terminos_condiciones.classList.remove('d-none');
+
+        card_raspa.classList.remove('d-block');
+        card_raspa.classList.add('d-none');
     })
     back_terminos.addEventListener('click', () => {
-        terminos.classList.remove('d-block'); 
-        terminos.classList.add('d-none'); 
-        terminos_condiciones.classList.add('d-none'); 
-        
-        card_raspa.classList.add('d-block'); 
-        card_raspa.classList.remove('d-none'); 
+        terminos.classList.remove('d-block');
+        terminos.classList.add('d-none');
+        terminos_condiciones.classList.add('d-none');
+
+        card_raspa.classList.add('d-block');
+        card_raspa.classList.remove('d-none');
         retornoMenuEdit();
     })
 </script>
 <script>
-    
+
     const juego_casino_raspa = document.getElementById("juego_casino_raspa")
     document.getElementById('banner-subir').addEventListener('change', function(event) {
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            
+
             reader.onload = function(e) {
                 const preview = document.getElementById('preview-banner');
                 const upload = document.getElementById('upload-banner')
@@ -1172,7 +1172,7 @@
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            
+
             reader.onload = function(e) {
                 const preview = document.getElementById('preview-logo');
                 const upload = document.getElementById('upload-logo')
@@ -1192,13 +1192,13 @@
 </script>
 
 <script>
-    
+
     const img_header_premio = document.getElementById("img-header-premio")
     document.getElementById('gano-subir').addEventListener('change', function(event) {
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            
+
             reader.onload = function(e) {
                 const preview = document.getElementById('preview-gano');
                 const upload = document.getElementById('upload-gano')
@@ -1267,13 +1267,13 @@
 </script>
 
 <script>
-    
+
     // const img_header_premio = document.getElementById("img-header-premio")
     document.getElementById('sigue-intentando-subir').addEventListener('change', function(event) {
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            
+
             reader.onload = function(e) {
                 const preview = document.getElementById('preview-sigue');
                 const upload = document.getElementById('upload-sigue')
@@ -1312,8 +1312,8 @@
                 }
             }
             formData.append('arrayPremiosValue', arrayPremiosValue);
-            
-            
+
+
             // for (const [key, value] of formData.entries()) {
             //     console.log(`${key}: ${value}`)
             // }
@@ -1325,7 +1325,7 @@
                 processData: false, // No procesar los datos
                 success: function(data) {
                     // Procesar los datos devueltos
-                    // toastr.success(data.message); 
+                    // toastr.success(data.message);
 
                     if (data) {
                         Swal.fire({
@@ -1460,7 +1460,7 @@
         });
     });
 
-    $("#back_configuracion").click(function (e) { 
+    $("#back_configuracion").click(function (e) {
         e.preventDefault();
         window.location.href = '{{ $rutaCon }}'
     });

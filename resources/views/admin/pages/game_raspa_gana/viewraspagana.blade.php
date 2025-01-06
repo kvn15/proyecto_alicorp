@@ -1,9 +1,9 @@
 @php
-    $project = $data["project"]; 
-    $gameRaspaGana = $data["gameRaspaGana"]; 
-    $projectPremio = $data["projectPremio"]; 
-    $premioSelect = $data["premio"]; 
-    $idParticipante = $data["idParticipante"]; 
+    $project = $data["project"];
+    $gameRaspaGana = $data["gameRaspaGana"];
+    $projectPremio = $data["projectPremio"];
+    $premioSelect = $data["premio"];
+    $idParticipante = $data["idParticipante"];
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +27,7 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
     $principalData = json_decode($principal, true);
     $premioData = json_decode($premio, true);
     $imgNulo = asset('backend/svg/img-null.svg');
-    
+
     $fondo = isset($gameRaspaGana) && !empty($gameRaspaGana->fondo) ? "/storage/".$gameRaspaGana->fondo : $imgNulo;
     $logo_principal = isset($gameRaspaGana) && !empty($gameRaspaGana->logo_principal) ? "/storage/".$gameRaspaGana->logo_principal : $imgNulo;
     $imagen_raspar = isset($gameRaspaGana) && !empty($gameRaspaGana->imagen_raspar) ? "/storage/".$gameRaspaGana->imagen_raspar : $imgNulo;
@@ -38,12 +38,12 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
     $boldTitulo = isset($principalData["bold-titulo-parrafo"]) ? ($principalData["bold-titulo-parrafo"] == 1 ? "checked" : "") : "";
     $italicTitulo = isset($principalData["italic-titulo-parrafo"]) ? ($principalData["italic-titulo-parrafo"] == 1 ? "checked" : "") : "";
     $tituloTexto = isset($principalData["texto-header"]) ? $principalData["texto-header"]  : "";
-    
+
     $tamanoTexto = isset($principalData["tamanoTexto"]) ? $principalData["tamanoTexto"] : "";
     $tamano1 = $tamanoTexto == 1 ? 'checked' : "";
     $tamano2 = $tamanoTexto == 2 ? 'checked' : "";
     $tamano3 = $tamanoTexto == 3 ? 'checked' : "";
-    
+
     $alineacion = isset($principalData["alineacionTexto"]) ? $principalData["alineacionTexto"] : "";
     $alineacion1 = $alineacion == 1 ? 'checked' : "";
     $alineacion2 = $alineacion == 2 ? 'checked' : "";
@@ -96,7 +96,7 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
         case 'Montserrat':
             $estiloFont = '--Montserrat';
             break;
-        
+
         default:
             $estiloFont = '--popins';
             break;
@@ -151,7 +151,7 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
         border-radius: 0.3em;
     }
 
-    .base {    
+    .base {
         height: 72% !important;
         width: 82% !important;
         transform: rotate(-368deg);
@@ -185,9 +185,9 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
     }
 
     .img-premio {
-        /* width: 80%;
-        height: 70%; */
-        width: 100%;
+        width: 80%;
+        height: 70%;
+        /* width: 100%; */
         margin: auto;
     }
 
@@ -287,7 +287,7 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
 </style>
 
 <style>
-    @media (max-width: 575.98px) { 
+    @media (max-width: 575.98px) {
         .text-header {
             padding: 5% 0px;
         }
@@ -377,7 +377,7 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
         canvas.width = canvas.parentElement.clientWidth;
         canvas.height = canvas.parentElement.clientHeight;
         background.onload = function(){
-            context.drawImage(background,0,0,canvas.width,450);   
+            context.drawImage(background,0,0,canvas.width,450);
         }
     };
 
@@ -441,7 +441,7 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
         }
         if (isDragged) {
             const continar_casino = document.getElementById('continar_casino')
-        
+
             if (continar_casino.classList.contains('d-none')) {
                 // Ejcutar ajax
                 ganador();
@@ -470,13 +470,13 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
 
     window.onload = init();
 
-    function ganador() { 
+    function ganador() {
         $('#form_ganador').submit();
     }
 
-    $('#form_ganador').submit(function (e) { 
+    $('#form_ganador').submit(function (e) {
         e.preventDefault();
-        
+
         var formData = new FormData(this);
 
         $.ajax({
