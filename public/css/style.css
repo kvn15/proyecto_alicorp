@@ -1052,7 +1052,8 @@ li.submenu:hover ul {
 
 .dropdown-btn .icono,
 .dropdown1-btn .icono {
-  margin-left: 10px; /* Separación entre texto e icono */
+  margin-left: 10px;
+  /* Separación entre texto e icono */
 }
 
 .dropdown1 {
@@ -1079,7 +1080,8 @@ li.submenu:hover ul {
 }
 
 .expanded {
-  max-height: 200px; /* Ajusta la altura según el número de elementos */
+  max-height: 200px;
+  /* Ajusta la altura según el número de elementos */
 }
 
 .perfil {
@@ -1363,6 +1365,180 @@ li.submenu:hover ul {
 .perfil2 .formulario .grupo-inicio .redes_login .sesion img {
   width: 3rem;
   height: 3rem;
+}
+
+.exp {
+  /* Botón para abrir el modal */
+  /* Modal - contenedor principal */
+  /* Mostrar el modal */
+  /* Contenido del modal */
+  /* Botón de cerrar */
+}
+.exp h2 {
+  margin-top: 6rem;
+  font-family: "Gotham";
+  color: #FFFFFF;
+  font-size: 6rem;
+}
+.exp h3 {
+  margin-top: 2rem;
+  color: #FFFFFF;
+  font-size: 2.9rem;
+}
+.exp .card {
+  border-radius: 1.25rem !important;
+}
+.exp .card h5 {
+  font-family: "Gotham";
+  color: #FB0000;
+  font-weight: bolder;
+  font-size: 2.3rem;
+}
+.exp .cards-grupo {
+  margin-top: 5rem;
+}
+.exp .btn-open {
+  padding: 6px 16px;
+  background: #FB0000;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.exp .btn-open:hover {
+  background: #FF1010;
+}
+.exp .modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  /* Oscurecer el fondo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+.exp .modal.show {
+  visibility: visible;
+  opacity: 1;
+}
+.exp .modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  width: 857px;
+  height: 550px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+.exp .modal-content img {
+  border-radius: 15px;
+}
+.exp .modal-content h2 {
+  color: #FB0000;
+  font-family: "Gotham";
+  font-size: 4rem;
+}
+.exp .modal-content p {
+  color: #1D1D1D;
+  font-size: 2rem;
+}
+.exp .modal-content .fa-calendar,
+.exp .modal-content .fa-map-marker {
+  color: #FB0000;
+}
+.exp .modal-content .vm {
+  border-radius: 15px;
+  background: #FB0000;
+  width: 20% !important;
+  padding: 10px 16px;
+}
+.exp .btn-close {
+  top: 0px;
+  right: 5px;
+  background: #FB0000;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 10px;
+  position: absolute;
+}
+.exp .btn-close .fa-times {
+  font-size: 3rem;
+  position: absolute;
+  top: 0px;
+  right: 5px;
+}
+
+.carru-videos {
+  /* Video central */
+  /* Videos laterales */
+  /* Flechas de navegación */
+}
+.carru-videos .carousel {
+  position: relative;
+  width: 80%;
+  max-width: 1000px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.carru-videos .carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+.carru-videos .carousel-item {
+  flex: 0 0 30%;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  position: relative;
+  cursor: pointer;
+}
+.carru-videos .carousel-item video {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.carru-videos .carousel-item.center {
+  transform: scale(1.2);
+  z-index: 10;
+}
+.carru-videos .carousel-item:not(.center) {
+  opacity: 0.7;
+  transform: scale(1);
+}
+.carru-videos .carousel .arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+}
+.carru-videos .arrow.left {
+  left: 10px;
+}
+.carru-videos .arrow.right {
+  right: 10px;
 }
 
 @media screen and (max-width: 576px) {

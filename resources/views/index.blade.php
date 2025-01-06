@@ -97,9 +97,156 @@
       </div>
 
     </div> --}}
+    {{-- <section class="promociones">
+      <img src="{{asset('/img/promo1.png')}}" alt="" class="hero-image">
+    </section> --}}
+    
+    @if (empty(Auth::user()->name))    
     <section class="promociones">
       <img src="{{asset('/img/promo1.png')}}" alt="" class="hero-image">
     </section>
+    @else
+    <section class="promociones">
+      <img src="{{asset('/img/promo1.png')}}" alt="" class="hero-image">
+    </section>
+
+    <section class="exp" style="background-color: red; height:100vh">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Experiencias Únicas</h2>
+            <h3><span>!LLEGAMOS MÁS A TI!</span> Conoce los eventos y novedades de nuestras marcas.</h3>
+          </div>
+        </div>
+        <div class="row row-cols-1 row-cols-md-4 g-4 cards-grupo">
+          <div class="col">
+            <div class="card">
+              <img src="{{asset('img/parti-3.png')}}" class="card-img-top" alt="...">
+              <div class="card-body text-center">
+                <h5 class="card-title">K-POP <br> DANCE</BR></h5>
+                <button class="btn-open">VER MÁS</button>
+                <!-- Modal -->
+                <div class="modal" id="customModal">
+                  <div class="modal-content">
+                    <img src="{{ asset('img/hero1.png')}}" alt="">
+                    <div class="d-flex justify-content-around mt-5">
+                      <p><i class="fa fa-calendar me-2" aria-hidden="true"></i>18 de Enero</p>
+                      <p><i class="fa fa-map-marker me-2" aria-hidden="true"></i>Coliseo Aldo Chumnimune</p>
+                    </div>
+                    <h2 class="mt-0">Casino K-pop Dance</h2>
+                    <p>Disfruta del mundo del K-pop y demuestra tus mejores pasos en el #CasinoKpopDance</p>
+                    <button class="btn-close"><i class="fa fa-times" aria-hidden="true"></i></button>
+                    <div class="mt-4">
+                      <button class="btn btn-danger vm">VER MÁS</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <img src="{{asset('img/parti-3.png')}}" class="card-img-top" alt="...">
+              <div class="card-body text-center">
+                <h5 class="card-title">K-POP <br> DANCE</BR></h5>
+                <button class="btn-open">VER MÁS</button>
+                <!-- Modal -->
+                <div class="modal" id="customModal">
+                  <div class="modal-content">
+                    <img src="{{ asset('img/hero1.png')}}" alt="">
+                    <div class="d-flex justify-content-around mt-5">
+                      <p><i class="fa fa-calendar me-2" aria-hidden="true"></i>18 de Enero</p>
+                      <p><i class="fa fa-map-marker me-2" aria-hidden="true"></i>Coliseo Aldo Chumnimune</p>
+                    </div>
+                    <h2 class="mt-0">Casino K-pop Dance</h2>
+                    <p>Disfruta del mundo del K-pop y demuestra tus mejores pasos en el #CasinoKpopDance</p>
+                    <button class="btn-close"><i class="fa fa-times" aria-hidden="true"></i></button>
+                    <div class="mt-4">
+                      <button class="btn btn-danger vm">VER MÁS</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <img src="{{asset('img/parti-3.png')}}" class="card-img-top" alt="...">
+              <div class="card-body text-center">
+                <h5 class="card-title">K-POP <br> DANCE</BR></h5>
+                <button class="btn-open">VER MÁS</button>
+                <!-- Modal -->
+                <div class="modal" id="customModal">
+                  <div class="modal-content">
+                    <img src="{{ asset('img/hero1.png')}}" alt="">
+                    <div class="d-flex justify-content-around mt-5">
+                      <p><i class="fa fa-calendar me-2" aria-hidden="true"></i>18 de Enero</p>
+                      <p><i class="fa fa-map-marker me-2" aria-hidden="true"></i>Coliseo Aldo Chumnimune</p>
+                    </div>
+                    <h2 class="mt-0">Casino K-pop Dance</h2>
+                    <p>Disfruta del mundo del K-pop y demuestra tus mejores pasos en el #CasinoKpopDance</p>
+                    <button class="btn-close"><i class="fa fa-times" aria-hidden="true"></i></button>
+                    <div class="mt-4">
+                      <button class="btn btn-danger vm">VER MÁS</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <img src="{{asset('img/parti-3.png')}}" class="card-img-top" alt="...">
+              <div class="card-body text-center">
+                <h5 class="card-title">K-POP <br> DANCE</BR></h5>
+                <button class="btn-open">VER MÁS</button>
+                <!-- Modal -->
+                <div class="modal" id="customModal">
+                  <div class="modal-content">
+                    <img src="{{ asset('img/hero1.png')}}" alt="">
+                    <div class="d-flex justify-content-around mt-5">
+                      <p><i class="fa fa-calendar me-2" aria-hidden="true"></i>18 de Enero</p>
+                      <p><i class="fa fa-map-marker me-2" aria-hidden="true"></i>Coliseo Aldo Chumnimune</p>
+                    </div>
+                    <h2 class="mt-0">Casino K-pop Dance</h2>
+                    <p>Disfruta del mundo del K-pop y demuestra tus mejores pasos en el #CasinoKpopDance</p>
+                    <button class="btn-close"><i class="fa fa-times" aria-hidden="true"></i></button>
+                    <div class="mt-4">
+                      <button class="btn btn-danger vm">VER MÁS</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="carru-videos" style="height: 100vh">
+      <h2>prueba</h2>
+      <div class="carousel">
+        <button class="arrow left">&lt;</button>
+        <div class="carousel-track">
+          <!-- Videos duplicados para el efecto infinito -->
+          <div class="carousel-item">
+            <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted></video>
+          </div>
+          <div class="carousel-item">
+            <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted></video>
+          </div>
+          <div class="carousel-item center">
+            <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted></video>
+          </div>
+          <div class="carousel-item">
+            <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted></video>
+          </div>
+          <div class="carousel-item">
+            <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted></video>
+          </div>
+        </div>
+        <button class="arrow right">&gt;</button>
+    </section>
+    @endif
   </main>
 
   @include('footer')
