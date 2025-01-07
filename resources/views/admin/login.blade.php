@@ -32,42 +32,43 @@
                         {{ session('mensaje') }}
                     </div>
                     @endif
-                   
+
                     <form method="POST" action="{{ route('admin.login.submit') }}" class="login">
                         @csrf
-                        <div class="d-flex flex-column mb-3">
+                        <div class="d-flex flex-column mb-2">
                             <label for="email" class="mb-1">Email</label>
-                            <input class="w-50 email-i" type="email" name="email" value="{{ old('email') }}" required>
-                            <div class="position-relative email">
+                            <input class="w-50 email-i form-control" type="email" name="email" value="{{ old('email') }}" required>
+                            <div class="position-relative email" style="top: -30px;">
                                 <i class="fa fa-envelope" aria-hidden="true"></i>
-                            </div>                            
+                            </div>
                         </div>
 
-                        <div class="d-flex flex-column mb-3">
-                            <label for="password" class="mb-1">Password</label>                          
-                            <input type="password" id="password" name="password" required class="w-50 password-i">                           
-                            
-                            <div class="position-relative lock">
+                        <div class="d-flex flex-column mb-2">
+                            <label for="password" class="mb-1">Password</label>
+                            <input type="password" id="password" name="password" required class="w-50 password-i form-control">
+
+                            <div class="position-relative lock" style="top: -30px;">
                                 <i class="fa fa-lock" aria-hidden="true"></i>
                             </div>
-                            <div class="position-relative eye">
+                            <div class="position-relative eye" style="top: -56px;">
                                 <button type="button" id="togglePassword">
                                     <i class="fa fa-eye" aria-hidden="true"></i>
-                                </button>                                
-                            </div>                            
+                                </button>
+                            </div>
                         </div>
                         <div class="mb-3 checkbox-container">
                             <input type="checkbox" name="remember" checked>
                             <span class="custom-checkbox"></span>
                             Recuardame
                         </div>
-                        <div class="d-flex flex-column mt-5">
+                        <div class="d-flex flex-column mt-3">
                             <button type="submit" class="btn btn-primary w-50">Ingresar</button>
                             <div class="text-center w-50 mt-3">
-                                <a href="#" >Olvidaste tu contraseña?</a>
-                            </div>                            
+                                <a href="#" class="d-block mb-2">Olvidaste tu contraseña?</a>
+                                <a href="{{ route('xplorer.login') }}" class="d-block">Ingresar como Xplorer</a>
+                            </div>
                         </div>
-                        
+
                     </form>
 
                     <div class="row mt-5 w-50 derechos">
@@ -79,20 +80,20 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
             <div class="col-6">
                 <img src="{{asset('img/img-login.png')}}" alt="" class="img-fluid">
             </div>
         </div>
-        
-    </div>   
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> 
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script>
         document.getElementById('togglePassword').addEventListener('click', function (e) {
             const passwordInput = document.getElementById('password');
             const icon = this.querySelector('i');
-    
+
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
                 icon.classList.remove('fa-eye');
@@ -104,7 +105,7 @@
             }
         });
     </script>
-    
+
 
 </body>
 </html>

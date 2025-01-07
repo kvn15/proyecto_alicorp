@@ -27,7 +27,7 @@ class Xplorer extends Component
     public $telefono = '';
     public $edad = 18;
     public $password_recover = '';
-    
+
     public function render()
     {
         $xplorer = User::search($this->search)
@@ -37,7 +37,7 @@ class Xplorer extends Component
         return view('livewire.xplorer', compact('xplorer'));
     }
 
-    public function sortBy($columnName) 
+    public function sortBy($columnName)
     {
         if ($this->sortColumnName === $columnName) {
             $this->sortDirection = $this->swapSortDirection();
@@ -48,7 +48,7 @@ class Xplorer extends Component
         $this->sortColumnName = $columnName;
     }
 
-    public function swapSortDirection() 
+    public function swapSortDirection()
     {
         return $this->sortDirection === 'asc' ? 'desc' : 'asc';
     }
@@ -124,10 +124,10 @@ class Xplorer extends Component
                 'edad' => $this->edad,
                 'is_xplorer' => 1
             ]);
-            
+
             // resetear
             $this->resetForm();
-    
+
             $this->dispatchBrowserEvent('swal:alert', [
                 'title' => 'Registro exitoso!',
                 'icon' => 'success',
@@ -218,7 +218,7 @@ class Xplorer extends Component
                 'telefono' => $this->telefono,
                 'edad' => $this->edad,
             ]);
-    
+
             $this->dispatchBrowserEvent('swal:alert', [
                 'title' => 'Actualización exitosa!',
                 'icon' => 'success',
@@ -250,7 +250,7 @@ class Xplorer extends Component
     public function changePasword($id) {
         // resetear
         $this->resetForm();
-        
+
         $user = User::find($id);
 
         if (!isset($user)) {
@@ -291,8 +291,8 @@ class Xplorer extends Component
             $user->update([
                 'password' => Hash::make($this->password),
             ]);
-            
-    
+
+
             $this->dispatchBrowserEvent('swal:alert', [
                 'title' => 'Actualización exitosa!',
                 'icon' => 'success',
