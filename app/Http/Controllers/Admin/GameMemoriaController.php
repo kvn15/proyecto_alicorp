@@ -22,7 +22,7 @@ use Illuminate\Support\Str;
 
 class GameMemoriaController extends Controller
 {
-    
+
     public function index($hub) {
 
         $project = Project::where('dominio', $hub)->where('status', '<>', 0)->whereIn('project_type_id', [2,3])->where('game_id', 3)->first();
@@ -30,7 +30,7 @@ class GameMemoriaController extends Controller
         if(!isset($project)){
             return redirect()->route('index')->with('projecto', 'El juego no existe o no esta publicado.');
         }
-        
+
         $fechaActual = Carbon::now('America/Lima')->startOfDay();
         if (isset($project->fecha_fin_proyecto) || isset($project->fecha_fin_participar)) {
             if ($fechaActual->toDateTimeString() > $project->fecha_fin_participar || $fechaActual->toDateTimeString() > $project->fecha_fin_proyecto  || $project->status == 2) {
@@ -40,7 +40,7 @@ class GameMemoriaController extends Controller
                 return redirect()->route('index')->with('projecto', 'El juego se encuentra finalizado.');
             }
         }
-        
+
         // if ($project->project_type_id != 3) { // no es campaña
         //     if (!isset(Auth::user()->id)) {
         //         return redirect()->route('login');
@@ -48,25 +48,59 @@ class GameMemoriaController extends Controller
 
         //     $user = User::find(Auth::user()->id);
         // }
-        
-        // Juegos campaña necesitas auth
-        if (!isset(Auth::user()->id)) {
-            return redirect()->route('login');
-        }
-    
-        $user = User::find(Auth::user()->id);
-
         if ($project->project_type_id == 3) {
-            if ($user->is_xplorer != 1) {
-                return redirect()->route('index')->with('projecto', 'No tiene permitido ingresar a este juego.');
+            if (!Auth::guard('admin')->user() && !Auth::user() && !Auth::guard('xplorer')->user()) {
+                return redirect()->route('login');
             }
 
-            $asignacion = AsignacionProject::where('project_id', $project->id)->where('user_id', $user->id)->get();
+            if (Auth::guard('xplorer')->user() || isset(Auth::user()->id)) {
 
-            if (count($asignacion) == 0) {
-                return redirect()->route('index')->with('projecto', 'No tiene acceso a este juego.');
+                $userId = Auth::guard('xplorer')->user() ? Auth::guard('xplorer')->user()->id : Auth::user()->id;
+
+                $user = User::find($userId);
+
+                if ($user->is_xplorer != 1) {
+                    return redirect()->route('index')->with('projecto', 'No tiene permitido ingresar a este juego.');
+                }
+
+                $asignacion = AsignacionProject::where('project_id', $project->id)->where('user_id', $user->id)->get();
+
+                if (count($asignacion) == 0) {
+                    return redirect()->route('index')->with('projecto', 'No tiene acceso a este juego.');
+                }
+            } else {// Administrador
+
+                $idUser = AsignacionProject::where('project_id', $project->id)->first();
+                $user = User::find($idUser->user_id);
             }
+        } else {
+
+            if (!Auth::user()) {
+                return redirect()->route('login');
+            }
+
+            $user = User::find(Auth::user()->id);
+
         }
+
+        // // Juegos campaña necesitas auth
+        // if (!isset(Auth::user()->id)) {
+        //     return redirect()->route('login');
+        // }
+
+        // $user = User::find(Auth::user()->id);
+
+        // if ($project->project_type_id == 3) {
+        //     if ($user->is_xplorer != 1) {
+        //         return redirect()->route('index')->with('projecto', 'No tiene permitido ingresar a este juego.');
+        //     }
+
+        //     $asignacion = AsignacionProject::where('project_id', $project->id)->where('user_id', $user->id)->get();
+
+        //     if (count($asignacion) == 0) {
+        //         return redirect()->route('index')->with('projecto', 'No tiene acceso a este juego.');
+        //     }
+        // }
 
         // Vista Proyecto
         ViewProject::create([
@@ -128,7 +162,7 @@ class GameMemoriaController extends Controller
                 $otherParticipant = OtherParticipant::where('nro_documento', $request->documento)->first();
 
                 if (isset($otherParticipant)) {
-                    
+
                     $otherParticipant->update([
                         'nombres' => $request->name,
                         'apellidos' => $request->apellido,
@@ -164,7 +198,7 @@ class GameMemoriaController extends Controller
 
                     $other_participant_id = $otherParticipant->id;
                 }
-                
+
             }
 
             $userId = isset(Auth::user()->id) && $project->project_type_id != 3 ? Auth::user()->id : null;
@@ -203,7 +237,7 @@ class GameMemoriaController extends Controller
                         $otherParticipant = OtherParticipant::where('nro_documento', trim($request->documento))->first();
 
                         if (isset($otherParticipant)) {
-                            
+
                             $otherParticipant->update([
                                 'nombres' => $request->name,
                                 'apellidos' => $request->apellido,
@@ -242,7 +276,7 @@ class GameMemoriaController extends Controller
                     }
                 }
             }
-            
+
             $participant = new Participant();
             $participant->project_id = $id;
             $participant->user_id = $userId;
@@ -274,7 +308,7 @@ class GameMemoriaController extends Controller
 
     public function show($hub) {
         $project = Project::where('dominio', $hub)->where('status', 1)->where('game_id', 3)->first();
-        
+
         if(!isset($project)){
             return redirect()->route('index');
         }
@@ -348,7 +382,7 @@ class GameMemoriaController extends Controller
         if ($request->hasFile('banner-subir')) {
             $rutaBanner = $request->file('banner-subir')->store('game_memoria', 'public'); // Almacena en storage/app/public/imagenes
         }
-        $principal["banner"] = $rutaBanner; 
+        $principal["banner"] = $rutaBanner;
 
         $rutalogo = isset($principalArray["logo-subir"])  && !empty($principalArray["logo-subir"]) && $request["logo-subir-url"] != null ? $principalArray["logo-subir"] : "";
         if ($request->hasFile('logo-subir')) {
@@ -360,34 +394,34 @@ class GameMemoriaController extends Controller
         if ($request->hasFile('gano-subir')) {
             $rutaGano = $request->file('gano-subir')->store('game_memoria', 'public'); // Almacena en storage/app/public/imagenes
         }
-        $premio["gano-subir"] = $rutaGano; 
- 
-        
+        $premio["gano-subir"] = $rutaGano;
+
+
         $rutaImg1 = isset($gameArray[0]['img'])  && !empty($gameArray[0]['img']) && $request["imagen-1-subir-url"] != null ? $gameArray[0]['img'] : "";
         if ($request->hasFile('imagen-1-subir')) {
             $rutaImg1 = $request->file('imagen-1-subir')->store('game_memoria', 'public'); // Almacena en storage/app/public/imagenes
         }
-        
+
         $rutaImg2 = isset($gameArray[1]['img'])  && !empty($gameArray[1]['img']) && $request["imagen-2-subir-url"] != null ? $gameArray[1]['img'] : "";
         if ($request->hasFile('imagen-2-subir')) {
             $rutaImg2 = $request->file('imagen-2-subir')->store('game_memoria', 'public'); // Almacena en storage/app/public/imagenes
         }
-        
+
         $rutaImg3 = isset($gameArray[2]['img'])  && !empty($gameArray[2]['img']) && $request["imagen-3-subir-url"] != null ? $gameArray[2]['img'] : "";
         if ($request->hasFile('imagen-3-subir')) {
             $rutaImg3 = $request->file('imagen-3-subir')->store('game_memoria', 'public'); // Almacena en storage/app/public/imagenes
         }
-        
+
         $rutaImg4 = isset($gameArray[3]['img'])  && !empty($gameArray[3]['img']) && $request["imagen-4-subir-url"] != null ? $gameArray[3]['img'] : "";
         if ($request->hasFile('imagen-4-subir')) {
             $rutaImg4 = $request->file('imagen-4-subir')->store('game_memoria', 'public'); // Almacena en storage/app/public/imagenes
-        } 
-        
+        }
+
         $rutaImg5 = isset($gameArray[4]['img'])  && !empty($gameArray[4]['img']) && $request["imagen-5-subir-url"] != null ? $gameArray[4]['img'] : "";
         if ($request->hasFile('imagen-5-subir')) {
             $rutaImg5 = $request->file('imagen-5-subir')->store('game_memoria', 'public'); // Almacena en storage/app/public/imagenes
         }
-        
+
         $rutaImg6 = isset($gameArray[5]['img'])  && !empty($gameArray[5]['img']) && $request["imagen-6-subir-url"] != null ? $gameArray[5]['img'] : "";
         if ($request->hasFile('imagen-6-subir')) {
             $rutaImg6 = $request->file('imagen-6-subir')->store('game_memoria', 'public'); // Almacena en storage/app/public/imagenes
@@ -409,8 +443,8 @@ class GameMemoriaController extends Controller
                 'imagen' => $sigueIntentando
             ]);
         }
-        
-        
+
+
         $rutaGano = '';
 
         $premio_img = [
@@ -451,7 +485,7 @@ class GameMemoriaController extends Controller
                 $idPremio = $premioValor[1];
 
                 $premios = AwardProject::findOrFail($idPremio);
-                
+
                 if ($premios) {
                     $ruta = $request["premio-subir-".$orden."-url"] != null ?  $premios->imagen : "";
                     // Almacenar la imagen en el directorio deseado
@@ -509,7 +543,7 @@ class GameMemoriaController extends Controller
     }
 
     public function storeHtml(Request $request, $id) {
-        
+
         $existLanding = GameView::where('project_id', $id)->first();
 
         if (!isset($existLanding)) {
@@ -521,7 +555,7 @@ class GameMemoriaController extends Controller
             'html_origin' => $request->html,
             'html_end' => $request->html,
         ]);
-        
+
         return response()->json(['message' => 'Juego Memoria guardada.'], 201);
     }
 
@@ -529,12 +563,22 @@ class GameMemoriaController extends Controller
         // Obtener todos los premios con su probabilidad
         $project = Project::findOrFail($projectId);
         if ($project->project_type_id == 3) {
+
+            $userId = 0;
+
+            if (Auth::guard('xplorer')->user() || Auth::user()) {
+                $userId = Auth::guard('xplorer')->user() ? Auth::guard('xplorer')->user()->id : Auth::user()->id;
+            } else { //admin
+                $user = AsignacionProject::where('project_id', $project->id)->first();
+                $userId = User::find($user->user_id);
+            }
+
             $premios = DB::table('award_projects')
             ->join('premio_pdvs', 'premio_pdvs.award_project_id', 'award_projects.id')
             ->join('asignacion_projects', 'asignacion_projects.id', 'premio_pdvs.asignacion_project_id')
             ->where('asignacion_projects.project_id', $projectId)
             ->where('asignacion_projects.sales_point_id', intval(session('punto_venta_memoria')))
-            ->where('asignacion_projects.user_id', Auth::user()->id)
+            ->where('asignacion_projects.user_id', $userId)
             ->where('premio_pdvs.qty_premio', '>', 0)
             // ->where('award_projects.status', 1)
             ->select('premio_pdvs.id', 'award_projects.nombre_premio', 'award_projects.imagen', 'premio_pdvs.probabilidad')
@@ -542,11 +586,11 @@ class GameMemoriaController extends Controller
         } else {
             $premios = AwardProject::where('project_id', $projectId)->where('status', 1)->where('stock','>',0)->get();
         }
-    
+
         // Crear un array acumulativo para la probabilidad
         $acumulado = [];
         $total = 0;
-    
+
         foreach ($premios as $premio) {
             $total += $premio->probabilidad;
             $acumulado[] = [
@@ -556,10 +600,10 @@ class GameMemoriaController extends Controller
                 'prob_acum' => $total
             ];
         }
-    
+
         // Generar un número aleatorio entre 1 y 100
         $random = rand(1, $total);
-    
+
         // Buscar el premio que corresponde al número aleatorio
         foreach ($acumulado as $item) {
             if ($random <= $item['prob_acum']) {
@@ -571,13 +615,13 @@ class GameMemoriaController extends Controller
             }
         }
     }
-    
+
     // Verificar ganador
     public function updateGanador(Request $request, $id) {
 
         $project = Project::where('id', $id)->first();
-        
-        if ($project->project_type_id == 3) { 
+
+        if ($project->project_type_id == 3) {
             $premio = PremioPdv::where('id', $request->premio_id)->first();
         } else {
             $premio = AwardProject::where('id', $request->premio_id)->first();
@@ -599,26 +643,26 @@ class GameMemoriaController extends Controller
                     'award_project_id' => $premio->award_project_id,
                     'fecha_premio' => Carbon::now()
                 ]);
-                
+
                 $premio = PremioPdv::where('id', $request->premio_id)->first();
                 $premio->update([
                     "qty_premio" =>  $premio->qty_premio - 1
                 ]);
-                
+
             } else {
                 $participante->update([
                     'ganador' => 1,
                     'award_project_id' => $request->premio_id,
                     'fecha_premio' => Carbon::now()
                 ]);
-    
+
                 // Reducir el stock del premio
                 $premio = AwardProject::findOrFail($request->premio_id);
                 $premio->update([
                     "stock" =>  $premio->stock - 1
                 ]);
             }
-            
+
         }
 
         return response()->json([

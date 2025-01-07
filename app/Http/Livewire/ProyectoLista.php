@@ -65,34 +65,37 @@ class ProyectoLista extends Component
     {
         if ($this->xplorer == false) {
             $projects = Project::search($this->search, $this->tipoProyecto);
-    
+
             if (isset($this->estados)) {
                 $projects->whereIn('status', $this->estados);
             }
-            
+
             if (isset($this->idUsuario) && $this->idUsuario != 0) {
                 $projects->where('admin_id', $this->idUsuario);
             }
-            
+
             if (isset($this->fechaIni) && !empty($this->fechaFin)) {
                 $projects->whereBetween('created_at', [$this->fechaIni, $this->fechaFin]);
             }
-    
+
             $projects = $projects->get();
         } else {
             $projects = Project::search($this->search, $this->tipoProyecto)
             ->join('asignacion_projects', 'asignacion_projects.project_id', '=', 'projects.id')
             ->where('asignacion_projects.user_id', $this->idUsuario);
-            
+
             if (isset($this->estados)) {
                 $projects->whereIn('status', $this->estados);
             }
-            
+
             if (isset($this->fechaIni) && !empty($this->fechaFin)) {
                 $projects->whereBetween('created_at', [$this->fechaIni, $this->fechaFin]);
             }
-    
-            $projects = $projects->get();
+
+            $projects = $projects
+                        ->select('projects.id', 'projects.ruta_img', 'projects.nombre_promocion', 'projects.fecha_ini_proyecto', 'projects.status', 'projects.dominio', 'projects.game_id')
+                        ->distinct()
+                        ->get();
         }
 
         return view('livewire.proyecto-lista', compact('projects'));

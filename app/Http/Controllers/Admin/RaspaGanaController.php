@@ -28,15 +28,15 @@ class RaspaGanaController extends Controller
         $isRaspaGana = RaspaGana::where('project_id', $id)->first();
 
         // Guardar Imagenes principales
-        
+
         // Fondo
         $rutaFondo = isset($isRaspaGana) && !empty($isRaspaGana->fondo) && $request["banner-subir-url"] != null ?  $isRaspaGana->fondo : '';
         if ($request->hasFile('banner-subir')) {
-            
+
             if(isset($isRaspaGana)) {
                 // Obtener la ruta de la imagen
                 $rutaFav = public_path($isRaspaGana->fondo); // Suponiendo que la ruta está almacenada en 'ruta'
-    
+
                 // Eliminar el archivo del sistema
                 if (file_exists($rutaFav) && !empty($isRaspaGana->fondo)) {
                     unlink($rutaFav); // Eliminar el archivo
@@ -45,15 +45,15 @@ class RaspaGanaController extends Controller
 
             $rutaFondo = $request->file('banner-subir')->store('imagenes', 'public'); // Almacena en storage/app/public/imagenes
         }
-        
+
         // Logo Principal
         $rutaLogoPrincipal = isset($isRaspaGana) && !empty($isRaspaGana->logo_principal) && $request["logo-subir-url"] != null ?  $isRaspaGana->logo_principal : '';
         if ($request->hasFile('logo-subir')) {
-            
+
             if(isset($isRaspaGana)) {
                 // Obtener la ruta de la imagen
                 $rutaFav = public_path($isRaspaGana->logo_principal); // Suponiendo que la ruta está almacenada en 'ruta'
-    
+
                 // Eliminar el archivo del sistema
                 if (file_exists($rutaFav) && !empty($isRaspaGana->logo_principal)) {
                     unlink($rutaFav); // Eliminar el archivo
@@ -62,15 +62,15 @@ class RaspaGanaController extends Controller
 
             $rutaLogoPrincipal = $request->file('logo-subir')->store('imagenes', 'public'); // Almacena en storage/app/public/imagenes
         }
-        
+
         // Imagen Raspar
         $rutaImgRaspar = isset($isRaspaGana) && !empty($isRaspaGana->imagen_raspar) && $request["raspar-subir-url"] != null ?  $isRaspaGana->imagen_raspar : '';
         if ($request->hasFile('raspar-subir')) {
-            
+
             if(isset($isRaspaGana)) {
                 // Obtener la ruta de la imagen
                 $rutaFav = public_path($isRaspaGana->imagen_raspar); // Suponiendo que la ruta está almacenada en 'ruta'
-    
+
                 // Eliminar el archivo del sistema
                 if (file_exists($rutaFav) && !empty($isRaspaGana->imagen_raspar)) {
                     unlink($rutaFav); // Eliminar el archivo
@@ -79,15 +79,15 @@ class RaspaGanaController extends Controller
 
             $rutaImgRaspar = $request->file('raspar-subir')->store('imagenes', 'public'); // Almacena en storage/app/public/imagenes
         }
-        
+
         // Titulo subir
         $rutaImgTitulo = isset($isRaspaGana) && !empty($isRaspaGana->titulo_subir) && $request["gano-subir-url"] != null ?  $isRaspaGana->titulo_subir : '';
         if ($request->hasFile('gano-subir')) {
-            
+
             if(isset($isRaspaGana)) {
                 // Obtener la ruta de la imagen
                 $rutaFav = public_path($isRaspaGana->titulo_subir); // Suponiendo que la ruta está almacenada en 'ruta'
-    
+
                 // Eliminar el archivo del sistema
                 if (file_exists($rutaFav) && !empty($isRaspaGana->titulo_subir)) {
                     unlink($rutaFav); // Eliminar el archivo
@@ -142,7 +142,7 @@ class RaspaGanaController extends Controller
 
         // Registra
         if (!isset($isRaspaGana)) {
-            
+
             RaspaGana::create([
                 'project_id' => $id,
                 'fondo' => $rutaFondo,
@@ -169,20 +169,20 @@ class RaspaGanaController extends Controller
                 'terminos' => json_encode($termino, true),
             ]);
         }
-        
-        
+
+
         // Bloque premios
 
         if (isset($request->arrayPremiosValue) && !empty($request->arrayPremiosValue)) {
             $arrayPremios = explode(",", $request->arrayPremiosValue);
-            
+
             foreach ($arrayPremios as $key => $value) {
                 $premioValor = explode('|', $value);
                 $orden = $premioValor[0];
                 $idPremio = $premioValor[1];
 
                 $premios = AwardProject::findOrFail($idPremio);
-                
+
                 if ($premios) {
                     $ruta = $request["premio-subir-".$orden."-url"] != null ? $premios->imagen : '';
                     // Almacenar la imagen en el directorio deseado
@@ -212,10 +212,10 @@ class RaspaGanaController extends Controller
     }
 
     public function show($hub) {
-    
+
         // Obtener proyecto
         $project = Project::where('dominio', $hub)->where('status', 1)->where('game_id', 1)->first();
-        
+
         if(!isset($project)){
             return redirect()->route('index');
         }
@@ -247,7 +247,7 @@ class RaspaGanaController extends Controller
     }
 
     public function index($hub) {
-        
+
         // Obtener proyecto
         $project = Project::where('dominio', $hub)->where('status','<>', 0)->where('game_id', 1)->first();
 
@@ -256,7 +256,7 @@ class RaspaGanaController extends Controller
         }
 
         $fechaActual = Carbon::now('America/Lima')->startOfDay();
-        
+
         if (isset($project->fecha_fin_proyecto) || isset($project->fecha_fin_participar)) {
             if ($fechaActual->toDateTimeString() > $project->fecha_fin_participar || $fechaActual->toDateTimeString() > $project->fecha_fin_proyecto || $project->status == 2) {
                 $project->update([
@@ -270,28 +270,44 @@ class RaspaGanaController extends Controller
         //     if (!isset(Auth::user()->id)) {
         //         return redirect()->route('login');
         //     }
-        
+
         //     $user = User::find(Auth::user()->id);
         // }
-        
-        // Juegos campaña necesitas auth
-        if (!isset(Auth::user()->id)) {
-            return redirect()->route('login');
-        }
-    
-        $user = User::find(Auth::user()->id);
-
         if ($project->project_type_id == 3) {
-            if ($user->is_xplorer != 1) {
-                return redirect()->route('index')->with('projecto', 'No tiene permitido ingresar a este juego.');
+            if (!Auth::guard('admin')->user() && !Auth::user() && !Auth::guard('xplorer')->user()) {
+                return redirect()->route('login');
             }
 
-            $asignacion = AsignacionProject::where('project_id', $project->id)->where('user_id', $user->id)->get();
+            if (Auth::guard('xplorer')->user() || isset(Auth::user()->id)) {
 
-            if (count($asignacion) == 0) {
-                return redirect()->route('index')->with('projecto', 'No tiene acceso a este juego.');
+                $userId = Auth::guard('xplorer')->user() ? Auth::guard('xplorer')->user()->id : Auth::user()->id;
+
+                $user = User::find($userId);
+
+                if ($user->is_xplorer != 1) {
+                    return redirect()->route('index')->with('projecto', 'No tiene permitido ingresar a este juego.');
+                }
+
+                $asignacion = AsignacionProject::where('project_id', $project->id)->where('user_id', $user->id)->get();
+
+                if (count($asignacion) == 0) {
+                    return redirect()->route('index')->with('projecto', 'No tiene acceso a este juego.');
+                }
+            } else {// Administrador
+
+                $idUser = AsignacionProject::where('project_id', $project->id)->first();
+                $user = User::find($idUser->user_id);
             }
+        } else {
+
+            if (!Auth::user()) {
+                return redirect()->route('login');
+            }
+
+            $user = User::find(Auth::user()->id);
+
         }
+
 
         // Vista Proyecto
         ViewProject::create([
@@ -352,7 +368,7 @@ class RaspaGanaController extends Controller
                 $otherParticipant = OtherParticipant::where('nro_documento', $request->documento)->first();
 
                 if (isset($otherParticipant)) {
-                    
+
                     $otherParticipant->update([
                         'nombres' => $request->name,
                         'apellidos' => $request->apellido,
@@ -388,7 +404,7 @@ class RaspaGanaController extends Controller
 
                     $other_participant_id = $otherParticipant->id;
                 }
-                
+
             }
 
             $userId = isset(Auth::user()->id) && $project->project_type_id != 3 ? Auth::user()->id : null;
@@ -398,7 +414,7 @@ class RaspaGanaController extends Controller
                 $user= User::findOrFail(Auth::user()->id);
 
                 if (trim($request->documento) == $user->documento) {
-                
+
                     // Actualizar usuario
                     $user->update([
                         'name' => $request->name,
@@ -427,7 +443,7 @@ class RaspaGanaController extends Controller
                         $otherParticipant = OtherParticipant::where('nro_documento', trim($request->documento))->first();
 
                         if (isset($otherParticipant)) {
-                            
+
                             $otherParticipant->update([
                                 'nombres' => $request->name,
                                 'apellidos' => $request->apellido,
@@ -466,7 +482,7 @@ class RaspaGanaController extends Controller
                     }
                 }
             }
-            
+
             $participant = new Participant();
             $participant->project_id = $id;
             $participant->user_id = $userId;
@@ -500,8 +516,8 @@ class RaspaGanaController extends Controller
     public function updateGanador(Request $request, $id) {
 
         $project = Project::where('id', $id)->first();
-        
-        if ($project->project_type_id == 3) { 
+
+        if ($project->project_type_id == 3) {
             $premio = PremioPdv::where('id', $request->premio_id)->first();
         } else {
             $premio = AwardProject::where('id', $request->premio_id)->first();
@@ -515,7 +531,7 @@ class RaspaGanaController extends Controller
             ]);
         }else {
 
-            if ($project->project_type_id == 3) { 
+            if ($project->project_type_id == 3) {
 
                 // Gano
                 $participante->update([
@@ -523,7 +539,7 @@ class RaspaGanaController extends Controller
                     'award_project_id' => $premio->award_project_id,
                     'fecha_premio' => Carbon::now()
                 ]);
-                
+
                 $premio = PremioPdv::where('id', $request->premio_id)->first();
                 $premio->update([
                     "qty_premio" =>  $premio->qty_premio - 1
@@ -544,7 +560,7 @@ class RaspaGanaController extends Controller
                 ]);
                 // Reducir cantidad de premio en asignacion
             }
-            
+
         }
 
         return response()->json([
@@ -556,12 +572,22 @@ class RaspaGanaController extends Controller
         // Obtener todos los premios con su probabilidad
         $project = Project::findOrFail($projectId);
         if ($project->project_type_id == 3) {
+
+            $userId = 0;
+
+            if (Auth::guard('xplorer')->user() || Auth::user()) {
+                $userId = Auth::guard('xplorer')->user() ? Auth::guard('xplorer')->user()->id : Auth::user()->id;
+            } else { //admin
+                $user = AsignacionProject::where('project_id', $project->id)->first();
+                $userId = User::find($user->user_id);
+            }
+
             $premios = DB::table('award_projects')
             ->join('premio_pdvs', 'premio_pdvs.award_project_id', 'award_projects.id')
             ->join('asignacion_projects', 'asignacion_projects.id', 'premio_pdvs.asignacion_project_id')
             ->where('asignacion_projects.project_id', $projectId)
             ->where('asignacion_projects.sales_point_id', intval(session('punto_venta_raspa')))
-            ->where('asignacion_projects.user_id', Auth::user()->id)
+            ->where('asignacion_projects.user_id', $userId)
             ->where('premio_pdvs.qty_premio', '>', 0)
             // ->where('award_projects.status', 1)
             ->select('premio_pdvs.id', 'award_projects.nombre_premio', 'award_projects.imagen', 'premio_pdvs.probabilidad')
@@ -571,7 +597,7 @@ class RaspaGanaController extends Controller
         }
 
         $sigueIntentando = KeepTrying::where('project_id', $projectId)->first();
-    
+
         // Crear un array acumulativo para la probabilidad
         $acumulado = [];
         $total = 0;
@@ -580,7 +606,7 @@ class RaspaGanaController extends Controller
         if (isset($sigueIntentando) && !empty($sigueIntentando)) {
             $rutaSigue = $sigueIntentando["imagen"];
         }
-    
+
         foreach ($premios as $premio) {
             $total += $premio->probabilidad;
             $acumulado[] = [
@@ -597,10 +623,10 @@ class RaspaGanaController extends Controller
             'imagen' => $rutaSigue,
             'prob_acum' => $total
         ];
-    
+
         // Generar un número aleatorio entre 1 y 100
         $random = rand(1, $total);
-    
+
         // Buscar el premio que corresponde al número aleatorio
         foreach ($acumulado as $item) {
             if ($random <= $item['prob_acum']) {

@@ -83,27 +83,81 @@
     <div class="row-landing">
         @foreach ($projects as $project)
         <div>
-            @component('admin.components.cardpromo')
-                @slot('img_promo')
-                    @if (isset($project->ruta_img) && !empty($project->ruta_img))
-                        {{'/storage/'.$project->ruta_img}}
-                    @else
-                        {{asset('backend/img/thumbnail.png')}}
+            @if ($this->xplorer == false)
+                @component('admin.components.cardpromo')
+                    @slot('img_promo')
+                        @if (isset($project->ruta_img) && !empty($project->ruta_img))
+                            {{'/storage/'.$project->ruta_img}}
+                        @else
+                            {{asset('backend/img/thumbnail.png')}}
+                        @endif
+                    @endslot
+                    @slot('name_promo')
+                        {{ $project->nombre_promocion }}
+                    @endslot
+                    @slot('fecha_promo')
+                        {{ $project->fecha_ini_proyecto }}
+                    @endslot
+                    @slot('status_promo')
+                        {{ $project->status }}
+                    @endslot
+                    @slot('ruta_name')
+                        {{ route($project->project_type->ruta_name.'.show.overview', $project->id ) }}
+                    @endslot
+                @endcomponent
+            @else
+                @php
+                    $rutaJuegoCampana = "";
+                    switch ($project->game_id) {
+                        case 1: //Raspa y gana
+                            $rutaJuegoCampana = route("juegoCampana.juego.view.registro.raspagana", $project->dominio);
+                            break;
+                        case 2: //Ruleta
+                            $rutaJuegoCampana = route("juegoCampana.juego.view.registro.ruleta", $project->dominio);
+                            break;
+                        case 3: //Memoria
+                            $rutaJuegoCampana = route("juegoCampana.juego.view.registro", $project->dominio);
+                            break;
+                        default:
+                            break;
+                    }
+                @endphp
+                <a href="{{ $rutaJuegoCampana }}" class="card-promo" target="_blank">
+                    @php
+                        $img_promo = "";
+                        if (isset($project->ruta_img) && !empty($project->ruta_img)) {
+                            $img_promo = '/storage/'.$project->ruta_img;
+                        } else {
+                            $img_promo = asset('backend/img/thumbnail.png');
+                        }
+
+                    @endphp
+                    <div class="card-promo-header">
+                        <div class="img-promo" style="background-image: url({{$img_promo}})"></div>
+                    </div>
+                    <div class="card-body">
+                        <p class="m-0"><b>{{ $project->nombre_promocion }}</b></p>
+                        <p class="m-0">Fecha: {{ $project->fecha_ini_proyecto  }}</p>
+                    </div>
+
+                    @if ($project->status == '1')
+                    <div class="bage-activo">
+                        Activo
+                    </div>
                     @endif
-                @endslot
-                @slot('name_promo')
-                    {{ $project->nombre_promocion }}
-                @endslot
-                @slot('fecha_promo')
-                    {{ $project->fecha_ini_proyecto }}
-                @endslot
-                @slot('status_promo')
-                    {{ $project->status }}
-                @endslot
-                @slot('ruta_name')
-                    {{ route($project->project_type->ruta_name.'.show.overview', $project->id ) }}
-                @endslot
-            @endcomponent
+                    @if ($project->status == '0')
+                    <div class="bage-inactivo">
+                        Inactivo
+                    </div>
+                    @endif
+                    @if ($project->status == '2')
+                    <div class="bage-finalizado">
+                        Finalizado
+                    </div>
+                    @endif
+
+                </a>
+            @endif
         </div>
         @endforeach
     </div>

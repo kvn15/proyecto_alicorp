@@ -28,11 +28,11 @@ class RuletaController extends Controller
         // Fondo
         $rutaFondo = isset($isRuleta) && !empty($isRuleta->fondo) && $request['banner-subir-url'] != null ?  $isRuleta->fondo : '';
         if ($request->hasFile('banner-subir')) {
-            
+
             if(isset($isRuleta)) {
                 // Obtener la ruta de la imagen
                 $rutaFav = public_path($isRuleta->fondo); // Suponiendo que la ruta está almacenada en 'ruta'
-    
+
                 // Eliminar el archivo del sistema
                 if (file_exists($rutaFav) && !empty($isRuleta->fondo)) {
                     unlink($rutaFav); // Eliminar el archivo
@@ -41,15 +41,15 @@ class RuletaController extends Controller
 
             $rutaFondo = $request->file('banner-subir')->store('ruleta', 'public'); // Almacena en storage/app/public/imagenes
         }
-        
+
         // Logo Principal
         $rutaLogoPrincipal = isset($isRuleta) && !empty($isRuleta->logo_inicio) && $request['logo-subir-url'] != null ?  $isRuleta->logo_inicio : '';
         if ($request->hasFile('logo-subir')) {
-            
+
             if(isset($isRuleta)) {
                 // Obtener la ruta de la imagen
                 $rutaFav = public_path($isRuleta->logo_inicio); // Suponiendo que la ruta está almacenada en 'ruta'
-    
+
                 // Eliminar el archivo del sistema
                 if (file_exists($rutaFav) && !empty($isRuleta->logo_inicio)) {
                     unlink($rutaFav); // Eliminar el archivo
@@ -58,15 +58,15 @@ class RuletaController extends Controller
 
             $rutaLogoPrincipal = $request->file('logo-subir')->store('ruleta', 'public'); // Almacena en storage/app/public/imagenes
         }
-        
+
         // Logo Juego
         $rutaLogoGame = isset($isRuleta) && !empty($isRuleta->logo_juego) && $request['logo-subir-game-url'] != null ?  $isRuleta->logo_juego : '';
         if ($request->hasFile('logo-subir-game')) {
-            
+
             if(isset($isRuleta)) {
                 // Obtener la ruta de la imagen
                 $rutaFav = public_path($isRuleta->logo_juego); // Suponiendo que la ruta está almacenada en 'ruta'
-    
+
                 // Eliminar el archivo del sistema
                 if (file_exists($rutaFav) && !empty($isRuleta->logo_juego)) {
                     unlink($rutaFav); // Eliminar el archivo
@@ -75,15 +75,15 @@ class RuletaController extends Controller
 
             $rutaLogoGame = $request->file('logo-subir-game')->store('ruleta', 'public'); // Almacena en storage/app/public/imagenes
         }
-        
+
         // Titulo premio
         $rutaTituloPremio = isset($isRuleta) && !empty($isRuleta->titulo_premio) && $request['gano-subir-url'] != null ?  $isRuleta->titulo_premio : '';
         if ($request->hasFile('premio-gano-subir')) {
-            
+
             if(isset($isRuleta)) {
                 // Obtener la ruta de la imagen
                 $rutaFav = public_path($isRuleta->titulo_premio); // Suponiendo que la ruta está almacenada en 'ruta'
-    
+
                 // Eliminar el archivo del sistema
                 if (file_exists($rutaFav) && !empty($isRuleta->titulo_premio)) {
                     unlink($rutaFav); // Eliminar el archivo
@@ -99,7 +99,7 @@ class RuletaController extends Controller
         if ($request->hasFile('sigue-intentando-subir')) {
             $sigueIntentando = $request->file('sigue-intentando-subir')->store('premios', 'public'); // Almacena en storage/app/public/imagenes
         }
-        
+
         $imagen_no_premio = isset($sigueIntentandoBD["imagen_no_premio"])  && !empty($sigueIntentandoBD["imagen_no_premio"]) && $request["sigue-intentando-subir-url2"] != null ? $sigueIntentandoBD["imagen_no_premio"] : "";
         if ($request->hasFile('sigue-intentando-subir2')) {
             $imagen_no_premio = $request->file('sigue-intentando-subir2')->store('premios', 'public'); // Almacena en storage/app/public/imagenes
@@ -118,7 +118,7 @@ class RuletaController extends Controller
                 'imagen_no_premio' => $imagen_no_premio
             ]);
         }
-        
+
         $titulo_inicio = [
             'bold-titulo-parrafo' => isset($request['bold-titulo-parrafo']) ? 1 : 0,
             'italic-titulo-parrafo' => isset($request['italic-titulo-parrafo']) ? 1 : 0,
@@ -155,7 +155,7 @@ class RuletaController extends Controller
 
         // Registra
         if (!isset($isRuleta)) {
-                    
+
             Roulette::create([
                 'project_id' => $id,
                 'fondo' => $rutaFondo,
@@ -191,18 +191,18 @@ class RuletaController extends Controller
     }
 
     public function storeImgPremio(Request $request, $id) {
-    
+
         // Obtener los premios
         $premio = AwardProject::findOrFail($id);
 
         // insertar imagen
         $ruta = !empty($premio->imagen) && $request["premio_subir_url"] != "null" ?  $premio->imagen : '';
         if ($request->hasFile('premio_subir')) {
-            
+
             if(!empty($ruta)) {
                 // Obtener la ruta de la imagen
                 $rutaFav = public_path($premio->imagen); // Suponiendo que la ruta está almacenada en 'ruta'
-    
+
                 // Eliminar el archivo del sistema
                 if (file_exists($rutaFav) && !empty($premio->imagen)) {
                     unlink($rutaFav); // Eliminar el archivo
@@ -224,18 +224,18 @@ class RuletaController extends Controller
     }
 
     public function storeImgPremioFinal(Request $request, $id) {
-        
+
         // Obtener los premios
         $premio = AwardProject::findOrFail($id);
 
         // insertar imagen
         $ruta = !empty($premio->imagen) ?  $premio->imagen : '';
         if ($request->hasFile('subir_premio')) {
-            
+
             if(!empty($ruta)) {
                 // Obtener la ruta de la imagen
                 $rutaFav = public_path($premio->imagen); // Suponiendo que la ruta está almacenada en 'ruta'
-    
+
                 // Eliminar el archivo del sistema
                 if (file_exists($rutaFav) && !empty($premio->imagen)) {
                     unlink($rutaFav); // Eliminar el archivo
@@ -257,10 +257,10 @@ class RuletaController extends Controller
     }
 
     public function show($hub) {
-    
+
         // Obtener proyecto
         $project = Project::where('dominio', $hub)->where('status', 1)->where('game_id', 2)->first();
-        
+
         if(!isset($project)){
             return redirect()->route('index');
         }
@@ -270,17 +270,27 @@ class RuletaController extends Controller
             return redirect()->route($tipoJuego.'juego.view.registro.ruleta', $hub);
         }
         $idParticipante = session('claveRuleta');
-        
+
         $gameRuleta = Roulette::where('project_id', $project->id)->first();
         $projectPremio = AwardProject::where('project_id', $project->id)->where('status', 1)->get();
 
         if ($project->project_type_id == 3) {
+
+            $userId = 0;
+
+            if (Auth::guard('xplorer')->user() || Auth::user()) {
+                $userId = Auth::guard('xplorer')->user() ? Auth::guard('xplorer')->user()->id : Auth::user()->id;
+            } else { //admin
+                $user = AsignacionProject::where('project_id', $project->id)->first();
+                $userId = User::find($user->user_id);
+            }
+
             $premioRuleta = DB::table('award_projects')
             ->join('premio_pdvs', 'premio_pdvs.award_project_id', 'award_projects.id')
             ->join('asignacion_projects', 'asignacion_projects.id', 'premio_pdvs.asignacion_project_id')
             ->where('asignacion_projects.project_id', $project->id)
             ->where('asignacion_projects.sales_point_id', intval(session('punto_venta_ruleta')))
-            ->where('asignacion_projects.user_id', Auth::user()->id)
+            ->where('asignacion_projects.user_id', $userId)
             // ->where('award_projects.status', 1)
             ->where('premio_pdvs.qty_premio', '>', 0)
             ->select('premio_pdvs.id', 'award_projects.nombre_premio as name', DB::raw("CONCAT('/storage/', award_projects.imagen) AS img"))
@@ -288,7 +298,7 @@ class RuletaController extends Controller
         } else {
             $premioRuleta = DB::table('award_projects')->where('project_id', $project->id)->where('status', 1)->select('id', 'nombre_premio as name', DB::raw("CONCAT('/storage/', imagen) AS img"))->get();
         }
-        
+
         $premio = $this->obtenerPremio($project->id);
         $sigueIntentando = KeepTrying::where('project_id', $project->id)->first();
 
@@ -312,12 +322,22 @@ class RuletaController extends Controller
         // Obtener todos los premios con su probabilidad
         $project = Project::findOrFail($projectId);
         if ($project->project_type_id == 3) {
+
+            $userId = 0;
+
+            if (Auth::guard('xplorer')->user() || Auth::user()) {
+                $userId = Auth::guard('xplorer')->user() ? Auth::guard('xplorer')->user()->id : Auth::user()->id;
+            } else { //admin
+                $user = AsignacionProject::where('project_id', $project->id)->first();
+                $userId = User::find($user->user_id);
+            }
+
             $premios = DB::table('award_projects')
             ->join('premio_pdvs', 'premio_pdvs.award_project_id', 'award_projects.id')
             ->join('asignacion_projects', 'asignacion_projects.id', 'premio_pdvs.asignacion_project_id')
             ->where('asignacion_projects.project_id', $projectId)
             ->where('asignacion_projects.sales_point_id', intval(session('punto_venta_ruleta')))
-            ->where('asignacion_projects.user_id', Auth::user()->id)
+            ->where('asignacion_projects.user_id', $userId)
             ->where('premio_pdvs.qty_premio', '>', 0)
             // ->where('award_projects.status', 1)
             ->select('premio_pdvs.id', 'award_projects.nombre_premio', 'award_projects.imagen', 'premio_pdvs.probabilidad')
@@ -325,11 +345,11 @@ class RuletaController extends Controller
         } else {
             $premios = AwardProject::where('project_id', $projectId)->where('status', 1)->where('status', 1)->where('stock','>',0)->get();
         }
-        
+
         // Crear un array acumulativo para la probabilidad
         $acumulado = [];
         $total = 0;
-    
+
         foreach ($premios as $premio) {
             $total += $premio->probabilidad;
             $acumulado[] = [
@@ -346,10 +366,10 @@ class RuletaController extends Controller
             'imagen' => '',
             'prob_acum' => $total
         ];
-    
+
         // Generar un número aleatorio entre 1 y 100
         $random = rand(1, $total);
-    
+
         // Buscar el premio que corresponde al número aleatorio
         foreach ($acumulado as $item) {
             if ($random <= $item['prob_acum']) {
@@ -362,9 +382,9 @@ class RuletaController extends Controller
         }
     }
 
-    // 
+    //
     public function index($hub) {
-        
+
         // Obtener proyecto
         $project = Project::where('dominio', $hub)->where('status','<>', 0)->where('game_id', 2)->first();
 
@@ -386,28 +406,63 @@ class RuletaController extends Controller
         //     if (!isset(Auth::user()->id)) {
         //         return redirect()->route('login');
         //     }
-        
+
         //     $user = User::find(Auth::user()->id);
         // }
-        
-        // Juegos campaña necesitas auth
-        if (!isset(Auth::user()->id)) {
-            return redirect()->route('login');
-        }
-    
-        $user = User::find(Auth::user()->id);
 
         if ($project->project_type_id == 3) {
-            if ($user->is_xplorer != 1) {
-                return redirect()->route('index')->with('projecto', 'No tiene permitido ingresar a este juego.');
+            if (!Auth::guard('admin')->user() && !Auth::user() && !Auth::guard('xplorer')->user()) {
+                return redirect()->route('login');
             }
 
-            $asignacion = AsignacionProject::where('project_id', $project->id)->where('user_id', $user->id)->get();
+            if (Auth::guard('xplorer')->user() || isset(Auth::user()->id)) {
 
-            if (count($asignacion) == 0) {
-                return redirect()->route('index')->with('projecto', 'No tiene acceso a este juego.');
+                $userId = Auth::guard('xplorer')->user() ? Auth::guard('xplorer')->user()->id : Auth::user()->id;
+
+                $user = User::find($userId);
+
+                if ($user->is_xplorer != 1) {
+                    return redirect()->route('index')->with('projecto', 'No tiene permitido ingresar a este juego.');
+                }
+
+                $asignacion = AsignacionProject::where('project_id', $project->id)->where('user_id', $user->id)->get();
+
+                if (count($asignacion) == 0) {
+                    return redirect()->route('index')->with('projecto', 'No tiene acceso a este juego.');
+                }
+            } else {// Administrador
+
+                $idUser = AsignacionProject::where('project_id', $project->id)->first();
+                $user = User::find($idUser->user_id);
             }
+        } else {
+
+            if (!Auth::user()) {
+                return redirect()->route('login');
+            }
+
+            $user = User::find(Auth::user()->id);
+
         }
+
+        // // Juegos campaña necesitas auth
+        // if (!isset(Auth::user()->id)) {
+        //     return redirect()->route('login');
+        // }
+
+        // $user = User::find(Auth::user()->id);
+
+        // if ($project->project_type_id == 3) {
+        //     if ($user->is_xplorer != 1) {
+        //         return redirect()->route('index')->with('projecto', 'No tiene permitido ingresar a este juego.');
+        //     }
+
+        //     $asignacion = AsignacionProject::where('project_id', $project->id)->where('user_id', $user->id)->get();
+
+        //     if (count($asignacion) == 0) {
+        //         return redirect()->route('index')->with('projecto', 'No tiene acceso a este juego.');
+        //     }
+        // }
 
         // Vista Proyecto
         ViewProject::create([
@@ -467,7 +522,7 @@ class RuletaController extends Controller
                 $otherParticipant = OtherParticipant::where('nro_documento', $request->documento)->first();
 
                 if (isset($otherParticipant)) {
-                    
+
                     $otherParticipant->update([
                         'nombres' => $request->name,
                         'apellidos' => $request->apellido,
@@ -503,7 +558,7 @@ class RuletaController extends Controller
 
                     $other_participant_id = $otherParticipant->id;
                 }
-                
+
             }
 
             $userId = isset(Auth::user()->id) && $project->project_type_id != 3 ? Auth::user()->id : null;
@@ -542,7 +597,7 @@ class RuletaController extends Controller
                         $otherParticipant = OtherParticipant::where('nro_documento', trim($request->documento))->first();
 
                         if (isset($otherParticipant)) {
-                            
+
                             $otherParticipant->update([
                                 'nombres' => $request->name,
                                 'apellidos' => $request->apellido,
@@ -583,7 +638,7 @@ class RuletaController extends Controller
                 }
 
             }
-            
+
             $participant = new Participant();
             $participant->project_id = $id;
             $participant->user_id = $userId;

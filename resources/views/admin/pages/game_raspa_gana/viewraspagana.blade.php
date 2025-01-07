@@ -194,6 +194,7 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
     .text-header {
         text-align: center;
         padding: 5%;
+        padding-top: 4%;
     }
 
     .text-header img  {
