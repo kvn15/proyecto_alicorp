@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\NotificacionController;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class AdminLoginController extends Controller
 {
@@ -53,5 +57,46 @@ class AdminLoginController extends Controller
     {
         Auth::guard('admin')->logout();
         return redirect('/');
+    }
+
+    public function recoverView() {
+        return view('admin.recoverPassword');
+    }
+
+    public function recoverStore(Request $request) {
+
+        // Validar datos
+        $this->validate($request, [
+            'email' => 'required|email'
+        ]);
+
+        // Buscar el email
+        $admin = Admin::where('email', $request->email)->first();
+
+        if (!$admin || empty($admin)) {
+            return back()->with('mensajeError', 'No hemos encontrado un administrador registrado con el correo electrónico ingresado. Por favor, verifica la dirección o intenta con otro correo.');
+        }
+
+        // Generamos una contraseña aleatoria
+        $password = $this->generarPasswordSegura(12);
+
+        $admin->update([
+            'password' => Hash::make($password)
+        ]);
+
+        // Enviar correo
+        $notificacion = new NotificacionController();
+        $notificacion->notificacionRecoverPassword($admin->email, $admin->name, $password);
+
+        return back()->with('mensajeSuccess', 'Hemos enviado un correo con tu nueva contraseña a la dirección de correo electrónico registrada. Por favor, revisa tu bandeja de entrada (y la carpeta de spam o correo no deseado en caso de que no lo encuentres).');
+    }
+
+    public function generarPasswordSegura($longitud = 12) {
+        $caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
+        $password = '';
+        for ($i = 0; $i < $longitud; $i++) {
+            $password .= $caracteres[random_int(0, strlen($caracteres) - 1)];
+        }
+        return $password;
     }
 }

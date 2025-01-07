@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Mail\NotificationTyC;
+use App\Mail\RecoverPassword;
+use App\Mail\RecoverPasswordXplorer;
 use App\Models\Admin;
 use App\Models\OtherParticipant;
 use App\Models\Participant;
@@ -48,5 +50,15 @@ class NotificacionController extends Controller
 
         $response = Mail::to($admin->email)
         ->queue(new NotificationTyC($nombre, $apellido, $correo, $telefono, $documento, $project->nombre_promocion, $tipo->name, $participant->created_at, $codigo)); // envia el email en segundo plano
+    }
+
+    public function notificacionRecoverPassword($email, $name, $password) {
+        $response = Mail::to($email)
+        ->queue(new RecoverPassword($name, $password));
+    }
+
+    public function notificacionRecoverPasswordXplorer($email, $name, $password) {
+        $response = Mail::to($email)
+        ->queue(new RecoverPasswordXplorer($name, $password));
     }
 }

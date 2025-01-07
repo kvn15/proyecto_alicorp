@@ -48,12 +48,14 @@ Route::controller(alicorpController::class)->group(function () {
 Route::prefix('admin')->group(function () {
     Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
     Route::post('/login', [AdminLoginController::class, 'login'])->name('admin.login.submit');
+    Route::get('/recover-password-admin', [AdminLoginController::class, 'recoverView'])->name('admin.recoverView');
+    Route::post('/recover-password-admin', [AdminLoginController::class, 'recoverStore'])->name('admin.recoverStore');
 
     //Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
     //Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
     //Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
     //Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
-    
+
     Route::get('/logout', [AdminController::class, 'destroy'])->name('admin.logout');
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/dashboard/inicio', [AdminController::class, 'inicio'])->name('admin.dashboard.inicio');
@@ -65,8 +67,8 @@ Route::prefix('admin')->group(function () {
     Route::post('/dashboard/password/Perfil', [AdminController::class, 'UpdatePassword'])->name('dashboard.password.perfil');
 
     //xlorer admin
-    Route::get('/dashboard/config-admin-xplorer', [AdminController::class, 'xplorer_admin'])->name('dashboard.xplorer_admin');
-    
+    Route::get('/dashboard/config-admin-xplorer-user', [AdminController::class, 'xplorer_admin'])->name('dashboard.xplorer_admin');
+
     // mis proyectos
     Route::get('/dashboard/mis-proyectos', [AdminController::class, 'dashboardMio'])->name('admin.dashboard.mio');
     Route::get('/dashboard/juegosWeb/mis-proyectos', [AdminController::class, 'juegosWebMio'])->name('admin.dashboard.juegosWeb.mio');
@@ -94,7 +96,7 @@ Route::prefix('admin')->group(function () {
         Route::get('show/{id}/ganadores',[LandingPromocionalController::class, 'ganador'])->name('juego_web.show.ganadores');
         Route::get('show/{id}/configuracion',[LandingPromocionalController::class, 'configuracion'])->name('juego_web.show.configuracion');
     });
-    
+
     Route::prefix('juego_campana')->group(function () {
         Route::get('/', [AdminController::class, 'landing'])->name('juego_campana.index');
         // landing promocional asignacion
@@ -140,6 +142,8 @@ Route::controller(XplorerController::class)->group(function () {
     Route::get('xplorer/login', 'loginForm')->name('xplorer.login');
     Route::post('xplorer/login','login');
     Route::get('xplorer/logout','logout')->name('xplorer.logout');
+    Route::get('xplorer/recover-password-admin', 'recoverView')->name('xplorer.recoverView');
+    Route::post('xplorer/recover-password-admin', 'recoverStore')->name('xplorer.recoverStore');
 });
 
 Route::middleware('auth:xplorer')->group(function () {
@@ -169,15 +173,15 @@ Route::controller(HomeInicioController::class)->group(function () {
     Route::post('adminPanel/inicio/store/promo', 'StorePromociones')->name('adminPanel.inicio.store.promo');
     Route::get('/adminPanel/inicio/delete/promo/{id}', 'DeletePromos')->name('adminPanel.inicio.delete.promo');
 
-    
+
 });
 
 Route::controller(CalendarioController::class)->group(function () {
     Route::get('/adminPanel/calendario/slider', 'AllSlideC')->name('adminPanel.calendario.slider');
     Route::post('/adminPanel/calendario/store/slider', 'StoreSliderC')->name('adminPanel.calendario.store.slider');
-    Route::get('/adminPanel/calendario/delete/slide/{id}', 'DeleteSlideC')->name('adminPanel.calendario.delete.slide');    
+    Route::get('/adminPanel/calendario/delete/slide/{id}', 'DeleteSlideC')->name('adminPanel.calendario.delete.slide');
 
-    Route::get('/adminPanel/calendario/cards', 'AllCards')->name('adminPanel.calendario.cards'); 
+    Route::get('/adminPanel/calendario/cards', 'AllCards')->name('adminPanel.calendario.cards');
     Route::post('/adminPanel/calendario/store/cards', 'storeCards')->name('adminPanel.calendario.item.store');
     Route::post('/adminPanel/calendario/update/card/{id}', 'UpdateCard')->name('adminPanel.calendario.item.update');
     Route::get('/adminPanel/calendario/delete/card/{id}', 'DeleteCard')->name('adminPanel.calendario.delete.card');
@@ -186,9 +190,9 @@ Route::controller(CalendarioController::class)->group(function () {
 Route::controller(PromocionesController::class)->group(function () {
     Route::get('/adminPanel/promociones/slider', 'AllSlideP')->name('adminPanel.promociones.slider');
     Route::post('/adminPanel/promociones/store/slider', 'StoreSliderP')->name('adminPanel.promociones.store.slider');
-    Route::get('/adminPanel/promociones/delete/slide/{id}', 'DeleteSlideC')->name('adminPanel.promociones.delete.slide');    
+    Route::get('/adminPanel/promociones/delete/slide/{id}', 'DeleteSlideC')->name('adminPanel.promociones.delete.slide');
 
-    Route::get('/adminPanel/promociones/cards', 'AllCards')->name('adminPanel.promociones.cards'); 
+    Route::get('/adminPanel/promociones/cards', 'AllCards')->name('adminPanel.promociones.cards');
     Route::post('/adminPanel/promociones/store/cards', 'storeCards')->name('adminPanel.promociones.item.store');
     Route::post('/adminPanel/promociones/update/card/{id}', 'UpdateCard')->name('adminPanel.promociones.item.update');
     Route::get('/adminPanel/promociones/delete/card/{id}', 'DeleteCard')->name('adminPanel.promociones.delete.card');
@@ -275,3 +279,7 @@ require __DIR__.'/auth.php';
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/newPass', function () {
+    return view('mail.emailChangePassword');
+});

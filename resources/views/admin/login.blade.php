@@ -64,7 +64,7 @@
                         <div class="d-flex flex-column mt-3">
                             <button type="submit" class="btn btn-primary w-50">Ingresar</button>
                             <div class="text-center w-50 mt-3">
-                                <a href="#" class="d-block mb-2">Olvidaste tu contraseña?</a>
+                                <a href="{{ route('admin.recoverView') }}" class="d-block mb-2">Olvidaste tu contraseña?</a>
                                 <a href="{{ route('xplorer.login') }}" class="d-block">Ingresar como Xplorer</a>
                             </div>
                         </div>

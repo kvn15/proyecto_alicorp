@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class XplorerController extends Controller
 {
@@ -22,13 +23,13 @@ class XplorerController extends Controller
             'email' => 'required|max:100',
             'password' => 'required'
         ]);
-        
+
         if(!Auth::guard('xplorer')->attempt($request->only('email','password'))){
             return back()->with('mensaje', 'Creedenciales Incorrectas');
         }
 
         $user = auth('xplorer')->user();
-        
+
         if ($user->is_xplorer == 0) {
             return back()->with('mensaje', 'Creedenciales Incorrectas');
         }
@@ -58,7 +59,7 @@ class XplorerController extends Controller
 
         $id = Auth::user()->id;
         $editData = User::find($id);
-        return view('xplorer.configuracion_editar',compact('editData'));  
+        return view('xplorer.configuracion_editar',compact('editData'));
     }
 
     public function UpdatePassword(Request $request){
@@ -104,11 +105,52 @@ class XplorerController extends Controller
         $data->save();
 
         $notification = array(
-            'messagePerfil' => 'Perfil de Administrador Actualizado Satisfactoriamente', 
+            'messagePerfil' => 'Perfil de Administrador Actualizado Satisfactoriamente',
             'alert-type' => 'info'
         );
 
         return redirect()->route('xplorer.dashboard.configuracion')->with($notification);
 
+    }
+
+    public function recoverView() {
+        return view('xplorer.recoverPasswordXplorer');
+    }
+
+    public function recoverStore(Request $request) {
+
+        // Validar datos
+        $this->validate($request, [
+            'email' => 'required|email'
+        ]);
+
+        // Buscar el email
+        $xplorer = User::where('email', $request->email)->where('is_xplorer', 1)->first();
+
+        if (!$xplorer || empty($xplorer)) {
+            return back()->with('mensajeError', 'No hemos encontrado un xplorer registrado con el correo electrónico ingresado. Por favor, verifica la dirección o intenta con otro correo.');
+        }
+
+        // Generamos una contraseña aleatoria
+        $password = $this->generarPasswordSegura(12);
+
+        $xplorer->update([
+            'password' => Hash::make($password)
+        ]);
+
+        // Enviar correo
+        $notificacion = new NotificacionController();
+        $notificacion->notificacionRecoverPasswordXplorer($xplorer->email, $xplorer->name, $password);
+
+        return back()->with('mensajeSuccess', 'Hemos enviado un correo con tu nueva contraseña a la dirección de correo electrónico registrada. Por favor, revisa tu bandeja de entrada (y la carpeta de spam o correo no deseado en caso de que no lo encuentres).');
+    }
+
+    public function generarPasswordSegura($longitud = 12) {
+        $caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
+        $password = '';
+        for ($i = 0; $i < $longitud; $i++) {
+            $password .= $caracteres[random_int(0, strlen($caracteres) - 1)];
+        }
+        return $password;
     }
 }
