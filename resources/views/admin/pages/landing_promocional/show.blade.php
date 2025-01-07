@@ -57,17 +57,17 @@
                                 <span class="title-etapa"><b>Estado</b></span>
                                 <div class="body-etapa">
                                     @if ($project["landing"]->status == 1)
-                                    <div class="bage-activo">
+                                    <div class="bage-activo" id="bageStatus">
                                         Activo
                                     </div>
                                     @endif
                                     @if ($project["landing"]->status == 0)
-                                    <div class="bage-inactivo">
+                                    <div class="bage-inactivo" id="bageStatus">
                                         Inactivo
                                     </div>
                                     @endif
                                     @if ($project["landing"]->status == 2)
-                                    <div class="bage-finalizado">
+                                    <div class="bage-finalizado" id="bageStatus">
                                         Finalizado
                                     </div>
                                     @endif
@@ -446,9 +446,16 @@
                         if ($("#status").val() == '1') {
                             $("#status").val('2');
                             $("#publicar").remove();
-                            $(".btn_proyecto").removeClass('btn-inactivo').addClass('btn-activo')
-                            $(".btn_proyecto").html("Activo")
+                            $("#btn_status").removeClass('btn-activo');
+                            $("#btn_status").removeClass('btn-inactivo');
+                            $("#btn_status").removeClass('btn-finalizado');
+                            $("#btn_status").addClass('btn-activo');
+                            $("#btn_status").html('Activo');
+                            $("#bageStatus").removeClass('bage-inactivo');
+                            $("#bageStatus").addClass('bage-activo');
+                            $("#bageStatus").html('Activo');
                         }
+
                     }
                     console.log(data)
                     // if (data) {
