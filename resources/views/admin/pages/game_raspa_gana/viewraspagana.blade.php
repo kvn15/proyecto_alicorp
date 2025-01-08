@@ -130,13 +130,19 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
         font-family: var({{$estiloFont}}) !important;
     }
     .container {
-        width: 31em;
+        /* width: 31em;
         height: 31em;
         position: absolute;
         transform: translate(-50%, -50%);
         top: 50%;
-        left: 50%;
-        border-radius: 0.6em;
+        left: 50%; */
+        /* border-radius: 0.6em; */
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 0.5rem;
     }
     .base,
     #scratch {
@@ -193,14 +199,14 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
 
     .text-header {
         text-align: center;
-        padding: 5%;
-        padding-top: 4%;
+        /* padding: 5%;
+        padding-top: 4%; */
     }
 
     .text-header img  {
         width: 100%;
-        min-width: 300px;
-        max-width: 500px;
+        /* min-width: 300px;
+        max-width: 500px; */
     }
 
     .btn-memoria {
@@ -217,13 +223,6 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
 
     .btn-memoria:hover {
         color: #6661f5;
-    }
-
-    .btn_content {
-        position: absolute;
-        bottom: -3%;
-        left: 50%;
-        transform: translate(-50%, 50%);
     }
 </style>
 <style>
@@ -288,7 +287,37 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
 </style>
 
 <style>
+
+    #cardRaspa {
+      width: 450px;
+      height: 450px;
+      position: relative;
+      user-select: none;
+    }
+    #card-raspa {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .img-premio-final {
+        max-width: 450px;
+        max-height: 450px;
+    }
     @media (max-width: 575.98px) {
+
+        #cardRaspa {
+            width: 300px;
+            height: 300px;
+        }
+
+        .img-premio-final {
+            max-width: 300px;
+            max-height: 300px;
+        }
+
         .text-header {
             padding: 5% 0px;
         }
@@ -321,28 +350,29 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
         <input type="hidden" id="premio_id" name="premio_id" value="{{ $premioSelect['premio_id'] }}">
     </form>
 
-    <div id="juego_casino_raspa" style="background-image: url('{{ $fondo }}'); background-size: cover; height: 100vh; position: relative;">
+    <div id="juego_casino_raspa" style="background-image: url('{{ $fondo }}'); background-size: cover; min-height: 100vh; position: relative;">
         <div id="card-raspa">
             <div class="text-header">
                 {{-- <p id="parrafo-header {{ $styleBold }} {{  $italicTitulo }} {{ $styleTamano }} {{ $styleAlineacion }}" style="color: #fff;">{{ $tituloTexto }}</p> --}}
-                <img id="logo_casino" src="{{ $logo_principal }}" alt="" style="max-width: 300px;">
+                <img id="logo_casino" src="{{ $logo_principal }}" alt="" style="max-width: 250px;">
             </div>
             <div class="container">
-                <div class="base">
+                {{-- <div class="base">
                     <img id="img-premio" class="img-premio" src="{{ $imgPremio }}" alt="">
                 </div>
-                <canvas id="scratch" height="450"></canvas>
+                <canvas id="scratch" height="450"></canvas> --}}
+                <div id="cardRaspa"></div>
                 <div class="btn_content">
                     <button type="button" class="btn-memoria d-none text-uppercase" style="background-color: #fff;" id="continar_casino">Continuar</button>
                 </div>
             </div>
         </div>
-        <div id="card-premio" class="d-none flex-column align-items-center justify-content-center" style="width: 100%; height: 100%;">
-            <div class="d-flex justify-content-center pt-4 w-100 pb-4">
+        <div id="card-premio" class="d-none flex-column align-items-center justify-content-center" style="width: 100%; min-height: 100vh; gap: 1rem;">
+            <div class="d-flex justify-content-center w-100">
                 <img class="img-fluid" src="{{ $titulo_subir }}" alt="" id="img-header-premio"  style="max-width: 350px;">
             </div>
             <div class="d-flex flex-column align-items-center justify-content-center w-100">
-                <img class="img-fluid" src="{{ $imgPremio }}" alt="" id="premio_img"  style="max-width: 400px;">
+                <img class="img-fluid img-premio-final" src="{{ $imgPremio }}" alt="" id="premio_img">
                 <h4 class="text-white my-2 d-none" style="font-weight: 700;">{{ $namePremio }}</h4>
             </div>
             <div class="{{ $styleBotones }} justify-content-center" id="btn_content">
@@ -352,124 +382,148 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script
+        src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"
+    ></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
     </script>
+    <script src="{{ asset('js/wScratchpad.min.js') }}"></script>
 </body>
 </html>
 
 <script>
-    let canvas = document.getElementById("scratch");
-    let context = canvas.getContext("2d");
+    // let canvas = document.getElementById("scratch");
+    // let context = canvas.getContext("2d");
 
-    const init = () => {
-        var background = new Image();
-        background.src = "{{ $imagen_raspar }}";
-    //   let gradientColor = context.createLinearGradient(0, 0, 135, 135);
-    //   gradientColor.addColorStop(0, "#c3a3f1");
-    //   gradientColor.addColorStop(1, "#6414e9");
-    //   context.fillStyle = gradientColor;
-    //   context.fillRect(0, 0, 200, 200);
-        // Make sure the image is loaded first otherwise nothing will draw.
-        canvas.width = canvas.parentElement.clientWidth;
-        canvas.height = canvas.parentElement.clientHeight;
-        background.onload = function(){
-            context.drawImage(background,0,0,canvas.width,450);
-        }
-    };
+    // const init = () => {
+    //     var background = new Image();
+    //     background.src = "{{ $imagen_raspar }}";
+    // //   let gradientColor = context.createLinearGradient(0, 0, 135, 135);
+    // //   gradientColor.addColorStop(0, "#c3a3f1");
+    // //   gradientColor.addColorStop(1, "#6414e9");
+    // //   context.fillStyle = gradientColor;
+    // //   context.fillRect(0, 0, 200, 200);
+    //     // Make sure the image is loaded first otherwise nothing will draw.
+    //     canvas.width = canvas.parentElement.clientWidth;
+    //     canvas.height = canvas.parentElement.clientHeight;
+    //     background.onload = function(){
+    //         context.drawImage(background,0,0,canvas.width,450);
+    //     }
+    // };
 
-    //initially mouse X and mouse Y positions are 0
-    let mouseX = 0;
-    let mouseY = 0;
-    let isDragged = false;
+    // //initially mouse X and mouse Y positions are 0
+    // let mouseX = 0;
+    // let mouseY = 0;
+    // let isDragged = false;
 
-    //Events for touch and mouse
-    let events = {
-    mouse: {
-        down: "mousedown",
-        move: "mousemove",
-        up: "mouseup",
-    },
-    touch: {
-        down: "touchstart",
-        move: "touchmove",
-        up: "touchend",
-    },
-    };
+    // //Events for touch and mouse
+    // let events = {
+    // mouse: {
+    //     down: "mousedown",
+    //     move: "mousemove",
+    //     up: "mouseup",
+    // },
+    // touch: {
+    //     down: "touchstart",
+    //     move: "touchmove",
+    //     up: "touchend",
+    // },
+    // };
 
-    let deviceType = "";
+    // let deviceType = "";
 
-    //Detech touch device
-    const isTouchDevice = () => {
-    try {
-        //We try to create TouchEvent. It would fail for desktops and throw error.
-        document.createEvent("TouchEvent");
-        deviceType = "touch";
-        return true;
-    } catch (e) {
-        deviceType = "mouse";
-        return false;
-    }
-    };
+    // //Detech touch device
+    // const isTouchDevice = () => {
+    // try {
+    //     //We try to create TouchEvent. It would fail for desktops and throw error.
+    //     document.createEvent("TouchEvent");
+    //     deviceType = "touch";
+    //     return true;
+    // } catch (e) {
+    //     deviceType = "mouse";
+    //     return false;
+    // }
+    // };
 
-    //Get left and top of canvas
-    let rectLeft = canvas.getBoundingClientRect().left;
-    let rectTop = canvas.getBoundingClientRect().top;
+    // //Get left and top of canvas
+    // let rectLeft = canvas.getBoundingClientRect().left;
+    // let rectTop = canvas.getBoundingClientRect().top;
 
-    //Exact x and y position of mouse/touch
-    const getXY = (e) => {
-    mouseX = (!isTouchDevice() ? e.pageX : e.touches[0].pageX) - rectLeft;
-    mouseY = (!isTouchDevice() ? e.pageY : e.touches[0].pageY) - rectTop;
-    };
+    // //Exact x and y position of mouse/touch
+    // const getXY = (e) => {
+    // mouseX = (!isTouchDevice() ? e.pageX : e.touches[0].pageX) - rectLeft;
+    // mouseY = (!isTouchDevice() ? e.pageY : e.touches[0].pageY) - rectTop;
+    // };
 
-    isTouchDevice();
-    //Start Scratch
-    canvas.addEventListener(events[deviceType].down, (event) => {
-    isDragged = true;
-    //Get x and y position
-    getXY(event);
-    scratch(mouseX, mouseY);
-    });
+    // isTouchDevice();
+    // //Start Scratch
+    // canvas.addEventListener(events[deviceType].down, (event) => {
+    // isDragged = true;
+    // //Get x and y position
+    // getXY(event);
+    // scratch(mouseX, mouseY);
+    // });
 
-    //mousemove/touchmove
-    canvas.addEventListener(events[deviceType].move, (event) => {
-        if (!isTouchDevice()) {
-            event.preventDefault();
-        }
-        if (isDragged) {
+    // //mousemove/touchmove
+    // canvas.addEventListener(events[deviceType].move, (event) => {
+    //     if (!isTouchDevice()) {
+    //         event.preventDefault();
+    //     }
+    //     if (isDragged) {
+    //         const continar_casino = document.getElementById('continar_casino')
+
+    //         if (continar_casino.classList.contains('d-none')) {
+    //             // Ejcutar ajax
+    //             ganador();
+    //         }
+
+    //         continar_casino.classList.remove('d-none')
+    //         getXY(event);
+    //         scratch(mouseX, mouseY);
+    //     }
+    // });
+
+    // //stop drawing
+    // canvas.addEventListener(events[deviceType].up, () => {
+    // isDragged = false;
+    // });
+
+
+    // const scratch = (x, y) => {
+    // //destination-out draws new shapes behind the existing canvas content
+    // context.globalCompositeOperation = "destination-out";
+    // context.beginPath();
+    // //arc makes circle - x,y,radius,start angle,end angle
+    // context.arc(x, y, 30,-20, 0);
+    // context.fill();
+    // };
+
+    // window.onload = init();
+</script>
+<script>
+    $("#cardRaspa").wScratchPad({
+        size: 50, // The size of the brush/scratch.
+        bg: `{{ $imgPremio }}`, // Background (image path or hex color).
+        fg: `{{ $imagen_raspar }}`, // Foreground (image path or hex color).
+        cursor: "pointer", // Set cursor.
+        scratchDown: function(e, percent){ console.log(percent, 1); },
+        scratchMove: function(e, percent){
             const continar_casino = document.getElementById('continar_casino')
-
             if (continar_casino.classList.contains('d-none')) {
                 // Ejcutar ajax
                 ganador();
+                continar_casino.classList.remove('d-none')
             }
-
-            continar_casino.classList.remove('d-none')
-            getXY(event);
-            scratch(mouseX, mouseY);
-        }
+        },
+        scratchUp: function(e, percent){ console.log(percent, 3); }
     });
 
-    //stop drawing
-    canvas.addEventListener(events[deviceType].up, () => {
-    isDragged = false;
-    });
-
-
-    const scratch = (x, y) => {
-    //destination-out draws new shapes behind the existing canvas content
-    context.globalCompositeOperation = "destination-out";
-    context.beginPath();
-    //arc makes circle - x,y,radius,start angle,end angle
-    context.arc(x, y, 30,-20, 0);
-    context.fill();
-    };
-
-    window.onload = init();
 
     function ganador() {
         $('#form_ganador').submit();
@@ -496,8 +550,7 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
             }
         });
     });
-</script>
-<script>
+
     $('#continar_casino').on('click', function () {
         $("#card-premio").removeClass("d-none").addClass('d-flex');
         $("#card-raspa").removeClass("d-block").addClass('d-none');

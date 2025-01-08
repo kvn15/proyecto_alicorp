@@ -329,7 +329,7 @@ class RuletaController extends Controller
                 $userId = Auth::guard('xplorer')->user() ? Auth::guard('xplorer')->user()->id : Auth::user()->id;
             } else { //admin
                 $user = AsignacionProject::where('project_id', $project->id)->first();
-                $userId = User::find($user->user_id);
+                $userId = User::find($user->user_id)->id;
             }
 
             $premios = DB::table('award_projects')

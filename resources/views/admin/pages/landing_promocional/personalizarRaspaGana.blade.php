@@ -106,8 +106,8 @@
 
     .text-header img  {
         width: 100%;
-        min-width: 300px;
-        max-width: 500px;
+        /* min-width: 300px; */
+        /* max-width: 500px; */
     }
 
     .btn-memoria {
@@ -242,6 +242,13 @@
         .btn_politicas:hover, .btn_terminos:hover {
             color: #fff;
         }
+
+#cardRaspa {
+  width: 450px;
+  height: 450px;
+  position: relative;
+  user-select: none;
+}
 </style>
 
 <script>
@@ -756,10 +763,11 @@
                         <img id="logo_casino" src="{{ $logo_principal }}" alt=""  style="max-width: 250px;">
                     </div>
                     <div class="container">
-                        <div class="base">
+                        {{-- <div class="base">
                             <img id="img-premio" class="img-premio" src="{{ $imgPremio }}" alt="">
                         </div>
-                        <canvas id="scratch" height="450"></canvas>
+                        <canvas id="scratch" height="450"></canvas> --}}
+                        <div id="cardRaspa"></div>
                         <div class="btn_content">
                             <button type="button" class="btn-memoria d-none" style="background-color: #fff;" id="continar_casino">Continuar</button>
                         </div>
@@ -814,7 +822,7 @@
 </div>
 
 
-<script>
+{{-- <script>
     let canvas = document.getElementById("scratch");
     let context = canvas.getContext("2d");
 
@@ -948,7 +956,7 @@
     };
 
     window.onload = init();
-</script>
+</script> --}}
 
 <script>
     const menu_edit = document.getElementById("menu_edit");
@@ -1294,6 +1302,24 @@
 
 
 @section('script_jquery')
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"
+></script>
+<script src="{{ asset('js/wScratchpad.min.js') }}"></script>
+<script>
+    $("#cardRaspa").wScratchPad({
+        size: 50, // The size of the brush/scratch.
+        bg: `{{ $imgPremio }}`, // Background (image path or hex color).
+        fg: `{{ $imagen_raspar }}`, // Foreground (image path or hex color).
+        cursor: "pointer", // Set cursor.
+        scratchDown: function(e, percent){ console.log(percent, 1); },
+        scratchMove: function(e, percent){ console.log(percent, 2); },
+        scratchUp: function(e, percent){ console.log(percent, 3); }
+    });
+
+</script>
 <script>
     $(document).ready(function () {
         $("#guardar-raspa-gana").on('click', function () {

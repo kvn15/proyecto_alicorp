@@ -1,8 +1,8 @@
 @php
-    $project = $data["project"]; 
-    $gameMemoria = $data["gameMemoria"]; 
-    $premioSelect = $data["premio"]; 
-    $idParticipante = $data["idParticipante"]; 
+    $project = $data["project"];
+    $gameMemoria = $data["gameMemoria"];
+    $premioSelect = $data["premio"];
+    $idParticipante = $data["idParticipante"];
     $sigueIntentando = $data["sigueIntentando"];
     $imgNulo = asset('backend/svg/img-null.svg');
 
@@ -44,7 +44,7 @@
         case 'Montserrat':
             $estiloFont = '--Montserrat';
             break;
-        
+
         default:
             $estiloFont = '--popins';
             break;
@@ -55,7 +55,7 @@
     @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
-    
+
     :root {
         --color-text1: #fff;
         --popins: "Poppins", sans-serif;
@@ -136,8 +136,8 @@
     }
     .card {
         position: relative;
-        width: 140px;
-        height: 140px;
+        width: 120px;
+        height: 120px;
         cursor: pointer;
         background-color: transparent !important;
         border: 0;
@@ -232,20 +232,32 @@
     .btn-memoria:hover {
         color: #d5542e;
     }
+
+    .div-premio {
+        min-height: 485px;
+    }
 </style>
 <style>
-    @media (max-width: 320px) { 
-    .card {
-        width: 130px;
-        height: 130px;
+    @media (max-width: 320px) {
+        .card {
+            width: 130px;
+            height: 130px;
+        }
+
+        .div-premio {
+            min-height: auto;
+        }
     }
-    }
-    @media (min-width: 321px) and  (max-width: 575.98px) { 
+    @media (min-width: 321px) and  (max-width: 575.98px) {
         .board {
             grid-template-columns: repeat(2, auto) !important;
         }
+
+        .div-premio {
+            min-height: auto;
+        }
     }
-    @media (min-width: 576px) and (max-width: 767.98px) { 
+    @media (min-width: 576px) and (max-width: 767.98px) {
         .board {
             grid-template-columns: repeat(3, auto) !important;
         }
@@ -253,69 +265,69 @@
 </style>
 <body>
     @php
-    
+
         //imagenes
         $principal = isset($gameMemoria) ? $gameMemoria->principal : '';
         $premio = isset($gameMemoria) ? $gameMemoria->premio : '';
         $principalData = json_decode($principal, true);
         $premioData = json_decode($premio, true);
-    
+
         // Principal
         $bgMemoria = isset($principalData["banner"]) && !empty($principalData["banner"]) ? "background-image: url('".'/storage/'.$principalData["banner"]."');" : "background-color: #EFF2F6;" ;
         $imgLogo = isset($principalData["logo-subir"]) && !empty($principalData["logo-subir"]) ? $principalData["logo-subir"] : $imgNulo;
-    
+
         // Premios
         $imgLogoPremio = isset($premioData["gano-subir"])  && !empty($premioData["gano-subir"]) ? $premioData["gano-subir"] : $imgNulo;
-    
+
         // array memorias
         $jsonDataMemoria = json_decode($gameMemoria->premio_img, true);
-    
+
         $img1 = isset($jsonDataMemoria[0]['img']) && !empty($jsonDataMemoria[0]['img']) ? "/storage/".$jsonDataMemoria[0]['img'] : $imgNulo;
         $img2 = isset($jsonDataMemoria[1]['img']) && !empty($jsonDataMemoria[1]['img']) ? "/storage/".$jsonDataMemoria[1]['img'] : $imgNulo;
         $img3 = isset($jsonDataMemoria[2]['img']) && !empty($jsonDataMemoria[2]['img']) ? "/storage/".$jsonDataMemoria[2]['img'] : $imgNulo;
         $img4 = isset($jsonDataMemoria[3]['img']) && !empty($jsonDataMemoria[3]['img']) ? "/storage/".$jsonDataMemoria[3]['img'] : $imgNulo;
         $img5 = isset($jsonDataMemoria[4]['img']) && !empty($jsonDataMemoria[4]['img']) ? "/storage/".$jsonDataMemoria[4]['img'] : $imgNulo;
         $img6 = isset($jsonDataMemoria[5]['img']) && !empty($jsonDataMemoria[5]['img']) ? "/storage/".$jsonDataMemoria[5]['img'] : $imgNulo;
-    
+
         // valores
         $boldTitulo = isset($principalData["bold-titulo-parrafo"]) ? ($principalData["bold-titulo-parrafo"] == 1 ? "checked" : "") : "";
         $italicTitulo = isset($principalData["italic-titulo-parrafo"]) ? ($principalData["italic-titulo-parrafo"] == 1 ? "checked" : "") : "";
         $tituloTexto = isset($principalData["texto-header"]) ? $principalData["texto-header"]  : "";
-        
+
         $tamanoTexto = isset($principalData["tamanoTexto"]) ? $principalData["tamanoTexto"] : "";
         $tamano1 = $tamanoTexto == 1 ? 'checked' : "";
         $tamano2 = $tamanoTexto == 2 ? 'checked' : "";
         $tamano3 = $tamanoTexto == 3 ? 'checked' : "";
-        
+
         $alineacion = isset($principalData["alineacionTexto"]) ? $principalData["alineacionTexto"] : "";
         $alineacion1 = $alineacion == 1 ? 'checked' : "";
         $alineacion2 = $alineacion == 2 ? 'checked' : "";
         $alineacion3 = $alineacion == 3 ? 'checked' : "";
-    
+
         $color = isset($principalData["color-texto-input"]) ? $principalData["color-texto-input"] : "#FFFFFF";
-    
+
         // fw-bold
         $styleBold = isset($principalData["bold-titulo-parrafo"]) ? ($principalData["bold-titulo-parrafo"] == 1 ? "fw-bold" : "") : "";
         $italicTitulo = isset($principalData["italic-titulo-parrafo"]) ? ($principalData["italic-titulo-parrafo"] == 1 ? "fst-italic" : "") : "";
-    
+
         $styleTamano = $tamanoTexto == 1 ? "fs-6" : ($tamanoTexto == 2 ? "fs-3"  :  ($tamanoTexto == 3 ? "fs-1"  : ""));
         $styleAlineacion = $alineacion == 1 ? "text-start" : ($alineacion == 2 ? "text-center"  :  ($alineacion == 3 ? "text-end"  : "text-center"));
-    
-    
+
+
         // Premios BOTONES
         $verBotones = isset($premioData["verBoton"]) ? $premioData["verBoton"] : "";
         $verBotones1 = $verBotones == 1 ? 'checked' : "";
         $verBotones2 = $verBotones == 2 ? 'checked' : "";
         $styleBotones =  $verBotones == 1 ? 'd-none' : 'd-flex';
-    
+
         $btnBg = isset($premioData["color-btn-bg-input"]) ? $premioData["color-btn-bg-input"] : "#fff";
         $btnColor = isset($premioData["color-texto-btn"]) ? $premioData["color-texto-btn"] : "#d5542e";
         // premios img
         $imgPremio = isset($premioSelect["imagen"]) && !empty($premioSelect["imagen"]) ? "/storage/".$premioSelect["imagen"] : $imgNulo;
         $namePremio = isset($premioSelect["premio_nombre"]) && !empty($premioSelect["premio_nombre"]) ? $premioSelect["premio_nombre"] : '';
-        
+
     @endphp
-    
+
     @php
         $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
     @endphp
@@ -353,10 +365,10 @@
         </div>
         <div class="win-game d-none flex-column align-items-center justify-content-center w-100 h-100" id="win-game">
             <div class="d-flex justify-content-center pt-2 w-100 mb-3">
-                <img class="img-fluid" src="{{ '/storage/'.$imgLogoPremio }}" alt="" id="img-header-premio" style="max-width: 350px;">
+                <img class="img-fluid" src="{{ '/storage/'.$imgLogoPremio }}" alt="" id="img-header-premio" style="max-width: 350px; width: 100%;">
             </div>
-            <div class="d-flex flex-column align-items-center justify-content-center w-100">
-                <img class="img-fluid mb-2" src="{{ $imgPremio }}" alt=""  id="premio_img" style="max-width: 370px;">
+            <div class="d-flex flex-column align-items-center justify-content-center w-100 div-premio">
+                <img class="img-fluid mb-2" src="{{ $imgPremio }}" alt=""  id="premio_img" style="max-width: 370px; width: 100%;">
                 <h4 class="text-white d-none" style="font-weight: 700;" id="h4Premio">{{ $namePremio }}</h4>
             </div>
             <div class="{{ $styleBotones }} justify-content-center" id="btn_content">
@@ -447,7 +459,7 @@
 
         for (let i = 0; i < items; i++) {
             const randomIndex = Math.floor(Math.random() * clonedArray.length)
-            
+
             randomPicks.push(clonedArray[randomIndex])
             clonedArray.splice(randomIndex, 1)
         }
@@ -456,13 +468,13 @@
     }
 
     const generateGame = () => {
-        const dimensions = selectors.board.getAttribute('data-dimension')  
+        const dimensions = selectors.board.getAttribute('data-dimension')
 
         // const emojis = ['🥔', '🍒', '🥑', '🌽', '🥕', '🍇', '🍉', '🍌', '🥭', '🍍']
         const articulos = itemCard;
-        const picks = pickRandom(articulos, (3 * dimensions) / 2) 
+        const picks = pickRandom(articulos, (3 * dimensions) / 2)
         const items = shuffle([...picks, ...picks])
-       
+
         const cards = `
             <div class="board" style="grid-template-columns: repeat(${dimensions}, auto)">
                 ${items.map(item => `
@@ -475,7 +487,7 @@
                 `).join('')}
         </div>
         `
-        
+
         const parser = new DOMParser().parseFromString(cards, 'text/html')
 
         selectors.board.replaceWith(parser.querySelector('.board'))
@@ -563,7 +575,7 @@
                 //     alert("Perdistes")
                     nErrores = 0;
                     const flippedCards2 = document.querySelectorAll('.card')
-                    flippedCards2.forEach(value => { 
+                    flippedCards2.forEach(value => {
                         value.classList.remove("none-visibiliti")
                         value.classList.remove("matched")
                         value.classList.remove("flipped")
@@ -612,13 +624,13 @@
     generateGame()
     attachEventListeners()
 
-    function ganador() { 
+    function ganador() {
         $('#form_ganador').submit();
     }
 
-    $('#form_ganador').submit(function (e) { 
+    $('#form_ganador').submit(function (e) {
         e.preventDefault();
-        
+
         var formData = new FormData(this);
 
         $.ajax({

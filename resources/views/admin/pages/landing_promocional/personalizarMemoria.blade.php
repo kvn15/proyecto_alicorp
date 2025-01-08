@@ -2,10 +2,10 @@
 
 
 @php
-    $project = $data["project"]; 
-    $gameMemoria = $data["gameMemoria"]; 
-    $projectPremio = $data["projectPremio"]; 
-    $premioSelect = $data["premio"]; 
+    $project = $data["project"];
+    $gameMemoria = $data["gameMemoria"];
+    $projectPremio = $data["projectPremio"];
+    $premioSelect = $data["premio"];
     $sigueIntentando = $data["sigueIntentando"];
 
     $urlSigue = isset($sigueIntentando["imagen"]) && !empty($sigueIntentando["imagen"]) ? '/storage/'.$sigueIntentando["imagen"] : '';
@@ -69,12 +69,12 @@
     $boldTitulo = isset($principalData["bold-titulo-parrafo"]) ? ($principalData["bold-titulo-parrafo"] == 1 ? "checked" : "") : "";
     $italicTitulo = isset($principalData["italic-titulo-parrafo"]) ? ($principalData["italic-titulo-parrafo"] == 1 ? "checked" : "") : "";
     $tituloTexto = isset($principalData["texto-header"]) ? $principalData["texto-header"]  : "";
-    
+
     $tamanoTexto = isset($principalData["tamanoTexto"]) ? $principalData["tamanoTexto"] : "";
     $tamano1 = $tamanoTexto == 1 ? 'checked' : "";
     $tamano2 = $tamanoTexto == 2 ? 'checked' : "";
     $tamano3 = $tamanoTexto == 3 ? 'checked' : "";
-    
+
     $alineacion = isset($principalData["alineacionTexto"]) ? $principalData["alineacionTexto"] : "";
     $alineacion1 = $alineacion == 1 ? 'checked' : "";
     $alineacion2 = $alineacion == 2 ? 'checked' : "";
@@ -98,7 +98,7 @@
 
     $btnBg = isset($premioData["color-btn-bg-input"]) ? $premioData["color-btn-bg-input"] : "#fff";
     $btnColor = isset($premioData["color-texto-btn"]) ? $premioData["color-texto-btn"] : "#d5542e";
-    
+
     // premios img
     $imgPremio = isset($premioSelect["imagen"]) && !empty($premioSelect["imagen"]) ? "/storage/".$premioSelect["imagen"] : $imgNulo;
     $imgPremio_url = isset($premioSelect["imagen"]) && !empty($premioSelect["imagen"]) ? "/storage/".$premioSelect["imagen"] : '';
@@ -107,12 +107,12 @@
 @endphp
 
 <script>
-    function subirImagenPremio (event, orden) {  
+    function subirImagenPremio (event, orden) {
         const premio_img = document.getElementById("premio_img")
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            
+
             reader.onload = function(e) {
                 const preview = document.getElementById('preview-premio-'+orden.toString());
                 const upload = document.getElementById('upload-premio-'+orden.toString())
@@ -218,7 +218,7 @@
         padding-bottom: 0.3em;
         font-size: 3em;
         border-bottom: 2px solid #d5542e;
-    } 
+    }
 
     .content_politicas_terminos p {
         font-size: 22px;
@@ -369,14 +369,14 @@
                         </li>
                         <li class="my-2">
                             <p class="my-1">Tamaño Texto</p>
-                            
+
                             <div class="btn-group" role="group">
                                 <input type="radio" class="btn-check" name="tamanoTexto" id="tamanoTexto1" autocomplete="off" {{ $tamano1 }} value="1">
                                 <label class="btn btn-outline-text" for="tamanoTexto1"><small><b>Chico</b></small></label>
-                              
+
                                 <input type="radio" class="btn-check" name="tamanoTexto" id="tamanoTexto2" autocomplete="off" {{ $tamano2 }} value="2">
                                 <label class="btn btn-outline-text" for="tamanoTexto2"><small><b>Mediano</b></small></label>
-                              
+
                                 <input type="radio" class="btn-check" name="tamanoTexto" id="tamanoTexto3" autocomplete="off" {{ $tamano3 }} value="3">
                                 <label class="btn btn-outline-text" for="tamanoTexto3"><small><b>Grande</b></small></label>
                             </div>
@@ -384,14 +384,14 @@
                         </li>
                         <li class="my-2">
                             <p class="my-1">Alineación</p>
-                            
+
                             <div class="btn-group" role="group">
                                 <input type="radio" class="btn-check" name="alineacionTexto" id="alineacionTexto1" autocomplete="off" {{ $alineacion1 }} value="1">
                                 <label class="btn btn-outline-text" for="alineacionTexto1"><small><b><i class="fas fa-align-left"></i></b></small></label>
-                              
+
                                 <input type="radio" class="btn-check" name="alineacionTexto" id="alineacionTexto2" autocomplete="off" {{ $alineacion2 }} value="2">
                                 <label class="btn btn-outline-text" for="alineacionTexto2"><small><b><i class="fas fa-align-center"></i></b></small></label>
-                              
+
                                 <input type="radio" class="btn-check" name="alineacionTexto" id="alineacionTexto3" autocomplete="off" {{ $alineacion3 }} value="3">
                                 <label class="btn btn-outline-text" for="alineacionTexto3"><small><b><i class="fas fa-align-right"></i></b></small></label>
                             </div>
@@ -399,7 +399,7 @@
                         </li>
                         <li class="my-2">
                             <p class="my-1">Color</p>
-                            
+
                             <div class="d-flex" role="group" style="gap: 0.4em;">
                                 <input type="text" class="form-control" id="color-texto-input" name="color-texto-input" value="{{ $color }}">
                                 <input type="color" class="form-control form-control-color p-0" id="color-texto" value="{{ $color }}">
@@ -605,11 +605,11 @@
                     <ul class="list-unstyled ps-4 mt-2 d-none-2 collapseTwoPremio" >
                         <li>
                             <p class="mb-2">Ver Botones</p>
-                            
+
                             <div class="btn-group" role="group">
                                 <input type="radio" class="btn-check" name="verBoton" id="verBoton1" autocomplete="off" {{ $verBotones1 }}  value="1">
                                 <label class="btn btn-outline-text" for="verBoton1"><small><b>No</b></small></label>
-                              
+
                                 <input type="radio" class="btn-check" name="verBoton" id="verBoton2" autocomplete="off" {{ $verBotones2 }}  value="2">
                                 <label class="btn btn-outline-text" for="verBoton2"><small><b>Si</b></small></label>
                             </div>
@@ -617,7 +617,7 @@
                         </li>
                         <li class="my-2">
                             <p class="my-1">Color</p>
-                            
+
                             <div class="d-flex" role="group" style="gap: 0.4em;">
                                 <input type="text" class="form-control" id="color-texto-btn" name="color-texto-btn" value="{{ $btnColor }}">
                                 <input type="color" class="form-control form-control-color p-0" id="color-btn" value="{{ $btnColor }}">
@@ -626,7 +626,7 @@
                         </li>
                         <li class="my-2">
                             <p class="my-1">Color Fondo</p>
-                            
+
                             <div class="d-flex" role="group" style="gap: 0.4em;">
                                 <input type="text" class="form-control" id="color-btn-bg-input" name="color-btn-bg-input" value="{{ $btnBg }}">
                                 <input type="color" class="form-control form-control-color p-0" id="color-btn-bg" value="{{ $btnBg }}">
@@ -688,7 +688,7 @@
                         </li>
                     </ul>
                 </div>
-                
+
             </div>
             <div class="d-none" id="politicas">
                 @php
@@ -702,13 +702,13 @@
                 <div class="border-bottom py-2">
                     <button type="button"  class="border-0 w-100 text-start" style="background-color: #fff;" id="back_politicas"><i class="fas fa-chevron-left"></i> Vista Política de privacidad</button>
                 </div>
-                
+
 
                 <div class="py-2 border-bottom">
                     <ul class="list-unstyled ps-4 mt-2">
                         <li>
                             <p class="mb-2">Color Base</p>
-                            
+
                             <div class="d-flex" role="group" style="gap: 0.4em;">
                                 <input type="text" class="form-control" id="color-politica-btn" name="color-politica-btn" value="{{ $colorPolitica }}">
                                 <input type="color" class="form-control form-control-color p-0" id="politica-btn" value="{{ $colorPolitica }}">
@@ -716,7 +716,7 @@
                         </li>
                         <li>
                             <p class="mb-2">Texto</p>
-                            
+
                             <textarea name="politicas_text" id="politicas_text" cols="30" rows="10" class="form-control">{{ str_replace('<br>', '', $politicas) }}</textarea>
                             <input type="hidden" name="politicas_value" id="politicas_value" value="{{ $politicas }}">
                         </li>
@@ -731,12 +731,12 @@
                 <div class="border-bottom py-2">
                     <button type="button"  class="border-0 w-100 text-start" style="background-color: #fff;" id="back_terminos"><i class="fas fa-chevron-left"></i> Vista Terminos y Condiciones</button>
                 </div>
-                
+
                 <div class="py-2 border-bottom">
                     <ul class="list-unstyled ps-4 mt-2">
                         <li>
                             <p class="mb-2">Color Base</p>
-                            
+
                             <div class="d-flex" role="group" style="gap: 0.4em;">
                                 <input type="text" class="form-control" id="color-termino-btn" name="color-termino-btn" value="{{ $colorTermino }}">
                                 <input type="color" class="form-control form-control-color p-0" id="termino-btn" value="{{ $colorTermino }}">
@@ -744,7 +744,7 @@
                         </li>
                         <li>
                             <p class="mb-2">Texto</p>
-                            
+
                             <textarea name="terminos_text" id="terminos_text" cols="30" rows="10" class="form-control">{{ str_replace('<br>', '', $terminos) }}</textarea>
                             <input type="hidden" name="terminos_value" id="terminos_value" value="{{ $terminos }}">
                         </li>
@@ -817,8 +817,8 @@
                 }
                 .card {
                     position: relative;
-                    width: 140px;
-                    height: 140px;
+                    width: 120px;
+                    height: 120px;
                     cursor: pointer;
                     background-color: transparent !important;
                     border: 0;
@@ -899,7 +899,7 @@
                 }
 
                 .btn-memoria {
-                    
+
                     padding: 0.5em 1em;
                     color: #d5542e;
                     font-weight: 500;
@@ -1055,7 +1055,7 @@
 
         for (let i = 0; i < items; i++) {
             const randomIndex = Math.floor(Math.random() * clonedArray.length)
-            
+
             randomPicks.push(clonedArray[randomIndex])
             clonedArray.splice(randomIndex, 1)
         }
@@ -1064,13 +1064,13 @@
     }
 
     const generateGame = () => {
-        const dimensions = selectors.board.getAttribute('data-dimension')  
+        const dimensions = selectors.board.getAttribute('data-dimension')
 
         // const emojis = ['🥔', '🍒', '🥑', '🌽', '🥕', '🍇', '🍉', '🍌', '🥭', '🍍']
         const articulos = itemCard;
-        const picks = pickRandom(articulos, (3 * dimensions) / 2) 
+        const picks = pickRandom(articulos, (3 * dimensions) / 2)
         const items = shuffle([...picks, ...picks])
-       
+
         const cards = `
             <div class="board" style="grid-template-columns: repeat(${dimensions}, auto)">
                 ${items.map(item => `
@@ -1083,7 +1083,7 @@
                 `).join('')}
         </div>
         `
-        
+
         const parser = new DOMParser().parseFromString(cards, 'text/html')
 
         selectors.board.replaceWith(parser.querySelector('.board'))
@@ -1167,7 +1167,7 @@
                     // alert("Perdistes")
                     nErrores = 0;
                     const flippedCards2 = document.querySelectorAll('.card')
-                    flippedCards2.forEach(value => { 
+                    flippedCards2.forEach(value => {
                         value.classList.remove("none-visibiliti")
                         value.classList.remove("matched")
                         value.classList.remove("flipped")
@@ -1223,26 +1223,26 @@
 
     const menu_edit = document.getElementById("menu_edit");
     function retornoMenuEdit() {
-        menu_edit.classList.remove('d-none'); 
-        menu_edit.classList.add('d-block'); 
+        menu_edit.classList.remove('d-none');
+        menu_edit.classList.add('d-block');
     }
     function retornoMenuEditNone() {
-        menu_edit.classList.add('d-none'); 
-        menu_edit.classList.remove('d-block'); 
+        menu_edit.classList.add('d-none');
+        menu_edit.classList.remove('d-block');
     }
     const pagina_principal = document.getElementById("pagina_principal");
     const back_principal = document.getElementById("back_principal");
     const principal_menu = document.getElementById("principal-menu");
-    
+
     principal_menu.addEventListener('click', function() {
         retornoMenuEditNone();
-        pagina_principal.classList.add('d-block'); 
-        pagina_principal.classList.remove('d-none'); 
+        pagina_principal.classList.add('d-block');
+        pagina_principal.classList.remove('d-none');
     })
 
     back_principal.addEventListener('click', () => {
-        pagina_principal.classList.remove('d-block'); 
-        pagina_principal.classList.add('d-none'); 
+        pagina_principal.classList.remove('d-block');
+        pagina_principal.classList.add('d-none');
         retornoMenuEdit();
     })
 
@@ -1250,25 +1250,25 @@
     const encabezado = document.getElementById("encabezado");
     const back_encabezado = document.getElementById("back_encabezado");
     const encabezado_menu = document.getElementById("encabezado-menu");
-    
+
     encabezado_menu.addEventListener('click', function() {
         retornoMenuEditNone();
-        encabezado.classList.add('d-block'); 
-        encabezado.classList.remove('d-none'); 
+        encabezado.classList.add('d-block');
+        encabezado.classList.remove('d-none');
 
-        winGame.classList.add('d-block'); 
-        winGame.classList.remove('d-none'); 
-        contenido_juego.classList.remove('d-block'); 
-        contenido_juego.classList.add('d-none'); 
+        winGame.classList.add('d-block');
+        winGame.classList.remove('d-none');
+        contenido_juego.classList.remove('d-block');
+        contenido_juego.classList.add('d-none');
     })
     back_encabezado.addEventListener('click', () => {
-        encabezado.classList.remove('d-block'); 
-        encabezado.classList.add('d-none'); 
-        
-        winGame.classList.remove('d-block'); 
-        winGame.classList.add('d-none'); 
-        contenido_juego.classList.add('d-block'); 
-        contenido_juego.classList.remove('d-none'); 
+        encabezado.classList.remove('d-block');
+        encabezado.classList.add('d-none');
+
+        winGame.classList.remove('d-block');
+        winGame.classList.add('d-none');
+        contenido_juego.classList.add('d-block');
+        contenido_juego.classList.remove('d-none');
         retornoMenuEdit();
     })
 
@@ -1279,20 +1279,20 @@
 
     politicas_menu.addEventListener('click', function() {
         retornoMenuEditNone();
-        politicas.classList.add('d-block'); 
-        politicas.classList.remove('d-none'); 
-        poltica_privacidad.classList.remove('d-none'); 
-        
-        contenido_juego.classList.remove('d-block'); 
-        contenido_juego.classList.add('d-none'); 
+        politicas.classList.add('d-block');
+        politicas.classList.remove('d-none');
+        poltica_privacidad.classList.remove('d-none');
+
+        contenido_juego.classList.remove('d-block');
+        contenido_juego.classList.add('d-none');
     })
     back_politicas.addEventListener('click', () => {
-        politicas.classList.remove('d-block'); 
-        politicas.classList.add('d-none'); 
-        poltica_privacidad.classList.add('d-none'); 
-        
-        contenido_juego.classList.add('d-block'); 
-        contenido_juego.classList.remove('d-none'); 
+        politicas.classList.remove('d-block');
+        politicas.classList.add('d-none');
+        poltica_privacidad.classList.add('d-none');
+
+        contenido_juego.classList.add('d-block');
+        contenido_juego.classList.remove('d-none');
         retornoMenuEdit();
     })
 
@@ -1300,34 +1300,34 @@
     const back_terminos = document.getElementById("back_terminos");
     const terminos_menu = document.getElementById("terminos-menu");
     const terminos_condiciones = document.getElementById("terminos-condiciones");
-    
+
     terminos_menu.addEventListener('click', function() {
         retornoMenuEditNone();
-        terminos.classList.add('d-block'); 
-        terminos.classList.remove('d-none'); 
-        terminos_condiciones.classList.remove('d-none'); 
-        
-        contenido_juego.classList.remove('d-block'); 
-        contenido_juego.classList.add('d-none'); 
+        terminos.classList.add('d-block');
+        terminos.classList.remove('d-none');
+        terminos_condiciones.classList.remove('d-none');
+
+        contenido_juego.classList.remove('d-block');
+        contenido_juego.classList.add('d-none');
     })
     back_terminos.addEventListener('click', () => {
-        terminos.classList.remove('d-block'); 
-        terminos.classList.add('d-none'); 
-        terminos_condiciones.classList.add('d-none'); 
-        
-        contenido_juego.classList.add('d-block'); 
-        contenido_juego.classList.remove('d-none'); 
+        terminos.classList.remove('d-block');
+        terminos.classList.add('d-none');
+        terminos_condiciones.classList.add('d-none');
+
+        contenido_juego.classList.add('d-block');
+        contenido_juego.classList.remove('d-none');
         retornoMenuEdit();
     })
 </script>
 <script>
-    
+
     const juego_memorio_content = document.getElementById("juego_memorio_content")
     document.getElementById('banner-subir').addEventListener('change', function(event) {
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            
+
             reader.onload = function(e) {
                 const preview = document.getElementById('preview-banner');
                 const upload = document.getElementById('upload-banner')
@@ -1438,7 +1438,7 @@
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            
+
             reader.onload = function(e) {
                 const preview = document.getElementById('preview-logo');
                 const upload = document.getElementById('upload-logo')
@@ -1460,7 +1460,7 @@
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            
+
             reader.onload = function(e) {
                 const preview = document.getElementById('preview-imagen-1');
                 const upload = document.getElementById('upload-imagen-1')
@@ -1484,7 +1484,7 @@
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            
+
             reader.onload = function(e) {
                 const preview = document.getElementById('preview-imagen-2');
                 const upload = document.getElementById('upload-imagen-2')
@@ -1509,7 +1509,7 @@
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            
+
             reader.onload = function(e) {
                 const preview = document.getElementById('preview-imagen-3');
                 const upload = document.getElementById('upload-imagen-3')
@@ -1532,7 +1532,7 @@
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            
+
             reader.onload = function(e) {
                 const preview = document.getElementById('preview-imagen-4');
                 const upload = document.getElementById('upload-imagen-4')
@@ -1555,7 +1555,7 @@
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            
+
             reader.onload = function(e) {
                 const preview = document.getElementById('preview-imagen-5');
                 const upload = document.getElementById('upload-imagen-5')
@@ -1578,7 +1578,7 @@
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            
+
             reader.onload = function(e) {
                 const preview = document.getElementById('preview-imagen-6');
                 const upload = document.getElementById('upload-imagen-6')
@@ -1597,13 +1597,13 @@
 </script>
 
 <script>
-        
+
         const img_header_premio = document.getElementById("img-header-premio")
         document.getElementById('gano-subir').addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                
+
                 reader.onload = function(e) {
                     const preview = document.getElementById('preview-gano');
                     const upload = document.getElementById('upload-gano')
@@ -1669,13 +1669,13 @@
 </script>
 
 <script>
-    
+
     // const img_header_premio = document.getElementById("img-header-premio")
     document.getElementById('sigue-intentando-subir').addEventListener('change', function(event) {
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            
+
             reader.onload = function(e) {
                 const preview = document.getElementById('preview-sigue');
                 const upload = document.getElementById('upload-sigue')
@@ -1712,7 +1712,7 @@
                 }
             }
             formData.append('arrayPremiosValue', arrayPremiosValue);
-        
+
             $.ajax({
             url: $(this).attr('action'), // URL de la ruta
             method: 'POST',
@@ -1721,7 +1721,7 @@
             processData: false, // No procesar los datos
             success: function(data) {
                 // Procesar los datos devueltos
-                // toastr.success(data.message); 
+                // toastr.success(data.message);
 
                 if (data) {
                     Swal.fire({
@@ -1850,7 +1850,7 @@
                 }
             })
         });
-        $("#back_configuracion").click(function (e) { 
+        $("#back_configuracion").click(function (e) {
             e.preventDefault();
             window.location.href = '{{ $rutaCon }}'
         });
