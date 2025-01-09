@@ -21,8 +21,9 @@
     <link href="{{ asset('backend/css/admin/adminlte.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('backend/css/admin/adminAlicorp.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('backend/css/admin/showAlicorp.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('css/fonts/font.css') }}">
     @livewireStyles
-</head> 
+</head>
 
 <body class="layout-fixed sidebar-expand-lg sidebar-mini bg-body-tertiary app-loaded sidebar-collapse">
 
@@ -45,7 +46,7 @@
 
     @livewireScripts
     <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/browser/overlayscrollbars.browser.es6.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

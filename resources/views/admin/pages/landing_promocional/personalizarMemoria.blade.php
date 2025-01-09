@@ -49,6 +49,9 @@
     $imgLogoPremio = isset($premioData["gano-subir"])  && !empty($premioData["gano-subir"]) ? '/storage/'.$premioData["gano-subir"] : $imgNulo;
     $imgLogoPremio_url = isset($premioData["gano-subir"])  && !empty($premioData["gano-subir"]) ? '/storage/'.$premioData["gano-subir"] : '';
 
+    $titulo_ganastes = isset($gameMemoria->titulo_ganastes)  && !empty($gameMemoria->titulo_ganastes) ? '/storage/'.$gameMemoria->titulo_ganastes : $imgNulo;
+    $titulo_ganastes_url = isset($gameMemoria->titulo_ganastes)  && !empty($gameMemoria->titulo_ganastes) ? '/storage/'.$gameMemoria->titulo_ganastes : '';
+
     // array memorias
     $jsonDataMemoria = json_decode($gameMemoria->premio_img ?? "", true);
 
@@ -595,6 +598,26 @@
                                 <input type="hidden" name="gano-subir-url" id="gano-subir-url" value="{{ $imgLogoPremio_url }}">
                             </div>
                         </li>
+                        <li>
+                            <p class="mb-2">Titulo Ganador</p>
+                            <div class="img-subir">
+                                <button type="button" class="btn-delete-img">X</button>
+                                <label for="titulo_ganastes">
+                                    <div class="cursor">
+                                        <div id="upload-ganastes" class="{{ isset($titulo_ganastes_url) && !empty($titulo_ganastes_url) ? 'd-none' : '' }} upload_img">
+                                            <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
+                                            <h6>Click para Actualizar</h6>
+                                            <p>PNG, JPG (max. 250x250px)</p>
+                                        </div>
+                                        <div>
+                                            <img class="img-fluid" id="preview-ganastes" src="{{ $titulo_ganastes_url }}">
+                                        </div>
+                                    </div>
+                                </label>
+                                <input hidden type="file" name="titulo_ganastes" id="titulo_ganastes">
+                                <input type="hidden" name="titulo_ganastes-url" id="titulo_ganastes-url" value="{{ $titulo_ganastes_url }}">
+                            </div>
+                        </li>
                     </ul>
                 </div>
                 <div class="py-2 border-bottom">
@@ -753,11 +776,87 @@
             </div>
         </form>
         <div class="col-9 p-0 landing_page position-relative" id="juego_memoria" style="height: 100vh;">
+
+            @php
+                $estiloFont = "";
+                switch ($project->tipo_letra) {
+                    case 'Times New Roman':
+                        $estiloFont = '--times';
+                        break;
+                    case 'Poppins':
+                        $estiloFont = '--popins';
+                        break;
+                    case 'Arial':
+                        $estiloFont = '--arial';
+                        break;
+                    case 'Verdana':
+                        $estiloFont = '--verdana';
+                        break;
+                    case 'Roboto':
+                        $estiloFont = '--roboto';
+                        break;
+                    case 'Courier New':
+                        $estiloFont = '--courier';
+                        break;
+                    case 'Montserrat':
+                        $estiloFont = '--Montserrat';
+                        break;
+                    case 'Bolivar':
+                        $estiloFont = '--bolivar';
+                        break;
+                    case 'Casino':
+                        $estiloFont = '--casino';
+                        break;
+                    case 'Casino2':
+                        $estiloFont = '--casino2';
+                        break;
+                    case 'Casino3':
+                        $estiloFont = '--casino3';
+                        break;
+                    case 'Alacena':
+                        $estiloFont = '--alacena';
+                        break;
+                    case 'Alacena2':
+                        $estiloFont = '--alacena2';
+                        break;
+                    case 'DV':
+                        $estiloFont = '--dv';
+                        break;
+                    case 'DV2':
+                        $estiloFont = '--dv2';
+                        break;
+                    default:
+                        $estiloFont = '--popins';
+                        break;
+                }
+            @endphp
             <style>
+                @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+                @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+                @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+                :root {
+                    --popins: "Poppins", sans-serif;
+                    --arial: Arial, sans-serif;
+                    --courier: "Courier New", monospace;
+                    --verdana: Verdana, sans-serif;
+                    --times: 'Times New Roman', serif;
+                    --roboto: "Roboto", sans-serif;
+                    --montserrat: "Montserrat", sans-serif;
+                    --bolivar: 'VastagoGrotesk', sans-serif;
+                    --casino: 'Tungsten', sans-serif;
+                    --casino2: 'TungstenComp', sans-serif;
+                    --casino3: 'TungstenCondensed', sans-serif;
+                    --alacena: 'AlaFuente', sans-serif;
+                    --alacena2: 'BuenosAires', sans-serif;
+                    -dv: 'BrandonGrotesque', sans-serif;
+                    -dv2: 'Sansita', sans-serif;
+                }
+
                 .juego_memorio_content {
                     width: 100%;
                     height: 100vh;
-                    font-family: Arial, Helvetica, sans-serif;
+                    font-family: var({{$estiloFont}}) !important;
                 }
                 .game {
                     /* position: absolute;
@@ -1617,6 +1716,27 @@
                 reader.readAsDataURL(file); // Lee la imagen como una URL de datos
             }
         });
+
+
+        document.getElementById('titulo_ganastes').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    const preview = document.getElementById('preview-ganastes');
+                    const upload = document.getElementById('upload-ganastes')
+                    const parentElement = preview.parentNode;
+                    preview.src = e.target.result; // Establece la fuente de la imagen
+                    preview.style.display = 'block'; // Muestra la imagen
+                    upload.classList.add("d-none")
+                    img_header_premio.src = e.target.result;
+                };
+
+                reader.readAsDataURL(file); // Lee la imagen como una URL de datos
+            }
+        });
+
         // tamaño titulo
         const verBoton1 = document.getElementById("verBoton1")
         const verBoton2 = document.getElementById("verBoton2")

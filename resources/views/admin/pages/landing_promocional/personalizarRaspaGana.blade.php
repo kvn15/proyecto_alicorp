@@ -28,7 +28,82 @@
 
 
 @section('inicio_dash')
+
+@php
+$estiloFont = "";
+switch ($project->tipo_letra) {
+    case 'Times New Roman':
+        $estiloFont = '--times';
+        break;
+    case 'Poppins':
+        $estiloFont = '--popins';
+        break;
+    case 'Arial':
+        $estiloFont = '--arial';
+        break;
+    case 'Verdana':
+        $estiloFont = '--verdana';
+        break;
+    case 'Roboto':
+        $estiloFont = '--roboto';
+        break;
+    case 'Courier New':
+        $estiloFont = '--courier';
+        break;
+    case 'Montserrat':
+        $estiloFont = '--Montserrat';
+        break;
+    case 'Bolivar':
+        $estiloFont = '--bolivar';
+        break;
+    case 'Casino':
+        $estiloFont = '--casino';
+        break;
+    case 'Casino2':
+        $estiloFont = '--casino2';
+        break;
+    case 'Casino3':
+        $estiloFont = '--casino3';
+        break;
+    case 'Alacena':
+        $estiloFont = '--alacena';
+        break;
+    case 'Alacena2':
+        $estiloFont = '--alacena2';
+        break;
+    case 'DV':
+        $estiloFont = '--dv';
+        break;
+    case 'DV2':
+        $estiloFont = '--dv2';
+        break;
+    default:
+        $estiloFont = '--popins';
+        break;
+}
+@endphp
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+    :root {
+        --popins: "Poppins", sans-serif;
+        --arial: Arial, sans-serif;
+        --courier: "Courier New", monospace;
+        --verdana: Verdana, sans-serif;
+        --times: 'Times New Roman', serif;
+        --roboto: "Roboto", sans-serif;
+        --montserrat: "Montserrat", sans-serif;
+        --bolivar: 'VastagoGrotesk', sans-serif;
+        --casino: 'Tungsten', sans-serif;
+        --casino2: 'TungstenComp', sans-serif;
+        --casino3: 'TungstenCondensed', sans-serif;
+        --alacena: 'AlaFuente', sans-serif;
+        --alacena2: 'BuenosAires', sans-serif;
+        -dv: 'BrandonGrotesque', sans-serif;
+        -dv2: 'Sansita', sans-serif;
+    }
     * {
         padding: 0;
         margin: 0;
@@ -36,6 +111,9 @@
     }
     body {
         height: 100vh;
+    }
+    .juego_casino_raspa{
+        font-family: var({{$estiloFont}}) !important;
     }
     .container {
         width: 31em;
@@ -298,6 +376,9 @@
 
     $titulo_subir = isset($gameRaspaGana) && !empty($gameRaspaGana->titulo_subir) ? "/storage/".$gameRaspaGana->titulo_subir : $imgNulo;
     $titulo_subir_url = isset($gameRaspaGana) && !empty($gameRaspaGana->titulo_subir) ? '/storage/'.$gameRaspaGana->titulo_subir : "" ;
+
+    $titulo_ganastes = isset($gameRaspaGana) && !empty($gameRaspaGana->titulo_ganastes) ? "/storage/".$gameRaspaGana->titulo_ganastes : $imgNulo;
+    $titulo_ganastes_url = isset($gameRaspaGana) && !empty($gameRaspaGana->titulo_ganastes) ? '/storage/'.$gameRaspaGana->titulo_ganastes : "" ;
 
     // titulo
     // valores
@@ -579,7 +660,7 @@
 
                     <ul class="list-unstyled ps-4 mt-2 collapseOnePremio" >
                         <li>
-                            <p class="mb-2">Titulo</p>
+                            <p class="mb-2">Titulo Principal</p>
                             <div class="img-subir">
                                 <button type="button" class="btn-delete-img">X</button>
                                 <label for="gano-subir">
@@ -596,6 +677,26 @@
                                 </label>
                                 <input hidden type="file" name="gano-subir" id="gano-subir">
                                 <input type="hidden" name="gano-subir-url" id="gano-subir-url" value="{{ $titulo_subir_url }}">
+                            </div>
+                        </li>
+                        <li>
+                            <p class="mb-2">Titulo Ganastes</p>
+                            <div class="img-subir">
+                                <button type="button" class="btn-delete-img">X</button>
+                                <label for="titulo-ganastes">
+                                    <div class="cursor">
+                                        <div id="upload-ganastes" class="{{ isset($titulo_ganastes_url) && !empty($titulo_ganastes_url) ? 'd-none' : '' }} upload_img">
+                                            <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
+                                            <h6>Click para Actualizar</h6>
+                                            <p>PNG, JPG (max. 300x300px)</p>
+                                        </div>
+                                        <div>
+                                            <img class="img-fluid" id="preview-ganastes" src="{{ $titulo_ganastes_url }}">
+                                        </div>
+                                    </div>
+                                </label>
+                                <input hidden type="file" name="titulo-ganastes" id="titulo-ganastes">
+                                <input type="hidden" name="titulo-ganastes-url" id="titulo-ganastes-url" value="{{ $titulo_ganastes_url }}">
                             </div>
                         </li>
                     </ul>
@@ -756,7 +857,7 @@
             </div>
         </form>
         <div class="col-9 p-0">
-            <div id="juego_casino_raspa" style="background-image: url('{{ $fondo }}'); background-size: cover; height: 100vh; position: relative;">
+            <div id="juego_casino_raspa" class="juego_casino_raspa" style="background-image: url('{{ $fondo }}'); background-size: cover; height: 100vh; position: relative;">
                 <div id="card-raspa">
                     <div class="text-header">
                         <p id="parrafo-header" class="{{ $styleBold }} {{  $italicTitulo }} {{ $styleTamano }} {{ $styleAlineacion }} d-none" style="color: #fff;">{{ $tituloTexto }}</p>
@@ -1221,6 +1322,24 @@
         }
     });
 
+    document.getElementById('titulo-ganastes').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const preview = document.getElementById('preview-ganastes');
+                const upload = document.getElementById('upload-ganastes')
+                const parentElement = preview.parentNode;
+                preview.src = e.target.result; // Establece la fuente de la imagen
+                preview.style.display = 'block'; // Muestra la imagen
+                upload.classList.add("d-none")
+                img_header_premio.src = e.target.result;
+            };
+
+            reader.readAsDataURL(file); // Lee la imagen como una URL de datos
+        }
+    });
 
 
     // tamaño titulo

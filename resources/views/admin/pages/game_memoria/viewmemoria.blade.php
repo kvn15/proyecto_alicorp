@@ -19,6 +19,7 @@
     <script src="https://kit.fontawesome.com/25bfdd98ec.js" crossorigin="anonymous"></script>
     <title>{{ $project->titulo_pestana }}</title>
     <link rel="icon" href="{{ '/storage/'.$project->ruta_fav }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ asset('css/fonts/font.css') }}">
 </head>
 @php
     $estiloFont = "";
@@ -44,7 +45,30 @@
         case 'Montserrat':
             $estiloFont = '--Montserrat';
             break;
-
+        case 'Bolivar':
+            $estiloFont = '--bolivar';
+            break;
+        case 'Casino':
+            $estiloFont = '--casino';
+            break;
+        case 'Casino2':
+            $estiloFont = '--casino2';
+            break;
+        case 'Casino3':
+            $estiloFont = '--casino3';
+            break;
+        case 'Alacena':
+            $estiloFont = '--alacena';
+            break;
+        case 'Alacena2':
+            $estiloFont = '--alacena2';
+            break;
+        case 'DV':
+            $estiloFont = '--dv';
+            break;
+        case 'DV2':
+            $estiloFont = '--dv2';
+            break;
         default:
             $estiloFont = '--popins';
             break;
@@ -65,6 +89,14 @@
         --times: 'Times New Roman', serif;
         --roboto: "Roboto", sans-serif;
         --montserrat: "Montserrat", sans-serif;
+        --bolivar: 'VastagoGrotesk', sans-serif;
+        --casino: 'Tungsten', sans-serif;
+        --casino2: 'TungstenComp', sans-serif;
+        --casino3: 'TungstenCondensed', sans-serif;
+        --alacena: 'AlaFuente', sans-serif;
+        --alacena2: 'BuenosAires', sans-serif;
+        -dv: 'BrandonGrotesque', sans-serif;
+        -dv2: 'Sansita', sans-serif;
     }
     .juego_memorio_content {
         width: 100%;
@@ -222,7 +254,6 @@
         padding: 0.5em 1em;
         color: #d5542e;
         font-weight: 500;
-        font-size: 13px !important;
         border-radius: 36px;
         font-size: 1rem;
         margin: 10px 0.2em;
@@ -277,7 +308,8 @@
         $imgLogo = isset($principalData["logo-subir"]) && !empty($principalData["logo-subir"]) ? $principalData["logo-subir"] : $imgNulo;
 
         // Premios
-        $imgLogoPremio = isset($premioData["gano-subir"])  && !empty($premioData["gano-subir"]) ? $premioData["gano-subir"] : $imgNulo;
+        $imgTitulo = isset($premioData["gano-subir"])  && !empty($premioData["gano-subir"]) ? '/storage/'.$premioData["gano-subir"] : $imgNulo;
+        $imgTituloGanastes = isset($gameMemoria->titulo_ganastes)  && !empty($gameMemoria->titulo_ganastes) ? '/storage/'.$gameMemoria->titulo_ganastes : $imgTitulo;
 
         // array memorias
         $jsonDataMemoria = json_decode($gameMemoria->premio_img, true);
@@ -365,13 +397,13 @@
         </div>
         <div class="win-game d-none flex-column align-items-center justify-content-center w-100 h-100" id="win-game">
             <div class="d-flex justify-content-center pt-2 w-100 mb-3">
-                <img class="img-fluid" src="{{ '/storage/'.$imgLogoPremio }}" alt="" id="img-header-premio" style="max-width: 350px; width: 100%;">
+                <img class="img-fluid" src="{{ $imgTituloGanastes }}" alt="" id="img-header-premio" style="max-width: 350px; width: 100%;">
             </div>
             <div class="d-flex flex-column align-items-center justify-content-center w-100 div-premio">
                 <img class="img-fluid mb-2" src="{{ $imgPremio }}" alt=""  id="premio_img" style="max-width: 370px; width: 100%;">
                 <h4 class="text-white d-none" style="font-weight: 700;" id="h4Premio">{{ $namePremio }}</h4>
             </div>
-            <div class="{{ $styleBotones }} justify-content-center" id="btn_content">
+            <div class="{{ $styleBotones }} justify-content-center" id="btn_content" style="font-size: 15px !important;">
                 <a href="{{ route($tipoJuego."juego.view.registro", $project->dominio) }}" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }};">IR A REGISTRO</a>
                 <a href="{{ route("index") }}" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }};">IR A HOME</a>
                 {{-- <a href="" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }};">VOLVER A JUGAR</a> --}}
@@ -544,8 +576,6 @@
                     // ocultar
                     document.getElementById("contenido_juego").classList.remove('d-flex')
                     document.getElementById("contenido_juego").classList.add('d-none')
-                    document.getElementById("img-header-premio").classList.remove('d-none')
-                    document.getElementById("img-header-premio").classList.add('d-block')
                     ganador()
                     console.log('a la bd')
                 }, 1500);
@@ -564,8 +594,7 @@
 
                     document.getElementById("premio_img").src = "{{ $urlSigue }}";
                     document.getElementById("h4Premio").textContent = 'Sigue Intentando'
-                    document.getElementById("img-header-premio").classList.remove('d-block')
-                    document.getElementById("img-header-premio").classList.add('d-none')
+                    document.getElementById("img-header-premio").src = '{{ $imgTitulo }}'
                 }, 1500);
             }
 

@@ -1,8 +1,8 @@
 @php
-    $project = $data["project"]; 
-    $gameRuleta = $data["gameRuleta"]; 
-    $projectPremio = $data["projectPremio"]; 
-    $premioSelect = $data["premio"]; 
+    $project = $data["project"];
+    $gameRuleta = $data["gameRuleta"];
+    $projectPremio = $data["projectPremio"];
+    $premioSelect = $data["premio"];
     $premioRuleta = $data["premioRuleta"];
     $idParticipante = $data["idParticipante"];
     $sigueIntentando = $data["sigueIntentando"];
@@ -48,7 +48,7 @@
         case 'Montserrat':
             $estiloFont = '--Montserrat';
             break;
-        
+
         default:
             $estiloFont = '--popins';
             break;
@@ -312,8 +312,8 @@
     #logo_header {
         max-width: 300px;
     }
-    
-    @media (max-width: 575.98px) { 
+
+    @media (max-width: 575.98px) {
         #inicio_juego {
             padding: 0;
         }
@@ -324,7 +324,7 @@
     }
 </style>
 <body>
-    
+
     @php
     $imgNulo = asset('backend/svg/img-null.svg');
     $gameRuleta = $data["gameRuleta"];
@@ -398,10 +398,12 @@
     $logo_inicio = isset($gameRuleta["logo_inicio"]) && !empty($gameRuleta["logo_inicio"]) ? '/storage/'.$gameRuleta["logo_inicio"] : $imgNulo;
     $logo_juego = isset($gameRuleta["logo_juego"]) && !empty($gameRuleta["logo_juego"]) ? '/storage/'.$gameRuleta["logo_juego"] : $imgNulo;
     $titulo_premio = isset($gameRuleta["titulo_premio"]) && !empty($gameRuleta["titulo_premio"]) ? '/storage/'.$gameRuleta["titulo_premio"] : $imgNulo;
+
+    $titulo_ganastes = isset($gameRuleta["titulo_ganastes"]) && !empty($gameRuleta["titulo_ganastes"]) ? '/storage/'.$gameRuleta["titulo_ganastes"] : $titulo_premio;
     @endphp
 
- 
-    
+
+
     @php
         $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
     @endphp
@@ -437,7 +439,8 @@
         </div>
         <div id="fin_juego" class="d-none">
             <div class="content_premio">
-                <img class="img-fluid mb-3" src="{{ $titulo_premio }}" alt="" id="logo_ganaste" style="max-width: 350px;">
+                <img class="img-fluid mb-3" src="{{ $titulo_ganastes }}" alt="" id="logo_ganaste" style="max-width: 350px;">
+                <img class="img-fluid mb-3" src="{{ $titulo_premio }}" alt="" id="logo_normal" style="max-width: 350px;">
                 @php
                     $urlImagenPremio = isset($projectPremio[0]["imagen_premio"]) && !empty($projectPremio[0]["imagen_premio"]) ? '/storage/'.$projectPremio[0]["imagen_premio"] : $imgNulo;
                 @endphp
@@ -445,7 +448,7 @@
                     <img class="img-fluid" src="{{ $urlImagenPremio }}" alt="" id="premio_first" style="max-width: 300px;">
                 </div>
                 <h5 id="title_premio" class="d-none">{{ $projectPremio[0]["nombre_premio"] }}</h5>
-                <div class="{{ $styleBotones }} justify-content-center" style="gap: 0.4em;" id="btn_content">
+                <div class="{{ $styleBotones }} justify-content-center" style="gap: 0.4em; font-size: 15px !important;" id="btn_content">
                     <a href="{{ route($tipoJuego."juego.view.registro.ruleta", $project->dominio) }}" class="btn_premio" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">IR A REGISTRO</a>
                     <a href="{{ route("index") }}" class="btn_premio" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">IR A HOME</a>
                     {{-- <a href="" class="btn_premio" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">VOLVER A JUGAR</a> --}}
@@ -471,7 +474,7 @@
 </html>
 <script>
     $(document).ready(function () {
-        $("#inicio_juego").click(function (e) { 
+        $("#inicio_juego").click(function (e) {
             e.preventDefault();
             $("#juego").removeClass('d-none');
             $("#inicio_juego").removeClass('d-block');
@@ -666,7 +669,7 @@
 
         }
         setTimeout(() => {
-            spin2(); 
+            spin2();
         },1000);
         function getRandomNumber(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -682,27 +685,33 @@
                 images.push(img);
             });
             setTimeout(() => {
-                spin2(); 
+                spin2();
             },2000);
         }
 
-        $("#btn_girar").click(function (e) { 
+        $("#btn_girar").click(function (e) {
             e.preventDefault();
             spin();
         });
 
-        function sectionRuletaSelect(posicion) {  
+        function sectionRuletaSelect(posicion) {
             const premio = data.find(d => d.name == posicion);
             // Agregar id
             $("#idPremio").val(premio.id);
             if (premio.name == "Sigue Intentando") {
                 $("#logo_ganaste").addClass("d-none");
                 $("#logo_ganaste").removeClass("d-block");
+                $("#logo_normal").removeClass("d-none");
+                $("#logo_normal").addClass("d-block");
+                $("#premio_first").attr('src', `${premio.img}`);
+
             } else {
                 $("#logo_ganaste").removeClass("d-none");
                 $("#logo_ganaste").addClass("d-block");
+                $("#logo_normal").addClass("d-none");
+                $("#logo_normal").removeClass("d-block");
             }
-            // else { 
+            // else {
                 $("#premio_first").attr('src', `${premio.img}`);
                 $("#title_premio").html(premio.name);
                 $("#fin_juego").removeClass('d-none');

@@ -17,6 +17,7 @@ class GameView extends Model
     'html_origin',
     'html_end',
     'politicas',
-    'terminos'
+    'terminos',
+    'titulo_ganastes'
 ];
 }

@@ -166,11 +166,11 @@
                                         <h6 style="color: #027A48;">Click para Actualizar</h6>
                                         <p style="font-size: 12px;">PNG, JPG (max. 200 x 225 px)</p>
                                     </div>
-                                    <img 
-                                        src="{{ $imgLogoProyecto }}" 
+                                    <img
+                                        src="{{ $imgLogoProyecto }}"
                                         alt="logo proyecto"
-                                        class="img-thumbnail {{ !isset($imgLogoProyectoRuta) || empty($imgLogoProyectoRuta) ? 'd-none' : 'd-block' }}" 
-                                        id="img_logo_proyecto" 
+                                        class="img-thumbnail {{ !isset($imgLogoProyectoRuta) || empty($imgLogoProyectoRuta) ? 'd-none' : 'd-block' }}"
+                                        id="img_logo_proyecto"
                                         style="max-width: 225px; max-height: 225px">
                                 </label>
                                 <input type="hidden" name="valor_img_logo" id="valor_img_logo" value="{{ $imgLogoProyectoRuta }}">
@@ -206,7 +206,7 @@
                     </form>
                 </div>
                 <div class="tab-pane fade" id="nav-vigencia" role="tabpanel" aria-labelledby="nav-vigencia-tab">
-                    
+
                     <form method="POST" action="{{ route('project.config.vigencia', $project->id) }}" class="row" id="form-vigencia">
                         @csrf
                         @method('PUT')
@@ -281,6 +281,14 @@
                                     <option value="Times New Roman"  {{ $project->tipo_letra == 'Times New Roman' ? 'selected' : '' }}>Times New Roman</option>
                                     <option value="Courier New"  {{ $project->tipo_letra == 'Courier New' ? 'selected' : '' }}>Courier New</option>
                                     <option value="Montserrat"  {{ $project->tipo_letra == 'Montserrat' ? 'selected' : '' }}>Montserrat</option>
+                                    <option value="Bolivar"  {{ $project->tipo_letra == 'Bolivar' ? 'selected' : '' }}>Bolivar</option>
+                                    <option value="Casino"  {{ $project->tipo_letra == 'Casino' ? 'selected' : '' }}>Casino</option>
+                                    <option value="Casino2"  {{ $project->tipo_letra == 'Casino2' ? 'selected' : '' }}>Casino Segundo Estilo</option>
+                                    <option value="Casino3"  {{ $project->tipo_letra == 'Casino3' ? 'selected' : '' }}>Casino Tercer Estilo</option>
+                                    <option value="Alacena"  {{ $project->tipo_letra == 'Alacena' ? 'selected' : '' }}>Alacena</option>
+                                    <option value="Alacena2"  {{ $project->tipo_letra == 'Alacena2' ? 'selected' : '' }}>Alacena Segundo Estilo</option>
+                                    <option value="DV"  {{ $project->tipo_letra == 'DV' ? 'selected' : '' }}>DV</option>
+                                    <option value="DV2"  {{ $project->tipo_letra == 'DV2' ? 'selected' : '' }}>DV Segundo Estilo</option>
                                 </select>
                             </div>
                         </div>
@@ -316,7 +324,7 @@
                                             </clipPath>
                                             </defs>
                                         </svg>
-                                        
+
                                         <small><b>Click para Actualizar</b></small>
                                         <small>SVG,PNG,JPG (max. 250x250px)</small>
                                     </div>
@@ -446,7 +454,7 @@
                 </div>
                 @endif
                 <div class="tab-pane fade" id="nav-estado" role="tabpanel" aria-labelledby="nav-estado-tab">
-                    
+
                     <form method="POST" action="{{ route('project.config.estado', $project->id) }}" class="row" id="form-estado">
                         @csrf
                         @method('PUT')
@@ -510,13 +518,13 @@
         estado.value = "{{ $project->status }}"
     </script>
     <script>
-        
+
         const img_fav_subir = document.getElementById("img-fav-subir")
         document.getElementById('imagen').addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                
+
                 reader.onload = function(e) {
                     const preview = document.getElementById('preview-imagen');
                     const upload = document.getElementById('upload-imagen')
@@ -558,7 +566,7 @@
                         array[i] = datos
                     }
                 }
-                
+
                 arrayAddCondicion(array)
             });
 
@@ -685,7 +693,7 @@
         });
     </script>
     <script>
-        
+
     $(document).ready(function () {
         $(document).on('click','.btn-delete-img2', function () {
             const valor_file = $(this).parent().parent().find('#logo_proyecto');
@@ -707,7 +715,7 @@
                     $(upload_logo_none).removeClass('d-none');
                     $('#img_logo_proyecto').removeClass('d-block');
                     $('#img_logo_proyecto').addClass('d-none');
-                    
+
                 }
             })
         });

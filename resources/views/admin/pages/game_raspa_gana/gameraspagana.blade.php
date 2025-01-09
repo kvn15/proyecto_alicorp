@@ -9,16 +9,99 @@
     <script src="https://kit.fontawesome.com/25bfdd98ec.js" crossorigin="anonymous"></script>
     <title>{{ $data["project"]->titulo_pestana }}</title>
     <link rel="icon" href="{{ '/storage/'.$data["project"]->ruta_fav }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ asset('css/fonts/font.css') }}">
 </head>
 @php
     $imgNulo = asset('backend/svg/img-null.svg');
     $fondo = isset($data["gameRaspaGana"]->fondo) && !empty($data["gameRaspaGana"]->fondo) ? '/storage/'.$data["gameRaspaGana"]->fondo : $imgNulo;
+    $project = $data["project"];
+@endphp
+@php
+    $estiloFont = "";
+    switch ($project["tipo_letra"]) {
+        case 'Times New Roman':
+            $estiloFont = '--times';
+            break;
+        case 'Poppins':
+            $estiloFont = '--popins';
+            break;
+        case 'Arial':
+            $estiloFont = '--arial';
+            break;
+        case 'Verdana':
+            $estiloFont = '--verdana';
+            break;
+        case 'Roboto':
+            $estiloFont = '--roboto';
+            break;
+        case 'Courier New':
+            $estiloFont = '--courier';
+            break;
+        case 'Montserrat':
+            $estiloFont = '--Montserrat';
+            break;
+        case 'Bolivar':
+            $estiloFont = '--bolivar';
+            break;
+        case 'Casino':
+            $estiloFont = '--casino';
+            break;
+        case 'Casino2':
+            $estiloFont = '--casino2';
+            break;
+        case 'Casino3':
+            $estiloFont = '--casino3';
+            break;
+        case 'Alacena':
+            $estiloFont = '--alacena';
+            break;
+        case 'Alacena2':
+            $estiloFont = '--alacena2';
+            break;
+        case 'DV':
+            $estiloFont = '--dv';
+            break;
+        case 'DV2':
+            $estiloFont = '--dv2';
+            break;
+        default:
+            $estiloFont = '--popins';
+            break;
+    }
 @endphp
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+    :root {
+        --popins: "Poppins", sans-serif;
+        --arial: Arial, sans-serif;
+        --courier: "Courier New", monospace;
+        --verdana: Verdana, sans-serif;
+        --times: 'Times New Roman', serif;
+        --roboto: "Roboto", sans-serif;
+        --montserrat: "Montserrat", sans-serif;
+        --bolivar: 'VastagoGrotesk', sans-serif;
+        --casino: 'Tungsten', sans-serif;
+        --casino2: 'TungstenComp', sans-serif;
+        --casino3: 'TungstenCondensed', sans-serif;
+        --alacena: 'AlaFuente', sans-serif;
+        --alacena2: 'BuenosAires', sans-serif;
+        -dv: 'BrandonGrotesque', sans-serif;
+        -dv2: 'Sansita', sans-serif;
+    }
+
     body {
         margin: 0;
         padding: 0;
+        font-family: var({{$estiloFont}}) !important;
     }
+
+    a, b, p, h1, h2, h3, h4, h5, h6, button, li, span, input, textarea {
+        font-family: var({{$estiloFont}}) !important;
+    }
+
     .content-game {
         width: 100%;
         min-height: 100vh;
@@ -74,7 +157,7 @@
         padding-bottom: 0.3em;
         font-size: 3em;
         border-bottom: 2px solid #005adc;
-    } 
+    }
 
     .content_politicas_terminos p {
         font-size: 22px;
@@ -130,7 +213,7 @@
     }
 </style>
 <style>
-    @media (max-width: 575.98px) { 
+    @media (max-width: 575.98px) {
         .content_politicas_terminos  {
             padding: 1.5rem !important
         }
@@ -154,7 +237,7 @@
     <form method="POST" action="{{ route($tipoJuego."juego.post.registro.raspagana", $data["project"]->id) }}" enctype="multipart/form-data" class="content-game" id="form_registro_game">
         @csrf
         @method('POST')
-        
+
         <div class="container h-100-vh d-flex align-items-center">
             <div class="d-block w-100">
                 <div class="{{ $data["project"]->project_type_id == 3 && !session('mensaje') ? 'd-flex' : 'd-none' }} w-100 flex-column justify-content-center align-items-center h-100" id="punto_venta_content">
@@ -378,7 +461,7 @@
     <script>
         $(document).ready(function () {
             $("#btn_jugar").on('click', function () {
-                
+
                 const nombre = $("#name").val();
                 const apellido = $("#apellido").val();
                 const tipo_doc = $("#tipo_doc").val();
@@ -409,7 +492,7 @@
                 $("#terminos-condiciones").removeClass('d-none');
             })
 
-            $("#punto_venta").change(function (e) { 
+            $("#punto_venta").change(function (e) {
                 e.preventDefault();
                 const valor = $("#punto_venta").val();
 
@@ -422,9 +505,9 @@
                 $("#form-registro").removeClass('d-none');
             });
 
-            // $("#form_registro_game").submit(function (e) { 
+            // $("#form_registro_game").submit(function (e) {
             //     e.preventDefault();
-                
+
             //     var formData = new FormData(this);
 
             //     $.ajax({
@@ -435,7 +518,7 @@
             //         processData: false, // No procesar los datos
             //         success: function(data) {
             //             // Procesar los datos devueltos
-            //             toastr.success(data.message); 
+            //             toastr.success(data.message);
             //         },
             //         error: function(jqXHR, textStatus, errorThrown) {
             //             console.error('Error en la solicitud AJAX:', textStatus, errorThrown);

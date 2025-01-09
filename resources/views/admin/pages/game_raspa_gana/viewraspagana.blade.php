@@ -16,6 +16,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/25bfdd98ec.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ asset('css/fonts/font.css') }}">
 </head>
 
 @php
@@ -31,7 +32,10 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
     $fondo = isset($gameRaspaGana) && !empty($gameRaspaGana->fondo) ? "/storage/".$gameRaspaGana->fondo : $imgNulo;
     $logo_principal = isset($gameRaspaGana) && !empty($gameRaspaGana->logo_principal) ? "/storage/".$gameRaspaGana->logo_principal : $imgNulo;
     $imagen_raspar = isset($gameRaspaGana) && !empty($gameRaspaGana->imagen_raspar) ? "/storage/".$gameRaspaGana->imagen_raspar : $imgNulo;
+
     $titulo_subir = isset($gameRaspaGana) && !empty($gameRaspaGana->titulo_subir) ? "/storage/".$gameRaspaGana->titulo_subir : $imgNulo;
+    $titulo_ganastes = isset($gameRaspaGana) && !empty($gameRaspaGana->titulo_ganastes) ? "/storage/".$gameRaspaGana->titulo_ganastes : $titulo_subir;
+    $titulo_final = $premioSelect['premio_id'] == 0 ? $titulo_subir : $titulo_ganastes;
 
     // titulo
     // valores
@@ -96,7 +100,30 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
         case 'Montserrat':
             $estiloFont = '--Montserrat';
             break;
-
+        case 'Bolivar':
+            $estiloFont = '--bolivar';
+            break;
+        case 'Casino':
+            $estiloFont = '--casino';
+            break;
+        case 'Casino2':
+            $estiloFont = '--casino2';
+            break;
+        case 'Casino3':
+            $estiloFont = '--casino3';
+            break;
+        case 'Alacena':
+            $estiloFont = '--alacena';
+            break;
+        case 'Alacena2':
+            $estiloFont = '--alacena2';
+            break;
+        case 'DV':
+            $estiloFont = '--dv';
+            break;
+        case 'DV2':
+            $estiloFont = '--dv2';
+            break;
         default:
             $estiloFont = '--popins';
             break;
@@ -116,7 +143,18 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
         --times: 'Times New Roman', serif;
         --roboto: "Roboto", sans-serif;
         --montserrat: "Montserrat", sans-serif;
+        --bolivar: 'VastagoGrotesk', sans-serif;
+        --casino: 'Tungsten', sans-serif;
+        --casino2: 'TungstenComp', sans-serif;
+        --casino3: 'TungstenCondensed', sans-serif;
+        --alacena: 'AlaFuente', sans-serif;
+        --alacena2: 'BuenosAires', sans-serif;
+        -dv: 'BrandonGrotesque', sans-serif;
+        -dv2: 'Sansita', sans-serif;
     }
+
+    /*font face*/
+
     * {
         padding: 0;
         margin: 0;
@@ -214,7 +252,7 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
         padding: 0.5em 1em;
         color: #6661f5;
         font-weight: 600;
-        font-size: 13px !important;
+        font-size: 13px;
         border-radius: 36px;
         font-size: 1rem;
         margin: 10px 0.2em;
@@ -369,13 +407,13 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
         </div>
         <div id="card-premio" class="d-none flex-column align-items-center justify-content-center" style="width: 100%; min-height: 100vh; gap: 1rem;">
             <div class="d-flex justify-content-center w-100">
-                <img class="img-fluid" src="{{ $titulo_subir }}" alt="" id="img-header-premio"  style="max-width: 350px;">
+                <img class="img-fluid" src="{{ $titulo_final }}" alt="" id="img-header-premio"  style="max-width: 350px;">
             </div>
             <div class="d-flex flex-column align-items-center justify-content-center w-100">
                 <img class="img-fluid img-premio-final" src="{{ $imgPremio }}" alt="" id="premio_img">
                 <h4 class="text-white my-2 d-none" style="font-weight: 700;">{{ $namePremio }}</h4>
             </div>
-            <div class="{{ $styleBotones }} justify-content-center" id="btn_content">
+            <div class="{{ $styleBotones }} justify-content-center" id="btn_content" style="font-size: 15px !important;">
                 <a href="{{ route($tipoJuego."juego.view.registro.raspagana", $project->dominio) }}" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">IR A REGISTRO</a>
                 <a href="{{ route("index") }}" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">IR A HOME</a>
                 {{-- <a href="" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">VOLVER A JUGAR</a> --}}

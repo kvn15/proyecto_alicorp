@@ -53,7 +53,12 @@ class GameMemoriaController extends Controller
                 return redirect()->route('login');
             }
 
-            if (Auth::guard('xplorer')->user() || isset(Auth::user()->id)) {
+            if(Auth::guard('admin')->user()) {// Administrador
+
+                $idUser = AsignacionProject::where('project_id', $project->id)->first();
+                $user = User::find($idUser->user_id);
+            }
+            else if (Auth::guard('xplorer')->user() || isset(Auth::user()->id)) {
 
                 $userId = Auth::guard('xplorer')->user() ? Auth::guard('xplorer')->user()->id : Auth::user()->id;
 
@@ -68,10 +73,6 @@ class GameMemoriaController extends Controller
                 if (count($asignacion) == 0) {
                     return redirect()->route('index')->with('projecto', 'No tiene acceso a este juego.');
                 }
-            } else {// Administrador
-
-                $idUser = AsignacionProject::where('project_id', $project->id)->first();
-                $user = User::find($idUser->user_id);
             }
         } else {
 
@@ -396,6 +397,12 @@ class GameMemoriaController extends Controller
         }
         $premio["gano-subir"] = $rutaGano;
 
+        $rutaTituloGanastes = isset($premioArray["titulo_ganastes"])  && !empty($premioArray["titulo_ganastes"]) && $request["titulo_ganastes-url"] != null ? $premioArray["titulo_ganastes"] : "";;
+        if ($request->hasFile('titulo_ganastes')) {
+            $rutaTituloGanastes = $request->file('titulo_ganastes')->store('game_memoria', 'public'); // Almacena en storage/app/public/imagenes
+        }
+        $premio["titulo_ganastes"] = $rutaTituloGanastes;
+
 
         $rutaImg1 = isset($gameArray[0]['img'])  && !empty($gameArray[0]['img']) && $request["imagen-1-subir-url"] != null ? $gameArray[0]['img'] : "";
         if ($request->hasFile('imagen-1-subir')) {
@@ -520,6 +527,7 @@ class GameMemoriaController extends Controller
             $landing->html_end = '';
             $landing->politicas = json_encode($politica, true);
             $landing->terminos = json_encode($termino, true);
+            $landing->titulo_ganastes = $rutaTituloGanastes;
             $landing->save();
         } else {
             $landing = GameView::findOrFail($existLanding->id);
@@ -532,6 +540,7 @@ class GameMemoriaController extends Controller
                 'html_end' => '',
                 'politicas' => json_encode($politica, true),
                 'terminos' => json_encode($termino, true),
+                'titulo_ganastes' => $rutaTituloGanastes,
             ]);
         }
 
@@ -566,11 +575,12 @@ class GameMemoriaController extends Controller
 
             $userId = 0;
 
-            if (Auth::guard('xplorer')->user() || Auth::user()) {
-                $userId = Auth::guard('xplorer')->user() ? Auth::guard('xplorer')->user()->id : Auth::user()->id;
-            } else { //admin
+            if(Auth::guard('admin')->user()) { //admin
                 $user = AsignacionProject::where('project_id', $project->id)->first();
                 $userId = User::find($user->user_id)->id;
+            }
+            else if (Auth::guard('xplorer')->user() || Auth::user()) {
+                $userId = Auth::guard('xplorer')->user() ? Auth::guard('xplorer')->user()->id : Auth::user()->id;
             }
 
             $premios = DB::table('award_projects')

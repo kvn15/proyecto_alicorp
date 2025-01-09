@@ -12,5 +12,5 @@ class RaspaGana extends Model
     protected $table = 'raspa_ganas';
 
     protected $fillable = ['project_id','fondo','titulo','logo_principal', 'imagen_raspar', 'boton_premios', 'titulo_subir','politicas',
-    'terminos'];
+    'terminos', 'titulo_ganastes'];
 }

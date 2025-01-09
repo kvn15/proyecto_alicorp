@@ -209,19 +209,19 @@
             $tamanoMenu2 = $encabezado && $encabezado->tamanoMenu == 2 ? 'checked' : '';
             $tamanoMenu3 = $encabezado && $encabezado->tamanoMenu == 2 ? 'checked' : '';
             $styleTamanoMenu = $encabezado && $encabezado->tamanoMenu  == 1 ? "fs-6" : ($encabezado && $encabezado->tamanoMenu  == 2 ? "fs-3"  :  ($encabezado && $encabezado->tamanoMenu  == 3 ? "fs-1"  : ""));
-            
+
             $color_navegacion = $encabezado && $encabezado->color_navegacion ? $encabezado->color_navegacion : '#ffffff';
             $color_navegacion_input_hover = $encabezado && $encabezado->color_navegacion_input_hover ? $encabezado->color_navegacion_input_hover : '#fbbb01';
 
             $navegacion_1 = $encabezado && $encabezado->navegacion_1 ? $encabezado->navegacion_1 : '¿CÓMO PARTICIPAR?';
             $direccionar_1 = $encabezado && $encabezado->direccionar_1 ? $encabezado->direccionar_1 : '#participar';
-            
+
             $navegacion_2 = $encabezado && $encabezado->navegacion_2 ? $encabezado->navegacion_2 : 'PREGUNTAS FRECUENTES';
             $direccionar_2 = $encabezado && $encabezado->direccionar_2 ? $encabezado->direccionar_2 : '#preguntas-frecuentes';
-            
+
             $navegacion_3 = $encabezado && $encabezado->navegacion_3 ? $encabezado->navegacion_3 : 'TÉRMINOS Y CONDICIONES';
             $direccionar_3 = $encabezado && $encabezado->direccionar_3 ? $encabezado->direccionar_3 : '#terminos_condiciones';
-            
+
             $navegacion_4 = $encabezado && $encabezado->navegacion_4 ? $encabezado->navegacion_4 : 'VER GANADORES';
             $direccionar_4 = $encabezado && $encabezado->direccionar_4 ? $encabezado->direccionar_4 : '#ganadores';
         @endphp
@@ -253,7 +253,7 @@
                     </li>
                     <li class="my-2">
                         <p class="my-1">Color Menú</p>
-                        
+
                         <div class="d-flex" role="group" style="gap: 0.4em;">
                             <input type="text" class="form-control" id="color-menu-input" name="color-menu-input" value="{{ $color_menu }}">
                             <input type="color" class="form-control form-control-color p-0" name="color-menu" id="color-menu" value="{{ $color_menu }}">
@@ -319,20 +319,20 @@
                         <div class="btn-group mb-2" role="group">
                             <input type="radio" class="btn-check" name="tamanoMenu" id="tamanoMenu1" autocomplete="off" {{ $tamanoMenu1 }} value="1">
                             <label class="btn btn-outline-text" for="tamanoMenu1"><small><b>Chico</b></small></label>
-                            
+
                             <input type="radio" class="btn-check" name="tamanoMenu" id="tamanoMenu2" autocomplete="off" {{ $tamanoMenu2 }} value="2">
                             <label class="btn btn-outline-text" for="tamanoMenu2"><small><b>Mediano</b></small></label>
-                            
+
                             <input type="radio" class="btn-check" name="tamanoMenu" id="tamanoMenu3" autocomplete="off" {{ $tamanoMenu3 }} value="3">
                             <label class="btn btn-outline-text" for="tamanoMenu3"><small><b>Grande</b></small></label>
                         </div>
-                        
+
                         <p class="my-1">Color Navegación</p>
                         <div class="d-flex my-2" role="group" style="gap: 0.4em;">
                             <input type="text" class="form-control" id="color_navegacion_input" name="color_navegacion_input" value="{{ $color_navegacion }}">
                             <input type="color" class="form-control form-control-color p-0" name="color_navegacion" id="color_navegacion" value="{{ $color_navegacion }}">
                         </div>
-                        
+
                         <p class="my-1">Color Navegación Activo</p>
                         <div class="d-flex my-2" role="group" style="gap: 0.4em;">
                             <input type="text" class="form-control" id="color_navegacion_input_hover" name="color_navegacion_input_hover" value="{{ $color_navegacion_input_hover }}">
@@ -397,7 +397,7 @@
             $banner_subir = $pagina_principal && !empty($pagina_principal["banner_subir"]) ? '/storage/'.$pagina_principal["banner_subir"] : $imgNulo;
             $banner_subir_url = $pagina_principal && !empty($pagina_principal["banner_subir"]) ? '/storage/'.$pagina_principal["banner_subir"] : "";
             $fondo_landing = $pagina_principal && !empty($pagina_principal["fondo_landing"]) ? $pagina_principal["fondo_landing"] : '#000000';
-            
+
             $bold_titulo_header = $pagina_principal && $pagina_principal["bold-titulo-header"] == 1 ? "checked" : "";
             $bold_titulo_header_style = $pagina_principal && $pagina_principal["bold-titulo-header"] == 1 ? "fw-bold" : "";
             $italic_titulo_header = $pagina_principal && $pagina_principal["italic-titulo-header"] == 1 ? "checked" : "";
@@ -408,12 +408,12 @@
             $tamanoTituloHeader2 = $pagina_principal && $pagina_principal["tamanoTitulo"] == 2 ? 'checked' : '';
             $tamanoTituloHeader3 = $pagina_principal && $pagina_principal["tamanoTitulo"] == 3 ? 'checked' : '';
             $styleTamanoTituloHeader = $pagina_principal && $pagina_principal["tamanoTitulo"]  == 1 ? "fs-6" : ($pagina_principal && $pagina_principal["tamanoTitulo"]  == 2 ? "fs-3"  :  ($pagina_principal && $pagina_principal["tamanoTitulo"]  == 3 ? "fs-1"  : ""));
-            
+
             $alineacionTitulo1 = $pagina_principal && $pagina_principal["alineacionTitulo"] == 1 ? 'checked' : '';
             $alineacionTitulo2 = $pagina_principal && $pagina_principal["alineacionTitulo"] == 2 ? 'checked' : '';
             $alineacionTitulo3 = $pagina_principal && $pagina_principal["alineacionTitulo"] == 3 ? 'checked' : '';
             $stylealineacionTitulo = $pagina_principal && $pagina_principal["alineacionTitulo"]  == 1 ? "text-start" : ($pagina_principal && $pagina_principal["alineacionTitulo"]  == 2 ? "text-center"  :  ($pagina_principal && $pagina_principal["alineacionTitulo"]  == 3 ? "text-end"  : "text-center"));
-            
+
             $color_titulo = $pagina_principal && $pagina_principal["color-titulo"] ? $pagina_principal["color-titulo"] : '#ffffff';
 
             //PARRAFO
@@ -428,12 +428,12 @@
             $tamanoTextoHeader2 = $pagina_principal && $pagina_principal["tamanoTexto"] == 2 ? 'checked' : '';
             $tamanoTextoHeader3 = $pagina_principal && $pagina_principal["tamanoTexto"] == 3 ? 'checked' : '';
             $styletamanoTextoHeader = $pagina_principal && $pagina_principal["tamanoTexto"]  == 1 ? "fs-6" : ($pagina_principal && $pagina_principal["tamanoTexto"]  == 2 ? "fs-3"  :  ($pagina_principal && $pagina_principal["tamanoTexto"]  == 3 ? "fs-1"  : ""));
-            
+
             $alineacionTexto1 = $pagina_principal && $pagina_principal["alineacionTexto"] == 1 ? 'checked' : '';
             $alineacionTexto2 = $pagina_principal && $pagina_principal["alineacionTexto"] == 2 ? 'checked' : '';
             $alineacionTexto3 = $pagina_principal && $pagina_principal["alineacionTexto"] == 3 ? 'checked' : '';
             $stylealineacionTexto = $pagina_principal && $pagina_principal["alineacionTexto"]  == 1 ? "text-start" : ($pagina_principal && $pagina_principal["alineacionTexto"]  == 2 ? "text-center"  :  ($pagina_principal && $pagina_principal["alineacionTexto"]  == 3 ? "text-end"  : "text-center"));
-        
+
             $color_texto = $pagina_principal && $pagina_principal["color-texto"] ? $pagina_principal["color-texto"] : '#ffffff';
 
             // imagen
@@ -452,7 +452,7 @@
             $tamanoBotonHeader2 = $pagina_principal && $pagina_principal["tamanoBotonHeader"] == 2 ? 'checked' : '';
             $tamanoBotonHeader3 = $pagina_principal && $pagina_principal["tamanoBotonHeader"] == 3 ? 'checked' : '';
             $styletamanoBotonHeader = $pagina_principal && $pagina_principal["tamanoBotonHeader"]  == 1 ? "fs-6" : ($pagina_principal && $pagina_principal["tamanoBotonHeader"]  == 2 ? "fs-3"  :  ($pagina_principal && $pagina_principal["tamanoBotonHeader"]  == 3 ? "fs-1"  : ""));
-        
+
             $color_boton_header = $pagina_principal && $pagina_principal["color-boton-header"] ? $pagina_principal["color-boton-header"] : '#ffffff';
 
             $titulo_boton_header = $pagina_principal && isset($pagina_principal["titulo-boton-header"]) ? $pagina_principal["titulo-boton-header"] : 'PARTICIPAR';
@@ -511,7 +511,7 @@
                     </li>
                     <li class="my-2">
                         <p class="my-1">Fondo Landing</p>
-                        
+
                         <div class="d-flex" role="group" style="gap: 0.4em;">
                             <input type="text" class="form-control" id="fondo_landing_input" name="fondo_landing_input" value="{{ $fondo_landing }}">
                             <input type="color" class="form-control form-control-color p-0" id="fondo_landing" name="fondo_landing" value="{{ $fondo_landing }}">
@@ -524,7 +524,7 @@
                 <button class="header-edit-web showv" type="button" id="collapseTwoHeader">
                     <p class="mb-0"><b><img src="{{asset('backend/svg/text.svg')}}" alt="svg seccion"> <small>Titulo</small></b></p>
                 </button>
-                
+
                 <ul class="list-unstyled ps-4 collapseTwoHeader  d-none-2">
                     <li class="my-2">
                         <p class="mb-1">Texto</p>
@@ -550,14 +550,14 @@
                     </li>
                     <li class="my-2">
                         <p class="my-1">Tamaño Texto</p>
-                        
+
                         <div class="btn-group" role="group">
                             <input type="radio" class="btn-check" name="tamanoTitulo" id="tamanoTitulo1" autocomplete="off" value="1" {{ $tamanoTituloHeader1 }}>
                             <label class="btn btn-outline-text" for="tamanoTitulo1"><small><b>Chico</b></small></label>
-                            
+
                             <input type="radio" class="btn-check" name="tamanoTitulo" id="tamanoTitulo2" autocomplete="off" value="2" {{ $tamanoTituloHeader2 }}>
                             <label class="btn btn-outline-text" for="tamanoTitulo2"><small><b>Mediano</b></small></label>
-                            
+
                             <input type="radio" class="btn-check" name="tamanoTitulo" id="tamanoTitulo3" autocomplete="off" {{ $tamanoTituloHeader3 }} value="3">
                             <label class="btn btn-outline-text" for="tamanoTitulo3"><small><b>Grande</b></small></label>
                         </div>
@@ -565,14 +565,14 @@
                     </li>
                     <li class="my-2">
                         <p class="my-1">Alineación</p>
-                        
+
                         <div class="btn-group" role="group">
                             <input type="radio" class="btn-check" name="alineacionTitulo" id="alineacionTitulo1" autocomplete="off" value="1" {{ $alineacionTitulo1 }}>
                             <label class="btn btn-outline-text" for="alineacionTitulo1"><small><b><i class="fas fa-align-left"></i></b></small></label>
-                            
+
                             <input type="radio" class="btn-check" name="alineacionTitulo" id="alineacionTitulo2" autocomplete="off" {{ $alineacionTitulo2 }} value="2">
                             <label class="btn btn-outline-text" for="alineacionTitulo2"><small><b><i class="fas fa-align-center"></i></b></small></label>
-                            
+
                             <input type="radio" class="btn-check" name="alineacionTitulo" id="alineacionTitulo3" autocomplete="off" value="3" {{ $alineacionTitulo3 }}>
                             <label class="btn btn-outline-text" for="alineacionTitulo3"><small><b><i class="fas fa-align-right"></i></b></small></label>
                         </div>
@@ -580,7 +580,7 @@
                     </li>
                     <li class="my-2">
                         <p class="my-1">Color</p>
-                        
+
                         <div class="d-flex" role="group" style="gap: 0.4em;">
                             <input type="text" class="form-control" id="color-titulo-input" name="color-titulo-input" value="{{ $color_titulo }}">
                             <input type="color" class="form-control form-control-color p-0" name="color-titulo" id="color-titulo" value="{{ $color_titulo }}">
@@ -618,14 +618,14 @@
                     </li>
                     <li class="my-2">
                         <p class="my-1">Tamaño Texto</p>
-                        
+
                         <div class="btn-group" role="group">
                             <input type="radio" class="btn-check" name="tamanoTexto" id="tamanoTexto1" autocomplete="off" {{ $tamanoTextoHeader1 }} value="1">
                             <label class="btn btn-outline-text" for="tamanoTexto1"><small><b>Chico</b></small></label>
-                            
+
                             <input type="radio" class="btn-check" name="tamanoTexto" id="tamanoTexto2" autocomplete="off" value="2" {{ $tamanoTextoHeader2 }}>
                             <label class="btn btn-outline-text" for="tamanoTexto2"><small><b>Mediano</b></small></label>
-                            
+
                             <input type="radio" class="btn-check" name="tamanoTexto" id="tamanoTexto3" autocomplete="off" value="3" {{ $tamanoTextoHeader3 }}>
                             <label class="btn btn-outline-text" for="tamanoTexto3"><small><b>Grande</b></small></label>
                         </div>
@@ -633,14 +633,14 @@
                     </li>
                     <li class="my-2">
                         <p class="my-1">Alineación</p>
-                        
+
                         <div class="btn-group" role="group">
                             <input type="radio" class="btn-check" name="alineacionTexto" id="alineacionTexto1" autocomplete="off" value="1" {{ $alineacionTexto1 }}>
                             <label class="btn btn-outline-text" for="alineacionTexto1"><small><b><i class="fas fa-align-left"></i></b></small></label>
-                            
+
                             <input type="radio" class="btn-check" name="alineacionTexto" id="alineacionTexto2" autocomplete="off" {{ $alineacionTexto2 }} value="2">
                             <label class="btn btn-outline-text" for="alineacionTexto2"><small><b><i class="fas fa-align-center"></i></b></small></label>
-                            
+
                             <input type="radio" class="btn-check" name="alineacionTexto" id="alineacionTexto3" autocomplete="off" value="3" {{ $alineacionTexto3 }}>
                             <label class="btn btn-outline-text" for="alineacionTexto3"><small><b><i class="fas fa-align-right"></i></b></small></label>
                         </div>
@@ -648,7 +648,7 @@
                     </li>
                     <li class="my-2">
                         <p class="my-1">Color</p>
-                        
+
                         <div class="d-flex" role="group" style="gap: 0.4em;">
                             <input type="text" class="form-control" id="color-texto-input" name="color-texto-input" value="{{ $color_texto }}">
                             <input type="color" class="form-control form-control-color p-0" name="color-texto" id="color-texto" value="{{ $color_texto }}">
@@ -721,14 +721,14 @@
                     </li>
                     <li class="my-2">
                         <p class="my-1">Tamaño Texto</p>
-                        
+
                         <div class="btn-group" role="group">
                             <input type="radio" class="btn-check" name="tamanoBotonHeader" id="tamanoBotonHeader1" autocomplete="off" {{ $tamanoBotonHeader1 }} value="1">
                             <label class="btn btn-outline-text" for="tamanoBotonHeader1"><small><b>Chico</b></small></label>
-                            
+
                             <input type="radio" class="btn-check" name="tamanoBotonHeader" id="tamanoBotonHeader2" autocomplete="off" value="2" {{ $tamanoBotonHeader2 }}>
                             <label class="btn btn-outline-text" for="tamanoBotonHeader2"><small><b>Mediano</b></small></label>
-                            
+
                             <input type="radio" class="btn-check" name="tamanoBotonHeader" id="tamanoBotonHeader3" autocomplete="off" value="3" {{ $tamanoBotonHeader3 }}>
                             <label class="btn btn-outline-text" for="tamanoBotonHeader3"><small><b>Grande</b></small></label>
                         </div>
@@ -736,14 +736,14 @@
                     </li>
                     <li class="my-2">
                         <p class="my-1">Alineación</p>
-                        
+
                         <div class="btn-group" role="group">
                             <input type="radio" class="btn-check" name="alineacionbtnParticipar" id="alineacionbtnParticipar1" autocomplete="off" value="1" {{ $alineacionbtnParticipar1 }}>
                             <label class="btn btn-outline-text" for="alineacionbtnParticipar1"><small><b><i class="fas fa-align-left"></i></b></small></label>
-                            
+
                             <input type="radio" class="btn-check" name="alineacionbtnParticipar" id="alineacionbtnParticipar2" autocomplete="off" {{ $alineacionbtnParticipar2 }} value="2">
                             <label class="btn btn-outline-text" for="alineacionbtnParticipar2"><small><b><i class="fas fa-align-center"></i></b></small></label>
-                            
+
                             <input type="radio" class="btn-check" name="alineacionbtnParticipar" id="alineacionbtnParticipar3" autocomplete="off" value="3" {{ $alineacionbtnParticipar3 }}>
                             <label class="btn btn-outline-text" for="alineacionbtnParticipar3"><small><b><i class="fas fa-align-right"></i></b></small></label>
                         </div>
@@ -751,7 +751,7 @@
                     </li>
                     <li class="my-2">
                         <p class="my-1">Color</p>
-                        
+
                         <div class="d-flex" role="group" style="gap: 0.4em;">
                             <input type="text" class="form-control" id="color-boton-header-input" name="color-boton-header-input" value="{{ $color_boton_header  }}">
                             <input type="color" class="form-control form-control-color p-0" name="color-boton-header" id="color-boton-header" value="{{ $color_boton_header  }}">
@@ -777,9 +777,9 @@
             $tamanoTituloComo2 = $como_participar && $como_participar["tamanoTituloComo"] == 2 ? 'checked' : '';
             $tamanoTituloComo3 = $como_participar && $como_participar["tamanoTituloComo"] == 3 ? 'checked' : '';
             $styletamanoTituloComo = $como_participar && $como_participar["tamanoTituloComo"]  == 1 ? "fs-6" : ($como_participar && $como_participar["tamanoTituloComo"]  == 2 ? "fs-3"  :  ($como_participar && $como_participar["tamanoTituloComo"]  == 3 ? "fs-1"  : ""));
-        
+
             $color_titulo_como = $como_participar && $como_participar["color-titulo-como"] ? $como_participar["color-titulo-como"] : '#fbbb01 ';
-        
+
             $participar_1 = $como_participar && $como_participar["participar_1"] ? '/storage/'.$como_participar["participar_1"] : $imgNulo;
             $participar_1_url = $como_participar && $como_participar["participar_1"] ? '/storage/'.$como_participar["participar_1"] : "";
             $participar_2 = $como_participar && $como_participar["participar_2"] ? '/storage/'.$como_participar["participar_2"] : $imgNulo;
@@ -796,7 +796,7 @@
             $tamanoBotonComo2 = $como_participar && $como_participar["tamanoBotonComo"] == 2 ? 'checked' : '';
             $tamanoBotonComo3 = $como_participar && $como_participar["tamanoBotonComo"] == 3 ? 'checked' : '';
             $styletamanoBotonComo = $como_participar && $como_participar["tamanoBotonComo"]  == 1 ? "fs-6" : ($como_participar && $como_participar["tamanoBotonComo"]  == 2 ? "fs-3"  :  ($como_participar && $como_participar["tamanoBotonComo"]  == 3 ? "fs-1"  : ""));
-        
+
             $color_boton_como = $como_participar && $como_participar["color-boton-como"] ? $como_participar["color-boton-como"] : '#ffffff';
 
             $input_buttom_como = $como_participar && isset($como_participar["input-boton-como"]) ? $como_participar["input-boton-como"] : 'VER TÉRMINOS Y CONDICIONES';
@@ -812,7 +812,7 @@
                 <ul class="list-unstyled ps-4 mt-2 collapseOneNav1 ">
                     <li class="my-2">
                         <p class="my-1">Color Borde</p>
-                        
+
                         <div class="d-flex" role="group" style="gap: 0.4em;">
                             <input type="text" class="form-control" id="border-input-como" name="border-input-como" value="{{ $border_input_como }}">
                             <input type="color" class="form-control form-control-color p-0" id="border-como" value="{{ $border_input_como }}">
@@ -849,14 +849,14 @@
                     </li>
                     <li class="my-2">
                         <p class="my-1">Tamaño Texto</p>
-                        
+
                         <div class="btn-group" role="group">
                             <input type="radio" class="btn-check" name="tamanoTituloComo" id="tamanoTituloComo1" autocomplete="off" value="1" {{ $tamanoTituloComo1 }}>
                             <label class="btn btn-outline-text" for="tamanoTituloComo1"><small><b>Chico</b></small></label>
-                          
+
                             <input type="radio" class="btn-check" name="tamanoTituloComo" id="tamanoTituloComo2" autocomplete="off" value="2" {{ $tamanoTituloComo2 }}>
                             <label class="btn btn-outline-text" for="tamanoTituloComo2"><small><b>Mediano</b></small></label>
-                          
+
                             <input type="radio" class="btn-check" name="tamanoTituloComo" id="tamanoTituloComo3" autocomplete="off" {{ $tamanoTituloComo3 }} value="3">
                             <label class="btn btn-outline-text" for="tamanoTituloComo3"><small><b>Grande</b></small></label>
                         </div>
@@ -864,7 +864,7 @@
                     </li>
                     <li class="my-2">
                         <p class="my-1">Color</p>
-                        
+
                         <div class="d-flex" role="group" style="gap: 0.4em;">
                             <input type="text" class="form-control" id="color-titulo-input-como" name="color-titulo-input-como" value="{{ $color_titulo_como }}">
                             <input type="color" class="form-control form-control-color p-0" name="color-titulo-como" id="color-titulo-como" value="{{ $color_titulo_como }}">
@@ -971,14 +971,14 @@
                     </li>
                     <li class="my-2">
                         <p class="my-1">Tamaño Texto</p>
-                        
+
                         <div class="btn-group" role="group">
                             <input type="radio" class="btn-check" name="tamanoBotonComo" id="tamanoBotonComo1" autocomplete="off" {{ $tamanoBotonComo1 }} value="1">
                             <label class="btn btn-outline-text" for="tamanoBotonComo1"><small><b>Chico</b></small></label>
-                          
+
                             <input type="radio" class="btn-check" name="tamanoBotonComo" id="tamanoBotonComo2" autocomplete="off" {{ $tamanoBotonComo2 }} value="2">
                             <label class="btn btn-outline-text" for="tamanoBotonComo2"><small><b>Mediano</b></small></label>
-                          
+
                             <input type="radio" class="btn-check" name="tamanoBotonComo" id="tamanoBotonComo3" autocomplete="off" {{ $tamanoBotonComo3 }} value="3">
                             <label class="btn btn-outline-text" for="tamanoBotonComo3"><small><b>Grande</b></small></label>
                         </div>
@@ -986,7 +986,7 @@
                     </li>
                     <li class="my-2">
                         <p class="my-1">Fondo</p>
-                        
+
                         <div class="d-flex" role="group" style="gap: 0.4em;">
                             <input type="text" class="form-control" id="color-boton-input-como" name="color-boton-input-como" value="{{ $color_boton_como }}">
                             <input type="color" class="form-control form-control-color p-0" name="color-boton-como" id="color-boton-como" value="{{ $color_boton_como }}">
@@ -1011,7 +1011,7 @@
             $tamanoTituloFormulario2 = $formulario_participar && $formulario_participar["tamanoTituloFormulario"] == 2 ? 'checked' : '';
             $tamanoTituloFormulario3 = $formulario_participar && $formulario_participar["tamanoTituloFormulario"] == 3 ? 'checked' : '';
             $styletamanoTituloFormulario = $formulario_participar && $formulario_participar["tamanoTituloFormulario"]  == 1 ? "fs-6" : ($formulario_participar && $formulario_participar["tamanoTituloFormulario"]  == 2 ? "fs-3"  :  ($formulario_participar && $formulario_participar["tamanoTituloFormulario"]  == 3 ? "fs-1"  : ""));
-        
+
             $color_titulo_formulario = $formulario_participar && $formulario_participar["color-titulo-formulario"] ? $formulario_participar["color-titulo-formulario"] : '#fbbb01';
 
             $color_label_formulario = $formulario_participar && $formulario_participar["color-label-formulario"] ? $formulario_participar["color-label-formulario"] : '#ffffff';
@@ -1025,7 +1025,7 @@
             $tamanoBotonFormulario2 = $formulario_participar && $formulario_participar["tamanoBotonFormulario"] == 2 ? 'checked' : '';
             $tamanoBotonFormulario3 = $formulario_participar && $formulario_participar["tamanoBotonFormulario"] == 3 ? 'checked' : '';
             $styletamanoBotonFormulario = $formulario_participar && $formulario_participar["tamanoBotonFormulario"]  == 1 ? "fs-6" : ($formulario_participar && $formulario_participar["tamanoBotonFormulario"]  == 2 ? "fs-3"  :  ($formulario_participar && $formulario_participar["tamanoBotonFormulario"]  == 3 ? "fs-1"  : ""));
-        
+
             $color_boton_formulario = $formulario_participar && $formulario_participar["color-boton-formulario"] ? $formulario_participar["color-boton-formulario"] : '#ffffff';
 
             $input_buttom_formulario = $formulario_participar && isset($formulario_participar["input-boton-formulario"]) ? $formulario_participar["input-boton-formulario"] : 'PARTICIPAR ';
@@ -1041,7 +1041,7 @@
                 <ul class="list-unstyled ps-4 mt-2 collapseOneFormulario ">
                     <li class="my-2">
                         <p class="my-1">Color Borde</p>
-                        
+
                         <div class="d-flex" role="group" style="gap: 0.4em;">
                             <input type="text" class="form-control" id="border-input-formulario" name="border-input-formulario" value="{{ $border_formulario }}">
                             <input type="color" class="form-control form-control-color p-0" name="border-formulario" id="border-formulario" value="{{ $border_formulario }}">
@@ -1078,14 +1078,14 @@
                     </li>
                     <li class="my-2">
                         <p class="my-1">Tamaño Texto</p>
-                        
+
                         <div class="btn-group" role="group">
                             <input type="radio" class="btn-check" name="tamanoTituloFormulario" id="tamanoTituloFormulario1" autocomplete="off" value="1" {{ $tamanoTituloFormulario1 }}>
                             <label class="btn btn-outline-text" for="tamanoTituloFormulario1"><small><b>Chico</b></small></label>
-                          
+
                             <input type="radio" class="btn-check" name="tamanoTituloFormulario" id="tamanoTituloFormulario2" autocomplete="off" value="2" {{ $tamanoTituloFormulario2 }}>
                             <label class="btn btn-outline-text" for="tamanoTituloFormulario2"><small><b>Mediano</b></small></label>
-                          
+
                             <input type="radio" class="btn-check" name="tamanoTituloFormulario" id="tamanoTituloFormulario3" autocomplete="off" {{ $tamanoTituloFormulario3 }} value="3">
                             <label class="btn btn-outline-text" for="tamanoTituloFormulario3"><small><b>Grande</b></small></label>
                         </div>
@@ -1093,7 +1093,7 @@
                     </li>
                     <li class="my-2">
                         <p class="my-1">Color</p>
-                        
+
                         <div class="d-flex" role="group" style="gap: 0.4em;">
                             <input type="text" class="form-control" id="color-titulo-input-formulario" name="color-titulo-input-formulario" value="{{ $color_titulo_formulario }}">
                             <input type="color" class="form-control form-control-color p-0" name="color-titulo-formulario" id="color-titulo-formulario" value="{{ $color_titulo_formulario }}">
@@ -1108,7 +1108,7 @@
                 <ul class="list-unstyled ps-4 mt-2 collapseThreeFormulario  d-none-2">
                     <li class="my-2">
                         <p class="my-1">Color Label Formulario</p>
-                        
+
                         <div class="d-flex" role="group" style="gap: 0.4em;">
                             <input type="text" class="form-control" id="color-label-input-formulario" name="color-label-input-formulario" value="{{ $color_label_formulario }}">
                             <input type="color" class="form-control form-control-color p-0" name="color-label-formulario" id="color-label-formulario" value="{{ $color_label_formulario }}">
@@ -1145,14 +1145,14 @@
                     </li>
                     <li class="my-2">
                         <p class="my-1">Tamaño Texto</p>
-                        
+
                         <div class="btn-group" role="group">
                             <input type="radio" class="btn-check" name="tamanoBotonFormulario" id="tamanoBotonFormulario1" autocomplete="off" {{ $tamanoBotonFormulario1 }} value="1">
                             <label class="btn btn-outline-text" for="tamanoBotonFormulario1"><small><b>Chico</b></small></label>
-                          
+
                             <input type="radio" class="btn-check" name="tamanoBotonFormulario" id="tamanoBotonFormulario2" autocomplete="off" value="2" {{ $tamanoBotonFormulario2 }}>
                             <label class="btn btn-outline-text" for="tamanoBotonFormulario2"><small><b>Mediano</b></small></label>
-                          
+
                             <input type="radio" class="btn-check" name="tamanoBotonFormulario" id="tamanoBotonFormulario3" autocomplete="off" value="3" {{ $tamanoBotonFormulario3 }}>
                             <label class="btn btn-outline-text" for="tamanoBotonFormulario3"><small><b>Grande</b></small></label>
                         </div>
@@ -1160,7 +1160,7 @@
                     </li>
                     <li class="my-2">
                         <p class="my-1">Color</p>
-                        
+
                         <div class="d-flex" role="group" style="gap: 0.4em;">
                             <input type="text" class="form-control" id="color-boton-input-formulario" name="color-boton-input-formulario" value="{{ $color_boton_formulario }}">
                             <input type="color" class="form-control form-control-color p-0" name="color-boton-formulario" id="color-boton-formulario" value="{{ $color_boton_formulario }}">
@@ -1171,7 +1171,7 @@
         </div>
         @php
             $ganadores = isset($landing->ganadores) && !empty($landing->ganadores) ? json_decode($landing->ganadores, true) : null;
-            
+
             $border_ganador = $ganadores && $ganadores["border-ganador"] ? $ganadores["border-ganador"] : '#fbbb01';
 
             $bold_titulo_ganador = $ganadores && $ganadores["bold-titulo-ganador"] == 1 ? "checked" : "";
@@ -1185,7 +1185,7 @@
             $tamanoTituloGanador2 = $ganadores && $ganadores["tamanoTituloGanador"] == 2 ? 'checked' : '';
             $tamanoTituloGanador3 = $ganadores && $ganadores["tamanoTituloGanador"] == 3 ? 'checked' : '';
             $styletamanoTituloGanador = $ganadores && $ganadores["tamanoTituloGanador"]  == 1 ? "fs-6" : ($ganadores && $ganadores["tamanoTituloGanador"]  == 2 ? "fs-3"  :  ($ganadores && $ganadores["tamanoTituloGanador"]  == 3 ? "fs-1"  : ""));
-        
+
             $color_titulo_ganador = $ganadores && $ganadores["color-titulo-ganador"] ? $ganadores["color-titulo-ganador"] : '#fbbb01';
 
             $color_lista = $ganadores && $ganadores["color-lista-ganador"] ? $ganadores["color-lista-ganador"] : '#ffffff';
@@ -1201,7 +1201,7 @@
                 <ul class="list-unstyled ps-4 mt-2 collapseOneGanador">
                     <li class="my-2">
                         <p class="my-1">Color Borde</p>
-                        
+
                         <div class="d-flex" role="group" style="gap: 0.4em;">
                             <input type="text" class="form-control" id="border-input-ganador" name="border-input-ganador" value="{{ $border_ganador }}">
                             <input type="color" class="form-control form-control-color p-0" name="border-ganador" id="border-ganador" value="{{ $border_ganador }}">
@@ -1238,14 +1238,14 @@
                     </li>
                     <li class="my-2">
                         <p class="my-1">Tamaño Texto</p>
-                        
+
                         <div class="btn-group" role="group">
                             <input type="radio" class="btn-check" name="tamanoTituloGanador" id="tamanoTituloGanador1" autocomplete="off" value="1" {{ $tamanoTituloGanador1 }}>
                             <label class="btn btn-outline-text" for="tamanoTituloGanador1"><small><b>Chico</b></small></label>
-                          
+
                             <input type="radio" class="btn-check" name="tamanoTituloGanador" id="tamanoTituloGanador2" autocomplete="off" value="2" {{ $tamanoTituloGanador2 }}>
                             <label class="btn btn-outline-text" for="tamanoTituloGanador2"><small><b>Mediano</b></small></label>
-                          
+
                             <input type="radio" class="btn-check" name="tamanoTituloGanador" id="tamanoTituloGanador3" autocomplete="off" {{ $tamanoTituloGanador3 }} value="3">
                             <label class="btn btn-outline-text" for="tamanoTituloGanador3"><small><b>Grande</b></small></label>
                         </div>
@@ -1253,7 +1253,7 @@
                     </li>
                     <li class="my-2">
                         <p class="my-1">Color</p>
-                        
+
                         <div class="d-flex" role="group" style="gap: 0.4em;">
                             <input type="text" class="form-control" id="color-titulo-input-ganador" name="color-titulo-input-ganador" value="{{ $color_titulo_ganador }}">
                             <input type="color" class="form-control form-control-color p-0" name="color-titulo-ganador" id="color-titulo-ganador" value="{{ $color_titulo_ganador }}">
@@ -1268,7 +1268,7 @@
                 <ul class="list-unstyled ps-4 mt-2 collapseThreeGanador  d-none-2">
                     <li class="my-2">
                         <p class="my-1">Color Lista</p>
-                        
+
                         <div class="d-flex" role="group" style="gap: 0.4em;">
                             <input type="text" class="form-control" id="color-lista-input-ganador" name="color-lista-input-ganador" value="{{ $color_lista }}">
                             <input type="color" class="form-control form-control-color p-0" name="color-lista-ganador" id="color-lista-ganador" value="{{ $color_lista }}">
@@ -1292,7 +1292,7 @@
             $tamanoTituloPregunta2 = $preguntas_frecuentes && $preguntas_frecuentes["tamanoTituloPregunta"] == 2 ? 'checked' : '';
             $tamanoTituloPregunta3 = $preguntas_frecuentes && $preguntas_frecuentes["tamanoTituloPregunta"] == 3 ? 'checked' : '';
             $styletamanoTituloPregunta = $preguntas_frecuentes && $preguntas_frecuentes["tamanoTituloPregunta"]  == 1 ? "fs-6" : ($preguntas_frecuentes && $preguntas_frecuentes["tamanoTituloPregunta"]  == 2 ? "fs-3"  :  ($preguntas_frecuentes && $preguntas_frecuentes["tamanoTituloPregunta"]  == 3 ? "fs-1"  : ""));
-        
+
             $color_titulo_pregunta = $preguntas_frecuentes && $preguntas_frecuentes["color-titulo-pregunta"] ? $preguntas_frecuentes["color-titulo-pregunta"] : '#fbbb01';
 
             $color_text_pregunta = $preguntas_frecuentes && $preguntas_frecuentes["color-text-pregunta"] ? $preguntas_frecuentes["color-text-pregunta"] : '#fbbb01';
@@ -1322,7 +1322,7 @@
                 <ul class="list-unstyled ps-4 mt-2 collapseOnePregunta">
                     <li class="my-2">
                         <p class="my-1">Color Borde</p>
-                        
+
                         <div class="d-flex" role="group" style="gap: 0.4em;">
                             <input type="text" class="form-control" id="border-input-pregunta" name="border-input-pregunta" value="{{ $border_pregunta }}">
                             <input type="color" class="form-control form-control-color p-0" name="border-pregunta" id="border-pregunta" value="{{ $border_pregunta }}">
@@ -1359,14 +1359,14 @@
                     </li>
                     <li class="my-2">
                         <p class="my-1">Tamaño Texto</p>
-                        
+
                         <div class="btn-group" role="group">
                             <input type="radio" class="btn-check" name="tamanoTituloPregunta" id="tamanoTituloPregunta1" autocomplete="off" value="1" {{ $tamanoTituloPregunta1 }}>
                             <label class="btn btn-outline-text" for="tamanoTituloPregunta1"><small><b>Chico</b></small></label>
-                          
+
                             <input type="radio" class="btn-check" name="tamanoTituloPregunta" id="tamanoTituloPregunta2" autocomplete="off" value="2" {{ $tamanoTituloPregunta2 }}>
                             <label class="btn btn-outline-text" for="tamanoTituloPregunta2"><small><b>Mediano</b></small></label>
-                          
+
                             <input type="radio" class="btn-check" name="tamanoTituloPregunta" id="tamanoTituloPregunta3" autocomplete="off" {{ $tamanoTituloPregunta3 }} value="3">
                             <label class="btn btn-outline-text" for="tamanoTituloPregunta3"><small><b>Grande</b></small></label>
                         </div>
@@ -1374,7 +1374,7 @@
                     </li>
                     <li class="my-2">
                         <p class="my-1">Color</p>
-                        
+
                         <div class="d-flex" role="group" style="gap: 0.4em;">
                             <input type="text" class="form-control" id="color-titulo-input-pregunta" name="color-titulo-input-pregunta" value="{{ $color_titulo_pregunta }}">
                             <input type="color" class="form-control form-control-color p-0" name="color-titulo-pregunta" id="color-titulo-pregunta" value="{{ $color_titulo_pregunta }}">
@@ -1389,7 +1389,7 @@
                 <ul class="list-unstyled ps-4 mt-2 collapseThreePregunta  d-none-2">
                     <li class="my-2">
                         <p class="my-1">Color Preguntas</p>
-                        
+
                         <div class="d-flex" role="group" style="gap: 0.4em;">
                             <input type="text" class="form-control" id="color-text-input-pregunta" name="color-text-input-pregunta" value="{{ $color_text_pregunta }}">
                             <input type="color" class="form-control form-control-color p-0" name="color-text-pregunta" id="color-text-pregunta" value="{{ $color_text_pregunta }}">
@@ -1397,7 +1397,7 @@
                     </li>
                     <li class="my-2">
                         <p class="my-1">Color Preguntas Borde</p>
-                        
+
                         <div class="d-flex" role="group" style="gap: 0.4em;">
                             <input type="text" class="form-control" id="color-borde-input-pregunta" name="color-borde-input-pregunta" value="{{ $color_border_pregunta }}">
                             <input type="color" class="form-control form-control-color p-0" name="color-borde-pregunta" id="color-borde-pregunta" value="{{ $color_border_pregunta }}">
@@ -1451,13 +1451,13 @@
             $tamanoTituloRedes2 = $redes_sociales && $redes_sociales["tamanoTituloRedes"] == 2 ? 'checked' : '';
             $tamanoTituloRedes3 = $redes_sociales && $redes_sociales["tamanoTituloRedes"] == 3 ? 'checked' : '';
             $styletamanoTituloRedes = $redes_sociales && $redes_sociales["tamanoTituloRedes"]  == 1 ? "fs-6" : ($redes_sociales && $redes_sociales["tamanoTituloRedes"]  == 2 ? "fs-3"  :  ($redes_sociales && $redes_sociales["tamanoTituloRedes"]  == 3 ? "fs-1"  : ""));
-        
+
             $color_titulo_redes = $redes_sociales && $redes_sociales["color-titulo-redes"] ? $redes_sociales["color-titulo-redes"] : '#fbbb01';
 
             $color_icon_redes = $redes_sociales && $redes_sociales["color-icon-redes"] ? $redes_sociales["color-icon-redes"] : '#fbbb01';
 
             $redes_sociales_array = $redes_sociales && $redes_sociales["redes_sociales"] ? $redes_sociales["redes_sociales"] : [];
-            
+
         @endphp
         <div class="d-none" id="redes-section">
             <div class="border-bottom py-2">
@@ -1492,14 +1492,14 @@
                     </li>
                     <li class="my-2">
                         <p class="my-1">Tamaño Texto</p>
-                        
+
                         <div class="btn-group" role="group">
                             <input type="radio" class="btn-check" name="tamanoTituloRedes" id="tamanoTituloRedes1" autocomplete="off" value="1" {{ $tamanoTituloRedes1 }}>
                             <label class="btn btn-outline-text" for="tamanoTituloRedes1"><small><b>Chico</b></small></label>
-                          
+
                             <input type="radio" class="btn-check" name="tamanoTituloRedes" id="tamanoTituloRedes2" autocomplete="off" value="2" {{ $tamanoTituloRedes2 }}>
                             <label class="btn btn-outline-text" for="tamanoTituloRedes2"><small><b>Mediano</b></small></label>
-                          
+
                             <input type="radio" class="btn-check" name="tamanoTituloRedes" id="tamanoTituloRedes3" autocomplete="off" {{ $tamanoTituloRedes3 }} value="3">
                             <label class="btn btn-outline-text" for="tamanoTituloRedes3"><small><b>Grande</b></small></label>
                         </div>
@@ -1507,7 +1507,7 @@
                     </li>
                     <li class="my-2">
                         <p class="my-1">Color</p>
-                        
+
                         <div class="d-flex" role="group" style="gap: 0.4em;">
                             <input type="text" class="form-control" id="color-titulo-input-redes" name="color-titulo-input-redes" value="{{ $color_titulo_redes }}">
                             <input type="color" class="form-control form-control-color p-0" name="color-titulo-redes" id="color-titulo-redes" value="{{ $color_titulo_redes }}">
@@ -1522,7 +1522,7 @@
                 <ul class="list-unstyled ps-4 mt-2 collapseTwoRedees  d-none-2">
                     <li class="my-2">
                         <p class="my-1">Color Redes</p>
-                        
+
                         <div class="d-flex" role="group" style="gap: 0.4em;">
                             <input type="text" class="form-control" id="color-icon-input-redes" name="color-icon-input-redes" value="{{ $color_icon_redes }}">
                             <input type="color" class="form-control form-control-color p-0" name="color-icon-redes" id="color-icon-redes" value="{{ $color_icon_redes }}">
@@ -1541,14 +1541,84 @@
         </div>
     </form>
     <div class="col-9 p-0" id="landing_page" style="overflow-y: scroll; height: 100vh;">
+
+        @php
+        $estiloFont = "";
+        switch ($project->tipo_letra) {
+            case 'Times New Roman':
+                $estiloFont = '--times';
+                break;
+            case 'Poppins':
+                $estiloFont = '--popins';
+                break;
+            case 'Arial':
+                $estiloFont = '--arial';
+                break;
+            case 'Verdana':
+                $estiloFont = '--verdana';
+                break;
+            case 'Roboto':
+                $estiloFont = '--roboto';
+                break;
+            case 'Courier New':
+                $estiloFont = '--courier';
+                break;
+            case 'Montserrat':
+                $estiloFont = '--Montserrat';
+                break;
+            case 'Bolivar':
+                $estiloFont = '--bolivar';
+                break;
+            case 'Casino':
+                $estiloFont = '--casino';
+                break;
+            case 'Casino2':
+                $estiloFont = '--casino2';
+                break;
+            case 'Casino3':
+                $estiloFont = '--casino3';
+                break;
+            case 'Alacena':
+                $estiloFont = '--alacena';
+                break;
+            case 'Alacena2':
+                $estiloFont = '--alacena2';
+                break;
+            case 'DV':
+                $estiloFont = '--dv';
+                break;
+            case 'DV2':
+                $estiloFont = '--dv2';
+                break;
+            default:
+                $estiloFont = '--popins';
+                break;
+        }
+        @endphp
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
             :root {
                 --landing: {{ $fondo_landing }};
                 --color-text1: #fff;
                 --color-active-nav: {{ $color_navegacion_input_hover }};
                 --popins: "Poppins", sans-serif;
+                --arial: Arial, sans-serif;
+                --courier: "Courier New", monospace;
+                --verdana: Verdana, sans-serif;
+                --times: 'Times New Roman', serif;
+                --roboto: "Roboto", sans-serif;
+                --montserrat: "Montserrat", sans-serif;
+                --bolivar: 'VastagoGrotesk', sans-serif;
+                --casino: 'Tungsten', sans-serif;
+                --casino2: 'TungstenComp', sans-serif;
+                --casino3: 'TungstenCondensed', sans-serif;
+                --alacena: 'AlaFuente', sans-serif;
+                --alacena2: 'BuenosAires', sans-serif;
+                -dv: 'BrandonGrotesque', sans-serif;
+                -dv2: 'Sansita', sans-serif;
                 --bg-nav: #080808;
                 --buttom-header: #cd0a10;
                 --color-buttom-header: #fff;
@@ -1565,7 +1635,7 @@
             .landing_page {
                 color: var(--color-text1) !important;
                 background-color: var(--landing);
-                font-family: var(--popins) !important;
+                font-family: var({{$estiloFont}}) !important;
             }
 
             .nav-landing {
@@ -1937,7 +2007,7 @@
                                 <input type="text" class="form-control input-text">
                                 <input type="file" name="" id="" class="form-control mt-2">
                             </div>
-    
+
                             <div class="col-12 row mt-3">
                                 <div class="form-check col-12 col-md-6 col-lg-4">
                                     <input class="form-check-input" type="checkbox" name="termino_condicion" id="termino_condicion">
@@ -2044,7 +2114,7 @@
                             <div class="accordion" id="accordionExample">
                                 <div class="accordion-item" style="border-color: {{ $color_border_pregunta }} !important;">
                                     <h2 class="accordion-header">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" 
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                     id="pregunta-1-landing" style="color: {{ $color_text_pregunta }} !important;">
                                     {{ $pregunta1 }}
                                     </button>
@@ -2117,117 +2187,117 @@
 <script>
     const menu_edit = document.getElementById("menu_edit");
     function retornoMenuEdit() {
-        menu_edit.classList.remove('d-none'); 
-        menu_edit.classList.add('d-block'); 
+        menu_edit.classList.remove('d-none');
+        menu_edit.classList.add('d-block');
     }
     function retornoMenuEditNone() {
-        menu_edit.classList.add('d-none'); 
-        menu_edit.classList.remove('d-block'); 
+        menu_edit.classList.add('d-none');
+        menu_edit.classList.remove('d-block');
     }
     const pagina_principal = document.getElementById("pagina_principal");
     const back_principal = document.getElementById("back_principal");
     const principal_menu = document.getElementById("principal-menu");
-    
+
     principal_menu.addEventListener('click', function() {
         retornoMenuEditNone();
-        pagina_principal.classList.add('d-block'); 
-        pagina_principal.classList.remove('d-none'); 
+        pagina_principal.classList.add('d-block');
+        pagina_principal.classList.remove('d-none');
     })
 
     back_principal.addEventListener('click', () => {
-        pagina_principal.classList.remove('d-block'); 
-        pagina_principal.classList.add('d-none'); 
+        pagina_principal.classList.remove('d-block');
+        pagina_principal.classList.add('d-none');
         retornoMenuEdit();
     })
 
     const encabezado = document.getElementById("encabezado");
     const back_encabezado = document.getElementById("back_encabezado");
     const encabezado_menu = document.getElementById("encabezado-menu");
-    
+
     encabezado_menu.addEventListener('click', function() {
         retornoMenuEditNone();
-        encabezado.classList.add('d-block'); 
-        encabezado.classList.remove('d-none'); 
+        encabezado.classList.add('d-block');
+        encabezado.classList.remove('d-none');
     })
     back_encabezado.addEventListener('click', () => {
-        encabezado.classList.remove('d-block'); 
-        encabezado.classList.add('d-none'); 
+        encabezado.classList.remove('d-block');
+        encabezado.classList.add('d-none');
         retornoMenuEdit();
     })
 
-    
+
     const como_participar = document.getElementById('como_participar')
     const back_como_participa = document.getElementById('back_como_participa')
     const participar_menu = document.getElementById('participar-menu')
-    
+
     participar_menu.addEventListener('click', function() {
         retornoMenuEditNone();
-        como_participar.classList.add('d-block'); 
-        como_participar.classList.remove('d-none'); 
+        como_participar.classList.add('d-block');
+        como_participar.classList.remove('d-none');
     })
     back_como_participa.addEventListener('click', () => {
-        como_participar.classList.remove('d-block'); 
-        como_participar.classList.add('d-none'); 
+        como_participar.classList.remove('d-block');
+        como_participar.classList.add('d-none');
         retornoMenuEdit();
     })
-    
+
     const formulario_participar = document.getElementById('form-participar')
     const back_form_participa = document.getElementById('back_form_participa')
     const formulario_menu = document.getElementById('formulario-menu')
-    
+
     formulario_menu.addEventListener('click', function() {
         retornoMenuEditNone();
-        formulario_participar.classList.add('d-block'); 
-        formulario_participar.classList.remove('d-none'); 
+        formulario_participar.classList.add('d-block');
+        formulario_participar.classList.remove('d-none');
     })
     back_form_participa.addEventListener('click', () => {
-        formulario_participar.classList.remove('d-block'); 
-        formulario_participar.classList.add('d-none'); 
+        formulario_participar.classList.remove('d-block');
+        formulario_participar.classList.add('d-none');
         retornoMenuEdit();
     })
-    
+
     const ganadores_section = document.getElementById('ganadores-section')
     const back_ganador = document.getElementById('back_ganador')
     const ganadores_menu = document.getElementById('ganadores-menu')
-    
+
     ganadores_menu.addEventListener('click', function() {
         retornoMenuEditNone();
-        ganadores_section.classList.add('d-block'); 
-        ganadores_section.classList.remove('d-none'); 
+        ganadores_section.classList.add('d-block');
+        ganadores_section.classList.remove('d-none');
     })
     back_ganador.addEventListener('click', () => {
-        ganadores_section.classList.remove('d-block'); 
-        ganadores_section.classList.add('d-none'); 
+        ganadores_section.classList.remove('d-block');
+        ganadores_section.classList.add('d-none');
         retornoMenuEdit();
     })
-    
+
     const preguntas_section = document.getElementById('preguntas-section')
     const back_pregunta = document.getElementById('back_pregunta')
     const preguntas_menu = document.getElementById('preguntas-menu')
-    
+
     preguntas_menu.addEventListener('click', function() {
         retornoMenuEditNone();
-        preguntas_section.classList.add('d-block'); 
-        preguntas_section.classList.remove('d-none'); 
+        preguntas_section.classList.add('d-block');
+        preguntas_section.classList.remove('d-none');
     })
     back_pregunta.addEventListener('click', () => {
-        preguntas_section.classList.remove('d-block'); 
-        preguntas_section.classList.add('d-none'); 
+        preguntas_section.classList.remove('d-block');
+        preguntas_section.classList.add('d-none');
         retornoMenuEdit();
     })
-    
+
     const redes_section = document.getElementById('redes-section')
     const back_redes = document.getElementById('back_redes')
     const redes_menu = document.getElementById('redes-menu')
-    
+
     redes_menu.addEventListener('click', function() {
         retornoMenuEditNone();
-        redes_section.classList.add('d-block'); 
-        redes_section.classList.remove('d-none'); 
+        redes_section.classList.add('d-block');
+        redes_section.classList.remove('d-none');
     })
     back_redes.addEventListener('click', () => {
-        redes_section.classList.remove('d-block'); 
-        redes_section.classList.add('d-none'); 
+        redes_section.classList.remove('d-block');
+        redes_section.classList.add('d-none');
         retornoMenuEdit();
     })
 
@@ -2243,7 +2313,7 @@
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            
+
             reader.onload = function(e) {
                 const preview = document.getElementById('preview-banner');
                 const upload = document.getElementById('upload-banner')
@@ -2483,14 +2553,14 @@
 
 
     // Imagen
-    
+
 
     document.getElementById('imagen-subir').addEventListener('change', function(event) {
         console.log('das')
         const file = event.target.files[0];
         if (file) {
             const reader2 = new FileReader();
-            
+
             reader2.onload = function(e) {
                 const preview2 = document.getElementById('preview-imagen');
                 const upload2 = document.getElementById('upload-imagen')
@@ -2535,7 +2605,7 @@
             bold_boton_header.checked = false;
         }
     })
-    
+
     italic_boton_header.addEventListener('change', function(event) {
         const svg_italic = document.querySelector('#svg_italic_btn_header path')
         const svg_bold = document.querySelector('#svg_bold_btn_header path')
@@ -2619,7 +2689,7 @@
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            
+
             reader.onload = function(e) {
                 const preview = document.getElementById('preview-logo');
                 const upload = document.getElementById('upload-logo')
@@ -2735,7 +2805,7 @@
         item_landing_menu.forEach(menu => {
             menu.style.color = event.target.value
         })
-        
+
     })
 
     color_navegacion.addEventListener('input', function(event) {
@@ -2837,7 +2907,7 @@
     });
 </script>
 <script>
-    
+
     // COlor borde
     const border_input_como = document.getElementById("border-input-como");
     const border_como = document.getElementById("border-como");
@@ -2865,7 +2935,7 @@
             title_como.classList.add('fw-bold')
             title_como.classList.remove('fst-italic')
             svg_bold.setAttribute('fill', '#000');
-            
+
             bold_titulo_como.checked = true;
             italic_titulo_como.checked = false;
             svg_italic.setAttribute('fill', '#98A2B3');
@@ -2935,13 +3005,13 @@
     })
 
     // Logos
-    
+
     const item_participar_1 = document.getElementById('item_participar_1')
     document.getElementById('participar_1').addEventListener('change', function(event) {
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            
+
             reader.onload = function(e) {
                 const preview = document.getElementById('preview_participar_1');
                 const upload = document.getElementById('upload-participar-1')
@@ -2955,13 +3025,13 @@
             reader.readAsDataURL(file); // Lee la imagen como una URL de datos
         }
     });
-    
+
     const item_participar_2 = document.getElementById('item_participar_2')
     document.getElementById('participar_2').addEventListener('change', function(event) {
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            
+
             reader.onload = function(e) {
                 const preview = document.getElementById('preview_participar_2');
                 const upload = document.getElementById('upload-participar-2')
@@ -2975,13 +3045,13 @@
             reader.readAsDataURL(file); // Lee la imagen como una URL de datos
         }
     });
-    
+
     const item_participar_3 = document.getElementById('item_participar_3')
     document.getElementById('participar_3').addEventListener('change', function(event) {
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            
+
             reader.onload = function(e) {
                 const preview = document.getElementById('preview_participar_3');
                 const upload = document.getElementById('upload-participar-3')
@@ -3010,7 +3080,7 @@
             btn_como.classList.add('fw-bold')
             btn_como.classList.remove('fst-italic')
             svg_bold.setAttribute('fill', '#000');
-            
+
             bold_boton_como.checked = true;
             italic_boton_como.checked = false;
             svg_italic.setAttribute('fill', '#98A2B3');
@@ -3028,7 +3098,7 @@
             btn_como.classList.add('fst-italic')
             btn_como.classList.remove('fw-bold')
             svg_italic.setAttribute('fill', '#000');
-            
+
             italic_boton_como.checked = true;
             bold_boton_como.checked = false;
             svg_bold.setAttribute('fill', '#98A2B3');
@@ -3078,10 +3148,10 @@
         color_boton_input_como.value = this.value
         btn_como.style.backgroundColor = this.value
     })
-    
+
 </script>
 <script>
-    
+
     // COlor borde
     const border_input_formulario = document.getElementById("border-input-formulario");
     const border_formulario = document.getElementById("border-formulario");
@@ -3245,7 +3315,7 @@
     input_boton_formulario.addEventListener('input' , function(event) {
         btn_formulario.innerHTML = event.target.value
     })
-    
+
     // tamaño titulo
     const tamanoBotonFormulario1 = document.getElementById("tamanoBotonFormulario1")
     const tamanoBotonFormulario2 = document.getElementById("tamanoBotonFormulario2")
@@ -3281,7 +3351,7 @@
     })
 </script>
 <script>
-    
+
     // COlor borde
     const border_input_ganador = document.getElementById("border-input-ganador");
     const border_ganador = document.getElementById("border-ganador");
@@ -3397,7 +3467,7 @@
 
 </script>
 <script>
-    
+
     // COlor borde
     const border_input_pregunta = document.getElementById("border-input-pregunta");
     const border_pregunta = document.getElementById("border-pregunta");
@@ -3697,26 +3767,26 @@
             'enlace': ''
         }
 
-        $("#color-icon-input-redes").on('input', function (e) { 
+        $("#color-icon-input-redes").on('input', function (e) {
             e.preventDefault();
             colorRedes($("#color-icon-input-redes").val())
         });
-        
-        $("#color-icon-redes").on('input', function (e) { 
+
+        $("#color-icon-redes").on('input', function (e) {
             e.preventDefault();
             colorRedes($("#color-icon-redes").val())
         });
 
-        function colorRedes (valor) {  
+        function colorRedes (valor) {
             var redes_icon = document.querySelectorAll(".redes_icon");
             redes_icon.forEach(a => {
                 a.style.color = valor
             })
         }
 
-        $("#add_redes").click(function (e) { 
+        $("#add_redes").click(function (e) {
             e.preventDefault();
-            
+
             const data = {...dataRedes};
             data.id = uuid.v4();
             arrayRedes.push(data);
@@ -3741,7 +3811,7 @@
 
             $("#landing_redes").html(html)
         }
-        
+
         function addRedes(array) {
             var html = ``;
 
@@ -3801,17 +3871,17 @@
 
         addRedesLanding()
         addRedes(arrayRedes);
-        
+
         $("#guardar-landing").on("click", function() {
             $("#form-landing").submit();
         })
 
         $('#form-landing').on('submit', function(event) {
-            event.preventDefault(); 
+            event.preventDefault();
 
             var formData = new FormData(this);
             formData.append('redes_sociales', JSON.stringify(arrayRedes))
-            
+
             // // Mostrar los datos en la consola (opcional)
             // for (const [key, value] of formData.entries()) {
             //     console.log(`${key}: ${value}`);
@@ -3824,7 +3894,7 @@
                 processData: false, // No procesar los datos
                 success: function(data) {
                     // Procesar los datos devueltos
-                    // toastr.success(data.message); 
+                    // toastr.success(data.message);
                     if (data) {
                         if (data.encabezado.logo_subir) {
                             $("#logo-nav").attr('src', `/storage/${data.encabezado.logo_subir}`);
@@ -3864,13 +3934,13 @@
         });
 
         $("#form_html").on("submit", function(event) {
-            event.preventDefault(); 
+            event.preventDefault();
             const html = $('#landing_page').html();
 
             // Ajax para actualizar data
             var formData2 = new FormData(this);
             formData2.append('html', html)
-                    
+
             $.ajax({
                 url: $(this).attr('action'), // URL de la ruta
                 method: 'POST',
@@ -3879,8 +3949,8 @@
                 processData: false, // No procesar los datos
                 success: function(data) {
                     // Procesar los datos devueltos
-                    toastr.success('Cambios guadados correctamente'); 
-                    
+                    toastr.success('Cambios guadados correctamente');
+
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
@@ -3987,7 +4057,7 @@
             }
         })
         //
-        
+
         $("#collapseOneNav1").click(function (e){
             if ($(this).hasClass("hidev")) {
                 $(this).removeClass("hidev")
@@ -3999,7 +4069,7 @@
                 $(".collapseOneNav1").show("fast");
             }
         })
-        
+
         $("#collapseTwoComo").click(function (e){
             if ($(this).hasClass("hidev")) {
                 $(this).removeClass("hidev")
@@ -4011,7 +4081,7 @@
                 $(".collapseTwoComo").show("fast");
             }
         })
-        
+
         $("#collapseThreeComo").click(function (e){
             if ($(this).hasClass("hidev")) {
                 $(this).removeClass("hidev")
@@ -4023,7 +4093,7 @@
                 $(".collapseThreeComo").show("fast");
             }
         })
-        
+
         $("#collapseFourComo").click(function (e){
             if ($(this).hasClass("hidev")) {
                 $(this).removeClass("hidev")
@@ -4038,7 +4108,7 @@
 
         ///
         //
-        
+
         $("#collapseOneFormulario").click(function (e){
             if ($(this).hasClass("hidev")) {
                 $(this).removeClass("hidev")
@@ -4050,7 +4120,7 @@
                 $(".collapseOneFormulario").show("fast");
             }
         })
-        
+
         $("#collapseTwoFormulario").click(function (e){
             if ($(this).hasClass("hidev")) {
                 $(this).removeClass("hidev")
@@ -4062,7 +4132,7 @@
                 $(".collapseTwoFormulario").show("fast");
             }
         })
-        
+
         $("#collapseThreeFormulario").click(function (e){
             if ($(this).hasClass("hidev")) {
                 $(this).removeClass("hidev")
@@ -4074,7 +4144,7 @@
                 $(".collapseThreeFormulario").show("fast");
             }
         })
-        
+
         $("#collapseFourFormulario").click(function (e){
             if ($(this).hasClass("hidev")) {
                 $(this).removeClass("hidev")
@@ -4087,7 +4157,7 @@
             }
         })
         //
-        
+
         $("#collapseOneGanador").click(function (e){
             if ($(this).hasClass("hidev")) {
                 $(this).removeClass("hidev")
@@ -4099,7 +4169,7 @@
                 $(".collapseOneGanador").show("fast");
             }
         })
-        
+
         $("#collapseTwoGanador").click(function (e){
             if ($(this).hasClass("hidev")) {
                 $(this).removeClass("hidev")
@@ -4111,7 +4181,7 @@
                 $(".collapseTwoGanador").show("fast");
             }
         })
-        
+
         $("#collapseThreeGanador").click(function (e){
             if ($(this).hasClass("hidev")) {
                 $(this).removeClass("hidev")
@@ -4124,7 +4194,7 @@
             }
         })
         //
-        
+
         $("#collapseOnePregunta").click(function (e){
             if ($(this).hasClass("hidev")) {
                 $(this).removeClass("hidev")
@@ -4136,7 +4206,7 @@
                 $(".collapseOnePregunta").show("fast");
             }
         })
-        
+
         $("#collapseTwoPregunta").click(function (e){
             if ($(this).hasClass("hidev")) {
                 $(this).removeClass("hidev")
@@ -4148,7 +4218,7 @@
                 $(".collapseTwoPregunta").show("fast");
             }
         })
-        
+
         $("#collapseThreePregunta").click(function (e){
             if ($(this).hasClass("hidev")) {
                 $(this).removeClass("hidev")
@@ -4161,7 +4231,7 @@
             }
         })
         //
-        
+
         $("#collapseOneRedees").click(function (e){
             if ($(this).hasClass("hidev")) {
                 $(this).removeClass("hidev")
@@ -4173,7 +4243,7 @@
                 $(".collapseOneRedees").show("fast");
             }
         })
-        
+
         $("#collapseTwoRedees").click(function (e){
             if ($(this).hasClass("hidev")) {
                 $(this).removeClass("hidev")
@@ -4215,7 +4285,7 @@
                 }
             })
         });
-        $("#back_configuracion").click(function (e) { 
+        $("#back_configuracion").click(function (e) {
             e.preventDefault();
             window.location.href = '{{ $rutaCon }}'
         });
@@ -4229,94 +4299,94 @@
         });
 
         // ///
-        // $("label[for='bold-menu']").click(function (e) { 
+        // $("label[for='bold-menu']").click(function (e) {
         //     // $("#bold-menu").prop('checked', true);
         //     $("#italic-menu").prop('checked', false);
         // });
 
-        // $("label[for='italic-menu']").click(function (e) { 
+        // $("label[for='italic-menu']").click(function (e) {
         //     e.preventDefault();
         //     $("#italic-menu").prop('checked', true);
         //     $("#bold-menu").prop('checked', false);
         // });
-        
+
         // ///
-        // $("#bold-titulo-header").click(function (e) { 
+        // $("#bold-titulo-header").click(function (e) {
         //     e.preventDefault();
         //     $("#italic-titulo-header").prop('checked', false);
         // });
 
-        // $("#italic-titulo-header").click(function (e) { 
+        // $("#italic-titulo-header").click(function (e) {
         //     e.preventDefault();
         //     $("#bold-titulo-header").prop('checked', false);
         // });
         // ///
-        // $("#bold-titulo-parrafo").click(function (e) { 
+        // $("#bold-titulo-parrafo").click(function (e) {
         //     e.preventDefault();
         //     $("#italic-titulo-parrafo").prop('checked', false);
         // });
 
-        // $("#italic-titulo-parrafo").click(function (e) { 
+        // $("#italic-titulo-parrafo").click(function (e) {
         //     e.preventDefault();
         //     $("#bold-titulo-parrafo").prop('checked', false);
         // });
-        // /// 
-        // $("#bold-boton-parrafo").click(function (e) { 
+        // ///
+        // $("#bold-boton-parrafo").click(function (e) {
         //     e.preventDefault();
         //     $("#italic-boton-header").prop('checked', false);
         // });
 
-        // $("#italic-boton-header").click(function (e) { 
+        // $("#italic-boton-header").click(function (e) {
         //     e.preventDefault();
         //     $("#bold-boton-parrafo").prop('checked', false);
         // });
-        // /// 
-        // $("#bold-titulo-como").click(function (e) { 
+        // ///
+        // $("#bold-titulo-como").click(function (e) {
         //     e.preventDefault();
         //     $("#italic-titulo-como").prop('checked', false);
         // });
 
-        // $("#italic-titulo-como").click(function (e) { 
+        // $("#italic-titulo-como").click(function (e) {
         //     e.preventDefault();
         //     $("#bold-titulo-como").prop('checked', false);
         // });
-        // ///  
-        // $("#bold-titulo-formulario").click(function (e) { 
+        // ///
+        // $("#bold-titulo-formulario").click(function (e) {
         //     e.preventDefault();
         //     $("#italic-titulo-formulario").prop('checked', false);
         // });
 
-        // $("#italic-titulo-formulario").click(function (e) { 
+        // $("#italic-titulo-formulario").click(function (e) {
         //     e.preventDefault();
         //     $("#bold-titulo-formulario").prop('checked', false);
         // });
-        // /// 
-        // $("#bold-titulo-ganador").click(function (e) { 
+        // ///
+        // $("#bold-titulo-ganador").click(function (e) {
         //     e.preventDefault();
         //     $("#italic-titulo-ganador").prop('checked', false);
         // });
 
-        // $("#italic-titulo-ganador").click(function (e) { 
+        // $("#italic-titulo-ganador").click(function (e) {
         //     e.preventDefault();
         //     $("#bold-titulo-ganador").prop('checked', false);
         // });
-        // ///   
-        // $("#bold-titulo-pregunta").click(function (e) { 
+        // ///
+        // $("#bold-titulo-pregunta").click(function (e) {
         //     e.preventDefault();
         //     $("#italic-titulo-pregunta").prop('checked', false);
         // });
 
-        // $("#italic-titulo-pregunta").click(function (e) { 
+        // $("#italic-titulo-pregunta").click(function (e) {
         //     e.preventDefault();
         //     $("#bold-titulo-pregunta").prop('checked', false);
         // });
-        // /// 
-        // $("#bold-titulo-redes").click(function (e) { 
+        // ///
+        // $("#bold-titulo-redes").click(function (e) {
         //     e.preventDefault();
         //     $("#italic-titulo-redes").prop('checked', false);
         // });
 
-        // $("#italic-titulo-redes").click(function (e) { 
+        // $("#italic-titulo-redes").click(function (e) {
         //     e.preventDefault();
         //     $("#bold-titulo-redes").prop('checked', false);
         // });

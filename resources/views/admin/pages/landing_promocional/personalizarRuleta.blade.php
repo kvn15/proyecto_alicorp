@@ -2,10 +2,10 @@
 
 
 @php
-    $project = $data["project"]; 
-    $gameRuleta = $data["gameRuleta"]; 
-    $projectPremio = $data["projectPremio"]; 
-    $premioSelect = $data["premio"]; 
+    $project = $data["project"];
+    $gameRuleta = $data["gameRuleta"];
+    $projectPremio = $data["projectPremio"];
+    $premioSelect = $data["premio"];
     $premioRuleta = $data["premioRuleta"];
     $sigueIntentando = $data["sigueIntentando"];
 
@@ -34,7 +34,86 @@
 @php
     $imgNulo = asset('backend/svg/img-null.svg');
 @endphp
+@php
+$estiloFont = "";
+switch ($project->tipo_letra) {
+    case 'Times New Roman':
+        $estiloFont = '--times';
+        break;
+    case 'Poppins':
+        $estiloFont = '--popins';
+        break;
+    case 'Arial':
+        $estiloFont = '--arial';
+        break;
+    case 'Verdana':
+        $estiloFont = '--verdana';
+        break;
+    case 'Roboto':
+        $estiloFont = '--roboto';
+        break;
+    case 'Courier New':
+        $estiloFont = '--courier';
+        break;
+    case 'Montserrat':
+        $estiloFont = '--Montserrat';
+        break;
+    case 'Bolivar':
+        $estiloFont = '--bolivar';
+        break;
+    case 'Casino':
+        $estiloFont = '--casino';
+        break;
+    case 'Casino2':
+        $estiloFont = '--casino2';
+        break;
+    case 'Casino3':
+        $estiloFont = '--casino3';
+        break;
+    case 'Alacena':
+        $estiloFont = '--alacena';
+        break;
+    case 'Alacena2':
+        $estiloFont = '--alacena2';
+        break;
+    case 'DV':
+        $estiloFont = '--dv';
+        break;
+    case 'DV2':
+        $estiloFont = '--dv2';
+        break;
+    default:
+        $estiloFont = '--popins';
+        break;
+}
+@endphp
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+    :root {
+        --popins: "Poppins", sans-serif;
+        --arial: Arial, sans-serif;
+        --courier: "Courier New", monospace;
+        --verdana: Verdana, sans-serif;
+        --times: 'Times New Roman', serif;
+        --roboto: "Roboto", sans-serif;
+        --montserrat: "Montserrat", sans-serif;
+        --bolivar: 'VastagoGrotesk', sans-serif;
+        --casino: 'Tungsten', sans-serif;
+        --casino2: 'TungstenComp', sans-serif;
+        --casino3: 'TungstenCondensed', sans-serif;
+        --alacena: 'AlaFuente', sans-serif;
+        --alacena2: 'BuenosAires', sans-serif;
+        -dv: 'BrandonGrotesque', sans-serif;
+        -dv2: 'Sansita', sans-serif;
+    }
+
+    .juego_ruleta {
+        font-family: var({{$estiloFont}}) !important;
+    }
+
     .content-game {
         height: 100%;
     }
@@ -271,7 +350,7 @@
             padding-bottom: 0.3em;
             font-size: 3em;
             border-bottom: 2px solid #000;
-        } 
+        }
 
         .content_politicas_terminos p {
             font-size: 22px;
@@ -299,18 +378,18 @@
     $principalData = isset($gameRuleta["titulo_inicio"]) ? json_decode($gameRuleta["titulo_inicio"], true) : null;
     $principalData2 = isset($gameRuleta["titulo_juego"]) ? json_decode($gameRuleta["titulo_juego"], true) : null;
     $principalData3 = isset($gameRuleta["boton_premio"]) ? json_decode($gameRuleta["boton_premio"], true) : null;
-    
+
     // titulo
     // valores
     $boldTitulo = isset($principalData["bold-titulo-parrafo"]) ? ($principalData["bold-titulo-parrafo"] == 1 ? "checked" : "") : "";
     $italicTitulo = isset($principalData["italic-titulo-parrafo"]) ? ($principalData["italic-titulo-parrafo"] == 1 ? "checked" : "") : "";
     $tituloTexto = isset($principalData["texto-header"]) ? $principalData["texto-header"]  : "";
-    
+
     $tamanoTexto = isset($principalData["tamanoTexto"]) ? $principalData["tamanoTexto"] : "";
     $tamano1 = $tamanoTexto == 1 ? 'checked' : "";
     $tamano2 = $tamanoTexto == 2 ? 'checked' : "";
     $tamano3 = $tamanoTexto == 3 ? 'checked' : "";
-    
+
     $alineacion = isset($principalData["alineacionTexto"]) ? $principalData["alineacionTexto"] : "";
     $alineacion1 = $alineacion == 1 ? 'checked' : "";
     $alineacion2 = $alineacion == 2 ? 'checked' : "";
@@ -331,12 +410,12 @@
     $boldTituloGame = isset($principalData2["bold-titulo-parrafo-game"]) ? ($principalData2["bold-titulo-parrafo-game"] == 1 ? "checked" : "") : "";
     $italicTituloGame = isset($principalData2["italic-titulo-parrafo-game"]) ? ($principalData2["italic-titulo-parrafo-game"] == 1 ? "checked" : "") : "";
     $tituloTextoGame = isset($principalData2["texto-header-game"]) ? $principalData2["texto-header-game"]  : "";
-    
+
     $tamanoTextoGame = isset($principalData2["tamanoTextoGame"]) ? $principalData2["tamanoTextoGame"] : "";
     $tamano1Game = $tamanoTextoGame == 1 ? 'checked' : "";
     $tamano2Game = $tamanoTextoGame == 2 ? 'checked' : "";
     $tamano3Game = $tamanoTextoGame == 3 ? 'checked' : "";
-    
+
     $alineacionGame = isset($principalData2["alineacionTextoGame"]) ? $principalData2["alineacionTextoGame"] : "";
     $alineacion1Game = $alineacionGame == 1 ? 'checked' : "";
     $alineacion2Game = $alineacionGame == 2 ? 'checked' : "";
@@ -374,6 +453,9 @@
 
     $titulo_premio = isset($gameRuleta["titulo_premio"]) && !empty($gameRuleta["titulo_premio"]) ? '/storage/'.$gameRuleta["titulo_premio"] : $imgNulo;
     $titulo_premio_url = isset($gameRuleta["titulo_premio"]) && !empty($gameRuleta["titulo_premio"]) ? '/storage/'.$gameRuleta["titulo_premio"] : "" ;
+
+    $titulo_ganastes = isset($gameRuleta["titulo_ganastes"]) && !empty($gameRuleta["titulo_ganastes"]) ? '/storage/'.$gameRuleta["titulo_ganastes"] : $imgNulo;
+    $titulo_ganastes_url = isset($gameRuleta["titulo_ganastes"]) && !empty($gameRuleta["titulo_ganastes"]) ? '/storage/'.$gameRuleta["titulo_ganastes"] : "" ;
 @endphp
 @php
     $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
@@ -473,7 +555,7 @@
                     <button class="header-edit-web" type="button" id="collapseOneGame" >
                         <p class="mb-0"><b><img src="{{asset('backend/svg/vector-seccion.svg')}}" alt="svg seccion"> <small>Vista Principal</small></b></p>
                     </button>
-    
+
                     <ul class="list-unstyled ps-4 mt-2 collapseOneGame">
                         <li>
                             <p class="mb-2">Fondo</p>
@@ -526,42 +608,42 @@
                         </li>
                         <li class="my-2">
                             <p class="my-1">Tamaño Texto</p>
-                            
+
                             <div class="btn-group" role="group">
                                 <input type="radio" class="btn-check" name="tamanoTexto" id="tamanoTexto1" autocomplete="off" value="1" {{ $tamano1 }}>
                                 <label class="btn btn-outline-text" for="tamanoTexto1"><small><b>Chico</b></small></label>
-                              
+
                                 <input type="radio" class="btn-check" name="tamanoTexto" id="tamanoTexto2" autocomplete="off" value="2" {{ $tamano2 }}>
                                 <label class="btn btn-outline-text" for="tamanoTexto2"><small><b>Mediano</b></small></label>
-                              
+
                                 <input type="radio" class="btn-check" name="tamanoTexto" id="tamanoTexto3" autocomplete="off" value="3" {{ $tamano3 }}>
                                 <label class="btn btn-outline-text" for="tamanoTexto3"><small><b>Grande</b></small></label>
                             </div>
-    
+
                         </li>
                         <li class="my-2">
                             <p class="my-1">Alineación</p>
-                            
+
                             <div class="btn-group" role="group">
                                 <input type="radio" class="btn-check" name="alineacionTexto" id="alineacionTexto1" autocomplete="off" value="1" {{ $alineacion1 }}>
                                 <label class="btn btn-outline-text" for="alineacionTexto1"><small><b><i class="fas fa-align-left"></i></b></small></label>
-                              
+
                                 <input type="radio" class="btn-check" name="alineacionTexto" id="alineacionTexto2" autocomplete="off" value="2" {{ $alineacion2 }}>
                                 <label class="btn btn-outline-text" for="alineacionTexto2"><small><b><i class="fas fa-align-center"></i></b></small></label>
-                              
+
                                 <input type="radio" class="btn-check" name="alineacionTexto" id="alineacionTexto3" autocomplete="off" value="3" {{ $alineacion3 }}>
                                 <label class="btn btn-outline-text" for="alineacionTexto3"><small><b><i class="fas fa-align-right"></i></b></small></label>
                             </div>
-    
+
                         </li>
                         <li class="my-2">
                             <p class="my-1">Color</p>
-                            
+
                             <div class="d-flex" role="group" style="gap: 0.4em;">
                                 <input type="text" class="form-control" id="color-texto-input" name="color-texto-input" value="{{ $color }}">
                                 <input type="color" class="form-control form-control-color p-0" id="color-texto" name="color-texto" value="{{ $color }}">
                             </div>
-    
+
                         </li>
                     </ul>
                 </div>
@@ -569,7 +651,7 @@
                     <button class="header-edit-web" type="button" id="collapseThreeGame">
                         <p class="mb-0"><b><img src="{{asset('backend/svg/logo-imagen.svg')}}" alt="svg seccion"> <small>Logo</small></b></p>
                     </button>
-    
+
                     <ul class="list-unstyled ps-4 mt-2 d-none-2 collapseThreeGame" >
                         <li>
                             <p class="mb-2">Logo</p>
@@ -597,7 +679,7 @@
                     <button class="header-edit-web" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourGame" aria-expanded="true" aria-controls="collapseFourGame">
                         <p class="mb-0"><b><img src="{{asset('backend/svg/boton.svg')}}" alt="svg seccion"> <small>Botón</small></b></p>
                     </button>
-    
+
                     <ul class="list-unstyled ps-4 mt-2 collapse" id="collapseFourGame" >
                         <li>
                             <p class="mb-2">Imagen</p>
@@ -653,42 +735,42 @@
                         </li>
                         <li class="my-2">
                             <p class="my-1">Tamaño Texto</p>
-                            
+
                             <div class="btn-group" role="group">
                                 <input type="radio" class="btn-check" name="tamanoTextoGame" id="tamanoTextoGame1" autocomplete="off" value="1" {{ $tamano1Game }}>
                                 <label class="btn btn-outline-text" for="tamanoTextoGame1"><small><b>Chico</b></small></label>
-                              
+
                                 <input type="radio" class="btn-check" name="tamanoTextoGame" id="tamanoTextoGame2" autocomplete="off" value="2" {{ $tamano2Game }}>
                                 <label class="btn btn-outline-text" for="tamanoTextoGame2"><small><b>Mediano</b></small></label>
-                              
+
                                 <input type="radio" class="btn-check" name="tamanoTextoGame" id="tamanoTextoGame3" autocomplete="off" value="3" {{ $tamano3Game }}>
                                 <label class="btn btn-outline-text" for="tamanoTextoGame3"><small><b>Grande</b></small></label>
                             </div>
-    
+
                         </li>
                         <li class="my-2">
                             <p class="my-1">Alineación</p>
-                            
+
                             <div class="btn-group" role="group">
                                 <input type="radio" class="btn-check" name="alineacionTextoGame" id="alineacionTextoGame1" autocomplete="off" value="1" {{ $alineacion1Game }}>
                                 <label class="btn btn-outline-text" for="alineacionTextoGame1"><small><b><i class="fas fa-align-left"></i></b></small></label>
-                              
+
                                 <input type="radio" class="btn-check" name="alineacionTextoGame" id="alineacionTextoGame2" autocomplete="off" value="2" {{ $alineacion2Game }}>
                                 <label class="btn btn-outline-text" for="alineacionTextoGame2"><small><b><i class="fas fa-align-center"></i></b></small></label>
-                              
+
                                 <input type="radio" class="btn-check" name="alineacionTextoGame" id="alineacionTextoGame3" autocomplete="off" value="3" {{ $alineacion3Game }}>
                                 <label class="btn btn-outline-text" for="alineacionTextoGame3"><small><b><i class="fas fa-align-right"></i></b></small></label>
                             </div>
-    
+
                         </li>
                         <li class="my-2">
                             <p class="my-1">Color</p>
-                            
+
                             <div class="d-flex" role="group" style="gap: 0.4em;">
                                 <input type="text" class="form-control" id="color-texto-input-game" name="color-texto-input-game" value="{{ $colorGame }}">
                                 <input type="color" class="form-control form-control-color p-0" id="color-texto-game" name="color-texto-game" value="{{ $colorGame }}">
                             </div>
-    
+
                         </li>
                     </ul>
                 </div>
@@ -696,7 +778,7 @@
                     <button class="header-edit-web" type="button" id="collapseThreeGame2">
                         <p class="mb-0"><b><img src="{{asset('backend/svg/logo-imagen.svg')}}" alt="svg seccion"> <small>Logo</small></b></p>
                     </button>
-    
+
                     <ul class="list-unstyled ps-4 mt-2 collapseThreeGame2" >
                         <li>
                             <p class="mb-2">Logo</p>
@@ -724,7 +806,7 @@
                     <button class="header-edit-web" type="button" id="collapseFourGame">
                         <p class="mb-0"><b><img src="{{asset('backend/svg/cuadro-titulo.svg')}}" alt="svg seccion"> <small>Bloque Elementos del juego</small></b></p>
                     </button>
-    
+
                     <ul class="list-unstyled ps-4 mt-2 d-none-2 collapseFourGame" >
                         @foreach ($projectPremio as $value)
                         @php
@@ -790,7 +872,7 @@
                     <button class="header-edit-web" type="button" id="collapseOnePremio">
                         <p class="mb-0"><b><img src="{{asset('backend/svg/cuadro-titulo.svg')}}" alt="svg seccion"> <small>Bloque Premiación</small></b></p>
                     </button>
-    
+
                     <ul class="list-unstyled ps-4 mt-2 collapseOnePremio" >
                         <li>
                             <p class="mb-2">Titulo</p>
@@ -812,43 +894,64 @@
                                 <input type="hidden" name="gano-subir-url" id="gano-subir-url" value="{{ $titulo_premio }}">
                             </div>
                         </li>
+
+                        <li>
+                            <p class="mb-2">Titulo Ganador</p>
+                            <div class="img-subir">
+                                <button type="button" class="btn-delete-img">X</button>
+                                <label for="titulo_ganastes">
+                                    <div class="cursor">
+                                        <div id="upload-ganastes" class="{{ isset($titulo_ganastes_url) && !empty($titulo_ganastes_url) ? 'd-none' : '' }} upload_img">
+                                            <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
+                                            <h6>Click para Actualizar</h6>
+                                            <p>PNG, JPG (max. 250x250px)</p>
+                                        </div>
+                                        <div>
+                                            <img class="img-fluid" id="preview-ganastes" src="{{ $titulo_ganastes_url }}">
+                                        </div>
+                                    </div>
+                                </label>
+                                <input hidden type="file" name="titulo_ganastes" id="titulo_ganastes">
+                                <input type="hidden" name="titulo_ganastes_url" id="titulo_ganastes_url" value="{{ $titulo_ganastes_url }}">
+                            </div>
+                        </li>
                     </ul>
                 </div>
                 <div class="py-2 border-bottom">
                     <button class="header-edit-web" type="button" id="collapseTwoPremio">
                         <p class="mb-0"><b><img src="{{asset('backend/svg/boton.svg')}}" alt="svg seccion"> <small>Botón</small></b></p>
                     </button>
-    
+
                     <ul class="list-unstyled ps-4 mt-2 d-none-2 collapseTwoPremio" >
                         <li>
                             <p class="mb-2">Ver Botones</p>
-                            
+
                             <div class="btn-group" role="group">
                                 <input type="radio" class="btn-check" name="verBoton" id="verBoton1" autocomplete="off" value="1" {{ $verBotones1 }}>
                                 <label class="btn btn-outline-text" for="verBoton1"><small><b>No</b></small></label>
-                              
+
                                 <input type="radio" class="btn-check" name="verBoton" id="verBoton2" autocomplete="off" value="2" {{ $verBotones2 }}>
                                 <label class="btn btn-outline-text" for="verBoton2"><small><b>Si</b></small></label>
                             </div>
-    
+
                         </li>
                         <li class="my-2">
                             <p class="my-1">Color</p>
-                            
+
                             <div class="d-flex" role="group" style="gap: 0.4em;">
                                 <input type="text" class="form-control" id="color-texto-btn" name="color-texto-btn" value="{{ $btnColor }}">
                                 <input type="color" class="form-control form-control-color p-0" id="color-btn" value="{{ $btnColor }}">
                             </div>
-    
+
                         </li>
                         <li class="my-2">
                             <p class="my-1">Color Fondo</p>
-                            
+
                             <div class="d-flex" role="group" style="gap: 0.4em;">
                                 <input type="text" class="form-control" id="color-btn-bg-input" name="color-btn-bg-input" value="{{ $btnBg }}">
                                 <input type="color" class="form-control form-control-color p-0" id="color-btn-bg" name="color-btn-bg" value="{{ $btnBg }}">
                             </div>
-    
+
                         </li>
                     </ul>
                 </div>
@@ -856,7 +959,7 @@
                     <button class="header-edit-web" type="button" id="collapseFourGame2">
                         <p class="mb-0"><b><img src="{{asset('backend/svg/cuadro-titulo.svg')}}" alt="svg seccion"> <small>Bloque Premios</small></b></p>
                     </button>
-    
+
                     <ul class="list-unstyled ps-4 mt-2 d-none-2 collapseFourGame2" >
                         @foreach ($projectPremio as $value)
                         @php
@@ -864,7 +967,7 @@
                         @endphp
                         <li class="mb-2">
                             <div method="POST" id="premio_final_{{ $value->orden }}">
-                               
+
                                 <input type="hidden" name="method" value="" class="method">
                                 <input type="hidden" name="ruta_img" value="{{ route($tipoJuego."juego3.registroPremioFinal.img", $value->id) }}" class="action">
 
@@ -925,13 +1028,13 @@
                 <div class="border-bottom py-2">
                     <button type="button"  class="border-0 w-100 text-start" style="background-color: #fff;" id="back_politicas"><i class="fas fa-chevron-left"></i> Vista Política de privacidad</button>
                 </div>
-                
+
 
                 <div class="py-2 border-bottom">
                     <ul class="list-unstyled ps-4 mt-2">
                         <li>
                             <p class="mb-2">Color Base</p>
-                            
+
                             <div class="d-flex" role="group" style="gap: 0.4em;">
                                 <input type="text" class="form-control" id="color-politica-btn" name="color-politica-btn" value="{{ $colorPolitica }}">
                                 <input type="color" class="form-control form-control-color p-0" id="politica-btn" value="{{ $colorPolitica }}">
@@ -939,7 +1042,7 @@
                         </li>
                         <li>
                             <p class="mb-2">Texto</p>
-                            
+
                             <textarea name="politicas_text" id="politicas_text" cols="30" rows="10" class="form-control">{{ str_replace('<br>', '', $politicas) }}</textarea>
                             <input type="hidden" name="politicas_value" id="politicas_value" value="{{ $politicas }}">
                         </li>
@@ -954,12 +1057,12 @@
                 <div class="border-bottom py-2">
                     <button type="button"  class="border-0 w-100 text-start" style="background-color: #fff;" id="back_terminos"><i class="fas fa-chevron-left"></i> Vista Terminos y Condiciones</button>
                 </div>
-                
+
                 <div class="py-2 border-bottom">
                     <ul class="list-unstyled ps-4 mt-2">
                         <li>
                             <p class="mb-2">Color Base</p>
-                            
+
                             <div class="d-flex" role="group" style="gap: 0.4em;">
                                 <input type="text" class="form-control" id="color-termino-btn" name="color-termino-btn" value="{{ $colorTermino }}">
                                 <input type="color" class="form-control form-control-color p-0" id="termino-btn" value="{{ $colorTermino }}">
@@ -967,7 +1070,7 @@
                         </li>
                         <li>
                             <p class="mb-2">Texto</p>
-                            
+
                             <textarea name="terminos_text" id="terminos_text" cols="30" rows="10" class="form-control">{{ str_replace('<br>', '', $terminos) }}</textarea>
                             <input type="hidden" name="terminos_value" id="terminos_value" value="{{ $terminos }}">
                         </li>
@@ -976,7 +1079,7 @@
             </div>
         </form>
         <div class="col-9 p-0">
-            <div class="h-100" style="background-image: url({{ $fondo }}); background-size: cover;" id="juego_ruleta">
+            <div class="h-100 juego_ruleta" style="background-image: url({{ $fondo }}); background-size: cover;" id="juego_ruleta">
                 <div id="inicio_juego" class=" d-none align-items-center">
                     <div class="text-center ctn-data">
                         <h1 class="{{ $styleTamano }} mb-4 {{ $styleBold }} {{ $italicTitulo }} {{ $styleAlineacion }} d-none" id="titulo_header" style="color: #fff;"></h1>
@@ -1053,7 +1156,7 @@
         </div>
     </div>
 </div>
-    
+
 @endsection
 
 @section('script_jquery')
@@ -1061,29 +1164,29 @@
 <script>
     const menu_edit = document.getElementById("menu_edit");
     function retornoMenuEdit() {
-        menu_edit.classList.remove('d-none'); 
-        menu_edit.classList.add('d-block'); 
+        menu_edit.classList.remove('d-none');
+        menu_edit.classList.add('d-block');
     }
     function retornoMenuEditNone() {
-        menu_edit.classList.add('d-none'); 
-        menu_edit.classList.remove('d-block'); 
+        menu_edit.classList.add('d-none');
+        menu_edit.classList.remove('d-block');
     }
     const pagina_principal = document.getElementById("pagina_principal");
     const back_principal = document.getElementById("back_principal");
     const principal_menu = document.getElementById("principal-menu");
-    
+
     principal_menu.addEventListener('click', function() {
         retornoMenuEditNone();
-        pagina_principal.classList.add('d-block'); 
-        pagina_principal.classList.remove('d-none'); 
+        pagina_principal.classList.add('d-block');
+        pagina_principal.classList.remove('d-none');
 
         $("#inicio_juego").removeClass('d-none')
         $("#juego").addClass('d-none')
     })
 
     back_principal.addEventListener('click', () => {
-        pagina_principal.classList.remove('d-block'); 
-        pagina_principal.classList.add('d-none'); 
+        pagina_principal.classList.remove('d-block');
+        pagina_principal.classList.add('d-none');
         retornoMenuEdit();
 
         $("#inicio_juego").addClass('d-none')
@@ -1094,16 +1197,16 @@
     const encabezado = document.getElementById("encabezado");
     const back_encabezado = document.getElementById("back_encabezado");
     const encabezado_menu = document.getElementById("encabezado-menu");
-    
+
 
     encabezado_menu.addEventListener('click', function() {
         retornoMenuEditNone();
-        encabezado.classList.add('d-block'); 
-        encabezado.classList.remove('d-none'); 
+        encabezado.classList.add('d-block');
+        encabezado.classList.remove('d-none');
     })
     back_encabezado.addEventListener('click', () => {
-        encabezado.classList.remove('d-block'); 
-        encabezado.classList.add('d-none'); 
+        encabezado.classList.remove('d-block');
+        encabezado.classList.add('d-none');
 
         retornoMenuEdit();
     })
@@ -1115,7 +1218,7 @@
         $("#fin_juego").removeClass('d-none')
     })
 
-    $("#back_premiacion").click(function (e) { 
+    $("#back_premiacion").click(function (e) {
         retornoMenuEdit();
         $("#premiacion").addClass('d-none')
         $("#juego").removeClass('d-none')
@@ -1129,17 +1232,17 @@
 
     politicas_menu.addEventListener('click', function() {
         retornoMenuEditNone();
-        politicas.classList.add('d-block'); 
-        politicas.classList.remove('d-none'); 
-        poltica_privacidad.classList.remove('d-none'); 
-        
+        politicas.classList.add('d-block');
+        politicas.classList.remove('d-none');
+        poltica_privacidad.classList.remove('d-none');
+
         $("#juego").addClass('d-none')
     })
     back_politicas.addEventListener('click', () => {
-        politicas.classList.remove('d-block'); 
-        politicas.classList.add('d-none'); 
-        poltica_privacidad.classList.add('d-none'); 
-        
+        politicas.classList.remove('d-block');
+        politicas.classList.add('d-none');
+        poltica_privacidad.classList.add('d-none');
+
         $("#juego").removeClass('d-none')
         retornoMenuEdit();
     })
@@ -1151,30 +1254,30 @@
 
     terminos_menu.addEventListener('click', function() {
         retornoMenuEditNone();
-        terminos.classList.add('d-block'); 
-        terminos.classList.remove('d-none'); 
-        terminos_condiciones.classList.remove('d-none'); 
-        
+        terminos.classList.add('d-block');
+        terminos.classList.remove('d-none');
+        terminos_condiciones.classList.remove('d-none');
+
         $("#juego").addClass('d-none')
     })
     back_terminos.addEventListener('click', () => {
-        terminos.classList.remove('d-block'); 
-        terminos.classList.add('d-none'); 
-        terminos_condiciones.classList.add('d-none'); 
-        
-       
+        terminos.classList.remove('d-block');
+        terminos.classList.add('d-none');
+        terminos_condiciones.classList.add('d-none');
+
+
         $("#juego").removeClass('d-none')
         retornoMenuEdit();
     })
 </script>
 <script>
-    
+
     // const img_header_premio = document.getElementById("img-header-premio")
     document.getElementById('sigue-intentando-subir').addEventListener('change', function(event) {
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            
+
             reader.onload = function(e) {
                 const preview = document.getElementById('preview-sigue');
                 const upload = document.getElementById('upload-sigue')
@@ -1190,13 +1293,13 @@
     });
 </script>
 <script>
-    
+
     // const img_header_premio = document.getElementById("img-header-premio")
     document.getElementById('sigue-intentando-subir2').addEventListener('change', function(event) {
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            
+
             reader.onload = function(e) {
                 const preview = document.getElementById('preview-sigue2');
                 const upload = document.getElementById('upload-sigue2')
@@ -1214,13 +1317,13 @@
 
 <!-- Vista principal -->
 <script>
-    
+
     const juego_ruleta = document.getElementById("juego_ruleta")
     document.getElementById('banner-subir').addEventListener('change', function(event) {
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            
+
             reader.onload = function(e) {
                 const preview = document.getElementById('preview-banner');
                 const upload = document.getElementById('upload-banner')
@@ -1329,7 +1432,7 @@
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            
+
             reader.onload = function(e) {
                 const preview = document.getElementById('preview-logo');
                 const upload = document.getElementById('upload-logo')
@@ -1441,7 +1544,7 @@
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            
+
             reader.onload = function(e) {
                 const preview = document.getElementById('preview-logo-game');
                 const upload = document.getElementById('upload-logo-game')
@@ -1461,7 +1564,7 @@
     //     const file = event.target.files[0];
     //     if (file) {
     //         const reader = new FileReader();
-            
+
     //         reader.onload = function(e) {
     //             const preview = document.getElementById('preview-logo-1');
     //             const upload = document.getElementById('upload-logo-1')
@@ -1487,10 +1590,29 @@
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            
+
             reader.onload = function(e) {
                 const preview = document.getElementById('preview-premio-gano');
                 const upload = document.getElementById('upload-premio-gano')
+                const parentElement = preview.parentNode;
+                preview.src = e.target.result; // Establece la fuente de la imagen
+                preview.style.display = 'block'; // Muestra la imagen
+                upload.classList.add("d-none")
+                logo_ganaste.src = e.target.result;
+            };
+
+            reader.readAsDataURL(file); // Lee la imagen como una URL de datos
+        }
+    });
+
+    document.getElementById('titulo_ganastes').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const preview = document.getElementById('preview-ganastes');
+                const upload = document.getElementById('upload-ganastes')
                 const parentElement = preview.parentNode;
                 preview.src = e.target.result; // Establece la fuente de la imagen
                 preview.style.display = 'block'; // Muestra la imagen
@@ -1740,7 +1862,7 @@
 
         }
         setTimeout(() => {
-            spin2(); 
+            spin2();
         },1000);
         function getRandomNumber(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -1757,11 +1879,11 @@
                 images.push(img);
             });
             setTimeout(() => {
-                spin2(); 
+                spin2();
             },2000);
         }
 
-        $("#btn_girar").click(function (e) { 
+        $("#btn_girar").click(function (e) {
             e.preventDefault();
             spin();
         });
@@ -1778,7 +1900,7 @@
             const premio_subir_url = $(this).parent().find(".img_url_hidden").val();
             const token = $('input[name="_token"]').val();
             const method = $('input[name="_method"]').val();
-            
+
             Swal.fire({
                 icon: 'question',
                 title: '¿Seguro de eliminar la imagen?',
@@ -1802,10 +1924,10 @@
                         processData: false, // No procesar los datos
                         success: function(datas) {
                             // Procesar los datos devueltos
-                            // toastr.success(data.message); 
+                            // toastr.success(data.message);
 
                             // if (data) {
-                            //     toastr.success('Cambios guadados correctamente'); 
+                            //     toastr.success('Cambios guadados correctamente');
                             // }
                             if (datas) {
                                 valor.val("");
@@ -1848,10 +1970,10 @@
                 processData: false, // No procesar los datos
                 success: function(datas) {
                     // Procesar los datos devueltos
-                    // toastr.success(data.message); 
+                    // toastr.success(data.message);
 
                     // if (data) {
-                    //     toastr.success('Cambios guadados correctamente'); 
+                    //     toastr.success('Cambios guadados correctamente');
                     // }
                     if (datas) {
                         const preview = document.getElementById(`preview-premio-${orden}`);
@@ -1885,7 +2007,7 @@
 
             const imagen = $(`#subir-premio-${orden}`)[0];
             const inputImage = imagen.files[0] ? imagen.files[0] : null;
-            
+
             Swal.fire({
                 icon: 'question',
                 title: '¿Seguro de eliminar la imagen?',
@@ -1899,7 +2021,7 @@
                     formData.append("_method", method)
                     formData.append("subir_premio", inputImage)
                     formData.append("subir_premio_url", premio_subir_url)
-                    
+
                     $.ajax({
                         url: action, // URL de la ruta
                         method: 'POST',
@@ -1908,10 +2030,10 @@
                         processData: false, // No procesar los datos
                         success: function(datas) {
                             // Procesar los datos devueltos
-                            // toastr.success(data.message); 
+                            // toastr.success(data.message);
 
                             // if (data) {
-                            //     toastr.success('Cambios guadados correctamente'); 
+                            //     toastr.success('Cambios guadados correctamente');
                             // }
                             if (datas) {
                                 valor.val("");
@@ -1928,7 +2050,7 @@
                             toastr.error('Ocurrió un error al procesar la solicitud.');
                         }
                     });
-                    
+
                 }
             })
         });
@@ -1948,7 +2070,7 @@
             formData.append("_method", method)
             formData.append("subir_premio", inputImage)
             formData.append("subir_premio_url", premio_subir_url)
-            
+
             $.ajax({
                 url: action, // URL de la ruta
                 method: 'POST',
@@ -1957,10 +2079,10 @@
                 processData: false, // No procesar los datos
                 success: function(datas) {
                     // Procesar los datos devueltos
-                    // toastr.success(data.message); 
+                    // toastr.success(data.message);
 
                     // if (data) {
-                    //     toastr.success('Cambios guadados correctamente'); 
+                    //     toastr.success('Cambios guadados correctamente');
                     // }
                     if (datas) {
                         const preview = document.getElementById(`premio-preview-${orden}`);
@@ -1984,7 +2106,7 @@
         $("#guardar-ruleta").on('click', function () {
             $("#form-ruleta").submit();
         });
-        
+
 
         $("#form-ruleta").on('submit', function (e) {
             e.preventDefault();
@@ -1992,7 +2114,7 @@
             var arrayPremiosValue = []
 
             var formData = new FormData(this);
-            
+
             // for (const [key, value] of formData.entries()) {
             //     console.log(`${key}: ${value}`)
             // }
@@ -2004,7 +2126,7 @@
                 processData: false, // No procesar los datos
                 success: function(data) {
                     // Procesar los datos devueltos
-                    // toastr.success(data.message); 
+                    // toastr.success(data.message);
 
                     if (data) {
                         Swal.fire({
@@ -2159,7 +2281,7 @@
             })
         });
     });
-    $("#back_configuracion").click(function (e) { 
+    $("#back_configuracion").click(function (e) {
         e.preventDefault();
         window.location.href = '{{ $rutaCon }}'
     });

@@ -1,0 +1,171 @@
+/*BOLIVAR*/
+@font-face {
+    font-family: 'VastagoGrotesk';
+    src: url('/fonts/fonts-clientes/FONT BOLIVAR/VastagoGrotesk-Black.otf') format('opentype');
+    font-weight: 900; /* Black */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'VastagoGrotesk';
+    src: url('/fonts/fonts-clientes/FONT BOLIVAR/VastagoGrotesk-Bold.otf') format('opentype');
+    font-weight: 700; /* Bold */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'VastagoGrotesk';
+    src: url('/fonts/fonts-clientes/FONT BOLIVAR/VastagoGrotesk-Medium.otf') format('opentype');
+    font-weight: 500; /* Medium */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'VastagoGrotesk';
+    src: url('/fonts/fonts-clientes/FONT BOLIVAR/VastagoGrotesk-Black 2.otf') format('opentype');
+    font-weight: 900; /* Black Alternate */
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'VastagoGrotesk';
+    src: url('/fonts/fonts-clientes/FONT BOLIVAR/VastagoGrotesk-Bold 2.otf') format('opentype');
+    font-weight: 700; /* Bold Alternate */
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'VastagoGrotesk';
+    src: url('/fonts/fonts-clientes/FONT BOLIVAR/VastagoGrotesk-Medium 2.otf') format('opentype');
+    font-weight: 500; /* Medium Alternate */
+    font-style: italic;
+}
+
+/*CASINO*/
+@font-face {
+    font-family: 'Tungsten';
+    src: url('/fonts/fonts-clientes/FONT CASINO/Tungsten-Black.otf') format('opentype');
+    font-weight: 900; /* Black */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Tungsten';
+    src: url('/fonts/fonts-clientes/FONT CASINO/Tungsten-Bold.otf') format('opentype');
+    font-weight: 700; /* Bold */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Tungsten';
+    src: url('/fonts/fonts-clientes/FONT CASINO/Tungsten-Book.otf') format('opentype');
+    font-weight: 400; /* Book */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Tungsten';
+    src: url('/fonts/fonts-clientes/FONT CASINO/Tungsten-Medium.otf') format('opentype');
+    font-weight: 500; /* Medium */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Tungsten';
+    src: url('/fonts/fonts-clientes/FONT CASINO/Tungsten-Semibold.otf') format('opentype');
+    font-weight: 600; /* Semibold */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TungstenComp';
+    src: url('/fonts/fonts-clientes/FONT CASINO/TungstenComp-Medium.otf') format('opentype');
+    font-weight: 500; /* Medium Compact */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TungstenCondensed';
+    src: url('/fonts/fonts-clientes/FONT CASINO/TungstenCondensed-Light.otf') format('opentype');
+    font-weight: 300; /* Light Condensed */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TungstenCondensed';
+    src: url('/fonts/fonts-clientes/FONT CASINO/TungstenCondensed-Semibold.otf') format('opentype');
+    font-weight: 600; /* Semibold Condensed */
+    font-style: normal;
+}
+
+/*ALACENA*/
+@font-face {
+    font-family: 'AlaFuente';
+    src: url('/fonts/fonts-clientes/FONT ALACENA/AlaFuente-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BuenosAires';
+    src: url('/fonts/fonts-clientes/FONT ALACENA/BuenosAires-Black.ttf') format('truetype');
+    font-weight: 900; /* Black */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BuenosAires';
+    src: url('/fonts/fonts-clientes/FONT ALACENA/BuenosAires-ExtraBold.ttf') format('truetype');
+    font-weight: 800; /* ExtraBold */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BuenosAires';
+    src: url('/fonts/fonts-clientes/FONT ALACENA/BuenosAires-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BuenosAires';
+    src: url('/fonts/fonts-clientes/FONT ALACENA/BuenosAires-SemiBold.ttf') format('truetype');
+    font-weight: 600; /* SemiBold */
+    font-style: normal;
+}
+
+/*DV*/
+@font-face {
+    font-family: 'BrandonGrotesque';
+    src: url('/fonts/BrandonGrotesque-Bold.ttf') format('truetype');
+    font-weight: 700; /* Bold */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BrandonGrotesque';
+    src: url('/fonts/BrandonGrotesque-Medium.ttf') format('truetype');
+    font-weight: 500; /* Medium */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BrandonGrotesque';
+    src: url('/fonts/BrandonGrotesque-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Sansita';
+    src: url('/fonts/Sansita-Bold 2.ttf') format('truetype');
+    font-weight: 700; /* Bold */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Sansita';
+    src: url('/fonts/Sansita-Italic 2.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}

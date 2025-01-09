@@ -20,6 +20,7 @@
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/25bfdd98ec.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="{{ asset('css/fonts/font.css') }}">
 </head>
 
 @php
@@ -123,7 +124,7 @@ $alineacionbtnParticipar1 = isset($pagina_principal["alineacionbtnParticipar"]) 
 $alineacionbtnParticipar2 = isset($pagina_principal["alineacionbtnParticipar"]) && $pagina_principal["alineacionbtnParticipar"] == 2 ? 'checked' : '';
 $alineacionbtnParticipar3 = isset($pagina_principal["alineacionbtnParticipar"]) && $pagina_principal["alineacionbtnParticipar"] == 3 ? 'checked' : '';
 $stylealineacionbtnParticipar = isset($pagina_principal["alineacionbtnParticipar"]) && $pagina_principal["alineacionbtnParticipar"]  == 1 ? "me-auto" : (isset($pagina_principal["alineacionbtnParticipar"]) && $pagina_principal["alineacionbtnParticipar"]  == 2 ? ""  :  (isset($pagina_principal["alineacionbtnParticipar"]) && $pagina_principal["alineacionbtnParticipar"]  == 3 ? "ms-auto"  : ""));
-        
+
 @endphp
 
 @php
@@ -276,41 +277,64 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
     $color_icon_redes = $redes_sociales && $redes_sociales["color-icon-redes"] ? $redes_sociales["color-icon-redes"] : '#fbbb01';
 
     $redes_sociales_array = $redes_sociales && $redes_sociales["redes_sociales"] ? $redes_sociales["redes_sociales"] : '[]';
-    
+
 @endphp
 <body>
 
     @php
-        $estiloFont = "";
-        switch ($project["tipo_letra"]) {
-            case 'Times New Roman':
-                $estiloFont = '--times';
-                break;
-            case 'Poppins':
-                $estiloFont = '--popins';
-                break;
-            case 'Arial':
-                $estiloFont = '--arial';
-                break;
-            case 'Verdana':
-                $estiloFont = '--verdana';
-                break;
-            case 'Roboto':
-                $estiloFont = '--roboto';
-                break;
-            case 'Courier New':
-                $estiloFont = '--courier';
-                break;
-            case 'Montserrat':
-                $estiloFont = '--Montserrat';
-                break;
-            
-            default:
-                $estiloFont = '--popins';
-                break;
-        }
+    $estiloFont = "";
+    switch ($project["tipo_letra"]) {
+        case 'Times New Roman':
+            $estiloFont = '--times';
+            break;
+        case 'Poppins':
+            $estiloFont = '--popins';
+            break;
+        case 'Arial':
+            $estiloFont = '--arial';
+            break;
+        case 'Verdana':
+            $estiloFont = '--verdana';
+            break;
+        case 'Roboto':
+            $estiloFont = '--roboto';
+            break;
+        case 'Courier New':
+            $estiloFont = '--courier';
+            break;
+        case 'Montserrat':
+            $estiloFont = '--Montserrat';
+            break;
+        case 'Bolivar':
+            $estiloFont = '--bolivar';
+            break;
+        case 'Casino':
+            $estiloFont = '--casino';
+            break;
+        case 'Casino2':
+            $estiloFont = '--casino2';
+            break;
+        case 'Casino3':
+            $estiloFont = '--casino3';
+            break;
+        case 'Alacena':
+            $estiloFont = '--alacena';
+            break;
+        case 'Alacena2':
+            $estiloFont = '--alacena2';
+            break;
+        case 'DV':
+            $estiloFont = '--dv';
+            break;
+        case 'DV2':
+            $estiloFont = '--dv2';
+            break;
+        default:
+            $estiloFont = '--popins';
+            break;
+    }
     @endphp
-    
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
@@ -327,6 +351,14 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
             --times: 'Times New Roman', serif;
             --roboto: "Roboto", sans-serif;
             --montserrat: "Montserrat", sans-serif;
+            --bolivar: 'VastagoGrotesk', sans-serif;
+            --casino: 'Tungsten', sans-serif;
+            --casino2: 'TungstenComp', sans-serif;
+            --casino3: 'TungstenCondensed', sans-serif;
+            --alacena: 'AlaFuente', sans-serif;
+            --alacena2: 'BuenosAires', sans-serif;
+            -dv: 'BrandonGrotesque', sans-serif;
+            -dv2: 'Sansita', sans-serif;
             --bg-nav: #080808;
             --buttom-header: #cd0a10;
             --color-buttom-header: #fff;
@@ -601,12 +633,12 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
         }
 
         .rotate-icon-top {
-            transform: rotate(180deg); 
+            transform: rotate(180deg);
             transition: transform 0.2s ease;
         }
 
         .rotate-icon-bottom {
-            transform: rotate(0deg); 
+            transform: rotate(0deg);
             transition: transform 0.2s ease;
         }
     </style>
@@ -802,7 +834,7 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
                                     <td>{{ $item->award_project->nombre_premio }}</td>
                                 </tr>
                                 @endforeach
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -815,7 +847,7 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
                         {{-- <div class="accordion" id="accordionExample">
                             <div class="accordion-item" style="border-color: {{ $color_border_pregunta }} !important;">
                                 <h2 class="accordion-header">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" 
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                 id="pregunta-1-landing" style="color: {{ $color_text_pregunta }} !important;">
                                 {{ $pregunta1 }}
                                 </button>
@@ -955,9 +987,9 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
             $(".icon-acordion").removeClass('rotate-icon-top')
             $(".icon-acordion").addClass('rotate-icon-bottom')
 
-            
+
             $(".bottom-acordion").slideUp();
-            
+
 
             setTimeout(() => {
 

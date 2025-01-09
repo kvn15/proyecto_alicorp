@@ -93,6 +93,23 @@ class RuletaController extends Controller
             $rutaTituloPremio = $request->file('premio-gano-subir')->store('ruleta', 'public'); // Almacena en storage/app/public/imagenes
         }
 
+        // Titulo premio
+        $rutaTituloGanastes = isset($isRuleta) && !empty($isRuleta->titulo_ganastes) && $request['gano-subir-url'] != null ?  $isRuleta->titulo_ganastes : '';
+        if ($request->hasFile('titulo_ganastes')) {
+
+            if(isset($isRuleta)) {
+                // Obtener la ruta de la imagen
+                $rutaFav = public_path($isRuleta->titulo_ganastes); // Suponiendo que la ruta está almacenada en 'ruta'
+
+                // Eliminar el archivo del sistema
+                if (file_exists($rutaFav) && !empty($isRuleta->titulo_ganastes)) {
+                    unlink($rutaFav); // Eliminar el archivo
+                }
+            }
+
+            $rutaTituloGanastes = $request->file('titulo_ganastes')->store('ruleta', 'public'); // Almacena en storage/app/public/imagenes
+        }
+
         $sigueIntentandoBD = KeepTrying::where('project_id', $id)->first();
 
         $sigueIntentando = isset($sigueIntentandoBD["imagen"])  && !empty($sigueIntentandoBD["imagen"]) && $request["sigue-intentando-subir-url"] != null ? $sigueIntentandoBD["imagen"] : "";
@@ -167,6 +184,7 @@ class RuletaController extends Controller
                 'boton_premio' => json_encode($boton_premio, true),
                 'politicas' => json_encode($politica, true),
                 'terminos' => json_encode($termino, true),
+                'titulo_ganastes' => $rutaTituloGanastes
             ]);
 
         } else { // Actualizar
@@ -182,6 +200,7 @@ class RuletaController extends Controller
                 'boton_premio' => json_encode($boton_premio, true),
                 'politicas' => json_encode($politica, true),
                 'terminos' => json_encode($termino, true),
+                'titulo_ganastes' => $rutaTituloGanastes
             ]);
         }
 
@@ -325,11 +344,11 @@ class RuletaController extends Controller
 
             $userId = 0;
 
-            if (Auth::guard('xplorer')->user() || Auth::user()) {
-                $userId = Auth::guard('xplorer')->user() ? Auth::guard('xplorer')->user()->id : Auth::user()->id;
-            } else { //admin
+            if (Auth::guard('admin')->user()) { //admin
                 $user = AsignacionProject::where('project_id', $project->id)->first();
                 $userId = User::find($user->user_id)->id;
+            } else if (Auth::guard('xplorer')->user() || Auth::user()) {
+                $userId = Auth::guard('xplorer')->user() ? Auth::guard('xplorer')->user()->id : Auth::user()->id;
             }
 
             $premios = DB::table('award_projects')
@@ -415,7 +434,12 @@ class RuletaController extends Controller
                 return redirect()->route('login');
             }
 
-            if (Auth::guard('xplorer')->user() || isset(Auth::user()->id)) {
+            if (Auth::guard('admin')->user()) {
+                //admin
+                $user = AsignacionProject::where('project_id', $project->id)->first();
+                $userId = User::find($user->user_id)->id;
+            }
+            else if (Auth::guard('xplorer')->user() || isset(Auth::user()->id)) {
 
                 $userId = Auth::guard('xplorer')->user() ? Auth::guard('xplorer')->user()->id : Auth::user()->id;
 
@@ -430,10 +454,6 @@ class RuletaController extends Controller
                 if (count($asignacion) == 0) {
                     return redirect()->route('index')->with('projecto', 'No tiene acceso a este juego.');
                 }
-            } else {// Administrador
-
-                $idUser = AsignacionProject::where('project_id', $project->id)->first();
-                $user = User::find($idUser->user_id);
             }
         } else {
 
