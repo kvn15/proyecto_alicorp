@@ -310,7 +310,7 @@
                                 <input type="email" name="email" id="email" class="form-registro" value="{{ $email }}">
                             </div>
                             <div class="col-12 col-lg-6 mb-2">
-                                <label for="codigo">N° de LOTE + foto de producto</label>
+                                <label for="codigo">N° de Boleta + foto de producto</label>
                                 <input type="text" name="codigo" id="codigo" class="form-registro">
 
                                 <input type="file" name="imagen" id="imagen" class="form-control mt-2">
@@ -375,7 +375,7 @@
                                 <input type="email" name="email" id="email" class="form-registro" value="{{ old('email') }}">
                             </div>
                             <div class="col-12 col-lg-6 mb-2">
-                                <label for="codigo">N° de LOTE + foto de producto</label>
+                                <label for="codigo">N° de Boleta + foto de producto</label>
                                 <input type="text" name="codigo" id="codigo" class="form-registro" value="{{ old('codigo') }}">
 
                                 <input type="file" name="imagen" id="imagen" class="form-control mt-2">
@@ -469,10 +469,10 @@
                 const edad = $("#edad").val();
                 const telefono = $("#telefono").val();
                 const email = $("#email").val();
-                const lote = $("#codigo").val();
+                const boleta = $("#codigo").val();
                 const file = $("#imagen").val();
 
-                if (!nombre || !apellido || !tipo_doc || !documento || !edad || !telefono || !email || !lote || !file) {
+                if (!nombre || !apellido || !tipo_doc || !documento || !edad || !telefono || !email || !boleta || !file) {
                     alert("Debe completar todos los campos para continuar");
                     return;
                 }

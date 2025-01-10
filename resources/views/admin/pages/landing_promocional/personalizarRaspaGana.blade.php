@@ -861,7 +861,7 @@ switch ($project->tipo_letra) {
                 <div id="card-raspa">
                     <div class="text-header">
                         <p id="parrafo-header" class="{{ $styleBold }} {{  $italicTitulo }} {{ $styleTamano }} {{ $styleAlineacion }} d-none" style="color: #fff;">{{ $tituloTexto }}</p>
-                        <img id="logo_casino" src="{{ $logo_principal }}" alt=""  style="max-width: 250px;">
+                        <img id="logo_casino" src="{{ $logo_principal }}" alt=""  style="max-width: 300px; width: 100%;">
                     </div>
                     <div class="container">
                         {{-- <div class="base">
@@ -876,7 +876,7 @@ switch ($project->tipo_letra) {
                 </div>
                 <div id="card-premio" class="d-none">
                     <div class="d-flex justify-content-center pt-4 w-100 pb-4">
-                        <img class="img-fluid" src="{{ $titulo_subir }}" alt="" id="img-header-premio" style="max-width: 350px;">
+                        <img class="img-fluid" src="{{ $titulo_subir }}" alt="" id="img-header-premio" style="max-width: 300px; width: 100%;">
                     </div>
                     <div class="d-flex flex-column align-items-center justify-content-center w-100">
                         <img class="img-fluid " src="{{ $imgPremio }}" alt="" id="premio_img" style="max-width: 400px;">

@@ -375,12 +375,12 @@ class RaspaGanaController extends Controller
             }
             $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
 
-            // Verificar si el codigo ya existe
-            $isCodigo = Participant::where('project_id', $id)->where('codigo', $request->codigo)->first();
+            // // Verificar si el codigo ya existe
+            // $isCodigo = Participant::where('project_id', $id)->where('codigo', $request->codigo)->first();
 
-            if (isset($isCodigo)) {
-                return redirect()->route($tipoJuego.'juego.view.registro.raspagana', $project->dominio)->with('mensaje', 'El N° de LOTE ya existe.')->withInput();
-            }
+            // if (isset($isCodigo)) {
+            //     return redirect()->route($tipoJuego.'juego.view.registro.raspagana', $project->dominio)->with('mensaje', 'El N° de LOTE ya existe.')->withInput();
+            // }
 
             $other_participant_id = null;
 

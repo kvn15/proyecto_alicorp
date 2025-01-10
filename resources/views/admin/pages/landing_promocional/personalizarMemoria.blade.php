@@ -1017,7 +1017,7 @@
                 <div class="contenido_juego d-block" id="contenido_juego">
                     <p class="{{ $styleAlineacion }} {{ $styleTamano }} w-100 mt-0 mb-0 pt-2 {{ $styleBold }} {{ $italicTitulo }} d-none" id="parrafo-header" style="color: {{ $color }};">{{ $tituloTexto }}</p>
                     <div class="d-flex justify-content-center pt-4">
-                        <img class="img-fluid" id="logo_memoria" src="{{ $imgLogo }}" alt="" style="max-width: 250px;">
+                        <img class="img-fluid" id="logo_memoria" src="{{ $imgLogo }}" alt="" style="max-width: 300px; width: 100%;">
                     </div>
                     <div class="game">
                         <div class="controls">
@@ -1041,7 +1041,7 @@
                 </div>
                 <div class="win-game d-none" id="win-game">
                     <div class="d-flex justify-content-center pt-4 w-100 mb-3">
-                        <img class="img-fluid" src="{{ $imgLogoPremio }}" alt="" id="img-header-premio" style="max-width: 350px;">
+                        <img class="img-fluid" src="{{ $imgLogoPremio }}" alt="" id="img-header-premio" style="max-width: 300px; width: 100%;">
                     </div>
                     <div class="d-flex flex-column align-items-center justify-content-center w-100">
                         <img class="img-fluid mb-2" src="{{ $imgPremio }}" alt="" id="premio_img" style="max-width: 370px;">

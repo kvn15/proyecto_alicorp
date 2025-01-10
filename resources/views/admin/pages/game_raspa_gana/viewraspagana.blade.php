@@ -392,7 +392,7 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
         <div id="card-raspa">
             <div class="text-header">
                 {{-- <p id="parrafo-header {{ $styleBold }} {{  $italicTitulo }} {{ $styleTamano }} {{ $styleAlineacion }}" style="color: #fff;">{{ $tituloTexto }}</p> --}}
-                <img id="logo_casino" src="{{ $logo_principal }}" alt="" style="max-width: 250px;">
+                <img id="logo_casino" src="{{ $logo_principal }}" alt="" style="max-width: 285px; width: 100%;">
             </div>
             <div class="container">
                 {{-- <div class="base">
@@ -407,10 +407,10 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
         </div>
         <div id="card-premio" class="d-none flex-column align-items-center justify-content-center" style="width: 100%; min-height: 100vh; gap: 1rem;">
             <div class="d-flex justify-content-center w-100">
-                <img class="img-fluid" src="{{ $titulo_final }}" alt="" id="img-header-premio"  style="max-width: 350px;">
+                <img class="img-fluid" src="{{ $titulo_final }}" alt="" id="img-header-premio"  style="max-width: 285px; width: 100%;">
             </div>
             <div class="d-flex flex-column align-items-center justify-content-center w-100">
-                <img class="img-fluid img-premio-final" src="{{ $imgPremio }}" alt="" id="premio_img">
+                <img class="img-fluid img-premio-final" src="{{ $imgPremio }}" alt="" id="premio_img" style="width: 100%;">
                 <h4 class="text-white my-2 d-none" style="font-weight: 700;">{{ $namePremio }}</h4>
             </div>
             <div class="{{ $styleBotones }} justify-content-center" id="btn_content" style="font-size: 15px !important;">

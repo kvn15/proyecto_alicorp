@@ -80,7 +80,7 @@
         height: 100%;
     }
     .header {
-        padding: 20px;
+        padding: 10px;
         color: #fff;
         margin: 0 auto;
         margin-bottom: 10px;
@@ -273,8 +273,10 @@
             position: relative;
             background-color: #e4eeea;
             border-radius: 50%;
-            width: 380px;
-            height: 380px;
+            width: 100%;
+            max-width: 420px;
+            height: 420px;
+            max-height: 420px;
             margin: auto;
         }
 
@@ -310,7 +312,7 @@
             align-items: center;
         }
     #logo_header {
-        max-width: 300px;
+        max-width: 270px; width: 100%;
     }
 
     @media (max-width: 575.98px) {
@@ -320,6 +322,12 @@
 
         .header  {
             padding: 0;
+        }
+
+        .content_premio_img {
+            width: 100%;
+            max-width: 370px;
+            height: 370px;
         }
     }
 </style>
@@ -420,7 +428,7 @@
         <div class="content-game d-none" id="juego">
             <div class="header text-center">
                 <h1 class="{{ $styleTamanoGame }} {{ $styleBoldGame }} {{ $italicTituloGame }} {{ $styleAlineacionGame }} d-none" id="titulo_juego" style="color: #fff;">GIRA Y GANA CON</h1>
-                <img style="max-width: 300px;" src="{{ $logo_juego }}" alt="" id="logo_juego">
+                <img style="max-width: 285px;" src="{{ $logo_juego }}" alt="" id="logo_juego">
                 <p id="winner" class="d-none">NONE</p>
             </div>
             <div class="w-100 d-flex justify-content-center">
@@ -439,13 +447,13 @@
         </div>
         <div id="fin_juego" class="d-none">
             <div class="content_premio">
-                <img class="img-fluid mb-3" src="{{ $titulo_ganastes }}" alt="" id="logo_ganaste" style="max-width: 350px;">
-                <img class="img-fluid mb-3" src="{{ $titulo_premio }}" alt="" id="logo_normal" style="max-width: 350px;">
+                <img class="img-fluid" src="{{ $titulo_ganastes }}" alt="" id="logo_ganaste" style="max-width: 285px; width: 100%;">
+                <img class="img-fluid" src="{{ $titulo_premio }}" alt="" id="logo_normal" style="max-width: 285px; width: 100%;">
                 @php
                     $urlImagenPremio = isset($projectPremio[0]["imagen_premio"]) && !empty($projectPremio[0]["imagen_premio"]) ? '/storage/'.$projectPremio[0]["imagen_premio"] : $imgNulo;
                 @endphp
                 <div class="content_premio_img">
-                    <img class="img-fluid" src="{{ $urlImagenPremio }}" alt="" id="premio_first" style="max-width: 300px;">
+                    <img src="{{ $urlImagenPremio }}" alt="" id="premio_first" style="max-width: 450px;">
                 </div>
                 <h5 id="title_premio" class="d-none">{{ $projectPremio[0]["nombre_premio"] }}</h5>
                 <div class="{{ $styleBotones }} justify-content-center" style="gap: 0.4em; font-size: 15px !important;" id="btn_content">

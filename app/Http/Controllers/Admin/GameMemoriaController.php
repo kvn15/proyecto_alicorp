@@ -148,13 +148,13 @@ class GameMemoriaController extends Controller
             }
 
             // Verificar si el codigo ya existe
-            $isCodigo = Participant::where('project_id', $id)->where('codigo', $request->codigo)->first();
+            // $isCodigo = Participant::where('project_id', $id)->where('codigo', $request->codigo)->first();
 
             $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
 
-            if (isset($isCodigo)) {
-                return redirect()->route($tipoJuego.'juego.view.registro', $project->dominio)->with('mensaje', 'El N° de LOTE ya existe.')->withInput();
-            }
+            // if (isset($isCodigo)) {
+            //     return redirect()->route($tipoJuego.'juego.view.registro', $project->dominio)->with('mensaje', 'El N° de LOTE ya existe.')->withInput();
+            // }
 
             $other_participant_id = null;
 

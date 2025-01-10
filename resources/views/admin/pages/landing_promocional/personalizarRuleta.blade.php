@@ -289,8 +289,10 @@ switch ($project->tipo_letra) {
             position: relative;
             background-color: #e4eeea;
             border-radius: 50%;
-            width: 380px;
-            height: 380px;
+            width: 100%;
+            max-width: 420px;
+            height: 100%;
+            max-height: 420px;
             margin: auto;
         }
 
@@ -1083,7 +1085,7 @@ switch ($project->tipo_letra) {
                 <div id="inicio_juego" class=" d-none align-items-center">
                     <div class="text-center ctn-data">
                         <h1 class="{{ $styleTamano }} mb-4 {{ $styleBold }} {{ $italicTitulo }} {{ $styleAlineacion }} d-none" id="titulo_header" style="color: #fff;"></h1>
-                        <img style="width: 300px;" src="{{ $logo_inicio }}" alt="" id="logo_header">
+                        <img style="max-width: 300px; width: 100%;" src="{{ $logo_inicio }}" alt="" id="logo_header">
                     </div>
                     <div class="w-100 d-flex justify-content-center">
                         <button class="btn-jugar" id="btn_header">JUGAR</button>
@@ -1092,7 +1094,7 @@ switch ($project->tipo_letra) {
                 <div class="content-game" id="juego">
                     <div class="header text-center">
                         <h1 class="{{ $styleTamanoGame }} {{ $styleBoldGame }} {{ $italicTituloGame }} {{ $styleAlineacionGame }} d-none" id="titulo_juego" style="color: #fff;"></h1>
-                        <img style="width: 300px;" src="{{ $logo_juego }}" alt="" id="logo_juego" style="max-width: 250px;">
+                        <img style="width: 300px;" src="{{ $logo_juego }}" alt="" id="logo_juego" style="max-width: 300px; width: 100%;">
                         <p id="winner" class="d-none">NONE</p>
                     </div>
                     <div class="w-100 d-flex justify-content-center">
@@ -1114,7 +1116,7 @@ switch ($project->tipo_letra) {
                             $urlImagenPremio = isset($projectPremio[0]["imagen_premio"]) && !empty($projectPremio[0]["imagen_premio"]) ? '/storage/'.$projectPremio[0]["imagen_premio"] : $imgSigue2;
                         @endphp
                         <div class="content_premio_img">
-                            <img class="img-fluid" src="{{ $urlImagenPremio }}" alt="" id="premio_first" style="max-width: 320px;">
+                            <img class="img-fluid" src="{{ $urlImagenPremio }}" alt="" id="premio_first" style="max-width: 280px;">
                         </div>
                         <h5>{{ isset($projectPremio[0]["nombre_premio"]) ? $projectPremio[0]["nombre_premio"] : '' }}</h5>
                         <div class="{{ $styleBotones }} justify-content-center" style="gap: 0.4em;" id="btn_content">

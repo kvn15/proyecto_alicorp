@@ -265,7 +265,7 @@
     }
 
     .div-premio {
-        min-height: 485px;
+        max-height: 485px;
     }
 </style>
 <style>
@@ -373,7 +373,7 @@
         <div class="contenido_juego d-flex flex-column align-items-center justify-content-center w-100 h-100" id="contenido_juego">
             {{-- <p class="{{ $styleAlineacion }} {{ $styleTamano }} w-100 mt-0 mb-0 pt-2 {{ $styleBold }} {{ $italicTitulo }}" id="parrafo-header" style="color: {{ $color }};">{{ $tituloTexto }}</p> --}}
             <div class="d-flex justify-content-center pt-2">
-                <img class="img-fluid" id="logo_memoria" src="{{ '/storage/'.$imgLogo }}" alt="" style="max-width: 300px;">
+                <img class="img-fluid" id="logo_memoria" src="{{ '/storage/'.$imgLogo }}" alt="" style="max-width: 285px; width: 100%;">
             </div>
             <div class="game">
                 <div class="controls">
@@ -397,10 +397,10 @@
         </div>
         <div class="win-game d-none flex-column align-items-center justify-content-center w-100 h-100" id="win-game">
             <div class="d-flex justify-content-center pt-2 w-100 mb-3">
-                <img class="img-fluid" src="{{ $imgTituloGanastes }}" alt="" id="img-header-premio" style="max-width: 350px; width: 100%;">
+                <img class="img-fluid" src="{{ $imgTituloGanastes }}" alt="" id="img-header-premio" style="max-width: 285px; width: 100%;">
             </div>
             <div class="d-flex flex-column align-items-center justify-content-center w-100 div-premio">
-                <img class="img-fluid mb-2" src="{{ $imgPremio }}" alt=""  id="premio_img" style="max-width: 370px; width: 100%;">
+                <img class="img-fluid mb-2" src="{{ $imgPremio }}" alt=""  id="premio_img" style="max-width: 450px; width: 100%;">
                 <h4 class="text-white d-none" style="font-weight: 700;" id="h4Premio">{{ $namePremio }}</h4>
             </div>
             <div class="{{ $styleBotones }} justify-content-center" id="btn_content" style="font-size: 15px !important;">
@@ -595,6 +595,7 @@
                     document.getElementById("premio_img").src = "{{ $urlSigue }}";
                     document.getElementById("h4Premio").textContent = 'Sigue Intentando'
                     document.getElementById("img-header-premio").src = '{{ $imgTitulo }}'
+                    document.getElementById("premio_img").style.width = "320px";
                 }, 1500);
             }
 
