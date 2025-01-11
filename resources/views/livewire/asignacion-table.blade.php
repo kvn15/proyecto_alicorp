@@ -5,7 +5,7 @@
                 <span>Punto de Venta: <span id="premio_text"></span></span>
                 <span class="cursor-pointer" wire:click="removePremio"><i class="bi bi-x-lg"></i></span>
             </div>
-            
+
             <label for="checkFilter" class="btn btn-filtro" style="align-self: baseline;" id="btnFiltro">
                 <i class="bi bi-filter"></i> Filtros
             </label>
@@ -30,7 +30,7 @@
                         <label for="fecha_fin" class="form-label">Fch. Fin</label>
                         <input type="date" name="fecha_fin" id="fecha_fin" class="form-control" wire:model="fecha_fin">
                     </div>
-        
+
                     <div class="col-12">
                         <button type="button" class="btn btn-alicorp w-100" wire:click="filter">Filtrar</button>
                     </div>
@@ -64,11 +64,11 @@
                 </thead>
                 <tbody>
                     @foreach ( $asignacion as $value )
-                    <tr>    
+                    <tr>
                         <td>{{ $value->id }}</td>
                         <td>{{ $value->created_at }}</td>
-                        <td>{{ $value->user->name }}</td>
-                        <td>{{ $value->user->documento }}</td>
+                        <td>{{ $value->xplorer->name }}</td>
+                        <td>{{ $value->xplorer->documento }}</td>
                         <td>{{ $value->sales_point->name }}</td>
                         <td>{{ $value->fecha_inicio }}</td>
                         <td>{{ $value->fecha_fin }}</td>

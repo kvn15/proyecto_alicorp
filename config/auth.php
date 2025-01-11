@@ -46,13 +46,13 @@ return [
         ],
         'xplorer' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'xplorers',
         ],
         'adminPanel' => [
             'driver' => 'session',
             'provider' => 'adminPanels',
         ],
-        
+
     ],
 
     /*

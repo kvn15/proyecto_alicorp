@@ -21,12 +21,12 @@ class AsignacionProject extends Model
     public function xplorer() {
         return $this->belongsTo(Xplorer::class, 'xplorer_id');
     }
-    
+
     // Relacion categoria - Uno a Uno
     public function award_project() {
         return $this->belongsTo(AwardProject::class, 'award_project_id');
     }
-    
+
     // Relacion categoria - Uno a Uno
     public function sales_point() {
         return $this->belongsTo(SalesPoint::class, 'sales_point_id');
@@ -45,12 +45,12 @@ class AsignacionProject extends Model
     public static function search($search) {
         return empty($search) ? static::query()
             : static::query()
-                ->with(['user', 'sales_point', 'award_project'])
+                ->with(['xplorer', 'sales_point', 'award_project'])
                 ->where('asignacion_projects.id', 'like', '%'.$search.'%')
                 ->orWhere('qty_premio', 'like', '%'.$search.'%')
                 ->orWhere('asignacion_projects.fecha_inicio', 'like', '%'.$search.'%')
                 ->orWhere('asignacion_projects.fecha_fin', 'like', '%'.$search.'%')
-                ->orWhereHas('user', function ($q) use ($search) {
+                ->orWhereHas('xplorer', function ($q) use ($search) {
                     $q->where('name', 'like', '%'.$search.'%')
                         ->orWhere('email', 'like', '%'.$search.'%')
                         ->orWhere('documento', 'like', '%'.$search.'%');

@@ -82,7 +82,7 @@ class ProyectoLista extends Component
         } else {
             $projects = Project::search($this->search, $this->tipoProyecto)
             ->join('asignacion_projects', 'asignacion_projects.project_id', '=', 'projects.id')
-            ->where('asignacion_projects.user_id', $this->idUsuario);
+            ->where('asignacion_projects.xplorer_id', $this->idUsuario);
 
             if (isset($this->estados)) {
                 $projects->whereIn('status', $this->estados);

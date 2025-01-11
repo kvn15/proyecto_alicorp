@@ -6,7 +6,6 @@ use App\Models\AsignacionProject;
 use App\Models\AwardProject;
 use App\Models\PremioPdv;
 use App\Models\SalesPoint;
-use App\Models\User;
 use App\Models\Xplorer;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -29,7 +28,7 @@ class AsignacionProjectsImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         // buscar nombre de xplorer
-        $xplorer = User::where('is_xplorer', 1)->where('name', $row['xplorer'])->first();
+        $xplorer = Xplorer::where('name', $row['xplorer'])->first();
         $sales_point = SalesPoint::where('name', $row['punto_venta'])->first();
         $award_project = AwardProject::where('project_id', $this->project_id)->where('nombre_premio', $row['premio'])->first();
 
@@ -56,7 +55,7 @@ class AsignacionProjectsImport implements ToModel, WithHeadingRow
         //     throw new \Exception($xplorer->name.' ya se encuentra asignado a '.$row['punto_venta'].' con este premio: '.$row['premio']);
         // }
 
-        $asignacionRepeat = AsignacionProject::where('project_id', $this->project_id)->where('user_id', $xplorer->id)->where('sales_point_id', $sales_point->id)->where('fecha_inicio', $this->convertDate($row['fecha_inicio']))->where('fecha_fin', $this->convertDate($row['fecha_fin']))->first();
+        $asignacionRepeat = AsignacionProject::where('project_id', $this->project_id)->where('xplorer_id', $xplorer->id)->where('sales_point_id', $sales_point->id)->where('fecha_inicio', $this->convertDate($row['fecha_inicio']))->where('fecha_fin', $this->convertDate($row['fecha_fin']))->first();
 
         if (isset($asignacionRepeat) && !empty($asignacionRepeat)) {
 
@@ -75,7 +74,7 @@ class AsignacionProjectsImport implements ToModel, WithHeadingRow
 
             # code...
         } else {
-        
+
             $asignacion = AsignacionProject::create([
                 'project_id' => $this->project_id,
                 'fecha_inicio' => $this->convertDate($row['fecha_inicio']),

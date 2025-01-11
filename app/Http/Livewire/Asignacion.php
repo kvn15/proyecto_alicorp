@@ -8,7 +8,7 @@ use App\Models\AsignacionProject;
 use App\Models\AwardProject;
 use App\Models\PremioPdv;
 use App\Models\SalesPoint;
-use App\Models\User;
+use App\Models\Xplorer;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -45,36 +45,41 @@ class Asignacion extends Component
         'punto_venta' => 'required',
         'xplorer' => 'required',
     ];
-    
+
     public function render()
     {
         $asignacion = AsignacionProject::search($this->search)
             ->where('asignacion_projects.project_id', $this->projectId)
-            ->with('user')
+            ->with('xplorer')
             // ->leftJoin('xplorers', 'xplorers.id', '=', 'asignacion_projects.xplorer_id')
             ->leftJoin('award_projects', 'award_projects.id', '=', 'asignacion_projects.award_project_id')
-            ->join('users', 'users.id', '=', 'asignacion_projects.user_id')
+            ->join('xplorers', 'xplorers.id', '=', 'asignacion_projects.xplorer_id')
             ->join('sales_points', 'sales_points.id', '=', 'asignacion_projects.sales_point_id')
-            ->select('asignacion_projects.*', 'users.name', 'users.email', 'sales_points.name', 'award_projects.nombre_premio')
+            ->select('asignacion_projects.*', 'xplorers.name', 'xplorers.apellido', 'xplorers.email', 'sales_points.name', 'award_projects.nombre_premio')
             ->orderBy($this->sortColumnName, $this->sortDirection)->simplePaginate(10);
 
         return view('livewire.asignacion', compact('asignacion'));
     }
- 
-    public function mount($projectId) 
+
+    public function mount($projectId)
     {
         $this->projectId = $projectId;
         $this->premios = AwardProject::where("project_id", $projectId)->where('status', 1)->get();
         $this->sales_point = SalesPoint::where('status', 1)->get();
-        $this->xplorers = User::where('is_xplorer', 1)->get();
+        $this->xplorers = Xplorer::all();
+    }
+
+    public function allDataResetForm() {
+        $this->allDatas();
+        $this->resetForm();
     }
 
     public function allDatas() {
         $this->premios = AwardProject::where("project_id", $this->projectId)->where('status', 1)->get();
         $this->sales_point = SalesPoint::where('status', 1)->get();
-        $this->xplorers = User::where('is_xplorer', 1)->get();
+        $this->xplorers = Xplorer::all();
     }
- 
+
     public function search()
     {
         $this->resetPage();
@@ -85,7 +90,7 @@ class Asignacion extends Component
         $this->validate();
 
         try {
-    
+
             if (count($this->lPremios) == 0) {
                 $this->dispatchBrowserEvent('swal:alert', [
                     'title' => 'Debe asignar por lo menos un premio.',
@@ -101,17 +106,17 @@ class Asignacion extends Component
                 ]);
                 return;
             }
-            
+
             $asignacion = AsignacionProject::create([
                 'project_id' => $this->projectId,
-                'user_id' => $this->xplorer,
+                'xplorer_id' => $this->xplorer,
                 'fecha_inicio' => $this->fecha_ini,
                 'fecha_fin' => $this->fecha_fin,
                 'sales_point_id' => $this->punto_venta,
                 'award_project_id' => null,
                 'qty_premio' => null,
             ]);
-    
+
             // Agregar premios
             foreach ($this->lPremios as $key => $value) {
                 PremioPdv::create([
@@ -121,10 +126,10 @@ class Asignacion extends Component
                     'probabilidad' => $value["probabilidad"]
                 ]);
             }
-    
+
             // resetear
             $this->resetForm();
-    
+
             $this->dispatchBrowserEvent('swal:alert', [
                 'title' => 'Registro exitoso!',
                 'icon' => 'success',
@@ -138,7 +143,7 @@ class Asignacion extends Component
         }
     }
 
-    public function sortBy($columnName) 
+    public function sortBy($columnName)
     {
         if ($this->sortColumnName === $columnName) {
             $this->sortDirection = $this->swapSortDirection();
@@ -149,20 +154,20 @@ class Asignacion extends Component
         $this->sortColumnName = $columnName;
     }
 
-    public function swapSortDirection() 
+    public function swapSortDirection()
     {
         return $this->sortDirection === 'asc' ? 'desc' : 'asc';
     }
 
     public $selected = [];
-    
+
     public function updatedSelected($value, $key)
     {
         // Lógica que deseas ejecutar cuando cambie el estado de los checkboxes
         if ($value) {
             $asignacion = AsignacionProject::where('id', $key)->first();
             $this->idAsignacion = $asignacion->id;
-            $this->xplorer = $asignacion->user_id;
+            $this->xplorer = $asignacion->xplorer_id;
             $this->fecha_ini = $asignacion->fecha_inicio;
             $this->fecha_fin = $asignacion->fecha_fin;
             $this->punto_venta = $asignacion->sales_point_id;
@@ -220,9 +225,9 @@ class Asignacion extends Component
             ]);
             return;
         }
-        
+
         $asignacion->update([
-            'user_id' => $this->xplorer,
+            'xplorer_id' => $this->xplorer,
             'fecha_inicio' => $this->fecha_ini,
             'fecha_fin' => $this->fecha_fin,
             'sales_point_id' => $this->punto_venta,
@@ -235,11 +240,11 @@ class Asignacion extends Component
         foreach ($premios as $key => $value) {
             $asignacionPdv = PremioPdv::where('id', $value->id)->first();
             $premioIds = array_column($this->lPremios, 'id');
-            
+
             if (in_array($value->id, $premioIds)) {
                 $preimioAssig = collect($this->lPremios);
                 $resultado = $preimioAssig->where('id', $value->id)->first();
-                
+
                 $asignacionPdv->update([
                     'award_project_id' => $resultado["premioId"],
                     'qty_premio' => $resultado["cantidad"],
@@ -265,7 +270,7 @@ class Asignacion extends Component
                 'probabilidad' => $value["probabilidad"]
             ]);
         }
-        
+
 
         $this->dispatchBrowserEvent('swal:alert', [
             'title' => 'Actualización exitoso!',
@@ -306,7 +311,7 @@ class Asignacion extends Component
     public function addTablePremio() {
         $idPremio = $this->premio;
         $premioKick = AwardProject::where("project_id", $this->projectId)->where('id', $idPremio)->first();
-    
+
         if ($premioKick) {
 
             if ($this->textBtnAdd == "Editar") {
@@ -319,7 +324,7 @@ class Asignacion extends Component
                 }
                 $this->cancelar();
             } else {
-            
+
                 $premioObj = [
                     "id" => 0,
                     "premioId" => $idPremio,
@@ -327,9 +332,9 @@ class Asignacion extends Component
                     "cantidad" => $this->qty_premio,
                     "probabilidad" => $this->probabilidad
                 ];
-        
+
                 $premioIds = array_column($this->lPremios, 'premioId');
-    
+
                 if (in_array($idPremio, $premioIds)) {
                     // El premio ya existe, no lo agregues
                     $this->dispatchBrowserEvent('swal:alert', [
@@ -339,7 +344,7 @@ class Asignacion extends Component
                 } else {
                     // Usa array_merge para actualizar el array de manera que Livewire lo reconozca
                     $this->lPremios = array_merge($this->lPremios, [$premioObj]);
-    
+
                     $this->premio = null;
                     $this->qty_premio = null;
                     $this->probabilidad = '0';
@@ -355,16 +360,16 @@ class Asignacion extends Component
     }
 
     public function deletePremio($premioId) {
-        
+
         // Filtrar el array para eliminar el elemento con el premioId
         $this->lPremios = array_filter($this->lPremios, function($premio) use ($premioId) {
             return $premio['premioId'] != $premioId;
         });
-    
+
         // Reindexar el array después de eliminar el elemento (opcional)
         $this->lPremios = array_values($this->lPremios);
     }
-    
+
     public function getListaById($premioId) {
         $preimioAssig = collect($this->lPremios);
         $resultado = $preimioAssig->where('premioId', $premioId)->first();

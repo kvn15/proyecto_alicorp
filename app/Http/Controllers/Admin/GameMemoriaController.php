@@ -14,6 +14,7 @@ use App\Models\PremioPdv;
 use App\Models\Project;
 use App\Models\User;
 use App\Models\ViewProject;
+use App\Models\Xplorer as ModelsXplorer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -49,30 +50,28 @@ class GameMemoriaController extends Controller
         //     $user = User::find(Auth::user()->id);
         // }
         if ($project->project_type_id == 3) {
-            if (!Auth::guard('admin')->user() && !Auth::user() && !Auth::guard('xplorer')->user()) {
+            if (!Auth::guard('admin')->user() && !Auth::guard('xplorer')->user()) {
                 return redirect()->route('login');
             }
 
             if(Auth::guard('admin')->user()) {// Administrador
 
                 $idUser = AsignacionProject::where('project_id', $project->id)->first();
-                $user = User::find($idUser->user_id);
+                $user = ModelsXplorer::find($idUser->xplorer_id);
             }
-            else if (Auth::guard('xplorer')->user() || isset(Auth::user()->id)) {
+            else if(Auth::guard('xplorer')->user()) {
+                $userId = Auth::guard('xplorer')->user()->id;
 
-                $userId = Auth::guard('xplorer')->user() ? Auth::guard('xplorer')->user()->id : Auth::user()->id;
+                $user = ModelsXplorer::find($userId);
 
-                $user = User::find($userId);
-
-                if ($user->is_xplorer != 1) {
-                    return redirect()->route('index')->with('projecto', 'No tiene permitido ingresar a este juego.');
-                }
-
-                $asignacion = AsignacionProject::where('project_id', $project->id)->where('user_id', $user->id)->get();
+                $asignacion = AsignacionProject::where('project_id', $project->id)->where('xplorer_id', $user->id)->get();
 
                 if (count($asignacion) == 0) {
                     return redirect()->route('index')->with('projecto', 'No tiene acceso a este juego.');
                 }
+            }
+            else {
+                return redirect()->route('index')->with('projecto', 'No tiene permitido ingresar a este juego.');
             }
         } else {
 
@@ -114,7 +113,7 @@ class GameMemoriaController extends Controller
         $puntoVenta = DB::table("sales_points")
             ->join('asignacion_projects', 'asignacion_projects.sales_point_id', 'sales_points.id')
             ->where('asignacion_projects.project_id', $project->id)
-            ->where('asignacion_projects.user_id', $user->id)
+            ->where('asignacion_projects.xplorer_id', $user->id)
             ->select('sales_points.*')
             ->distinct()
             ->get()->toArray();
@@ -577,10 +576,10 @@ class GameMemoriaController extends Controller
 
             if(Auth::guard('admin')->user()) { //admin
                 $user = AsignacionProject::where('project_id', $project->id)->first();
-                $userId = User::find($user->user_id)->id;
+                $userId = ModelsXplorer::find($user->xplorer_id)->id;
             }
-            else if (Auth::guard('xplorer')->user() || Auth::user()) {
-                $userId = Auth::guard('xplorer')->user() ? Auth::guard('xplorer')->user()->id : Auth::user()->id;
+            else if (Auth::guard('xplorer')->user()) {
+                $userId = Auth::guard('xplorer')->user()->id;
             }
 
             $premios = DB::table('award_projects')
@@ -588,7 +587,7 @@ class GameMemoriaController extends Controller
             ->join('asignacion_projects', 'asignacion_projects.id', 'premio_pdvs.asignacion_project_id')
             ->where('asignacion_projects.project_id', $projectId)
             ->where('asignacion_projects.sales_point_id', intval(session('punto_venta_memoria')))
-            ->where('asignacion_projects.user_id', $userId)
+            ->where('asignacion_projects.xplorer_id', $userId)
             ->where('premio_pdvs.qty_premio', '>', 0)
             // ->where('award_projects.status', 1)
             ->select('premio_pdvs.id', 'award_projects.nombre_premio', 'award_projects.imagen', 'premio_pdvs.probabilidad')

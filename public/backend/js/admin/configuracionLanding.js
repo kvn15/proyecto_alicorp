@@ -179,7 +179,7 @@ $(document).ready(function() {
             }
         });
     });
-    
+
     var lPremio = []
     var lPremiobd = []
 
@@ -267,20 +267,20 @@ $(document).ready(function() {
                         <div class="mb-2 row">
                             <label for="probabilidad_premio_1[]" class="col-sm-4">Probabilidad</label>
                             <div class="col-sm-8">
-                                <select name="probabilidad_premio_1[]" id="probabilidad_premio_1[]" class="form-select w-100" required>
-                                    ${
-                                        arrayProbabilidad.map(a => (
-                                            `<option value="${a}" ${premio.probabilidad == a ? 'selected' : ''} >${a}</option>`
-                                        ))
-                                    }
-                                </select>
+                                <input type="number" name="probabilidad_premio_1[]" id="probabilidad_premio_1[]" min="0" max="100" class="form-control" value="${premio.probabilidad}">
                             </div>
                         </div>
                     </div>
                 </div>
             `;
         })
-
+{/* <select name="probabilidad_premio_1[]" id="probabilidad_premio_1[]" class="form-select w-100" required>
+                                    ${
+                                        arrayProbabilidad.map(a => (
+                                            `<option value="${a}" ${premio.probabilidad == a ? 'selected' : ''} >${a}</option>`
+                                        ))
+                                    }
+                                </select> */}
         $('#content_premio').html(html)
     }
 
@@ -337,20 +337,20 @@ $(document).ready(function() {
                     $("#btn_status").addClass('btn-inactivo');
                     $("#btn_status").removeClass('btn-finalizado');
                     $("#btn_status").html('Inactivo');
-                } 
+                }
                 if ($("#status").val() == '1') {
                     $("#btn_status").removeClass('btn-activo');
                     $("#btn_status").removeClass('btn-inactivo');
                     $("#btn_status").removeClass('btn-finalizado');
                     $("#btn_status").addClass('btn-activo');
                     $("#btn_status").html('Activo');
-                } 
+                }
                 if ($("#status").val() == '2') {
                     $("#btn_status").removeClass('btn-activo');
                     $("#btn_status").removeClass('btn-inactivo');
                     $("#btn_status").addClass('btn-finalizado');
                     $("#btn_status").html('Finalizado');
-                } 
+                }
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('Error en la solicitud AJAX:', textStatus, errorThrown);

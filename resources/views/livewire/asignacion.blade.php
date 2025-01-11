@@ -11,7 +11,7 @@
                 <span class="input-group-text" id="basic-addon1" style="background-color: transparent; border-right: 0"><i class="bi bi-search"></i></span>
                 <input wire:model.debounce.300ms="search" type="text" class="form-control form-table" placeholder="Buscar" style="border-left: 0">
             </div>
-            <button class="btn btn-outline-danger ms-2" style="align-self: flex-start" data-bs-toggle="modal" data-bs-target="#modalAgregarA" wire:click="allDatas">Agregar</button>
+            <button class="btn btn-outline-danger ms-2" style="align-self: flex-start" data-bs-toggle="modal" data-bs-target="#modalAgregarA" wire:click="allDataResetForm">Agregar</button>
         </div>
     </div>
 
@@ -37,8 +37,8 @@
                         <td>{{ $value->fecha_inicio }}</td>
                         <td>{{ $value->fecha_fin }}</td>
                         <td>{{ $value->sales_point->name }}</td>
-                        <td>{{ $value->user->name }}</td>
-                        <td>{{ $value->user->documento }}</td>
+                        <td>{{ $value->xplorer->name }} {{ $value->xplorer->apellido }}</td>
+                        <td>{{ $value->xplorer->documento }}</td>
                         <td>
                             @if (isset($value->award_project->nombre_premio))
                                 <span class="badge text-bg-success" style="background-color: #05CD991A !important;color: #05CD99 !important;font-weight: 700;">{{ $value->award_project->nombre_premio }}</span>
@@ -128,7 +128,7 @@
                     </div>
                     <div class="col-12 col-lg-3 my-2">
                         <label for="probabilidad" class="form-label">Probabilidad</label>
-                        <select name="prob_no_premio" id="prob_no_premio" class="form-select w-100" wire:model="probabilidad">
+                        {{-- <select name="prob_no_premio" id="prob_no_premio" class="form-select w-100" wire:model="probabilidad">
                             <option value="0" selected>0</option>
                             <option value="10" selected>10</option>
                             <option value="15" selected>15</option>
@@ -149,7 +149,8 @@
                             <option value="90" selected>90</option>
                             <option value="95" selected>95</option>
                             <option value="100" selected>100</option>
-                        </select>
+                        </select> --}}
+                        <input type="number" name="probabilidad" id="probabilidad" wire:model="probabilidad" min="0" max="100" class="form-control">
                         @error('probabilidad') <span class="text-danger">Probabilidad es requerida.</span> @enderror
                     </div>
                     <div class="col-12 col-lg-2 my-2 d-flex justify-content-center align-items-end">
@@ -263,7 +264,7 @@
                     </div>
                     <div class="col-12 col-lg-3 my-2">
                         <label for="probabilidad" class="form-label">Probabilidad</label>
-                        <select name="prob_no_premio" id="prob_no_premio" class="form-select w-100" wire:model="probabilidad">
+                        {{-- <select name="prob_no_premio" id="prob_no_premio" class="form-select w-100" wire:model="probabilidad">
                             <option value="0" selected>0</option>
                             <option value="10" selected>10</option>
                             <option value="15" selected>15</option>
@@ -284,7 +285,8 @@
                             <option value="90" selected>90</option>
                             <option value="95" selected>95</option>
                             <option value="100" selected>100</option>
-                        </select>
+                        </select> --}}
+                        <input type="number" name="probabilidad" id="probabilidad" wire:model="probabilidad" min="0" max="100" class="form-control">
                         @error('probabilidad') <span class="text-danger">Probabilidad es requerida.</span> @enderror
                     </div>
                     <div class="col-12 col-lg-3 my-2 d-flex justify-content-center align-items-end">

@@ -23,13 +23,13 @@ class AsignacionTable extends Component
     // Filtro consulta
     public $fechaIni = '', $fechaFin = '', $punto = '';
     public $name_punto;
- 
+
     public function search()
     {
         $this->resetPage();
     }
- 
-    public function mount($projectId) 
+
+    public function mount($projectId)
     {
         $this->projectId = $projectId;
         $this->puntoVentaList = SalesPoint::all();
@@ -39,11 +39,11 @@ class AsignacionTable extends Component
     {
         $asignacion = AsignacionProject::search($this->search)
             ->where('asignacion_projects.project_id', $this->projectId)
-            ->with('user')
-            ->join('users', 'users.id', '=', 'asignacion_projects.user_id')
+            ->with('xplorer')
+            ->join('xplorers', 'xplorers.id', '=', 'asignacion_projects.xplorer_id')
             ->leftJoin('award_projects', 'award_projects.id', '=', 'asignacion_projects.award_project_id')
             ->join('sales_points', 'sales_points.id', '=', 'asignacion_projects.sales_point_id')
-            ->select('asignacion_projects.*', 'users.name', 'users.email', 'sales_points.name', 'award_projects.nombre_premio');
+            ->select('asignacion_projects.*', 'xplorers.name', 'xplorers.email', 'sales_points.name', 'award_projects.nombre_premio');
 
         if (!empty($this->fechaIni)) {
             $asignacion->whereDate('asignacion_projects.fecha_inicio','>=', $this->fechaIni);
@@ -63,7 +63,7 @@ class AsignacionTable extends Component
         return view('livewire.asignacion-table', compact('asignacion'));
     }
 
-    public function sortBy($columnName) 
+    public function sortBy($columnName)
     {
         if ($this->sortColumnName === $columnName) {
             $this->sortDirection = $this->swapSortDirection();
@@ -74,7 +74,7 @@ class AsignacionTable extends Component
         $this->sortColumnName = $columnName;
     }
 
-    public function swapSortDirection() 
+    public function swapSortDirection()
     {
         return $this->sortDirection === 'asc' ? 'desc' : 'asc';
     }

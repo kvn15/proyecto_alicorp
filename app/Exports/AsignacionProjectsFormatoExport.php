@@ -24,13 +24,13 @@ class AsignacionProjectsFormatoExport implements FromCollection, WithStyles, Sho
     public function styles($sheet)
     {
         // Se puede ajustar el ancho de las columnas de manera manual
-        $sheet->getColumnDimension('A')->setWidth(10);  
-        $sheet->getColumnDimension('B')->setWidth(20);  
-        $sheet->getColumnDimension('C')->setWidth(30);  
-        $sheet->getColumnDimension('D')->setWidth(15);  
-        $sheet->getColumnDimension('E')->setWidth(20);  
-        $sheet->getColumnDimension('F')->setWidth(15); 
-        $sheet->getColumnDimension('G')->setWidth(15);  
+        $sheet->getColumnDimension('A')->setWidth(10);
+        $sheet->getColumnDimension('B')->setWidth(20);
+        $sheet->getColumnDimension('C')->setWidth(30);
+        $sheet->getColumnDimension('D')->setWidth(15);
+        $sheet->getColumnDimension('E')->setWidth(20);
+        $sheet->getColumnDimension('F')->setWidth(15);
+        $sheet->getColumnDimension('G')->setWidth(15);
 
         return [
             // También puedes aplicar otros estilos, por ejemplo, al cuerpo de la tabla

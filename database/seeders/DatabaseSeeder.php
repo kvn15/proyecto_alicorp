@@ -25,5 +25,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PointSaleSeeder::class);
         $this->call(MarcaSeeder::class);
         $this->call(XplorerUserSeeder::class);
+        $this->call(CopyDataSeeder::class);
     }
 }

@@ -379,7 +379,7 @@
                                 <div class="mb-2 row">
                                     <label for="prob_no_premio" class="col-sm-4">Probabilidad</label>
                                     <div class="col-sm-8">
-                                        <select name="prob_no_premio" id="prob_no_premio" class="form-select w-100">
+                                        {{-- <select name="prob_no_premio" id="prob_no_premio" class="form-select w-100">
                                             <option value="0" selected>0</option>
                                             <option value="10" selected>10</option>
                                             <option value="15" selected>15</option>
@@ -400,7 +400,9 @@
                                             <option value="90" selected>90</option>
                                             <option value="95" selected>95</option>
                                             <option value="100" selected>100</option>
-                                        </select>
+                                        </select> --}}
+
+                                        <input type="number" name="prob_no_premio" id="prob_no_premio" min="0" max="100" class="form-control" value="${premio.probabilidad}">
                                     </div>
                                 </div>
                             </div>

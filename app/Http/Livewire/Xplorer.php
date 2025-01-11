@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\User;
+use App\Models\Xplorer as ModelsXplorer;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -30,8 +30,7 @@ class Xplorer extends Component
 
     public function render()
     {
-        $xplorer = User::search($this->search)
-        ->where('is_xplorer', 1)
+        $xplorer = ModelsXplorer::search($this->search)
         ->orderBy($this->sortColumnName, $this->sortDirection)->simplePaginate(10);
 
         return view('livewire.xplorer', compact('xplorer'));
@@ -83,7 +82,7 @@ class Xplorer extends Component
 
         try {
 
-            $isDocumento = User::where('is_xplorer', 1)->where('documento', $this->documento)->get();
+            $isDocumento = ModelsXplorer::where('documento', $this->documento)->get();
 
             if (count($isDocumento) > 0) {
                 $this->dispatchBrowserEvent('swal:alert', [
@@ -93,7 +92,7 @@ class Xplorer extends Component
                 return;
             }
 
-            $isCorreo = User::where('is_xplorer', 1)->where('email', $this->email)->get();
+            $isCorreo = ModelsXplorer::where('email', $this->email)->get();
 
             if (count($isCorreo) > 0) {
                 $this->dispatchBrowserEvent('swal:alert', [
@@ -103,7 +102,7 @@ class Xplorer extends Component
                 return;
             }
 
-            $isTelefono = User::where('is_xplorer', 1)->where('telefono', $this->telefono)->get();
+            $isTelefono = ModelsXplorer::where('telefono', $this->telefono)->get();
 
             if (count($isTelefono) > 0 && !empty($this->telefono)) {
                 $this->dispatchBrowserEvent('swal:alert', [
@@ -113,7 +112,7 @@ class Xplorer extends Component
                 return;
             }
 
-            User::create([
+            ModelsXplorer::create([
                 'name' => $this->name,
                 'apellido' => $this->apellido,
                 'tipo_documento' => $this->tipo_documento,
@@ -121,8 +120,7 @@ class Xplorer extends Component
                 'email' => $this->email,
                 'password' => Hash::make($this->password),
                 'telefono' => $this->telefono,
-                'edad' => $this->edad,
-                'is_xplorer' => 1
+                'edad' => $this->edad
             ]);
 
             // resetear
@@ -142,7 +140,7 @@ class Xplorer extends Component
     }
 
     public function findUserById($id) {
-        $user = User::find($id);
+        $user = ModelsXplorer::find($id);
 
         if (!isset($user)) {
             $this->dispatchBrowserEvent('swal:alert', [
@@ -169,7 +167,7 @@ class Xplorer extends Component
 
         try {
 
-            $isDocumento = User::where('is_xplorer', 1)->where('documento', $this->documento)->where('id','<>',$this->idUser)->get();
+            $isDocumento = ModelsXplorer::where('documento', $this->documento)->where('id','<>',$this->idUser)->get();
 
             if (count($isDocumento) > 0) {
                 $this->dispatchBrowserEvent('swal:alert', [
@@ -179,7 +177,7 @@ class Xplorer extends Component
                 return;
             }
 
-            $isCorreo = User::where('is_xplorer', 1)->where('email', $this->email)->where('id','<>',$this->idUser)->get();
+            $isCorreo = ModelsXplorer::where('email', $this->email)->where('id','<>',$this->idUser)->get();
 
             if (count($isCorreo) > 0) {
                 $this->dispatchBrowserEvent('swal:alert', [
@@ -189,7 +187,7 @@ class Xplorer extends Component
                 return;
             }
 
-            $isTelefono = User::where('is_xplorer', 1)->where('telefono', $this->telefono)->where('id','<>',$this->idUser)->get();
+            $isTelefono = ModelsXplorer::where('telefono', $this->telefono)->where('id','<>',$this->idUser)->get();
 
             if (count($isTelefono) > 0 && !empty($this->telefono)) {
                 $this->dispatchBrowserEvent('swal:alert', [
@@ -199,7 +197,7 @@ class Xplorer extends Component
                 return;
             }
 
-            $user = User::find($this->idUser);
+            $user = ModelsXplorer::find($this->idUser);
 
             if (!isset($user)) {
                 $this->dispatchBrowserEvent('swal:alert', [
@@ -233,7 +231,7 @@ class Xplorer extends Component
     }
 
     public function updateStatus($id) {
-        $user = User::find($id);
+        $user = ModelsXplorer::find($id);
 
         if (!isset($user)) {
             $this->dispatchBrowserEvent('swal:alert', [
@@ -251,7 +249,7 @@ class Xplorer extends Component
         // resetear
         $this->resetForm();
 
-        $user = User::find($id);
+        $user = ModelsXplorer::find($id);
 
         if (!isset($user)) {
             $this->dispatchBrowserEvent('swal:alert', [
@@ -278,7 +276,7 @@ class Xplorer extends Component
                 return;
             }
 
-            $user = User::find($this->idUser);
+            $user = ModelsXplorer::find($this->idUser);
 
             if (!isset($user)) {
                 $this->dispatchBrowserEvent('swal:alert', [

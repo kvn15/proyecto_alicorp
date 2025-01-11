@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Xplorer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -30,10 +31,6 @@ class XplorerController extends Controller
 
         $user = auth('xplorer')->user();
 
-        if ($user->is_xplorer == 0) {
-            return back()->with('mensaje', 'Creedenciales Incorrectas');
-        }
-
         return redirect()->route('xplorer.dashboard.juegosCamp');
     }
 
@@ -50,15 +47,15 @@ class XplorerController extends Controller
     }
 
     public function configuracion(){
-        $id = Auth::user()->id;
-        $adminData = User::find($id);
+        $id = Auth::guard('xplorer')->user()->id;
+        $adminData = Xplorer::find($id);
         return view('xplorer.configuracion',compact('adminData'));
     }
 
     public function EditProfile(){
 
-        $id = Auth::user()->id;
-        $editData = User::find($id);
+        $id = Auth::guard('xplorer')->user()->id;
+        $editData = Xplorer::find($id);
         return view('xplorer.configuracion_editar',compact('editData'));
     }
 
@@ -71,9 +68,9 @@ class XplorerController extends Controller
 
         ]);
 
-        $hashedPassword = Auth::user()->password;
+        $hashedPassword = Auth::guard('xplorer')->user()->password;
         if (Hash::check($request->oldpassword,$hashedPassword )) {
-            $users = User::find(Auth::id());
+            $users = Xplorer::find(Auth::guard('xplorer')->id());
             $users->password = bcrypt($request->newpassword);
             $users->save();
             session()->flash('message','La clave fue cambiado con éxito');
@@ -86,8 +83,8 @@ class XplorerController extends Controller
     }
 
     public function StoreProfile(Request $request){
-        $id = Auth::user()->id;
-        $data = User::find($id);
+        $id = Auth::guard('xplorer')->user()->id;
+        $data = Xplorer::find($id);
         $data->name = $request->name;
         $data->apellido = $request->apellido;
         $data->telefono = $request->telefono;
@@ -125,7 +122,7 @@ class XplorerController extends Controller
         ]);
 
         // Buscar el email
-        $xplorer = User::where('email', $request->email)->where('is_xplorer', 1)->first();
+        $xplorer = Xplorer::where('email', $request->email)->first();
 
         if (!$xplorer || empty($xplorer)) {
             return back()->with('mensajeError', 'No hemos encontrado un xplorer registrado con el correo electrónico ingresado. Por favor, verifica la dirección o intenta con otro correo.');
