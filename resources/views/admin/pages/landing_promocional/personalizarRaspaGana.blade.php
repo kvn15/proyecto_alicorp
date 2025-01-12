@@ -1,5 +1,9 @@
 @extends('admin.pages.inicio.layout')
 
+@php
+    $tipoPX = request('type') ?? "pc";
+    $styleTipo = $tipoPX == 'movil' ? 'style_movile' : 'w-100';
+@endphp
 
 @php
     $project = $data["project"];
@@ -16,7 +20,13 @@
 @endsection
 
 @section('header_center')
-<div class="d-flex">
+<div class="d-flex" style="gap: 0.8rem;">
+    <button type="button" class="btn {{ $tipoPX == 'pc' ? 'btn-secondary' : 'btn-outline-secondary' }}" onclick="loadTipoFrame('pc')">
+        <i class="fas fa-desktop"></i>
+    </button>
+    <button type="button" class="btn {{ $tipoPX == 'pc' ? 'btn-outline-secondary' : 'btn-secondary' }}" onclick="loadTipoFrame('movil')">
+        <i class="fas fa-mobile-alt"></i>
+    </button>
 </div>
 @endsection
 
@@ -28,7 +38,6 @@
 
 
 @section('inicio_dash')
-
 @php
 $estiloFont = "";
 switch ($project->tipo_letra) {
@@ -116,13 +125,19 @@ switch ($project->tipo_letra) {
         font-family: var({{$estiloFont}}) !important;
     }
     .container {
-        width: 31em;
+        /* width: 31em;
         height: 31em;
         position: absolute;
         transform: translate(-50%, -50%);
-        top: 57%;
-        left: 50%;
-        border-radius: 0.6em;
+        top: 50%;
+        left: 50%; */
+        /* border-radius: 0.6em; */
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 0.5rem;
     }
     .base,
     #scratch {
@@ -179,7 +194,7 @@ switch ($project->tipo_letra) {
 
     .text-header {
         text-align: center;
-        padding: 2em;
+        /* padding: 2em; */
     }
 
     .text-header img  {
@@ -321,12 +336,71 @@ switch ($project->tipo_letra) {
             color: #fff;
         }
 
-#cardRaspa {
-  width: 450px;
-  height: 450px;
-  position: relative;
-  user-select: none;
-}
+        #cardRaspa {
+            width: 450px;
+            height: 450px;
+            position: relative;
+            user-select: none;
+        }
+
+        .style_movile {
+            width: 450px;
+            height: 850px;
+            margin: 20px 0px;
+            border: 8px solid #444444;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .style_movile .height_game {
+            height: 100%;
+        }
+
+        .style_movile #cardRaspa {
+            width: 340px !important;
+            height: 340px !important;
+        }
+
+        .style_movile .text-header {
+            padding: 5% 0px;
+        }
+
+        .height_game {
+            height: 100vh;
+        }
+
+        #card-raspa {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .style_movile #card-raspa {
+            min-height: 100% !important;
+        }
+
+        .style_movile .content_politicas_terminos  {
+            overflow: auto;
+            padding: 1.5rem !important
+        }
+        .style_movile h1.text_politicas_color, .style_movile h1.text_terminos_color {
+            font-size: 2em;
+        }
+        .style_movile .botonera-terminos {
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .style_movile .botonera-terminos button,
+        .style_movile .botonera-terminos a {
+            font-size: 1.1rem !important;
+        }
+
+        .style_movile #poltica-privacidad, .style_movile #terminos-condiciones {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
 </style>
 
 <script>
@@ -424,7 +498,7 @@ switch ($project->tipo_letra) {
 
 <div class="container-fluid">
     <div class="row">
-        <form id="form-raspa-gana" action="{{ route($tipoJuego."juego2.post.registro.personalizar", $project->id) }}" method="POST" enctype="multipart/form-data" class="col-3 border-end" style="overflow-y: scroll; height: 100vh;">
+        <form id="form-raspa-gana" action="{{ route($tipoJuego."juego2.post.registro.personalizar", $project->id) }}" method="POST" enctype="multipart/form-data" class="col-3 border-end" style="overflow-y: scroll; height: calc(100vh - 57px);">
             @csrf
             @method('POST')
             <div class="d-block" id="menu_edit">
@@ -856,72 +930,79 @@ switch ($project->tipo_letra) {
                 </div>
             </div>
         </form>
-        <div class="col-9 p-0">
-            <div id="juego_casino_raspa" class="juego_casino_raspa" style="background-image: url('{{ $fondo }}'); background-size: cover; height: 100vh; position: relative;">
-                <div id="card-raspa">
-                    <div class="text-header">
-                        <p id="parrafo-header" class="{{ $styleBold }} {{  $italicTitulo }} {{ $styleTamano }} {{ $styleAlineacion }} d-none" style="color: #fff;">{{ $tituloTexto }}</p>
-                        <img id="logo_casino" src="{{ $logo_principal }}" alt=""  style="max-width: 300px; width: 100%;">
-                    </div>
-                    <div class="container">
-                        {{-- <div class="base">
-                            <img id="img-premio" class="img-premio" src="{{ $imgPremio }}" alt="">
+        <div class="col-9 p-0 d-flex justify-content-center" id="game">
+            <div class="{{ $styleTipo }}">
+                <div id="juego_casino_raspa" class="juego_casino_raspa height_game" style="background-image: url('{{ $fondo }}'); background-size: cover; position: relative;">
+                    <div id="card-raspa">
+                        <div class="text-header">
+                            <p id="parrafo-header" class="{{ $styleBold }} {{  $italicTitulo }} {{ $styleTamano }} {{ $styleAlineacion }} d-none" style="color: #fff;">{{ $tituloTexto }}</p>
+                            <img id="logo_casino" src="{{ $logo_principal }}" alt=""  style="max-width: 285px; width: 100%;">
                         </div>
-                        <canvas id="scratch" height="450"></canvas> --}}
-                        <div id="cardRaspa"></div>
-                        <div class="btn_content">
-                            <button type="button" class="btn-memoria d-none" style="background-color: #fff;" id="continar_casino">Continuar</button>
-                        </div>
-                    </div>
-                </div>
-                <div id="card-premio" class="d-none">
-                    <div class="d-flex justify-content-center pt-4 w-100 pb-4">
-                        <img class="img-fluid" src="{{ $titulo_subir }}" alt="" id="img-header-premio" style="max-width: 300px; width: 100%;">
-                    </div>
-                    <div class="d-flex flex-column align-items-center justify-content-center w-100">
-                        <img class="img-fluid " src="{{ $imgPremio }}" alt="" id="premio_img" style="max-width: 400px;">
-                        <h4 class="text-white my-2" style="font-weight: 700;">{{ $namePremio }}</h4>
-                    </div>
-                    <div class="{{ $styleBotones }} justify-content-center" id="btn_content">
-                        <a href="" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }};">IR A REGISTRO</a>
-                        <a href="" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">IR A HOME</a>
-                        {{-- <a href="" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">VOLVER A JUGAR</a> --}}
-                    </div>
-                </div>
-                <div class="container w-100 h-100 d-flex align-items-center d-none" id="poltica-privacidad">
-                    <div class="content_politicas_terminos text-center p-5">
-                        <h1 class="w-75 m-auto text_politicas_color" style="color: {{ $colorPolitica }} !important;border-color: {{ $colorPolitica }} !important;">POLÍTICA DE PRIVACIDAD</h1>
-                        <p class="mt-4 text_politicas_color" id="text_politicas" style="color: {{ $colorPolitica }} !important;">
-                            @php
-                                echo $politicas;
-                            @endphp
-                        </p>
-                        <div class="d-flex justify-content-between mt-5">
-                            <button type="button" class="btn_politicas text-uppercase" id="aceptar_politica" style="background-color: {{ $colorPolitica }} !important;">Aceptar y contnuar</button>
-                            <a href="{{ route('index') }}" class="btn_politicas text-uppercase" style="text-decoration: none; background-color: {{ $colorPolitica }} !important;">No Aceptar y salir</a>
+                        <div class="container">
+                            {{-- <div class="base">
+                                <img id="img-premio" class="img-premio" src="{{ $imgPremio }}" alt="">
+                            </div>
+                            <canvas id="scratch" height="450"></canvas> --}}
+                            <div id="cardRaspa"></div>
+                            <div class="btn_content">
+                                <button type="button" class="btn-memoria d-none" style="background-color: #fff;" id="continar_casino">Continuar</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="container w-100 h-100 d-flex align-items-center d-none" id="terminos-condiciones">
-                    <div class="content_politicas_terminos text-center p-5">
-                        <h1 class="w-75 m-auto text_terminos_color" style="color: {{ $colorTermino }} !important;border-color: {{ $colorTermino }} !important;">TÉRMINOS Y CONDICIONES</h1>
-                        <p class="mt-4 text_terminos_color" id="text_terminos" style="color: {{ $colorTermino }} !important;">
-                            @php
-                                echo $terminos;
-                            @endphp
-                        </p>
-                        <div class="d-flex justify-content-between mt-5">
-                            <button type="submit" class="btn_terminos text-uppercase" id="aceptar_terminos" style="background-color: {{ $colorTermino }} !important;">Aceptar y contnuar</button>
-                            <a href="{{ route('index') }}" class="btn_terminos text-uppercase" style="text-decoration: none; background-color: {{ $colorTermino }} !important;">No Aceptar y salir</a>
+                    <div id="card-premio" class="d-none flex-column align-items-center justify-content-center h-100" style="gap: 1rem;">
+                        <div class="d-flex justify-content-center w-100">
+                            <img class="img-fluid" src="{{ $titulo_subir }}" alt="" id="img-header-premio" style="max-width: 285px; width: 100%;">
+                        </div>
+                        <div class="d-flex flex-column align-items-center justify-content-center w-100">
+                            <img class="img-fluid " src="{{ $imgPremio }}" alt="" id="premio_img" style="max-width: 400px;">
+                            <h4 class="text-white my-2 d-none" style="font-weight: 700;">{{ $namePremio }}</h4>
+                        </div>
+                        <div class="{{ $styleBotones }} justify-content-center" id="btn_content">
+                            <a href="" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }};">IR A REGISTRO</a>
+                            <a href="" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">IR A HOME</a>
+                            {{-- <a href="" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;">VOLVER A JUGAR</a> --}}
+                        </div>
+                    </div>
+                    <div class="container w-100 h-100 d-flex align-items-center d-none" id="poltica-privacidad">
+                        <div class="content_politicas_terminos text-center p-5">
+                            <h1 class="w-75 m-auto text_politicas_color" style="color: {{ $colorPolitica }} !important;border-color: {{ $colorPolitica }} !important;">POLÍTICA DE PRIVACIDAD</h1>
+                            <p class="mt-4 text_politicas_color" id="text_politicas" style="color: {{ $colorPolitica }} !important;">
+                                @php
+                                    echo $politicas;
+                                @endphp
+                            </p>
+                            <div class="d-flex justify-content-between mt-5 botonera-terminos">
+                                <button type="button" class="btn_politicas text-uppercase" id="aceptar_politica" style="background-color: {{ $colorPolitica }} !important;">Aceptar y contnuar</button>
+                                <a href="{{ route('index') }}" class="btn_politicas text-uppercase" style="text-decoration: none; background-color: {{ $colorPolitica }} !important;">No Aceptar y salir</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container w-100 h-100 d-flex align-items-center d-none" id="terminos-condiciones">
+                        <div class="content_politicas_terminos text-center p-5">
+                            <h1 class="w-75 m-auto text_terminos_color" style="color: {{ $colorTermino }} !important;border-color: {{ $colorTermino }} !important;">TÉRMINOS Y CONDICIONES</h1>
+                            <p class="mt-4 text_terminos_color" id="text_terminos" style="color: {{ $colorTermino }} !important;">
+                                @php
+                                    echo $terminos;
+                                @endphp
+                            </p>
+                            <div class="d-flex justify-content-between mt-5 botonera-terminos">
+                                <button type="submit" class="btn_terminos text-uppercase" id="aceptar_terminos" style="background-color: {{ $colorTermino }} !important;">Aceptar y contnuar</button>
+                                <a href="{{ route('index') }}" class="btn_terminos text-uppercase" style="text-decoration: none; background-color: {{ $colorTermino }} !important;">No Aceptar y salir</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
 
+<script>
+    function loadTipoFrame(tipo) {
+        const urlCompleta = window.location.href;
+        window.location.href = urlCompleta.split('?')[0] + "?type=" + tipo;
+    }
+</script>
 
 {{-- <script>
     let canvas = document.getElementById("scratch");
@@ -1099,18 +1180,18 @@ switch ($project->tipo_letra) {
         encabezado.classList.remove('d-none');
 
 
-        card_raspa.classList.remove('d-block');
+        card_raspa.classList.remove('d-flex');
         card_raspa.classList.add('d-none');
-        card_premio.classList.add('d-block');
+        card_premio.classList.add('d-flex');
         card_premio.classList.remove('d-none');
     })
     back_encabezado.addEventListener('click', () => {
         encabezado.classList.remove('d-block');
         encabezado.classList.add('d-none');
 
-        card_premio.classList.remove('d-block');
+        card_premio.classList.remove('d-flex');
         card_premio.classList.add('d-none');
-        card_raspa.classList.add('d-block');
+        card_raspa.classList.add('d-flex');
         card_raspa.classList.remove('d-none');
         retornoMenuEdit();
     })
@@ -1126,7 +1207,7 @@ switch ($project->tipo_letra) {
         politicas.classList.remove('d-none');
         poltica_privacidad.classList.remove('d-none');
 
-        card_raspa.classList.remove('d-block');
+        card_raspa.classList.remove('d-flex');
         card_raspa.classList.add('d-none');
     })
     back_politicas.addEventListener('click', () => {
@@ -1134,7 +1215,7 @@ switch ($project->tipo_letra) {
         politicas.classList.add('d-none');
         poltica_privacidad.classList.add('d-none');
 
-        card_raspa.classList.add('d-block');
+        card_raspa.classList.add('d-flex');
         card_raspa.classList.remove('d-none');
         retornoMenuEdit();
     })
@@ -1150,7 +1231,7 @@ switch ($project->tipo_letra) {
         terminos.classList.remove('d-none');
         terminos_condiciones.classList.remove('d-none');
 
-        card_raspa.classList.remove('d-block');
+        card_raspa.classList.remove('d-flex');
         card_raspa.classList.add('d-none');
     })
     back_terminos.addEventListener('click', () => {
@@ -1158,7 +1239,7 @@ switch ($project->tipo_letra) {
         terminos.classList.add('d-none');
         terminos_condiciones.classList.add('d-none');
 
-        card_raspa.classList.add('d-block');
+        card_raspa.classList.add('d-flex');
         card_raspa.classList.remove('d-none');
         retornoMenuEdit();
     })
@@ -1495,8 +1576,8 @@ switch ($project->tipo_letra) {
         });
 
         $('#continar_casino').on('click', function () {
-            $("#card-premio").removeClass("d-none").addClass('d-block');
-            $("#card-raspa").removeClass("d-block").addClass('d-none');
+            $("#card-premio").removeClass("d-none").addClass('d-flex');
+            $("#card-raspa").removeClass("d-flex").addClass('d-none');
         });
     });
 </script>

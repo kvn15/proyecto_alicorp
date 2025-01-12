@@ -428,7 +428,7 @@
         <div class="content-game d-none" id="juego">
             <div class="header text-center">
                 <h1 class="{{ $styleTamanoGame }} {{ $styleBoldGame }} {{ $italicTituloGame }} {{ $styleAlineacionGame }} d-none" id="titulo_juego" style="color: #fff;">GIRA Y GANA CON</h1>
-                <img style="max-width: 285px;" src="{{ $logo_juego }}" alt="" id="logo_juego">
+                <img style="max-width: 285px; width: 100%;" src="{{ $logo_juego }}" alt="" id="logo_juego">
                 <p id="winner" class="d-none">NONE</p>
             </div>
             <div class="w-100 d-flex justify-content-center">

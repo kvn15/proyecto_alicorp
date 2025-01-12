@@ -1,5 +1,10 @@
 @extends('admin.pages.inicio.layout')
 
+@php
+    $tipoPX = request('type') ?? "pc";
+    $styleTipo = $tipoPX == 'movil' ? 'style_movile' : 'w-100';
+@endphp
+
 
 @php
     $project = $data["project"];
@@ -16,7 +21,13 @@
 @endsection
 
 @section('header_center')
-<div class="d-flex">
+<div class="d-flex" style="gap: 0.8rem;">
+    <button type="button" class="btn {{ $tipoPX == 'pc' ? 'btn-secondary' : 'btn-outline-secondary' }}" onclick="loadTipoFrame('pc')">
+        <i class="fas fa-desktop"></i>
+    </button>
+    <button type="button" class="btn {{ $tipoPX == 'pc' ? 'btn-outline-secondary' : 'btn-secondary' }}" onclick="loadTipoFrame('movil')">
+        <i class="fas fa-mobile-alt"></i>
+    </button>
 </div>
 @endsection
 
@@ -192,24 +203,24 @@
             border-color: #E62020 !important;
             background-color: #E620200D;
         }
-.d-none-2 {
-    display: none;
-}
-.img-subir {
-    position: relative;
-}
-.btn-delete-img {
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    border: 0;
-    background-color: #E62020;
-    color: #fff;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-}
-.content_politicas_terminos {
+    .d-none-2 {
+        display: none;
+    }
+    .img-subir {
+        position: relative;
+    }
+    .btn-delete-img {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        border: 0;
+        background-color: #E62020;
+        color: #fff;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+    }
+    .content_politicas_terminos {
         width: 100%;
         background-color: #ffffffbd;
         color: #d5542e !important;
@@ -245,9 +256,9 @@
 @php
     $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
 @endphp
-<div class="container-fluid" style="min-height: 100vh; overflow: auto;">
+<div class="container-fluid" style="min-height: calc(100vh-57px); overflow: auto;">
     <div class="row">
-        <form id="form-memoria" action="{{ route($tipoJuego."juego.post.registro.personalizar", $project->id) }}" method="POST" enctype="multipart/form-data" class="col-3 border-end" style="overflow-y: scroll; height: 100vh;">
+        <form id="form-memoria" action="{{ route($tipoJuego."juego.post.registro.personalizar", $project->id) }}" method="POST" enctype="multipart/form-data" class="col-3 border-end" style="overflow-y: scroll; min-height: calc(100vh-57px);">
             @csrf
             @method('POST')
             <div class="d-block" id="menu_edit">
@@ -775,7 +786,7 @@
                 </div>
             </div>
         </form>
-        <div class="col-9 p-0 landing_page position-relative" id="juego_memoria" style="height: 100vh;">
+        <div class="col-9 p-0 landing_page position-relative d-flex justify-content-center" id="juego_memoria" style="min-height: calc(100vh-57px);">
 
             @php
                 $estiloFont = "";
@@ -857,6 +868,9 @@
                     width: 100%;
                     height: 100vh;
                     font-family: var({{$estiloFont}}) !important;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
                 }
                 .game {
                     /* position: absolute;
@@ -1013,71 +1027,116 @@
                     color: #d5542e;
                 }
             </style>
-            <div class="juego_memorio_content" id="juego_memorio_content" style="{{ $bgMemoria }} background-size: cover;">
-                <div class="contenido_juego d-block" id="contenido_juego">
-                    <p class="{{ $styleAlineacion }} {{ $styleTamano }} w-100 mt-0 mb-0 pt-2 {{ $styleBold }} {{ $italicTitulo }} d-none" id="parrafo-header" style="color: {{ $color }};">{{ $tituloTexto }}</p>
-                    <div class="d-flex justify-content-center pt-4">
-                        <img class="img-fluid" id="logo_memoria" src="{{ $imgLogo }}" alt="" style="max-width: 300px; width: 100%;">
-                    </div>
-                    <div class="game">
-                        <div class="controls">
-                            <button style="display: none;">Start</button>
-                            <div class="stats" style="display: none;">
-                                <div class="moves">3 intentos</div>
-                                <div class="timer">Time: 0 sec</div>
+            <style>
+                .style_movile {
+                    width: 450px;
+                    height: 840px;
+                    margin: 20px 0px;
+                    border: 8px solid #444444;
+                    border-radius: 20px;
+                    overflow: hidden;
+                }
+
+                .style_movile .juego_memorio_content {
+                    height: 100% !important;
+                }
+
+                .height_memoria {
+                    height: 100vh;
+                }
+
+                .style_movile .board {
+                    grid-template-columns: repeat(3, auto) !important;
+                }
+                .style_movile .content_politicas_terminos  {
+                    overflow: auto;
+                    padding: 1.5rem !important;
+                    height: 100%;
+                }
+                .style_movile h1.text_politicas_color, .style_movile h1.text_terminos_color {
+                    font-size: 2em;
+                }
+                .style_movile .botonera-terminos {
+                    flex-direction: column;
+                    gap: 1rem;
+                }
+                .style_movile .botonera-terminos button,
+                .style_movile .botonera-terminos a {
+                    font-size: 1.1rem !important;
+                }
+
+                .style_movile #poltica-privacidad, .style_movile #terminos-condiciones {
+                    padding-top: 10px;
+                    padding-bottom: 10px;
+                }
+            </style>
+            <div class="{{ $styleTipo }}">
+                <div class="juego_memorio_content" id="juego_memorio_content" style="{{ $bgMemoria }} background-size: cover;">
+                    <div class="contenido_juego d-block" id="contenido_juego">
+                        <p class="{{ $styleAlineacion }} {{ $styleTamano }} w-100 mt-0 mb-0 pt-2 {{ $styleBold }} {{ $italicTitulo }} d-none" id="parrafo-header" style="color: {{ $color }};">{{ $tituloTexto }}</p>
+                        <div class="d-flex justify-content-center pt-2">
+                            <img class="img-fluid" id="logo_memoria" src="{{ $imgLogo }}" alt="" style="max-width: 285px; width: 100%;">
+                        </div>
+                        <div class="game">
+                            <div class="controls">
+                                <button style="display: none;">Start</button>
+                                <div class="stats" style="display: none;">
+                                    <div class="moves">3 intentos</div>
+                                    <div class="timer">Time: 0 sec</div>
+                                </div>
+                                <div class="btn-top error">
+                                    ERRORES: 0
+                                </div>
+                                <div class="btn-top turno">
+                                    TURNOS: 0
+                                </div>
                             </div>
-                            <div class="btn-top error">
-                                ERRORES: 0
-                            </div>
-                            <div class="btn-top turno">
-                                TURNOS: 0
+                            <div class="board-container">
+                                <div class="board" data-dimension="4"></div>
+                                <!-- <div class="win">You won!</div> -->
                             </div>
                         </div>
-                        <div class="board-container">
-                            <div class="board" data-dimension="4"></div>
-                            <!-- <div class="win">You won!</div> -->
+                    </div>
+                    <div class="win-game d-none" id="win-game">
+                        <div class="d-flex justify-content-center pt-2 w-100 mb-3">
+                            <img class="img-fluid" src="{{ $imgLogoPremio }}" alt="" id="img-header-premio" style="max-width: 285px; width: 100%;">
+                        </div>
+                        <div class="d-flex flex-column align-items-center justify-content-center w-100">
+                            <img class="img-fluid mb-2 px-3" src="{{ $imgPremio }}" alt="" id="premio_img" style="max-width: 450px; width: 100%;">
+                            <h4 class="text-white d-none" style="font-weight: 700;" id="h4Premio">{{ $namePremio }}</h4>
+                        </div>
+                        <div class="{{ $styleBotones }} justify-content-center" id="btn_content">
+                            <a href="" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }};">IR A REGISTRO</a>
+                            <a href="" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }};">IR A HOME</a>
+                            {{-- <a href="" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }};">VOLVER A JUGAR</a> --}}
                         </div>
                     </div>
-                </div>
-                <div class="win-game d-none" id="win-game">
-                    <div class="d-flex justify-content-center pt-4 w-100 mb-3">
-                        <img class="img-fluid" src="{{ $imgLogoPremio }}" alt="" id="img-header-premio" style="max-width: 300px; width: 100%;">
-                    </div>
-                    <div class="d-flex flex-column align-items-center justify-content-center w-100">
-                        <img class="img-fluid mb-2" src="{{ $imgPremio }}" alt="" id="premio_img" style="max-width: 370px;">
-                        <h4 class="text-white" style="font-weight: 700;" id="h4Premio">{{ $namePremio }}</h4>
-                    </div>
-                    <div class="{{ $styleBotones }} justify-content-center" id="btn_content">
-                        <a href="" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }};">IR A REGISTRO</a>
-                        <a href="" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }};">IR A HOME</a>
-                        {{-- <a href="" class="btn-memoria" style="background-color: {{ $btnBg }}; color: {{ $btnColor }};">VOLVER A JUGAR</a> --}}
-                    </div>
-                </div>
-                <div class="container h-100 d-flex align-items-center d-none" id="poltica-privacidad">
-                    <div class="content_politicas_terminos text-center p-5">
-                        <h1 class="w-75 m-auto text_politicas_color" style="color: {{ $colorPolitica }} !important;border-color: {{ $colorPolitica }} !important;">POLÍTICA DE PRIVACIDAD</h1>
-                        <p class="mt-4 text_politicas_color" id="text_politicas" style="color: {{ $colorPolitica }} !important;">
-                            @php
-                                echo $politicas;
-                            @endphp
-                        </p>
-                        <div class="d-flex justify-content-between mt-5">
-                            <button type="button" class="btn_politicas text-uppercase" id="aceptar_politica" style="background-color: {{ $colorPolitica }} !important;">Aceptar y contnuar</button>
-                            <a href="{{ route('index') }}" class="btn_politicas text-uppercase" style="text-decoration: none; background-color: {{ $colorPolitica }} !important;">No Aceptar y salir</a>
+                    <div class="container h-100 d-flex align-items-center d-none" id="poltica-privacidad">
+                        <div class="content_politicas_terminos text-center p-5">
+                            <h1 class="w-75 m-auto text_politicas_color" style="color: {{ $colorPolitica }} !important;border-color: {{ $colorPolitica }} !important;">POLÍTICA DE PRIVACIDAD</h1>
+                            <p class="mt-4 text_politicas_color" id="text_politicas" style="color: {{ $colorPolitica }} !important;">
+                                @php
+                                    echo $politicas;
+                                @endphp
+                            </p>
+                            <div class="d-flex justify-content-between mt-5 botonera-terminos">
+                                <button type="button" class="btn_politicas text-uppercase" id="aceptar_politica" style="background-color: {{ $colorPolitica }} !important;">Aceptar y contnuar</button>
+                                <a href="{{ route('index') }}" class="btn_politicas text-uppercase" style="text-decoration: none; background-color: {{ $colorPolitica }} !important;">No Aceptar y salir</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="container h-100 d-flex align-items-center d-none" id="terminos-condiciones">
-                    <div class="content_politicas_terminos text-center p-5">
-                        <h1 class="w-75 m-auto text_terminos_color" style="color: {{ $colorTermino }} !important;border-color: {{ $colorTermino }} !important;">TÉRMINOS Y CONDICIONES</h1>
-                        <p class="mt-4 text_terminos_color" id="text_terminos" style="color: {{ $colorTermino }} !important;">
-                            @php
-                                echo $terminos;
-                            @endphp
-                        </p>
-                        <div class="d-flex justify-content-between mt-5">
-                            <button type="submit" class="btn_terminos text-uppercase" id="aceptar_terminos" style="background-color: {{ $colorTermino }} !important;">Aceptar y contnuar</button>
-                            <a href="{{ route('index') }}" class="btn_terminos text-uppercase" style="text-decoration: none; background-color: {{ $colorTermino }} !important;">No Aceptar y salir</a>
+                    <div class="container h-100 d-flex align-items-center d-none" id="terminos-condiciones">
+                        <div class="content_politicas_terminos text-center p-5">
+                            <h1 class="w-75 m-auto text_terminos_color" style="color: {{ $colorTermino }} !important;border-color: {{ $colorTermino }} !important;">TÉRMINOS Y CONDICIONES</h1>
+                            <p class="mt-4 text_terminos_color" id="text_terminos" style="color: {{ $colorTermino }} !important;">
+                                @php
+                                    echo $terminos;
+                                @endphp
+                            </p>
+                            <div class="d-flex justify-content-between mt-5 botonera-terminos">
+                                <button type="submit" class="btn_terminos text-uppercase" id="aceptar_terminos" style="background-color: {{ $colorTermino }} !important;">Aceptar y contnuar</button>
+                                <a href="{{ route('index') }}" class="btn_terminos text-uppercase" style="text-decoration: none; background-color: {{ $colorTermino }} !important;">No Aceptar y salir</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1085,6 +1144,12 @@
         </div>
     </div>
 </div>
+<script>
+    function loadTipoFrame(tipo) {
+        const urlCompleta = window.location.href;
+        window.location.href = urlCompleta.split('?')[0] + "?type=" + tipo;
+    }
+</script>
 <script defer>
 
     let itemCard = [
