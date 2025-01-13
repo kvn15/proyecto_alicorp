@@ -8,9 +8,11 @@ use App\Models\PremioPdv;
 use App\Models\SalesPoint;
 use App\Models\Xplorer;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use Illuminate\Support\Str;
 
 class AsignacionProjectsImport implements ToModel, WithHeadingRow
 {
@@ -28,9 +30,9 @@ class AsignacionProjectsImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         // buscar nombre de xplorer
-        $xplorer = Xplorer::where('name', $row['xplorer'])->first();
-        $sales_point = SalesPoint::where('name', $row['punto_venta'])->first();
-        $award_project = AwardProject::where('project_id', $this->project_id)->where('nombre_premio', $row['premio'])->first();
+        $xplorer = Xplorer::where(DB::raw('LOWER(name)'), Str::lower($row['xplorer']))->first();
+        $sales_point = SalesPoint::where(DB::raw('LOWER(name)'), Str::lower($row['punto_venta']))->first();
+        $award_project = AwardProject::where('project_id', $this->project_id)->where(DB::raw('LOWER(nombre_premio)'),  Str::lower($row['premio']))->first();
 
         // Verificar si las variables existen antes de acceder a sus propiedades
         if (!$xplorer) {
@@ -79,7 +81,7 @@ class AsignacionProjectsImport implements ToModel, WithHeadingRow
                 'project_id' => $this->project_id,
                 'fecha_inicio' => $this->convertDate($row['fecha_inicio']),
                 'fecha_fin' => $this->convertDate($row['fecha_fin']),
-                'user_id' => $xplorer->id,
+                'xplorer_id' => $xplorer->id,
                 'sales_point_id' => $sales_point->id,
                 'award_project_id' => null,
                 'qty_premio' => null,
