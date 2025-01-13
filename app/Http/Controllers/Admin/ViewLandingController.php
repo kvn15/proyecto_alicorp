@@ -99,6 +99,7 @@ class ViewLandingController extends Controller
         $pagina_principal = [
             'distribucion' => $request["distribucion"],
             'banner_subir' => '',
+            'banner_celular_subir' => '',
             'fondo_landing' => $request["fondo_landing"],
             'bold-titulo-header' => isset($request['bold-titulo-header']) ? 1 : 0,
             'italic-titulo-header' => isset($request['italic-titulo-header']) ? 1 : 0,
@@ -240,6 +241,7 @@ class ViewLandingController extends Controller
             }
             $rutaBanner = "";
         }
+
         // Almacenar la imagen en el directorio deseado
         if ($request->hasFile('banner-subir')) {
             // // Obtener la ruta de la imagen
@@ -258,6 +260,42 @@ class ViewLandingController extends Controller
         $principalBanner= isset($existLanding) &&  json_decode($existLanding->pagina_principal, true);
         $pagina_principal["banner_subir"] = $request['banner-subir-url'] != null && isset($existLanding) && isset($encabezadoBanner) && !empty($encabezadoBanner["banner_subir"] ) && !$request->hasFile('banner-subir') ? $encabezadoBanner["banner_subir"] : $rutaBanner;
 
+
+        // banner_celular_subir
+        $rutaBanner_celular = '';
+        $encabezadoBanner_celular = isset($existLanding->pagina_principal) ? json_decode($existLanding->pagina_principal, true) : null;
+
+
+        if ($request['banner_celular-subir-url'] == null && isset($existLanding) && isset($encabezadoBanner_celular) && !empty($encabezadoBanner_celular["banner_celular_subir"] ) ) {
+            // Obtener la ruta de la imagen
+            $rutaBanner_celularM = public_path($encabezadoBanner_celular["banner_celular_subir"]); // Suponiendo que la ruta está almacenada en 'ruta'
+
+            // Eliminar el archivo del sistema
+            if (!empty($encabezadoBanner_celular["banner_celular_subir"]) && !empty($encabezadoBanner_celular["banner_celular_subir"]) && file_exists($rutaBanner_celularM)) {
+                unlink($rutaBanner_celularM); // Eliminar el archivo
+            }
+            $rutaBanner_celular = "";
+        }
+
+        // Almacenar la imagen en el directorio deseado
+        if ($request->hasFile('banner_celular-subir')) {
+            // // Obtener la ruta de la imagen
+            if (isset($existLanding)) {
+                // Obtener la ruta de la imagen
+                if (isset($encabezadoBanner_celular["banner_celular_subir"])) {
+                    $rutaBanner_celularM = public_path($encabezadoBanner_celular["banner_celular_subir"]); // Suponiendo que la ruta está almacenada en 'ruta'
+                }
+
+                // Eliminar el archivo del sistema
+                if (!empty($encabezadoBanner_celular["banner_celular_subir"]) && !empty($encabezadoBanner_celular["banner_celular_subir"]) && file_exists($rutaBanner_celularM)) {
+                    unlink($rutaBanner_celularM); // Eliminar el archivo
+                }
+            }
+
+            $rutaBanner_celular = $request->file('banner_celular-subir')->store('banner', 'public'); // Almacena en storage/app/public/imagenes
+        }
+        $principalBanner_celular= isset($existLanding) &&  json_decode($existLanding->pagina_principal, true);
+        $pagina_principal["banner_celular_subir"] = $request['banner_celular-subir-url'] != null && isset($existLanding) && isset($encabezadoBanner_celular) && !empty($encabezadoBanner_celular["banner_celular_subir"] ) && !$request->hasFile('banner_celular-subir') ? $encabezadoBanner_celular["banner_celular_subir"] : $rutaBanner_celular;
 
         /// imagen-subir
         $rutaImagen = '';

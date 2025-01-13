@@ -2,6 +2,12 @@
     $project = $data["project"];
     $landing = $data["landing"];
 @endphp
+
+@php
+    $tipoPX = request('type') ?? "pc";
+    $styleTipo = $tipoPX == 'movil' ? 'style_movile' : 'w-100';
+@endphp
+
 @extends('admin.pages.inicio.layout')
 
 
@@ -10,7 +16,13 @@
 @endsection
 
 @section('header_center')
-<div class="d-flex">
+<div class="d-flex" style="gap: 0.8rem;">
+    <button type="button" class="btn {{ $tipoPX == 'pc' ? 'btn-secondary' : 'btn-outline-secondary' }}" onclick="loadTipoFrame('pc')">
+        <i class="fas fa-desktop"></i>
+    </button>
+    <button type="button" class="btn {{ $tipoPX == 'pc' ? 'btn-outline-secondary' : 'btn-secondary' }}" onclick="loadTipoFrame('movil')">
+        <i class="fas fa-mobile-alt"></i>
+    </button>
 </div>
 @endsection
 
@@ -396,6 +408,13 @@
             $pagina_principal = isset($landing->pagina_principal) && !empty($landing->pagina_principal) ? json_decode($landing->pagina_principal, true) : null;
             $banner_subir = $pagina_principal && !empty($pagina_principal["banner_subir"]) ? '/storage/'.$pagina_principal["banner_subir"] : $imgNulo;
             $banner_subir_url = $pagina_principal && !empty($pagina_principal["banner_subir"]) ? '/storage/'.$pagina_principal["banner_subir"] : "";
+
+
+            $banner_celular_subir = $pagina_principal && !empty($pagina_principal["banner_celular_subir"]) ? '/storage/'.$pagina_principal["banner_celular_subir"] : $imgNulo;
+            $banner_celular_subir_url = $pagina_principal && !empty($pagina_principal["banner_celular_subir"]) ? '/storage/'.$pagina_principal["banner_celular_subir"] : "";
+
+            $baner_fondo_url  = $tipoPX == 'movil' ? $banner_celular_subir : $banner_subir;
+
             $fondo_landing = $pagina_principal && !empty($pagina_principal["fondo_landing"]) ? $pagina_principal["fondo_landing"] : '#000000';
 
             $bold_titulo_header = $pagina_principal && $pagina_principal["bold-titulo-header"] == 1 ? "checked" : "";
@@ -507,6 +526,27 @@
                             <input hidden type="file" name="banner-subir" id="banner-subir">
                             <input type="hidden" name="banner-subir-url" id="banner-subir-url" value="{{ $banner_subir_url }}">
                             <input type="text" class="data_value" value="header" hidden>
+                        </div>
+                    </li>
+                    <li>
+                        <p class="mb-2">Banner Celular</p>
+                        <div class="img-subir">
+                            <button type="button" class="btn-delete-img">X</button>
+                            <label for="banner_celular-subir">
+                                <div class="cursor">
+                                    <div id="upload-banner_celular" class="{{ isset($banner_celular_subir_url) && !empty($banner_celular_subir_url) ? 'd-none' : '' }} upload_img">
+                                        <img src="{{asset('backend/svg/ssubir.svg')}}" alt="">
+                                        <h6>Click para Actualizar</h6>
+                                        <p>PNG, JPG (max. 540x600 px)</p>
+                                    </div>
+                                    <div>
+                                        <img class="img-fluid" id="preview-banner_celular" src="{{ $banner_celular_subir_url }}">
+                                    </div>
+                                </div>
+                            </label>
+                            <input hidden type="file" name="banner_celular-subir" id="banner_celular-subir">
+                            <input type="hidden" name="banner_celular-subir-url" id="banner_celular-subir-url" value="{{ $banner_celular_subir_url }}">
+
                         </div>
                     </li>
                     <li class="my-2">
@@ -1540,7 +1580,7 @@
             </div>
         </div>
     </form>
-    <div class="col-9 p-0" id="landing_page" style="overflow-y: scroll; height: 100vh;">
+    <div class="col-9 p-0 d-flex justify-content-center" id="landing_page" style="overflow-y: scroll; height: 100vh;">
 
         @php
         $estiloFont = "";
@@ -1636,6 +1676,7 @@
                 color: var(--color-text1) !important;
                 background-color: var(--landing);
                 font-family: var({{$estiloFont}}) !important;
+
             }
 
             .nav-landing {
@@ -1893,297 +1934,366 @@
                 box-shadow: inset 0 calc(-1 * 1px) 0 var(--border-participar);
             }
         </style>
-        <div class="landing_page position-relative">
-            <div class="w-100 nav-landing nav-position px-5" id="nav-landing" style="background-color: {{ $color_menu }} !important;">
-                <div class="row">
-                    <div class="col-12">
-                        <nav class="navbar navbar-expand-lg">
-                            <div class="container-fluid">
-                                <a class="navbar-brand" href="#">
-                                    <img src="{{$logo_subir}}" alt="Bootstrap" id="logo-nav" style="width: 100px;">
-                                </a>
-                                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                    aria-expanded="false" aria-label="Toggle navigation">
-                                    <i class="fas fa-bars" style="color: #fff;"></i>
-                                </button>
-                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                    @php
-                                        $dominio = isset($project->dominio) ? $project->dominio : '';
-                                        $terminosView = route("terminos", $dominio);
+        <style>
+            .style_movile {
+                width: 450px;
+                height: 850px;
+                margin: 20px 0px;
+                border: 8px solid #444444;
+                border-radius: 20px;
+                overflow-y: auto;
+            }
 
-                                        $target_1 = isset($direccionar_1) && $direccionar_1 == '#terminos_condiciones' ? '_blank' : '';
-                                        $target_2 = isset($direccionar_2) && $direccionar_2 == '#terminos_condiciones' ? '_blank' : '';
-                                        $target_3 = isset($direccionar_3) && $direccionar_3 == '#terminos_condiciones' ? '_blank' : '';
-                                        $target_4 = isset($direccionar_4) && $direccionar_4 == '#terminos_condiciones' ? '_blank' : '';
+            .style_movile .navbar-expand-lg {
+                flex-wrap: wrap;
+            }
+            .style_movile .navbar-expand-lg .navbar-nav {
+                flex-direction: column;
+            }
 
-                                        $direccionar_1 = isset($direccionar_1) ? ($direccionar_1 == '#terminos_condiciones' ? $terminosView : $direccionar_1) : '';
-                                        $direccionar_2 = isset($direccionar_2) ? ($direccionar_2 == '#terminos_condiciones' ? $terminosView : $direccionar_2) : '';
-                                        $direccionar_3 = isset($direccionar_3) ? ($direccionar_3 == '#terminos_condiciones' ? $terminosView : $direccionar_3) : '';
-                                        $direccionar_4 = isset($direccionar_4) ? ($direccionar_4 == '#terminos_condiciones' ? $terminosView : $direccionar_4) : '';
-                                    @endphp
-                                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex" style="gap: 3rem;">
-                                        <li class="nav-item">
-                                            <a class="navegacion_1_menu nav-link active item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" aria-current="page"  target="{{ $target_1 }}" href="{{ $direccionar_1 }}" id="{{ $direccionar_1 }}">{{ $navegacion_1 }}</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="navegacion_2_menu nav-link item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" target="{{ $target_2 }}" href="{{ $direccionar_2 }}" id="{{ $direccionar_2 }}">{{ $navegacion_2 }}</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="navegacion_3_menu nav-link item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" target="{{ $target_3 }}" href="{{ $direccionar_3 }}" id="{{ $direccionar_3 }}">{{ $navegacion_3 }}</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="navegacion_4_menu nav-link item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" target="{{ $target_4 }}" href="{{ $direccionar_4 }}" id="{{ $direccionar_4 }}">{{ $navegacion_4 }}</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-            <div class="w-100">
-                <header id="header" class="w-100" style="background-image: url({{$banner_subir}});">
-                    <div style="width: 100%; height: 500px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                        {{-- <img class="img-fluid" src="{{$imagen_subir}}" alt="" id="imagen-header"> --}}
-                        <p class="{{ $stylealineacionTitulo }} {{ $styleTamanoTituloHeader }} w-100 {{ $bold_titulo_header_style }} {{ $italic_titulo_header_style }}" id="titulo_header">{{ $input_titulo_header }}</p>
-                        <p class="{{ $stylealineacionTexto }} {{ $styletamanoTextoHeader }} w-100 {{ $bold_titulo_parrafo_style }} {{ $italic_titulo_parrafo_style }}" id="parrafo-header" style="color: {{ $color_texto }};">{{ $input_texto_header }}</p>
-                    </div>
-                    <div style="width: 100%; height: 100px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                        <a href="{{ $direccionar_boton_header }}" class="btns btn-landing {{ $styletamanoBotonHeader }} {{ $bold_boton_parrafo_style }} {{ $italic_boton_parrafo_style }} {{ $stylealineacionbtnParticipar }}" id="btn_participar_header" style="background-color: {{ $color_boton_header }};">{{ $titulo_boton_header }}</a>
-                    </div>
-                </header>
-                <div class="pt-5" id="participar">
-                    <section>
-                        <h1 class="text-center title-participar {{ $bold_titulo_como_style }} {{ $italic_titulo_como_style }} {{ $styletamanoTituloComo }}" id="title_como" style="color: {{ $color_titulo_como }} !important;">{{ $input_titulo_como }}</h1>
-                        <div class="aside-row">
-                            <aside class="col-12 col-md-6 col-lg-4 item-participar">
-                                <img class="img-fluid" src="{{$participar_1}}" alt="" id="item_participar_1">
-                            </aside>
-                            <aside class="col-12 col-md-6 col-lg-4 item-participar">
-                                <img class="img-fluid" src="{{$participar_2}}" alt="" id="item_participar_2">
-                            </aside>
-                            <aside class="col-12 col-md-6 col-lg-4 item-participar">
-                                <img class="img-fluid" src="{{$participar_3}}" alt="" id="item_participar_3">
-                            </aside>
-                        </div>
-                        <button class="btns btn-landing {{ $styletamanoBotonComo }} {{ $bold_boton_como_style }} {{ $italic_boton_como_style }}" id="btn-como" style="background-color: {{ $color_boton_como }} !important;">{{ $input_buttom_como }}</button>
-                    </section>
-                </div>
-                <div class="mt-5" id="formulario-participar">
-                    <section style="border-color: {{ $border_formulario }} !important;">
-                        <h1 class="text-center title-participar {{ $styletamanoTituloFormulario }} {{ $bold_titulo_formulario_style }} {{ $italic_titulo_formulario_style }}" id="title_formulario_participar" style="color: {{ $color_titulo_formulario }};">{{ $input_titulo_formulario }}</h1>
-                        <form class="row">
-                            <div class="col-12 col-md-6 mb-3">
-                                <label for="name" class="label_form" style="color: {{ $color_label_formulario }} !important;">Nombre</label>
-                                <input type="text" class="form-control input-text">
-                            </div>
-                            <div class="col-12 col-md-6 mb-3">
-                                <label for="name" class="label_form" style="color: {{ $color_label_formulario }} !important;">Apellido</label>
-                                <input type="text" class="form-control input-text">
-                            </div>
-                            <div class="col-12 col-md-6 mb-3">
-                                <label for="name" class="label_form" style="color: {{ $color_label_formulario }} !important;">Tipo de documento</label>
-                                <input type="text" class="form-control input-text">
-                            </div>
-                            <div class="col-12 col-md-6 mb-3">
-                                <label for="name" class="label_form" style="color: {{ $color_label_formulario }} !important;">N° de documento</label>
-                                <input type="text" class="form-control input-text">
-                            </div>
-                            <div class="col-12 col-md-6 mb-3">
-                                <label for="name" class="label_form" style="color: {{ $color_label_formulario }} !important;">Edad (*Mayores de 18 años)</label>
-                                <input type="text" class="form-control input-text">
-                            </div>
-                            <div class="col-12 col-md-6 mb-3">
-                                <label for="name" class="label_form" style="color: {{ $color_label_formulario }} !important;">N° telefónico</label>
-                                <input type="text" class="form-control input-text">
-                            </div>
-                            <div class="col-12 col-md-6 mb-3">
-                                <label for="name" class="label_form" style="color: {{ $color_label_formulario }} !important;">Correo Electronico</label>
-                                <input type="email" class="form-control input-text">
-                            </div>
-                            <div class="col-12 col-md-6 mb-3">
-                                <label for="name" class="label_form" style="color: {{ $color_label_formulario }} !important;">N° de LOTE + foto de producto</label>
-                                <input type="text" class="form-control input-text">
-                                <input type="file" name="" id="" class="form-control mt-2">
-                            </div>
+            @media (min-width: 992px) {
+                .style_movile .navbar-expand-lg .navbar-collapse {
+                    display: block;
+                    flex-basis: auto;
+                }
+            }
 
-                            <div class="col-12 row mt-3">
-                                <div class="form-check col-12 col-md-6 col-lg-4">
-                                    <input class="form-check-input" type="checkbox" name="termino_condicion" id="termino_condicion">
-                                    <label class="form-check-label label_form" for="termino_condicion " style="color: {{ $color_label_formulario }} !important;">
-                                        Acepto terminos y condiciones
-                                    </label>
+            .style_movile .navbar-expand-lg .navbar-toggler {
+                display: block !important;
+            }
+            .w-100.style_web .collapse {
+                display: block !important;
+            }
+
+            .style_movile .nav-link {
+                padding-left: 0 !important;
+            }
+            .style_movile section {
+                padding: 2em 1em;
+            }
+
+            .style_movile .aside-row {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 1em;
+            }
+
+            .style_movile .aside-row .item-participar img {
+                width: 100%;
+                height: 100%;
+            }
+
+            .style_movile #participar .btn-landing {
+                font-size: 14px;
+            }
+
+            .style_movile #formulario-participar .row {
+                display: grid;
+                grid-template-columns: 1fr;
+            }
+            .style_movile #formulario-participar .row div {
+                width: 100%;
+            }
+        </style>
+        <div class="style_web {{ $styleTipo }}" id="content_web_landing">
+            <div class="landing_page position-relative">
+                <div class="w-100 nav-landing nav-position px-5" id="nav-landing" style="background-color: {{ $color_menu }} !important;">
+                    <div class="row">
+                        <div class="col-12">
+                            <nav class="navbar navbar-expand-lg">
+                                <div class="container-fluid">
+                                    <a class="navbar-brand" href="#">
+                                        <img src="{{$logo_subir}}" alt="Bootstrap" id="logo-nav" style="width: 100px;">
+                                    </a>
+                                    <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" id="btnNav">
+                                        <i class="fas fa-bars" style="color: #fff;" aria-hidden="true"></i>
+                                    </button>
+                                    <div class="collapse" id="navbarSupportedContent">
+                                        @php
+                                            $dominio = isset($project->dominio) ? $project->dominio : '';
+                                            $terminosView = route("terminos", $dominio);
+
+                                            $target_1 = isset($direccionar_1) && $direccionar_1 == '#terminos_condiciones' ? '_blank' : '';
+                                            $target_2 = isset($direccionar_2) && $direccionar_2 == '#terminos_condiciones' ? '_blank' : '';
+                                            $target_3 = isset($direccionar_3) && $direccionar_3 == '#terminos_condiciones' ? '_blank' : '';
+                                            $target_4 = isset($direccionar_4) && $direccionar_4 == '#terminos_condiciones' ? '_blank' : '';
+
+                                            $direccionar_1 = isset($direccionar_1) ? ($direccionar_1 == '#terminos_condiciones' ? $terminosView : $direccionar_1) : '';
+                                            $direccionar_2 = isset($direccionar_2) ? ($direccionar_2 == '#terminos_condiciones' ? $terminosView : $direccionar_2) : '';
+                                            $direccionar_3 = isset($direccionar_3) ? ($direccionar_3 == '#terminos_condiciones' ? $terminosView : $direccionar_3) : '';
+                                            $direccionar_4 = isset($direccionar_4) ? ($direccionar_4 == '#terminos_condiciones' ? $terminosView : $direccionar_4) : '';
+                                        @endphp
+                                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex" style="gap: 3rem;">
+                                            <li class="nav-item">
+                                                <a class="navegacion_1_menu nav-link active item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" aria-current="page"  target="{{ $target_1 }}" href="{{ $direccionar_1 }}" id="{{ $direccionar_1 }}">{{ $navegacion_1 }}</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="navegacion_2_menu nav-link item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" target="{{ $target_2 }}" href="{{ $direccionar_2 }}" id="{{ $direccionar_2 }}">{{ $navegacion_2 }}</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="navegacion_3_menu nav-link item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" target="{{ $target_3 }}" href="{{ $direccionar_3 }}" id="{{ $direccionar_3 }}">{{ $navegacion_3 }}</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="navegacion_4_menu nav-link item_landing_menu {{ $bold_menu_style }} {{ $italic_menu_style }} {{ $styleTamanoMenu }}" target="{{ $target_4 }}" href="{{ $direccionar_4 }}" id="{{ $direccionar_4 }}">{{ $navegacion_4 }}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="form-check col-12 col-md-6 col-lg-4">
-                                    <input class="form-check-input" type="checkbox" name="datos_web" id="datos_web">
-                                    <label class="form-check-label label_form" for="datos_web" style="color: {{ $color_label_formulario }} !important;">
-                                        Deseo usar mis datos para crear un usuario en plataforma web
-                                    </label>
-                                </div>
-                                <div class="form-check col-12 col-md-6 col-lg-4">
-                                    <input class="form-check-input" type="checkbox" name="politica_privacidad" id="politica_privacidad">
-                                    <label class="form-check-label label_form" for="politica_privacidad" style="color: {{ $color_label_formulario }} !important;">
-                                        Acepto política de privacidad de datos
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-12 mt-3 d-flex justify-content-center">
-                                <button type="submit" class="btns btn-participar {{ $styletamanoBotonFormulario }} {{ $bold_boton_formulario_style }} {{ $italic_boton_formulario_style }}" id="btn-formulario" style="background-color: {{ $color_boton_formulario }} !important;">{{ $input_buttom_formulario }}</button>
-                            </div>
-                        </form>
-                    </section>
-                </div>
-                <div class="mt-5"  id="ganadores">
-                    <section style="border-color: {{ $border_ganador }} !important;">
-                        <h1 class="text-center title-participar {{ $bold_titulo_ganador_style }} {{ $italic_titulo_ganador_style }} {{ $styletamanoTituloGanador }}" id="ganador-title" style="color: {{ $color_titulo_ganador }} !important;">{{ $input_titulo_ganador }}</h1>
-                        <div class="w-100 table-responsive">
-                            <table class="table table-borderless" id="lista_ganador">
-                                <thead>
-                                    <tr>
-                                        <th>N° de documento</th>
-                                        <th>Nombres</th>
-                                        <th>Premio</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>15547569</td>
-                                        <td>Lorem Ipsu brsss</td>
-                                        <td>Articulo 1</td>
-                                    </tr>
-                                    <tr>
-                                        <td>15547569</td>
-                                        <td>Lorem Ipsu brsss</td>
-                                        <td>Articulo 1</td>
-                                    </tr>
-                                    <tr>
-                                        <td>15547569</td>
-                                        <td>Lorem Ipsu brsss</td>
-                                        <td>Articulo 1</td>
-                                    </tr>
-                                    <tr>
-                                        <td>15547569</td>
-                                        <td>Lorem Ipsu brsss</td>
-                                        <td>Articulo 1</td>
-                                    </tr>
-                                    <tr>
-                                        <td>15547569</td>
-                                        <td>Lorem Ipsu brsss</td>
-                                        <td>Articulo 1</td>
-                                    </tr>
-                                    <tr>
-                                        <td>15547569</td>
-                                        <td>Lorem Ipsu brsss</td>
-                                        <td>Articulo 1</td>
-                                    </tr>
-                                    <tr>
-                                        <td>15547569</td>
-                                        <td>Lorem Ipsu brsss</td>
-                                        <td>Articulo 1</td>
-                                    </tr>
-                                    <tr>
-                                        <td>15547569</td>
-                                        <td>Lorem Ipsu brsss</td>
-                                        <td>Articulo 1</td>
-                                    </tr>
-                                    <tr>
-                                        <td>15547569</td>
-                                        <td>Lorem Ipsu brsss</td>
-                                        <td>Articulo 1</td>
-                                    </tr>
-                                    <tr>
-                                        <td>15547569</td>
-                                        <td>Lorem Ipsu brsss</td>
-                                        <td>Articulo 1</td>
-                                    </tr>
-                                    <tr>
-                                        <td>15547569</td>
-                                        <td>Lorem Ipsu brsss</td>
-                                        <td>Articulo 1</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            </nav>
                         </div>
-                    </section>
-                </div>
-                <div class="mt-5" id="preguntas-frecuentes">
-                    <section style="border-color: {{ $border_pregunta }} !important;">
-                        <h1 class="text-center title-participar {{ $bold_titulo_pregunta_style }} {{ $italic_titulo_pregunta_style }} {{ $styletamanoTituloPregunta }}" id="pregunta-title" style="color: {{ $color_titulo_pregunta }} !important;">{{ $input_titulo_pregunta }}</h1>
-                        <div class="w-100">
-                            <div class="accordion" id="accordionExample">
-                                <div class="accordion-item" style="border-color: {{ $color_border_pregunta }} !important;">
-                                    <h2 class="accordion-header">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
-                                    id="pregunta-1-landing" style="color: {{ $color_text_pregunta }} !important;">
-                                    {{ $pregunta1 }}
-                                    </button>
-                                    </h2>
-                                    <div id="collapseOne" class="accordion-collapse collapse show">
-                                    <div class="accordion-body" id="respuesta-1-landing" style="color: {{ $color_text_pregunta }} !important;">
-                                        {{ $respuesta1 }}
-                                    </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item" style="border-color: {{ $color_border_pregunta }} !important;">
-                                    <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" id="pregunta-2-landing" style="color: {{ $color_text_pregunta }} !important;">
-                                        {{ $pregunta2 }}
-                                    </button>
-                                    </h2>
-                                    <div id="collapseTwo" class="accordion-collapse collapse">
-                                    <div class="accordion-body" id="respuesta-2-landing" style="color: {{ $color_text_pregunta }} !important;">
-                                        {{ $respuesta2 }}
-                                    </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item" style="border-color: {{ $color_border_pregunta }} !important;">
-                                    <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" id="pregunta-3-landing" style="color: {{ $color_text_pregunta }} !important;">
-                                        {{ $pregunta3 }}
-                                    </button>
-                                    </h2>
-                                    <div id="collapseThree" class="accordion-collapse collapse">
-                                    <div class="accordion-body"  id="respuesta-3-landing" style="color: {{ $color_text_pregunta }} !important;">
-                                        {{ $respuesta3 }}
-                                    </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item" style="border-color: {{ $color_border_pregunta }} !important;">
-                                    <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" id="pregunta-4-landing" style="color: {{ $color_text_pregunta }} !important;">
-                                        {{ $pregunta4 }}
-                                    </button>
-                                    </h2>
-                                    <div id="collapseFour" class="accordion-collapse collapse">
-                                    <div class="accordion-body"  id="respuesta-4-landing" style="color: {{ $color_text_pregunta }} !important;">
-                                        {{ $respuesta4 }}
-                                    </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-                <div class="w-100 pb-5" id="redes">
-                <footer>
-                    <h1 class="text-center title-participar mb-5 {{ $styletamanoTituloRedes }} {{ $bold_titulo_redes_style }} {{ $italic_titulo_redes_style }}" id="redes-title" style="color: {{ $color_titulo_redes }} !important;">{{ $input_titulo_redes }}</h1>
-                    <div class="d-flex justify-content-center" id="landing_redes">
-                        {{-- <a href=""> --}}
-                            {{-- <i class="fab fa-facebook" style="font-size: 3.2rem;color: #fbbb01 !important;"></i>
-                            <i class="fab fa-instagram" style="font-size: 3.2rem;color: #fbbb01 !important;"></i>
-                            <i class="fab fa-linkedin" style="font-size: 3.2rem;color: #fbbb01 !important;"></i>
-                            <i class="fab fa-twitter" style="font-size: 3.2rem;color: #fbbb01 !important;"></i>
-                            <i class="fab fa-google" style="font-size: 3.2rem;color: #fbbb01 !important;"></i>
-                            <i class="fab fa-youtube" style="font-size: 3.2rem;color: #fbbb01 !important;"></i> --}}
-                        {{-- </a> --}}
                     </div>
-                </footer>
+                </div>
+                <div class="w-100">
+                    <header id="header" class="w-100" style="background-image: url({{$baner_fondo_url}});">
+                        <div style="width: 100%; height: 500px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                            {{-- <img class="img-fluid" src="{{$imagen_subir}}" alt="" id="imagen-header"> --}}
+                            <p class="{{ $stylealineacionTitulo }} {{ $styleTamanoTituloHeader }} w-100 {{ $bold_titulo_header_style }} {{ $italic_titulo_header_style }}" id="titulo_header">{{ $input_titulo_header }}</p>
+                            <p class="{{ $stylealineacionTexto }} {{ $styletamanoTextoHeader }} w-100 {{ $bold_titulo_parrafo_style }} {{ $italic_titulo_parrafo_style }}" id="parrafo-header" style="color: {{ $color_texto }};">{{ $input_texto_header }}</p>
+                        </div>
+                        <div style="width: 100%; height: 100px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                            <a href="{{ $direccionar_boton_header }}" class="btns btn-landing {{ $styletamanoBotonHeader }} {{ $bold_boton_parrafo_style }} {{ $italic_boton_parrafo_style }} {{ $stylealineacionbtnParticipar }}" id="btn_participar_header" style="background-color: {{ $color_boton_header }};">{{ $titulo_boton_header }}</a>
+                        </div>
+                    </header>
+                    <div class="pt-5" id="participar">
+                        <section>
+                            <h1 class="text-center title-participar {{ $bold_titulo_como_style }} {{ $italic_titulo_como_style }} {{ $styletamanoTituloComo }}" id="title_como" style="color: {{ $color_titulo_como }} !important;">{{ $input_titulo_como }}</h1>
+                            <div class="aside-row">
+                                <aside class="col-12 col-md-6 col-lg-4 item-participar">
+                                    <img class="img-fluid" src="{{$participar_1}}" alt="" id="item_participar_1">
+                                </aside>
+                                <aside class="col-12 col-md-6 col-lg-4 item-participar">
+                                    <img class="img-fluid" src="{{$participar_2}}" alt="" id="item_participar_2">
+                                </aside>
+                                <aside class="col-12 col-md-6 col-lg-4 item-participar">
+                                    <img class="img-fluid" src="{{$participar_3}}" alt="" id="item_participar_3">
+                                </aside>
+                            </div>
+                            <button class="btns btn-landing {{ $styletamanoBotonComo }} {{ $bold_boton_como_style }} {{ $italic_boton_como_style }}" id="btn-como" style="background-color: {{ $color_boton_como }} !important;">{{ $input_buttom_como }}</button>
+                        </section>
+                    </div>
+                    <div class="mt-5" id="formulario-participar">
+                        <section style="border-color: {{ $border_formulario }} !important;">
+                            <h1 class="text-center title-participar {{ $styletamanoTituloFormulario }} {{ $bold_titulo_formulario_style }} {{ $italic_titulo_formulario_style }}" id="title_formulario_participar" style="color: {{ $color_titulo_formulario }};">{{ $input_titulo_formulario }}</h1>
+                            <form class="row">
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label for="name" class="label_form" style="color: {{ $color_label_formulario }} !important;">Nombre</label>
+                                    <input type="text" class="form-control input-text">
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label for="name" class="label_form" style="color: {{ $color_label_formulario }} !important;">Apellido</label>
+                                    <input type="text" class="form-control input-text">
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label for="name" class="label_form" style="color: {{ $color_label_formulario }} !important;">Tipo de documento</label>
+                                    <input type="text" class="form-control input-text">
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label for="name" class="label_form" style="color: {{ $color_label_formulario }} !important;">N° de documento</label>
+                                    <input type="text" class="form-control input-text">
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label for="name" class="label_form" style="color: {{ $color_label_formulario }} !important;">Edad (*Mayores de 18 años)</label>
+                                    <input type="text" class="form-control input-text">
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label for="name" class="label_form" style="color: {{ $color_label_formulario }} !important;">N° telefónico</label>
+                                    <input type="text" class="form-control input-text">
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label for="name" class="label_form" style="color: {{ $color_label_formulario }} !important;">Correo Electronico</label>
+                                    <input type="email" class="form-control input-text">
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label for="name" class="label_form" style="color: {{ $color_label_formulario }} !important;">N° de LOTE + foto de producto</label>
+                                    <input type="text" class="form-control input-text">
+                                    <input type="file" name="" id="" class="form-control mt-2">
+                                </div>
+
+                                <div class="col-12 row mt-3">
+                                    <div class="form-check col-12 col-md-6 col-lg-4">
+                                        <input class="form-check-input" type="checkbox" name="termino_condicion" id="termino_condicion">
+                                        <label class="form-check-label label_form" for="termino_condicion " style="color: {{ $color_label_formulario }} !important;">
+                                            Acepto terminos y condiciones
+                                        </label>
+                                    </div>
+                                    <div class="form-check col-12 col-md-6 col-lg-4">
+                                        <input class="form-check-input" type="checkbox" name="datos_web" id="datos_web">
+                                        <label class="form-check-label label_form" for="datos_web" style="color: {{ $color_label_formulario }} !important;">
+                                            Deseo usar mis datos para crear un usuario en plataforma web
+                                        </label>
+                                    </div>
+                                    <div class="form-check col-12 col-md-6 col-lg-4">
+                                        <input class="form-check-input" type="checkbox" name="politica_privacidad" id="politica_privacidad">
+                                        <label class="form-check-label label_form" for="politica_privacidad" style="color: {{ $color_label_formulario }} !important;">
+                                            Acepto política de privacidad de datos
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-12 mt-3 d-flex justify-content-center">
+                                    <button type="submit" class="btns btn-participar {{ $styletamanoBotonFormulario }} {{ $bold_boton_formulario_style }} {{ $italic_boton_formulario_style }}" id="btn-formulario" style="background-color: {{ $color_boton_formulario }} !important;">{{ $input_buttom_formulario }}</button>
+                                </div>
+                            </form>
+                        </section>
+                    </div>
+                    <div class="mt-5"  id="ganadores">
+                        <section style="border-color: {{ $border_ganador }} !important;">
+                            <h1 class="text-center title-participar {{ $bold_titulo_ganador_style }} {{ $italic_titulo_ganador_style }} {{ $styletamanoTituloGanador }}" id="ganador-title" style="color: {{ $color_titulo_ganador }} !important;">{{ $input_titulo_ganador }}</h1>
+                            <div class="w-100 table-responsive">
+                                <table class="table table-borderless" id="lista_ganador">
+                                    <thead>
+                                        <tr>
+                                            <th>N° de documento</th>
+                                            <th>Nombres</th>
+                                            <th>Premio</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>15547569</td>
+                                            <td>Lorem Ipsu brsss</td>
+                                            <td>Articulo 1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>15547569</td>
+                                            <td>Lorem Ipsu brsss</td>
+                                            <td>Articulo 1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>15547569</td>
+                                            <td>Lorem Ipsu brsss</td>
+                                            <td>Articulo 1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>15547569</td>
+                                            <td>Lorem Ipsu brsss</td>
+                                            <td>Articulo 1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>15547569</td>
+                                            <td>Lorem Ipsu brsss</td>
+                                            <td>Articulo 1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>15547569</td>
+                                            <td>Lorem Ipsu brsss</td>
+                                            <td>Articulo 1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>15547569</td>
+                                            <td>Lorem Ipsu brsss</td>
+                                            <td>Articulo 1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>15547569</td>
+                                            <td>Lorem Ipsu brsss</td>
+                                            <td>Articulo 1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>15547569</td>
+                                            <td>Lorem Ipsu brsss</td>
+                                            <td>Articulo 1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>15547569</td>
+                                            <td>Lorem Ipsu brsss</td>
+                                            <td>Articulo 1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>15547569</td>
+                                            <td>Lorem Ipsu brsss</td>
+                                            <td>Articulo 1</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="mt-5" id="preguntas-frecuentes">
+                        <section style="border-color: {{ $border_pregunta }} !important;">
+                            <h1 class="text-center title-participar {{ $bold_titulo_pregunta_style }} {{ $italic_titulo_pregunta_style }} {{ $styletamanoTituloPregunta }}" id="pregunta-title" style="color: {{ $color_titulo_pregunta }} !important;">{{ $input_titulo_pregunta }}</h1>
+                            <div class="w-100">
+                                <div class="accordion" id="accordionExample">
+                                    <div class="accordion-item" style="border-color: {{ $color_border_pregunta }} !important;">
+                                        <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                        id="pregunta-1-landing" style="color: {{ $color_text_pregunta }} !important;">
+                                        {{ $pregunta1 }}
+                                        </button>
+                                        </h2>
+                                        <div id="collapseOne" class="accordion-collapse collapse show">
+                                        <div class="accordion-body" id="respuesta-1-landing" style="color: {{ $color_text_pregunta }} !important;">
+                                            {{ $respuesta1 }}
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item" style="border-color: {{ $color_border_pregunta }} !important;">
+                                        <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" id="pregunta-2-landing" style="color: {{ $color_text_pregunta }} !important;">
+                                            {{ $pregunta2 }}
+                                        </button>
+                                        </h2>
+                                        <div id="collapseTwo" class="accordion-collapse collapse">
+                                        <div class="accordion-body" id="respuesta-2-landing" style="color: {{ $color_text_pregunta }} !important;">
+                                            {{ $respuesta2 }}
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item" style="border-color: {{ $color_border_pregunta }} !important;">
+                                        <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" id="pregunta-3-landing" style="color: {{ $color_text_pregunta }} !important;">
+                                            {{ $pregunta3 }}
+                                        </button>
+                                        </h2>
+                                        <div id="collapseThree" class="accordion-collapse collapse">
+                                        <div class="accordion-body"  id="respuesta-3-landing" style="color: {{ $color_text_pregunta }} !important;">
+                                            {{ $respuesta3 }}
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item" style="border-color: {{ $color_border_pregunta }} !important;">
+                                        <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" id="pregunta-4-landing" style="color: {{ $color_text_pregunta }} !important;">
+                                            {{ $pregunta4 }}
+                                        </button>
+                                        </h2>
+                                        <div id="collapseFour" class="accordion-collapse collapse">
+                                        <div class="accordion-body"  id="respuesta-4-landing" style="color: {{ $color_text_pregunta }} !important;">
+                                            {{ $respuesta4 }}
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="w-100 pb-5" id="redes">
+                    <footer>
+                        <h1 class="text-center title-participar mb-5 {{ $styletamanoTituloRedes }} {{ $bold_titulo_redes_style }} {{ $italic_titulo_redes_style }}" id="redes-title" style="color: {{ $color_titulo_redes }} !important;">{{ $input_titulo_redes }}</h1>
+                        <div class="d-flex justify-content-center" id="landing_redes">
+                            {{-- <a href=""> --}}
+                                {{-- <i class="fab fa-facebook" style="font-size: 3.2rem;color: #fbbb01 !important;"></i>
+                                <i class="fab fa-instagram" style="font-size: 3.2rem;color: #fbbb01 !important;"></i>
+                                <i class="fab fa-linkedin" style="font-size: 3.2rem;color: #fbbb01 !important;"></i>
+                                <i class="fab fa-twitter" style="font-size: 3.2rem;color: #fbbb01 !important;"></i>
+                                <i class="fab fa-google" style="font-size: 3.2rem;color: #fbbb01 !important;"></i>
+                                <i class="fab fa-youtube" style="font-size: 3.2rem;color: #fbbb01 !important;"></i> --}}
+                            {{-- </a> --}}
+                        </div>
+                    </footer>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    function loadTipoFrame(tipo) {
+        const urlCompleta = window.location.href;
+        window.location.href = urlCompleta.split('?')[0] + "?type=" + tipo;
+    }
+</script>
+
 <script>
     const menu_edit = document.getElementById("menu_edit");
     function retornoMenuEdit() {
@@ -2322,6 +2432,29 @@
                 preview.style.display = 'block'; // Muestra la imagen
                 upload.classList.add("d-none")
                 header.style.backgroundImage = `url(${e.target.result})`;
+            };
+
+            reader.readAsDataURL(file); // Lee la imagen como una URL de datos
+        }
+    });
+
+    document.getElementById('banner_celular-subir').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const preview = document.getElementById('preview-banner_celular');
+                const upload = document.getElementById('upload-banner_celular')
+                const parentElement = preview.parentNode;
+                preview.src = e.target.result; // Establece la fuente de la imagen
+                preview.style.display = 'block'; // Muestra la imagen
+                upload.classList.add("d-none")
+                const content_web_landing = document.getElementById("content_web_landing");
+                //
+                if (content_web_landing && content_web_landing.classList.contains("style_movile")) {
+                    header.style.backgroundImage = `url(${e.target.result})`;
+                }
             };
 
             reader.readAsDataURL(file); // Lee la imagen como una URL de datos
@@ -3760,6 +3893,13 @@
 <script>
 
     $(document).ready(function() {
+
+        $("#btnNav").click(function (e) {
+            e.preventDefault();
+            console.log('sd')
+            $("#navbarSupportedContent").slideToggle();
+        });
+
         var arrayRedes = {!! json_encode($redes_sociales_array) !!};
         var dataRedes = {
             "id": '',
