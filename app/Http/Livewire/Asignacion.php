@@ -94,7 +94,6 @@ class Asignacion extends Component
         unset($rules['xplorer']);
 
         $this->validate($rules);
-
         try {
 
             if (count($this->lPremios) == 0) {
@@ -140,11 +139,12 @@ class Asignacion extends Component
 
             // resetear
             $this->resetForm();
-
             $this->dispatchBrowserEvent('swal:alert', [
                 'title' => 'Registro exitoso!',
                 'icon' => 'success',
             ]);
+
+            $this->dispatchBrowserEvent('xplorerFin');
         } catch (\Exception $e) {
             // Maneja la excepción
             $this->dispatchBrowserEvent('swal:alert', [

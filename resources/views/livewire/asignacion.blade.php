@@ -108,7 +108,7 @@
                                 <option value="{{ $item->id }}" {{ $item->status == 1 ? '' : 'disabled' }}>{{ $item->name }}</option>
                             @endforeach
                         </select> --}}
-                        <select class="form-select form-input-alicorp" id="xplorerSelect"  name="xplorerSelect" data-placeholder="Escoja las marcas" multiple>
+                        <select class="form-select form-input-alicorp" id="xplorerSelect"  name="xplorerSelect" data-placeholder="Escojer Xplorers" multiple>
                             @foreach ($xplorers as $item)
                                 <option value="{{ $item->id }}" {{ $item->status == 1 ? '' : 'disabled' }}>{{ $item->name }}</option>
                             @endforeach
@@ -377,6 +377,10 @@
                 var data = $(this).val(); // Obtener los valores seleccionados
                 @this.set('lXplorers', data);
             });
+            window.addEventListener('xplorerFin', event => {
+                $('#xplorerSelect').val(null).trigger('change');
+            });
+
         </script>
     @endsection
 </div>
