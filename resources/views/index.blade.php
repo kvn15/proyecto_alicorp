@@ -37,7 +37,23 @@
     </section>
 @else
   <section class="heroe-logueado">
-    <img src="{{asset('/img/hero1.png')}}" alt="" class="hero-image">
+    {{-- <img src="{{asset('/img/hero1.png')}}" alt="" class="hero-image"> --}}
+    <div class="carousel">
+      <div class="carousel-inner">
+          <div class="carousel-item active">
+              <img src="{{asset('/img/hero1.png')}}" alt="Slide 1">
+          </div>
+          <div class="carousel-item">
+              <img src="{{asset('/img/descarga.png')}}" alt="Slide 2">
+          </div>
+          <div class="carousel-item">
+              <img src="{{asset('/img/donvictoriio_hero.png')}}" alt="Slide 3">
+          </div>
+      </div>
+      <button class="prev">Anterior</button>
+    <button class="next">Siguiente</button>
+  </div>
+  
   </section>
 @endif
   
@@ -222,7 +238,7 @@
         </div>
       </div>
     </section>
-    <section class="carru-videos" style="height: 100vh">
+    {{-- <section class="carru-videos" style="height: 100vh">
       <h2>prueba</h2>
       <div class="carousel">
         <button class="arrow left">&lt;</button>
@@ -245,7 +261,7 @@
           </div>
         </div>
         <button class="arrow right">&gt;</button>
-    </section>
+    </section> --}}
     @endif
   </main>
 

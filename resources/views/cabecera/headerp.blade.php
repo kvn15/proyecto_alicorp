@@ -8,9 +8,9 @@
     </button>
     <div class="navbar-center">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 c">
-            <li class="nav-item me-3">
+            {{-- <li class="nav-item me-3">
                 <a class="nav-link" href="{{ route('calendario') }}">Calendario</a>
-            </li>
+            </li> --}}
             <li class="nav-item me-3">
                 <a class="nav-link" href="{{ route('promocion') }}">Promociones</a>
             </li>

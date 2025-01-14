@@ -50,6 +50,11 @@ class alicorpController extends Controller
         return view('promocion',compact($promocion));
     }
 
+    public function casino(){
+        $casino = 'casino';
+        return view('casino',compact($casino));
+    }
+
     public function Dashboard(){
         $dashboard = 'dashboard';
         return view('cliente.dashboard',compact($dashboard));

@@ -1,3 +1,69 @@
+<section class="footer-alicorp">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mt-5">
+                <h3>Nuestras marcas</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 mt-5 logo-alicorp">
+                <img src="{{ asset('img/logo_Casino_2023.jpg') }}" alt="" >
+                <img src="{{ asset('img/logo_Dento-Intradevco.jpg') }}" alt="" >
+                <img src="{{ asset('img/logo_donvitprio.png') }}" alt="" >
+                <img src="{{ asset('img/logo_primor.jpg') }}" alt="" >
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid" style="background-color: #FB0000">
+        <div class="row">
+            <div class="col-3 text-center">
+                Redes Sociales
+                <div class="redes-sociles">
+                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                    <i class="fa fa-linkedin" aria-hidden="true"></i>
+                    <i class="fa fa-instagram" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="col-3 text-center">
+                Terminos y condiciones
+            </div>
+            <div class="col-3 text-center">
+                <h4>Servicio al Cliente</h4>
+                <p>De Lunes a Viernes</p>
+                <p>8:00 am a 6:00 pm</p>
+                <p>Sabado 9:00 am a 2:00 pm</p>
+                <p>Lima +511 708 9300</p>
+
+            </div>
+            <div class="col-3 text-center">
+               <h4>Contáctanos</h4> 
+               <p>Oficina Miraflores: Av. 28 de Julio 1150</p>
+               <p>Central Telefónica: +511 315 0800</p>
+               <p>Email: consultas@alicorp.com</p>
+            </div>            
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <hr>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                   <p>&copy;2024 Xplora</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
 <script src="{{asset('js/jQuery.js')}}"></script>
 <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('js/owl.carousel.min.js')}}"></script>
