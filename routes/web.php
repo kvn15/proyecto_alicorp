@@ -40,6 +40,7 @@ Route::controller(alicorpController::class)->group(function () {
     Route::get('/reclamacion', 'reclamacion')->name('reclamacion');
     Route::get('/promocion', 'promocion')->name('promocion');
     Route::get('/calendario', 'calendario')->name('calendario');
+    Route::get('/juegos/casino', 'casino')->name('casino');
 
     //Route::post('/login', 'login')->name('loginA');
 

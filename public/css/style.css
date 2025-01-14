@@ -560,7 +560,7 @@
   src: url('../fonts/Gold-Bold.otf') format('opentype'), url('../fonts/Gold-Bold.ttf') format('truetype');
 }
 .eventos {
-  background-image: url(../img/eventos.png);
+  background-image: url(../img/Eventos.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -584,6 +584,24 @@
   color: #ffffff;
   width: 47%;
 }
+.eventos .card {
+  border-radius: 25px !important;
+  overflow: hidden; /* Evita desbordamientos */
+}
+.eventos .card .card-imagen {
+  overflow: hidden; /* Oculta partes fuera del contenedor */
+  position: relative;
+  width: 100%;
+  height: 23.3rem;
+}
+.eventos .card .card-imagen img {
+  border-radius: 25px 25px 0 0;
+  object-fit: cover; /* Ajusta la imagen */
+  transition: transform 0.3s ease; /* Animación más fluida */
+}
+.eventos .card .card-imagen:hover img {
+  transform: scale(1.2); /* Escala la imagen al pasar el mouse */
+}
 .eventos .card-eventos {
   top: 33rem;
   left: 0;
@@ -604,12 +622,18 @@
   width: 100%;
 }
 .eventos .card-eventos .btn-evento button {
-  border-radius: 15px 15px 15px 15px;
+  border-radius: 15px;
   width: 28%;
-  padding: 10px 0 10px 0;
+  padding: 10px 0;
   background-color: #FB0000;
   border: none;
   color: #FFFFFF;
+  transition: background-color 0.3s ease; /* Transición suave */
+}
+.eventos .card-eventos .btn-evento button:hover {
+  background-color: #FFFFFF;
+  color: #FB0000; /* Cambia el color del texto al hacer hover */
+  border: 1px solid #FB0000;
 }
 
 @font-face {
@@ -623,7 +647,7 @@
 }
 
 .juego {
-  background-image: url(../img/eventos.png);
+  background-image: url(../img/Eventos.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -787,6 +811,145 @@
 }
 .juegos .card-3 .card-subtitle {
   line-height: 20px;
+}
+
+@font-face {
+  font-family: "CBold";
+  src: url('../fonts/CorporativeBold.otf') format('opentype'), url('../fonts/CorporativeBold.ttf') format('truetype');
+}
+.juegoCasino {
+  background-image: url("../img/GalletaCasino XD.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  /*modal*/
+  /* Modal - contenedor principal */
+  /* Mostrar el modal */
+  /* Contenido del modal */
+  /* Botón de cerrar */
+}
+.juegoCasino .mt-6 {
+  margin-top: 9rem;
+}
+.juegoCasino .casino {
+  background-color: #FB0000;
+  width: 22%;
+  height: 5rem;
+  font-size: 2.5rem;
+  border-radius: 20px;
+}
+.juegoCasino .casino_back {
+  margin-top: 3rem;
+  border: 1px solid #FB0000;
+  background-color: #FFFFFF;
+  color: #FB0000;
+  width: 14%;
+  height: 5rem;
+  font-size: 2.5rem;
+  border-radius: 20px;
+}
+.juegoCasino .modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Oscurecer el fondo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+.juegoCasino .modal.show {
+  visibility: visible;
+  opacity: 1;
+}
+.juegoCasino .modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  height: 470px;
+  width: 715px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+.juegoCasino .modal-content .letra-casino {
+  /* centrado*/
+  top: 9%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+}
+.juegoCasino .modal-content p {
+  color: #FB0000;
+  font-size: 25px;
+  font-family: "CBold";
+  line-height: 25px;
+  top: 24%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.juegoCasino .modal-content .underline-input {
+  border: none; /* Elimina el borde predeterminado */
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1607843137); /* Línea inferior */
+  outline: none; /* Elimina el borde al hacer clic */
+  width: 60%; /* Ajusta el ancho según tu necesidad */
+  padding: 5px 0; /* Espaciado interno */
+  font-size: 16px; /* Tamaño de texto */
+  transition: border-color 0.3s ease; /* Animación al interactuar */
+  text-align: center;
+}
+.juegoCasino .modal-content .underline-input:focus {
+  border-bottom: 2px solid #007BFF; /* Cambia el color de la línea al enfocar */
+}
+.juegoCasino .modal-content .sub-titulo {
+  color: #1D1D1D;
+  font-size: 15px;
+  font-family: "CBold";
+  line-height: 15px;
+  top: 64%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.juegoCasino .modal-content .botonera {
+  position: absolute;
+  top: 83%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.juegoCasino .modal-content .botonera .btn-participar {
+  background-color: #FB0000;
+  height: 3rem;
+  font-size: 17px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+.juegoCasino .modal-content .botonera .btn-regresar {
+  border: 1px solid #FB0000;
+  background-color: #FFFFFF;
+  color: #FB0000;
+  font-size: 1.5rem;
+  border-radius: 20px;
+}
+.juegoCasino .btn-close {
+  position: absolute;
+  top: 0;
+  right: 11px;
+  background: #FB0000;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 10px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.juegoCasino .btn-close .fa-times {
+  font-size: 15px;
 }
 
 @font-face {

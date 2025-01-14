@@ -76,7 +76,7 @@
                         <p class="card-subtitle">Este es un subtítulo descriptivo.</p>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-danger">JUEGA YA</button>
+                        <button class="btn btn-danger" onclick="window.location.href='{{ route('casino') }}'">JUEGA YA</button>
                     </div>
                 </div>
                 <div class="card sec-juegos me-4 card-2">
@@ -90,19 +90,19 @@
                         <p class="card-subtitle">Gana premios para lucirte <br> en la cocina</p>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-danger">JUEGA YA</button>
+                        <button class="btn btn-danger" onclick="window.location.href='{{ route('casino') }}'">JUEGA YA</button>
                     </div>
                 </div>
                 <div class="card sec-juegos me-4 card-3">
                     <div class="img-transicion">
-                        <img src="{{ asset('img/ruleta2.png') }}" alt="" class="ruleta">
+                        <img src="{{ asset('img/ruleta3.png') }}" alt="" class="ruleta">
                     </div>
                     <div class="card-content">
                         <h1 class="card-title">Gira tu melena <br> con Amaras</h1>
                         <p class="card-subtitle">Gana premios para que <br> sigas cuidadno de ti.</p>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-danger">JUEGA YA</button>
+                        <button class="btn btn-danger" onclick="window.location.href='{{ route('casino') }}'">JUEGA YA</button>
                     </div>
                 </div>
                 <div class="card sec-juegos me-4">
@@ -115,7 +115,7 @@
                         <p class="card-subtitle">Este es un subtítulo descriptivo.</p>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-danger">JUEGA YA</button>
+                        <button class="btn btn-danger" onclick="window.location.href='{{ route('casino') }}'">JUEGA YA</button>
                     </div>
                 </div>
             </div>           

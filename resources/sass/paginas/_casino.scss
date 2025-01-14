@@ -1,0 +1,155 @@
+
+@include font-face('CBold', 'CorporativeBold');
+.juegoCasino{
+    background-image: url('../img/GalletaCasino XD.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+
+    .mt-6{
+        margin-top: 9rem;
+    }
+
+    .casino{
+        background-color: #FB0000;
+        width: 22%;
+        height: 5rem;
+        font-size: 2.5rem;
+        border-radius: 20px;
+    }
+
+    .casino_back{
+        margin-top: 3rem;
+        border: 1px solid #FB0000;
+        background-color: #FFFFFF;
+        color: #FB0000;
+        width: 14%;
+        height: 5rem;
+        font-size: 2.5rem;
+        border-radius: 20px;
+    }
+
+    /*modal*/
+      /* Modal - contenedor principal */
+      .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5); /* Oscurecer el fondo */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s, visibility 0.3s;
+      }
+  
+      /* Mostrar el modal */
+      .modal.show {
+        visibility: visible;
+        opacity: 1;
+      }
+  
+      /* Contenido del modal */
+      .modal-content {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        height: 470px;
+        width: 715px;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+
+        .letra-casino{
+            /* centrado*/
+            top: 9%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+        }
+
+        p{
+            color: #FB0000;
+            font-size: 25px;
+            font-family: 'CBold';
+            line-height: 25px;
+            top: 24%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        
+        }
+
+        .underline-input {
+            border: none; /* Elimina el borde predeterminado */
+            border-bottom: 2px solid #00000029; /* Línea inferior */
+            outline: none; /* Elimina el borde al hacer clic */
+            width: 60%; /* Ajusta el ancho según tu necesidad */
+            padding: 5px 0; /* Espaciado interno */
+            font-size: 16px; /* Tamaño de texto */
+            transition: border-color 0.3s ease; /* Animación al interactuar */
+            text-align: center;
+        }
+        
+        .underline-input:focus {
+            border-bottom: 2px solid #007BFF; /* Cambia el color de la línea al enfocar */
+        }
+
+        .sub-titulo{
+            color: #1D1D1D;
+            font-size: 15px;
+            font-family: 'CBold';
+            line-height: 15px;
+            top: 64%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .botonera{
+            position: absolute;
+            top: 83%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            .btn-participar{
+                background-color: #FB0000;
+                height: 3rem;
+                font-size: 17px;
+                border-radius: 20px;
+                margin-bottom: 10px;
+                color: #ffffff;
+            }
+
+            .btn-regresar{
+                border: 1px solid #FB0000;
+                background-color: #FFFFFF;
+                color: #FB0000;
+                font-size: 1.5rem;
+                border-radius: 20px;
+            }
+        }
+        
+      }
+  
+      /* Botón de cerrar */
+      .btn-close {
+        position: absolute;
+        top: 0;
+        right: 11px;
+        background: #FB0000;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        padding: 10px 10px;
+        font-size: 14px;
+        cursor: pointer;
+        margin-top: 10px;
+        .fa-times{
+            font-size: 15px;
+        }
+      }
+  
+    
+}

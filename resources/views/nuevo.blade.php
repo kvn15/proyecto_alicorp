@@ -43,13 +43,15 @@
       <div class="row row-cols-1 row-cols-md-4 g-4">
         <div class="col">
           <div class="card">
-            <img src="{{asset('img/promo_1.png')}}" class="card-img-top img-fluid" alt="...">
+            <div class="card-imagen">
+              <img src="{{asset('img/Casino KPop-95.jpg')}}" class="card-img-top img-fluid" alt="...">
+            </div>
             <div class="card-body">
               <h5 class="card-title">K-POP <br> DANCE</h5>  
               <p class="card-text"><i class="fa fa-map-marker" aria-hidden="true"></i>  01 de enero del 2024</p>
               <p class="card-text"><i class="fa fa-calendar" aria-hidden="true"></i> Lugar del evento</p>
               <div class="btn-evento text-center">
-                <button class="">VER MÁS</button>
+                <button class="vmas" onclick="window.location.href='{{ route('juegos') }}'">VER MÁS</button>
               </div>
             </div>
           </div>
@@ -57,13 +59,15 @@
 
         <div class="col">
           <div class="card">
-            <img src="{{asset('img/promo_1.png')}}" class="card-img-top img-fluid" alt="...">
+            <div class="card-imagen">
+              <img src="{{asset('img/FotoEvento-Amaras.jpeg')}}" class="card-img-top img-fluid" alt="...">
+            </div>
             <div class="card-body">
               <h5 class="card-title">Amaras<br> en Univeridades</h5>  
               <p class="card-text"><i class="fa fa-map-marker" aria-hidden="true"></i>  01 de enero del 2024</p>
               <p class="card-text"><i class="fa fa-calendar" aria-hidden="true"></i> Lugar del evento</p>
               <div class="btn-evento text-center">
-                <button class="">VER MÁS</button>
+                <button class="" onclick="window.location.href='{{ route('juegos') }}'">VER MÁS</button>
               </div>
             </div>
           </div>
@@ -71,13 +75,15 @@
 
         <div class="col">
           <div class="card">
-            <img src="{{asset('img/promo_1.png')}}" class="card-img-top img-fluid" alt="...">
+            <div class="card-imagen">
+              <img src="{{asset('img/FotoEvento-Dento.jpeg')}}" class="card-img-top img-fluid" alt="...">
+            </div>
             <div class="card-body">
               <h5 class="card-title">Estación<br> Del Buen Diente</h5>  
               <p class="card-text"><i class="fa fa-map-marker" aria-hidden="true"></i>  01 de enero del 2024</p>
               <p class="card-text"><i class="fa fa-calendar" aria-hidden="true"></i> Lugar del evento</p>
               <div class="btn-evento text-center">
-                <button class="">VER MÁS</button>
+                <button class="" onclick="window.location.href='{{ route('juegos') }}'">VER MÁS</button>
               </div>
             </div>
           </div>
@@ -85,13 +91,15 @@
        
         <div class="col">
           <div class="card">
-            <img src="{{asset('img/promo_1.png')}}" class="card-img-top img-fluid" alt="...">
-            <div class="card-body">
+            <div class="card-imagen">
+              <img src="{{asset('img/FotoEvento-Vittorio.jpg')}}" class="img-fluid" alt="...">
+            </div>            
+            <div class="card-body">             
               <h5 class="card-title">Historias <br> que dan lo mejor.</h5>  
               <p class="card-text"><i class="fa fa-map-marker" aria-hidden="true"></i>  01 de enero del 2024</p>
               <p class="card-text"><i class="fa fa-calendar" aria-hidden="true"></i> Lugar del evento</p>
               <div class="btn-evento text-center">
-                <button class="">VER MÁS</button>
+                <button class="" onclick="window.location.href='{{ route('juegos') }}'">VER MÁS</button>
               </div>
             </div>
           </div>

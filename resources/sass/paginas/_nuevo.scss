@@ -2,7 +2,7 @@
 @include font-face('Gotham', 'Gold-Bold');
 
 .eventos{
-    background-image: url(../img/eventos.png);
+    background-image: url(../img/Eventos.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -29,6 +29,29 @@
         width: 47%;
     }
 
+    .card {
+        border-radius: 25px !important;
+        overflow: hidden; /* Evita desbordamientos */
+        
+        .card-imagen {
+            overflow: hidden; /* Oculta partes fuera del contenedor */
+            position: relative;
+            width: 100%;
+            height: 23.3rem;
+    
+            img {
+                border-radius: 25px 25px 0 0;
+                object-fit: cover; /* Ajusta la imagen */
+                transition: transform 0.3s ease; /* Animación más fluida */
+            }
+    
+            &:hover img {
+                transform: scale(1.2); /* Escala la imagen al pasar el mouse */
+            }
+        }
+    }
+    
+
     .card-eventos{
         top: 33rem;
         left: 0;
@@ -50,15 +73,23 @@
             width: 100%;
         }
 
-        .btn-evento{
-            button{
-                border-radius: 15px 15px 15px 15px;
+        .btn-evento {
+            button {
+                border-radius: 15px;
                 width: 28%;
-                padding: 10px 0 10px 0;
+                padding: 10px 0;
                 background-color: #FB0000;
                 border: none;
                 color: #FFFFFF;
+                transition: background-color 0.3s ease; /* Transición suave */
+                
+                &:hover {
+                    background-color: #FFFFFF;
+                    color: #FB0000; /* Cambia el color del texto al hacer hover */
+                    border: 1px solid #FB0000;
+                }
             }
         }
+        
     }
 }
