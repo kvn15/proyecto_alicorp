@@ -36,6 +36,7 @@ class Asignacion extends Component
     public $file;
 
     public $lPremios = [];
+    public $lXplorers = [];
 
     public $textBtnAdd = "Agregar";
 
@@ -87,7 +88,12 @@ class Asignacion extends Component
 
     public function store() {
 
-        $this->validate();
+        $rules = $this->rules;
+
+        // Ignorar la validación para 'xplorer' si es necesario
+        unset($rules['xplorer']);
+
+        $this->validate($rules);
 
         try {
 
@@ -107,25 +113,30 @@ class Asignacion extends Component
                 return;
             }
 
-            $asignacion = AsignacionProject::create([
-                'project_id' => $this->projectId,
-                'xplorer_id' => $this->xplorer,
-                'fecha_inicio' => $this->fecha_ini,
-                'fecha_fin' => $this->fecha_fin,
-                'sales_point_id' => $this->punto_venta,
-                'award_project_id' => null,
-                'qty_premio' => null,
-            ]);
+            foreach ($this->lXplorers as $key => $valueXplorer) {
 
-            // Agregar premios
-            foreach ($this->lPremios as $key => $value) {
-                PremioPdv::create([
-                    'asignacion_project_id' => $asignacion->id,
-                    'award_project_id' => $value["premioId"],
-                    'qty_premio' => $value["cantidad"],
-                    'probabilidad' => $value["probabilidad"]
+                $asignacion = AsignacionProject::create([
+                    'project_id' => $this->projectId,
+                    'xplorer_id' => $valueXplorer,
+                    'fecha_inicio' => $this->fecha_ini,
+                    'fecha_fin' => $this->fecha_fin,
+                    'sales_point_id' => $this->punto_venta,
+                    'award_project_id' => null,
+                    'qty_premio' => null,
                 ]);
+
+                // Agregar premios
+                foreach ($this->lPremios as $key => $value) {
+                    PremioPdv::create([
+                        'asignacion_project_id' => $asignacion->id,
+                        'award_project_id' => $value["premioId"],
+                        'qty_premio' => $value["cantidad"],
+                        'probabilidad' => $value["probabilidad"]
+                    ]);
+                }
             }
+
+
 
             // resetear
             $this->resetForm();
@@ -202,6 +213,7 @@ class Asignacion extends Component
         $this->qty_premio = '';
         $this->probabilidad = '0';
         $this->lPremios = [];
+        $this->lXplorers = [];
     }
 
     public function update() {

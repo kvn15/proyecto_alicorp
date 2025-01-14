@@ -100,15 +100,20 @@
                         </select>
                         @error('punto_venta') <span class="text-danger">Punto de Venta es requerida.</span> @enderror
                     </div>
-                    <div class="col-12 col-lg-6 mb-2">
-                        <label for="xplorer" class="form-label">Xplorer</label>
-                        <select name="xplorer" id="xplorer" class="form-select" wire:model="xplorer">
+                    <div class="col-12 col-lg-6 mb-2"  wire:ignore>
+                        <label for="xplorerSelect" class="form-label">Xplorer</label>
+                        {{-- <select name="xplorer" id="xplorer" class="form-select" wire:model="xplorer">
                             <option>Seleccione</option>
                             @foreach ($xplorers as $item)
                                 <option value="{{ $item->id }}" {{ $item->status == 1 ? '' : 'disabled' }}>{{ $item->name }}</option>
                             @endforeach
+                        </select> --}}
+                        <select class="form-select form-input-alicorp" id="xplorerSelect"  name="xplorerSelect" data-placeholder="Escoja las marcas" multiple>
+                            @foreach ($xplorers as $item)
+                                <option value="{{ $item->id }}" {{ $item->status == 1 ? '' : 'disabled' }}>{{ $item->name }}</option>
+                            @endforeach
                         </select>
-                        @error('xplorer') <span class="text-danger">Xplorer es requerida.</span> @enderror
+                        {{-- @error('xplorer') <span class="text-danger">Xplorer es requerida.</span> @enderror --}}
                     </div>
                     <hr>
                     <div class="col-12 col-lg-3 my-2">
@@ -354,4 +359,24 @@
             });
         });
     </script>
+
+
+    @section('script_jquery')
+        <script>
+
+
+            $( '#xplorerSelect' ).select2( {
+                theme: "bootstrap-5",
+                width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+                placeholder: $( this ).data( 'placeholder' ),
+                closeOnSelect: false,
+                dropdownParent: $( '#xplorerSelect' ).parent(),
+            } );
+
+            $('#xplorerSelect').on('change', function () {
+                var data = $(this).val(); // Obtener los valores seleccionados
+                @this.set('lXplorers', data);
+            });
+        </script>
+    @endsection
 </div>

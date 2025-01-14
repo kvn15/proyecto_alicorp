@@ -30,9 +30,21 @@ class AsignacionProjectsImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         // buscar nombre de xplorer
-        $xplorer = Xplorer::where(DB::raw('LOWER(name)'), Str::lower($row['xplorer']))->first();
+        // $xplorer = Xplorer::where(DB::raw('LOWER(name)'), Str::lower($row['xplorer']))->first();
         $sales_point = SalesPoint::where(DB::raw('LOWER(name)'), Str::lower($row['punto_venta']))->first();
         $award_project = AwardProject::where('project_id', $this->project_id)->where(DB::raw('LOWER(nombre_premio)'),  Str::lower($row['premio']))->first();
+
+        $xplorer = Xplorer::where(
+            DB::raw("LOWER(CONCAT(IFNULL(name, ''), ' ', IFNULL(apellido, '')))"),
+            Str::lower($row['xplorer'])
+        )
+        ->orWhere(DB::raw("LOWER(name)"), Str::lower($row['xplorer']))
+        ->orWhere(DB::raw("LOWER(IFNULL(apellido, ''))"), Str::lower($row['xplorer']))
+        ->first();
+
+        if (empty($row['punto_venta']) || empty($row['premio']) || empty($row['xplorer'])) {
+            return;
+        }
 
         // Verificar si las variables existen antes de acceder a sus propiedades
         if (!$xplorer) {
