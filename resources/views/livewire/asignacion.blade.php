@@ -28,6 +28,7 @@
                         <th>Dni <span wire:click="sortBy('xplorers.documento')" style="cursor: pointer;" class="ms-3"><i class="bi bi-arrow-down-up"></i></span></th>
                         <th>Premios <span wire:click="sortBy('award_projects.nombre_premio')" style="cursor: pointer;" class="ms-3"><i class="bi bi-arrow-down-up"></i></span></th>
                         <th>Qty Premios <span wire:click="sortBy('asignacion_projects.qty_premio')" style="cursor: pointer;" class="ms-3"><i class="bi bi-arrow-down-up"></i></span></th>
+                        <th>Acción</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -62,6 +63,11 @@
                                 @endforeach
                                 {{ $sum }}
                             @endif
+                        </td>
+                        <td>
+                            <button class="btn btn-danger" wire:click="delete({{$value->id}})">
+                                <i class="fas fa-trash"></i>
+                            </button>
                         </td>
                     </tr>
                     @endforeach

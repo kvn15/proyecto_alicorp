@@ -3886,7 +3886,7 @@
 </script>
 @endsection
 
-@section('script_jquery')
+@section('script_jquery1')
 <script src="{{ asset('backend/js/admin/landing.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
 

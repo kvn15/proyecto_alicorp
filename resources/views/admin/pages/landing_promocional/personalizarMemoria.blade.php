@@ -258,7 +258,7 @@
 @endphp
 <div class="container-fluid" style="min-height: calc(100vh-57px); overflow: auto;">
     <div class="row">
-        <form id="form-memoria" action="{{ route($tipoJuego."juego.post.registro.personalizar", $project->id) }}" method="POST" enctype="multipart/form-data" class="col-3 border-end" style="overflow-y: scroll; min-height: calc(100vh-57px);">
+        <form id="form-memoria" action="{{ route($tipoJuego."juego.post.registro.personalizar", $project->id) }}" method="POST" enctype="multipart/form-data" class="col-3 border-end" style="overflow-y: scroll; max-height: 100vh;">
             @csrf
             @method('POST')
             <div class="d-block" id="menu_edit">
@@ -1878,7 +1878,7 @@
 @endsection
 
 
-@section('script_jquery')
+@section('script_jquery1')
 <script>
     $(document).ready(function () {
         $("#guardar-memoria").on('click', function () {

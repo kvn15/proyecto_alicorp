@@ -14,15 +14,20 @@ class AdminUserSeeder extends Seeder
      */
     public function run()
     {
+        // Admin::create([
+        //     'name' => 'Paul Huaman Ortiz',
+        //     'email' => 'paul_luis@yahoo.com',
+        //     'password' => bcrypt('usuario1$')
+        // ]);
+        // Admin::create([
+        //     'name' => 'Kevin Blas',
+        //     'email' => 'cblash14@gmail.com',
+        //     'password' => bcrypt('123456')
+        // ]);
         Admin::create([
-            'name' => 'Paul Huaman Ortiz',
-            'email' => 'paul_luis@yahoo.com',
-            'password' => bcrypt('usuario1$')
-        ]);
-        Admin::create([
-            'name' => 'Kevin Blas',
-            'email' => 'cblash14@gmail.com',
-            'password' => bcrypt('123456')
+            'name' => 'Administrador HubAlicorp',
+            'email' => 'admin@hubalicorp.net',
+            'password' => bcrypt('HubAlicorp25!')
         ]);
     }
 }

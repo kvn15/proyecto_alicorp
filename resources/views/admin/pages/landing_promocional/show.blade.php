@@ -426,7 +426,7 @@
 </script>
 @endsection
 
-@section('script_jquery')
+@section('script_jquery1')
 <script>
     $(document).ready(function () {
         $("#publicar").on('submit', function (e) {

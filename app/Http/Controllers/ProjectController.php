@@ -45,7 +45,7 @@ class ProjectController extends Controller
 
             $ruta = $request->file('logo_proyecto')->store('imagenes', 'public'); // Almacena en storage/app/public/imagenes
         }
-        
+
         $project->update([
             'nombre_promocion' => $request->name_promo,
             'desc_promocion' => $request->desc_promo,
@@ -101,7 +101,7 @@ class ProjectController extends Controller
             'imagen' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        
+
         $project = Project::findOrFail($id);
 
         $ruta = $project->ruta_fav;
@@ -173,28 +173,28 @@ class ProjectController extends Controller
 
             if (isset($existPremio) && !empty($existPremio) && count($existPremio) > 0) { //existe
                 $premio = AwardProject::where('id', $idPremio)->first();
-                
+
                 $premio->update([
-                    'orden' => $orden, 
-                    'nombre_premio' => $name, 
-                    'stock' => $stock, 
-                    'probabilidad' => $probabilidad, 
-                    'status' => 1, 
+                    'orden' => $orden,
+                    'nombre_premio' => $name,
+                    'stock' => $stock,
+                    'probabilidad' => $probabilidad,
+                    'status' => 1,
                 ]);
             } else {
                 AwardProject::create([
-                    'project_id' => $id, 
-                    'orden' => $orden, 
-                    'nombre_premio' => $name, 
-                    'stock' => $stock, 
-                    'probabilidad' => $probabilidad, 
+                    'project_id' => $id,
+                    'orden' => $orden,
+                    'nombre_premio' => $name,
+                    'stock' => $stock,
+                    'probabilidad' => $probabilidad,
                 ]);
             }
         }
 
         foreach ($arrayPremioDelete as $key => $value) {
             $id = $value[0];
-            
+
             $premio = AwardProject::where('id', $id)->first();
 
             $premio->update([
@@ -209,7 +209,7 @@ class ProjectController extends Controller
 
         $premio = AwardProject::where('project_id', $id)->orderBy('status', 'desc')->orderBy('orden', 'asc')->get();
         $project = Project::findOrFail($id);
-        
+
         $premios = $premio->map(function ($pre) {
             return [
                 'nro_premio' => $pre->orden,
@@ -255,18 +255,18 @@ class ProjectController extends Controller
             $cantidad_condicion = $value[2];
 
             Conditional::create([
-                'project_id' => $id, 
-                'tipo_condicion' => $tipo_condicion, 
-                'tipo_producto' => $tipo_producto, 
+                'project_id' => $id,
+                'tipo_condicion' => $tipo_condicion,
+                'tipo_producto' => $tipo_producto,
                 'cantidad_condicion' => $cantidad_condicion
             ]);
         }
-        
+
         return response()->json(['success' => true, 'message' => 'Cambios guardados correctamente.']);
     }
 
     public function obtenerCondicion($id) {
-        
+
         $condicional = Conditional::where('project_id', $id)->get();
 
         return response()->json($condicional);

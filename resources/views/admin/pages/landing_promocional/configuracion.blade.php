@@ -499,7 +499,7 @@
 </div>
 @endsection
 
-@section('script_jquery')
+@section('script_jquery1')
     <script>
         $( '#small-bootstrap-class-multiple-field' ).select2( {
             theme: "bootstrap-5",

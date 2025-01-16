@@ -290,6 +290,7 @@ $(document).ready(function() {
         lPremio = [];
         var url = $("#urlPremios").val();
 
+        console.log('sdsd')
         $.ajax({
             type: "GET",
             url: url,

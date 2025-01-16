@@ -487,7 +487,7 @@ switch ($project->tipo_letra) {
 @endphp
 <div class="container-fluid" style="overflow: auto;">
     <div class="row">
-        <form id="form-ruleta" action="{{ route($tipoJuego."juego3.post.registro.personalizar", $project->id) }}" method="POST" enctype="multipart/form-data" class="col-3 border-end" style="overflow-y: scroll; min-height: calc(100vh-57px);">
+        <form id="form-ruleta" action="{{ route($tipoJuego."juego3.post.registro.personalizar", $project->id) }}" method="POST" enctype="multipart/form-data" class="col-3 border-end" style="overflow-y: scroll; min-height: calc(100vh-57px); max-height: 100vh;">
             @csrf
             @method('POST')
             <div class="d-block" id="menu_edit">
@@ -1266,7 +1266,7 @@ switch ($project->tipo_letra) {
 
 @endsection
 
-@section('script_jquery')
+@section('script_jquery1')
 <script>
     function loadTipoFrame(tipo) {
         const urlCompleta = window.location.href;

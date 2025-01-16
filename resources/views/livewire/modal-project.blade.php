@@ -15,7 +15,7 @@
                             <!-- Progress bar -->
                             <div class="progressbar">
                                 <div class="progress" id="progress"></div>
-                                
+
                                 <div
                                     class="progress-step progress-step-active"
                                     data-title="Promoción"
@@ -23,7 +23,7 @@
                                 <div class="progress-step" data-title="Datos"></div>
                                 <div class="progress-step" data-title="Resumen"></div>
                             </div>
-                        
+
                             <!-- Steps -->
                             <div class="form-step form-step-active">
                                 <div class="container-modal-alicorp">
@@ -202,7 +202,7 @@
         });
     </script>
 
-    @section('script_jquery')
+    @section('script_jquery1')
         <script>
             $( '#selectMarca' ).select2( {
                 theme: "bootstrap-5",

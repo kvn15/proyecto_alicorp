@@ -397,4 +397,33 @@ class Asignacion extends Component
         $this->probabilidad = '0';
         $this->textBtnAdd = "Agregar";
     }
+
+    public function delete($id) {
+        try {
+            $asignacion = AsignacionProject::find($id);
+             // Verificar si la asignación fue encontrada
+            if ($asignacion) {
+                // Eliminar el registro
+                $asignacion->delete();
+
+                // Enviar la alerta de éxito al navegador
+                $this->dispatchBrowserEvent('swal:alert', [
+                    'title' => "Asignación Eliminada.",
+                    'icon' => 'success',
+                ]);
+            } else {
+                // Si no se encuentra la asignación, enviar un mensaje de error
+                $this->dispatchBrowserEvent('swal:alert', [
+                    'title' => "Error: Asignación no encontrada.",
+                    'icon' => 'error',
+                ]);
+            }
+        } catch (\Throwable $th) {
+            // Si no se encuentra el premio
+            $this->dispatchBrowserEvent('swal:alert', [
+                'title' => "Error al eliminar asignación.",
+                'icon' => 'error',
+            ]);
+        }
+    }
 }

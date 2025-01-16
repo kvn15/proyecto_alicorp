@@ -1024,38 +1024,6 @@ switch ($project->tipo_letra) {
         }
     };
 
-    document.getElementById('raspar-subir').addEventListener('change', function(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-
-            reader.onload = function(e) {
-                const preview = document.getElementById('preview-raspar');
-                const upload = document.getElementById('upload-raspar')
-                const parentElement = preview.parentNode;
-                preview.src = e.target.result; // Establece la fuente de la imagen
-                preview.style.display = 'block'; // Muestra la imagen
-                upload.classList.add("d-none")
-                // logo_casino.src = e.target.result;
-                var background = new Image();
-                background.src = e.target.result;
-            //   let gradientColor = context.createLinearGradient(0, 0, 135, 135);
-            //   gradientColor.addColorStop(0, "#c3a3f1");
-            //   gradientColor.addColorStop(1, "#6414e9");
-            //   context.fillStyle = gradientColor;
-            //   context.fillRect(0, 0, 200, 200);
-                // Make sure the image is loaded first otherwise nothing will draw.
-                canvas.width = canvas.parentElement.clientWidth;
-                canvas.height = canvas.parentElement.clientHeight;
-                background.onload = function(){
-                    context.drawImage(background,0,0,canvas.width,450);
-                }
-            };
-
-            reader.readAsDataURL(file); // Lee la imagen como una URL de datos
-        }
-    });
-
     //initially mouse X and mouse Y positions are 0
     let mouseX = 0;
     let mouseY = 0;
@@ -1501,7 +1469,7 @@ switch ($project->tipo_letra) {
 
 
 
-@section('script_jquery')
+@section('script_jquery1')
 <script
   src="https://code.jquery.com/jquery-2.2.4.min.js"
   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
@@ -1509,7 +1477,7 @@ switch ($project->tipo_letra) {
 ></script>
 <script src="{{ asset('js/wScratchpad.min.js') }}"></script>
 <script>
-    $("#cardRaspa").wScratchPad({
+    var scratchPad =  $("#cardRaspa").wScratchPad({
         size: 50, // The size of the brush/scratch.
         bg: `{{ $imgPremio }}`, // Background (image path or hex color).
         fg: `{{ $imagen_raspar }}`, // Foreground (image path or hex color).
@@ -1517,6 +1485,31 @@ switch ($project->tipo_letra) {
         scratchDown: function(e, percent){ console.log(percent, 1); },
         scratchMove: function(e, percent){ console.log(percent, 2); },
         scratchUp: function(e, percent){ console.log(percent, 3); }
+    });
+
+
+    document.getElementById('raspar-subir').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const preview = document.getElementById('preview-raspar');
+                const upload = document.getElementById('upload-raspar')
+                const parentElement = preview.parentNode;
+                preview.src = e.target.result; // Establece la fuente de la imagen
+                preview.style.display = 'block'; // Muestra la imagen
+                upload.classList.add("d-none")
+
+                scratchPad.wScratchPad('clear');
+
+
+                scratchPad.wScratchPad('fg', e.target.result)
+
+            };
+
+            reader.readAsDataURL(file); // Lee la imagen como una URL de datos
+        }
     });
 
 </script>
