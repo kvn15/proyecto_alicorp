@@ -778,7 +778,7 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
                             <input type="email" name="email" id="email" class="form-control input-text" value="{{ isset($landingPage["user"]) &&  $landingPage["user"]->email }}" required>
                         </div>
                         <div class="col-12 col-md-6 mb-3">
-                            <label for="codigo" class="label_form" style="color: {{ $color_label_formulario }} !important;">N° de LOTE + foto de producto</label>
+                            <label for="codigo" class="label_form" style="color: {{ $color_label_formulario }} !important;">N° de Boleta + foto de producto</label>
                             <input type="text" class="form-control input-text" name="codigo" id="codigo" required>
                             <input type="file" name="imagen" id="imagen" class="form-control mt-2" required>
                         </div>

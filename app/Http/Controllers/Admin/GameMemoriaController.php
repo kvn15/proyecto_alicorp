@@ -19,6 +19,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class GameMemoriaController extends Controller
@@ -130,8 +131,11 @@ class GameMemoriaController extends Controller
 
     public function store(Request $request, $id) {
 
+        $project = Project::where('id', $id)->first();
+
+        $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
+
         try {
-            $project = Project::where('id', $id)->first();
 
             $fechaActual = Carbon::now('America/Lima')->startOfDay();
             if (isset($project->fecha_fin_participar)) {
@@ -142,14 +146,28 @@ class GameMemoriaController extends Controller
 
             // Almacenar la imagen en el directorio deseado
             $ruta = '';
-            if ($request->hasFile('imagen')) {
-                $ruta = $request->file('imagen')->store('game_memoria', 'public'); // Almacena en storage/app/public/imagenes
-            }
+
+            $archivoBase64 = $request->input('camera_foto');
+
+            $imagenBase64 = explode(',', $archivoBase64)[1];
+
+            // Decodificar la cadena Base64
+            $archivo = base64_decode($imagenBase64);
+
+            // Crear un archivo temporal en el sistema
+            $tempFile = tmpfile(); // Crea un archivo temporal
+            $tempFilePath = stream_get_meta_data($tempFile)['uri']; // Obtén la ruta del archivo temporal
+            file_put_contents($tempFilePath, $archivo); // Escribe los datos binarios en el archivo temporal
+
+            // Generar un nombre único para la imagen y la ruta donde se almacenará
+            $nombreArchivo = 'boleta_memoria_' . time() . '.jpg';
+
+            // if ($request->hasFile('imagen')) {
+            //     $ruta = $request->file('imagen')->store('game_memoria', 'public'); // Almacena en storage/app/public/imagenes
+            // }
 
             // Verificar si el codigo ya existe
             // $isCodigo = Participant::where('project_id', $id)->where('codigo', $request->codigo)->first();
-
-            $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
 
             // if (isset($isCodigo)) {
             //     return redirect()->route($tipoJuego.'juego.view.registro', $project->dominio)->with('mensaje', 'El N° de LOTE ya existe.')->withInput();
@@ -276,6 +294,15 @@ class GameMemoriaController extends Controller
                     }
                 }
             }
+
+            // Usar 'store' para mover el archivo al directorio 'game_memoria' en el disco 'public'
+            $ruta = Storage::disk('public')->put('game_memoria/' . $nombreArchivo, file_get_contents($tempFilePath));
+
+            // Cerrar el archivo temporal
+            fclose($tempFile);
+
+            // Obtener la URL pública del archivo almacenado
+            $ruta = 'game_memoria/' . $nombreArchivo;
 
             $participant = new Participant();
             $participant->project_id = $id;

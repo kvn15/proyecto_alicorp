@@ -20,6 +20,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class RaspaGanaController extends Controller
 {
@@ -369,9 +370,28 @@ class RaspaGanaController extends Controller
 
             // Almacenar la imagen en el directorio deseado
             $ruta = '';
-            if ($request->hasFile('imagen')) {
-                $ruta = $request->file('imagen')->store('game_raspa_gana', 'public'); // Almacena en storage/app/public/imagenes
-            }
+
+            $archivoBase64 = $request->input('camera_foto');
+
+            $imagenBase64 = explode(',', $archivoBase64)[1];
+
+            // Decodificar la cadena Base64
+            $archivo = base64_decode($imagenBase64);
+
+            // Crear un archivo temporal en el sistema
+            $tempFile = tmpfile(); // Crea un archivo temporal
+            $tempFilePath = stream_get_meta_data($tempFile)['uri']; // Obtén la ruta del archivo temporal
+            file_put_contents($tempFilePath, $archivo); // Escribe los datos binarios en el archivo temporal
+
+            // Generar un nombre único para la imagen y la ruta donde se almacenará
+            $nombreArchivo = 'boleta_raspa_gana_' . time() . '.jpg';
+
+            // Almacenar la imagen en el directorio deseado
+            // $ruta = '';
+            // if ($request->hasFile('imagen')) {
+            //     $ruta = $request->file('imagen')->store('game_raspa_gana', 'public'); // Almacena en storage/app/public/imagenes
+            // }
+
             $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
 
             // // Verificar si el codigo ya existe
@@ -502,6 +522,15 @@ class RaspaGanaController extends Controller
                     }
                 }
             }
+
+            // Usar 'store' para mover el archivo al directorio 'game_memoria' en el disco 'public'
+            $ruta = Storage::disk('public')->put('game_raspa_gana/' . $nombreArchivo, file_get_contents($tempFilePath));
+
+            // Cerrar el archivo temporal
+            fclose($tempFile);
+
+            // Obtener la URL pública del archivo almacenado
+            $ruta = 'game_raspa_gana/' . $nombreArchivo;
 
             $participant = new Participant();
             $participant->project_id = $id;
