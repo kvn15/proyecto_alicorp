@@ -780,7 +780,17 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
                         <div class="col-12 col-md-6 mb-3">
                             <label for="codigo" class="label_form" style="color: {{ $color_label_formulario }} !important;">N° de Boleta + foto de producto</label>
                             <input type="text" class="form-control input-text" name="codigo" id="codigo" required>
-                            <input type="file" name="imagen" id="imagen" class="form-control mt-2" required>
+                            {{-- <input type="file" name="imagen" id="imagen" class="form-control mt-2" required> --}}
+
+                            <input type="hidden" id="camera_foto" name="camera_foto">
+                            <div class="w-100 d-flex mt-2" style="gap: 0.5rem;">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    Tomar Foto
+                                </button>
+                                <button type="button" class="btn btn-success d-none" id="ver_foto" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                                    Ver Foto
+                                </button>
+                            </div>
                         </div>
 
                         <div class="col-12 row mt-3">
@@ -971,6 +981,49 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
         </div>
     </div>
 
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered  modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Tomar Foto</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h5>Selecciona un dispositivo</h5>
+                <div>
+                    <select class="form-control" name="listaDeDispositivos" id="listaDeDispositivos"></select>
+                </div>
+                <br>
+                <video muted="muted" id="video" style="width: 100%"></video>
+                <canvas id="canvas" style="display: none;"></canvas>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cerrarModal">Cancelar</button>
+              <button type="button" class="btn btn-primary" id="boton">Tomar Foto</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exampleModal2" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered  modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel2">Ver Foto</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img src="" class="img-thumbnail w-100" alt="" id="img_foto_tomado">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cerrarModal">Salir</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
     integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
@@ -978,6 +1031,8 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
     integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.22/dist/sweetalert2.all.min.js"></script>
+<script src="{{ asset('js/script_camera.js') }}"></script>
 <script>
     $(document).ready(function () {
         $(document).on('click', '.top-acordion', function () {

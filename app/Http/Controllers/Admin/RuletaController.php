@@ -18,6 +18,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class RuletaController extends Controller
@@ -522,9 +523,25 @@ class RuletaController extends Controller
 
             // Almacenar la imagen en el directorio deseado
             $ruta = '';
-            if ($request->hasFile('imagen')) {
-                $ruta = $request->file('imagen')->store('ruleta', 'public'); // Almacena en storage/app/public/imagenes
-            }
+
+            $archivoBase64 = $request->input('camera_foto');
+
+            $imagenBase64 = explode(',', $archivoBase64)[1];
+
+            // Decodificar la cadena Base64
+            $archivo = base64_decode($imagenBase64);
+
+            // Crear un archivo temporal en el sistema
+            $tempFile = tmpfile(); // Crea un archivo temporal
+            $tempFilePath = stream_get_meta_data($tempFile)['uri']; // Obtén la ruta del archivo temporal
+            file_put_contents($tempFilePath, $archivo); // Escribe los datos binarios en el archivo temporal
+
+            // Generar un nombre único para la imagen y la ruta donde se almacenará
+            $nombreArchivo = 'boleta_ruleta_' . time() . '.jpg';
+
+            // if ($request->hasFile('imagen')) {
+            //     $ruta = $request->file('imagen')->store('ruleta', 'public'); // Almacena en storage/app/public/imagenes
+            // }
             $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
 
             // // Verificar si el codigo ya existe
@@ -657,6 +674,15 @@ class RuletaController extends Controller
                 }
 
             }
+
+            // Usar 'store' para mover el archivo al directorio 'game_memoria' en el disco 'public'
+            $ruta = Storage::disk('public')->put('ruleta/' . $nombreArchivo, file_get_contents($tempFilePath));
+
+            // Cerrar el archivo temporal
+            fclose($tempFile);
+
+            // Obtener la URL pública del archivo almacenado
+            $ruta = 'ruleta/' . $nombreArchivo;
 
             $participant = new Participant();
             $participant->project_id = $id;
