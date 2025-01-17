@@ -349,8 +349,6 @@ class RuletaController extends Controller
 
             if (Auth::guard('admin')->user()) { //admin
                 $user = AsignacionProject::where('project_id', $project->id)
-                ->where('fecha_inicio','<=',$fechaActualDate)
-                ->where('fecha_fin','>=',$fechaActualDate)
                 ->first();
                 $userId = Xplorer::find($user->xplorer_id)->id;
             } else if (Auth::guard('xplorer')->user()) {
@@ -444,8 +442,6 @@ class RuletaController extends Controller
             if (Auth::guard('admin')->user()) {
                 //admin
                 $user = AsignacionProject::where('project_id', $project->id)
-                ->where('fecha_inicio','<=',$fechaActualDate)
-                ->where('fecha_fin','>=',$fechaActualDate)
                 ->first();
 
                 $userId = Xplorer::find($user->xplorer_id)->id;
@@ -500,15 +496,25 @@ class RuletaController extends Controller
         ]);
         $gameRuleta = Roulette::where('project_id', $project->id)->first();
 
-        $puntoVenta = DB::table("sales_points")
-            ->join('asignacion_projects', 'asignacion_projects.sales_point_id', 'sales_points.id')
-            ->where('asignacion_projects.project_id', $project->id)
-            ->where('asignacion_projects.xplorer_id', $user->id)
-            ->where('asignacion_projects.fecha_inicio','<=',$fechaActualDate)
-            ->where('asignacion_projects.fecha_fin','>=',$fechaActualDate)
-            ->select('sales_points.*')
-            ->distinct()
-            ->get()->toArray();
+        if (Auth::guard('admin')->user()) {
+            $puntoVenta = DB::table("sales_points")
+                ->join('asignacion_projects', 'asignacion_projects.sales_point_id', 'sales_points.id')
+                ->where('asignacion_projects.project_id', $project->id)
+                ->where('asignacion_projects.xplorer_id', $user->id)
+                ->select('sales_points.*')
+                ->distinct()
+                ->get()->toArray();
+        } else {
+            $puntoVenta = DB::table("sales_points")
+                ->join('asignacion_projects', 'asignacion_projects.sales_point_id', 'sales_points.id')
+                ->where('asignacion_projects.project_id', $project->id)
+                ->where('asignacion_projects.xplorer_id', $user->id)
+                ->where('asignacion_projects.fecha_inicio','<=',$fechaActualDate)
+                ->where('asignacion_projects.fecha_fin','>=',$fechaActualDate)
+                ->select('sales_points.*')
+                ->distinct()
+                ->get()->toArray();
+        }
 
         $data = [
             'project' => $project,
