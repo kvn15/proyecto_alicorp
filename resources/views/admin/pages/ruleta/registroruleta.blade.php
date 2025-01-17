@@ -342,7 +342,7 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="1" name="checkPoliticas" id="checkPoliticas" checked>
                                     <label class="form-check-label" for="checkPoliticas">
-                                    Acepto politca de prvacidad de datos
+                                    Acepto politica de privacidad de datos
                                     </label>
                                 </div>
                             </div>
@@ -417,7 +417,7 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="1" name="checkPoliticas" id="checkPoliticas" checked>
                                     <label class="form-check-label" for="checkPoliticas">
-                                    Acepto politca de prvacidad de datos
+                                    Acepto politica de privacidad de datos
                                     </label>
                                 </div>
                             </div>
