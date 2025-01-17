@@ -296,13 +296,18 @@ class RaspaGanaController extends Controller
 
         //     $user = User::find(Auth::user()->id);
         // }
+
+        $fechaActualDate = Carbon::now()->toDateString(); // Devuelve la fecha en formato 'Y-m-d'
         if ($project->project_type_id == 3) {
             if (!Auth::guard('admin')->user() && !Auth::guard('xplorer')->user()) {
                 return redirect()->route('login');
             }
 
             if (Auth::guard('admin')->user()) {// Administrador
-                $idUser = AsignacionProject::where('project_id', $project->id)->first();
+                $idUser = AsignacionProject::where('project_id', $project->id)
+                ->where('fecha_inicio','<=',$fechaActualDate)
+                ->where('fecha_fin','>=',$fechaActualDate)
+                ->first();
                 $user = Xplorer::find($idUser->xplorer_id);
             }
             else if (Auth::guard('xplorer')->user()) {
@@ -342,9 +347,12 @@ class RaspaGanaController extends Controller
             ->join('asignacion_projects', 'asignacion_projects.sales_point_id', 'sales_points.id')
             ->where('asignacion_projects.project_id', $project->id)
             ->where('asignacion_projects.xplorer_id', $user->id)
+            ->where('asignacion_projects.fecha_inicio','<=',$fechaActualDate)
+            ->where('asignacion_projects.fecha_fin','>=',$fechaActualDate)
             ->select('sales_points.*')
             ->distinct()
-            ->get()->toArray();
+            ->get()
+            ->toArray();
 
         $data = [
             'project' => $project,
@@ -575,21 +583,30 @@ class RaspaGanaController extends Controller
         $participante = Participant::where('id', $request->idParticipante)->first();
 
         if (!isset($premio)) { // No gano
+
             $participante->update([
                 'ganador' => 0,
             ]);
+
+            $project->update([
+                'cantidad_no_premio' => $project->cantidad_no_premio ? intval($project->cantidad_no_premio)- 1 : 0
+            ]);
+
         }else {
 
             if ($project->project_type_id == 3) {
 
-                // Gano
-                $participante->update([
-                    'ganador' => 1,
-                    'award_project_id' => $premio->award_project_id,
-                    'fecha_premio' => Carbon::now()
-                ]);
-
                 $premio = PremioPdv::where('id', $request->premio_id)->first();
+
+                if ($premio->award_project_id != null) {
+                    // Gano
+                    $participante->update([
+                        'ganador' => 1,
+                        'award_project_id' => $premio->award_project_id,
+                        'fecha_premio' => Carbon::now()
+                    ]);
+                }
+
                 $premio->update([
                     "qty_premio" =>  $premio->qty_premio - 1
                 ]);
@@ -623,10 +640,14 @@ class RaspaGanaController extends Controller
         if ($project->project_type_id == 3) {
 
             $userId = 0;
+            $fechaActualDate = Carbon::now()->toDateString(); // Devuelve la fecha en formato 'Y-m-d'
 
             if(Auth::guard('admin')->user()) {
                 //admin
-                $user = AsignacionProject::where('project_id', $project->id)->first();
+                $user = AsignacionProject::where('project_id', $project->id)
+                ->where('fecha_inicio','<=',$fechaActualDate)
+                ->where('fecha_fin','>=',$fechaActualDate)
+                ->first();
                 $userId = Xplorer::find($user->xplorer_id)->id;
             } else if (Auth::guard('xplorer')->user()) {
                 $userId = Auth::guard('xplorer')->user()->id;
@@ -642,8 +663,23 @@ class RaspaGanaController extends Controller
             // ->where('award_projects.status', 1)
             ->select('premio_pdvs.id', 'award_projects.nombre_premio', 'award_projects.imagen', 'premio_pdvs.probabilidad')
             ->get();
+
+            $noPremio =  DB::table('premio_pdvs')
+            ->join('asignacion_projects', 'asignacion_projects.id', 'premio_pdvs.asignacion_project_id')
+            ->where('premio_pdvs.award_project_id', null)
+            ->where('asignacion_projects.project_id', $projectId)
+            ->where('asignacion_projects.sales_point_id', intval(session('punto_venta_raspa')))
+            ->where('asignacion_projects.xplorer_id', $userId)
+            ->where('premio_pdvs.qty_premio', '>', 0)
+            // ->where('award_projects.status', 1)
+            ->select('premio_pdvs.probabilidad', 'premio_pdvs.id')
+            ->first();
+
+            $idNoPremio = isset($noPremio->id) && !empty($noPremio->id) ? $noPremio->id : 0;
+            $noPremio = isset($noPremio) && !empty($noPremio) ? $noPremio->probabilidad : null;
         } else {
             $premios = AwardProject::where('project_id', $projectId)->where('status', 1)->where('stock','>',0)->get();
+            $idNoPremio = 0;
         }
 
         $sigueIntentando = KeepTrying::where('project_id', $projectId)->first();
@@ -658,7 +694,7 @@ class RaspaGanaController extends Controller
         }
 
         foreach ($premios as $premio) {
-            $total += $premio->probabilidad;
+            $total += intval($premio->probabilidad);
             $acumulado[] = [
                 'id' => $premio->id,
                 'nombre' => $premio->nombre_premio,
@@ -666,9 +702,10 @@ class RaspaGanaController extends Controller
                 'prob_acum' => $total
             ];
         }
-        $total += $project->prob_no_premio;
+        $total += $project->project_type_id == 3 ? (isset($noPremio) && !empty($noPremio) ? intval($noPremio) : intval($project->prob_no_premio)) : intval($project->prob_no_premio);
+
         $acumulado[] = [
-            'id' => 0,
+            'id' => $idNoPremio,
             'nombre' => 'Sigue intentando',
             'imagen' => $rutaSigue,
             'prob_acum' => $total
@@ -676,7 +713,6 @@ class RaspaGanaController extends Controller
 
         // Generar un número aleatorio entre 1 y 100
         $random = rand(1, $total);
-
         // Buscar el premio que corresponde al número aleatorio
         foreach ($acumulado as $item) {
             if ($random <= $item['prob_acum']) {

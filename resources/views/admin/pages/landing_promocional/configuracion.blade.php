@@ -405,6 +405,35 @@
                                         <input type="number" name="prob_no_premio" id="prob_no_premio" min="0" max="100" class="form-control" value="${premio.probabilidad}">
                                     </div>
                                 </div>
+                                <div class="mb-2 row">
+                                    <label for="cantidad_no_premio" class="col-sm-4">Cantidad</label>
+                                    <div class="col-sm-8">
+                                        {{-- <select name="prob_no_premio" id="prob_no_premio" class="form-select w-100">
+                                            <option value="0" selected>0</option>
+                                            <option value="10" selected>10</option>
+                                            <option value="15" selected>15</option>
+                                            <option value="20" selected>20</option>
+                                            <option value="25" selected>25</option>
+                                            <option value="30" selected>30</option>
+                                            <option value="35" selected>35</option>
+                                            <option value="40" selected>40</option>
+                                            <option value="45" selected>45</option>
+                                            <option value="50" selected>50</option>
+                                            <option value="55" selected>55</option>
+                                            <option value="60" selected>60</option>
+                                            <option value="65" selected>65</option>
+                                            <option value="70" selected>70</option>
+                                            <option value="75" selected>75</option>
+                                            <option value="80" selected>80</option>
+                                            <option value="85" selected>85</option>
+                                            <option value="90" selected>90</option>
+                                            <option value="95" selected>95</option>
+                                            <option value="100" selected>100</option>
+                                        </select> --}}
+
+                                        <input type="number" name="cantidad_no_premio" id="cantidad_no_premio" min="0" max="100" class="form-control" value="">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </form>

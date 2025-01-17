@@ -163,4 +163,37 @@ const llenarSelectConDispositivosDisponibles = () => {
                 $estado.innerHTML = "No se puede acceder a la cámara, o no diste permiso.";
             });
     }
+
+
+    // Función para reiniciar la cámara
+    function encenderCamara() {
+        // Comprobamos si ya hay un stream activo, y si es así, lo detenemos
+        if (stream) {
+            stream.getTracks().forEach(function(track) {
+                track.stop();
+            });
+        }
+
+        // Ahora pedimos los dispositivos de video disponibles
+        obtenerDispositivos()
+            .then(dispositivos => {
+                const dispositivosDeVideo = [];
+                dispositivos.forEach(function(dispositivo) {
+                    const tipo = dispositivo.kind;
+                    if (tipo === "videoinput") {
+                        dispositivosDeVideo.push(dispositivo);
+                    }
+                });
+
+                // Si encontramos algún dispositivo, reiniciamos el stream
+                if (dispositivosDeVideo.length > 0) {
+                    mostrarStream(dispositivosDeVideo[0].deviceId); // Usamos el primer dispositivo
+                }
+            })
+            .catch(function(error) {
+                console.log("Error al obtener los dispositivos:", error);
+            });
+    }
+    const botonEncenderCamara = document.querySelector("#encender-camara");
+    botonEncenderCamara.addEventListener("click", encenderCamara);
 })();

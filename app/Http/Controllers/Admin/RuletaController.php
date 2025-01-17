@@ -345,9 +345,13 @@ class RuletaController extends Controller
         if ($project->project_type_id == 3) {
 
             $userId = 0;
+            $fechaActualDate = Carbon::now()->toDateString(); // Devuelve la fecha en formato 'Y-m-d'
 
             if (Auth::guard('admin')->user()) { //admin
-                $user = AsignacionProject::where('project_id', $project->id)->first();
+                $user = AsignacionProject::where('project_id', $project->id)
+                ->where('fecha_inicio','<=',$fechaActualDate)
+                ->where('fecha_fin','>=',$fechaActualDate)
+                ->first();
                 $userId = Xplorer::find($user->xplorer_id)->id;
             } else if (Auth::guard('xplorer')->user()) {
                 $userId = Auth::guard('xplorer')->user()->id;
@@ -431,6 +435,7 @@ class RuletaController extends Controller
         //     $user = User::find(Auth::user()->id);
         // }
 
+        $fechaActualDate = Carbon::now()->toDateString(); // Devuelve la fecha en formato 'Y-m-d'
         if ($project->project_type_id == 3) {
             if (!Auth::guard('admin')->user() && !Auth::guard('xplorer')->user()) {
                 return redirect()->route('login');
@@ -438,7 +443,11 @@ class RuletaController extends Controller
 
             if (Auth::guard('admin')->user()) {
                 //admin
-                $user = AsignacionProject::where('project_id', $project->id)->first();
+                $user = AsignacionProject::where('project_id', $project->id)
+                ->where('fecha_inicio','<=',$fechaActualDate)
+                ->where('fecha_fin','>=',$fechaActualDate)
+                ->first();
+
                 $userId = Xplorer::find($user->xplorer_id)->id;
             }
             else if (Auth::guard('xplorer')->user()) {
@@ -495,6 +504,8 @@ class RuletaController extends Controller
             ->join('asignacion_projects', 'asignacion_projects.sales_point_id', 'sales_points.id')
             ->where('asignacion_projects.project_id', $project->id)
             ->where('asignacion_projects.xplorer_id', $user->id)
+            ->where('asignacion_projects.fecha_inicio','<=',$fechaActualDate)
+            ->where('asignacion_projects.fecha_fin','>=',$fechaActualDate)
             ->select('sales_points.*')
             ->distinct()
             ->get()->toArray();

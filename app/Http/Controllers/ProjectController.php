@@ -69,6 +69,13 @@ class ProjectController extends Controller
             return response()->json(['message' => 'Proyecto no encontrado.'], 404);
         }
 
+        // Validar si exists un dominio similar
+        $isDominio = Project::where('dominio', $request->dominio)->where('project_type_id', $project->project_type_id)->where('game_id', $project->game_id)->where('id','<>', $project->id)->get();
+
+        if ($isDominio->count() > 0) {
+            return response()->json(['success' => false,'message' => 'El dominio ingresado ya esta en uso.']);
+        }
+
         $project->update([
             'dominio' => $request->dominio,
         ]);
@@ -157,6 +164,7 @@ class ProjectController extends Controller
         $project->update([
             'cantidad_premio' => $request->cantidad_premio,
             'prob_no_premio' => $request->prob_no_premio,
+            'cantidad_no_premio' => $request->cantidad_no_premio,
         ]);
 
         // Crear premios

@@ -4,6 +4,7 @@
     $premioSelect = $data["premio"];
     $idParticipante = $data["idParticipante"];
     $sigueIntentando = $data["sigueIntentando"];
+    $IdSigueIntentando = $data["idSigueIntentando"];
     $imgNulo = asset('backend/svg/img-null.svg');
 
     $urlSigue = isset($sigueIntentando["imagen"]) && !empty($sigueIntentando["imagen"]) ? '/storage/'.$sigueIntentando["imagen"] : '';
@@ -596,6 +597,8 @@
                     document.getElementById("h4Premio").textContent = 'Sigue Intentando'
                     document.getElementById("img-header-premio").src = '{{ $imgTitulo }}'
                     document.getElementById("premio_img").style.width = "320px";
+                    // document.getElementById("premio_id").value = '{{ $IdSigueIntentando }}'
+                    // ganador()
                 }, 1500);
             }
 

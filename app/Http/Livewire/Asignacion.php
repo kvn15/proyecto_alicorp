@@ -123,28 +123,35 @@ class Asignacion extends Component
                     'award_project_id' => null,
                     'qty_premio' => null,
                 ]);
-
                 // Agregar premios
                 foreach ($this->lPremios as $key => $value) {
-                    PremioPdv::create([
-                        'asignacion_project_id' => $asignacion->id,
-                        'award_project_id' => $value["premioId"],
-                        'qty_premio' => $value["cantidad"],
-                        'probabilidad' => $value["probabilidad"]
-                    ]);
+                    if ($value["premioId"] != "0") {
+                        PremioPdv::create([
+                            'asignacion_project_id' => $asignacion->id,
+                            'award_project_id' => $value["premioId"],
+                            'qty_premio' => $value["cantidad"],
+                            'probabilidad' => $value["probabilidad"]
+                        ]);
+                    } else {
+                        PremioPdv::create([
+                            'asignacion_project_id' => $asignacion->id,
+                            'award_project_id' => null,
+                            'qty_premio' => $value["cantidad"],
+                            'probabilidad' => $value["probabilidad"]
+                        ]);
+                    }
                 }
             }
-
-
-
             // resetear
             $this->resetForm();
+
             $this->dispatchBrowserEvent('swal:alert', [
                 'title' => 'Registro exitoso!',
                 'icon' => 'success',
             ]);
 
             $this->dispatchBrowserEvent('xplorerFin');
+
         } catch (\Exception $e) {
             // Maneja la excepción
             $this->dispatchBrowserEvent('swal:alert', [
@@ -187,14 +194,25 @@ class Asignacion extends Component
             $this->probabilidad = $asignacion->probabilidad;
             $premios = PremioPdv::where('asignacion_project_id', $asignacion->id)->get();
             foreach ($premios as $key => $value) {
-                $premioKick = AwardProject::where("id", $value->award_project_id)->first();
-                $premioObj = [
-                    "id" => $value->id,
-                    "premioId" => $value->award_project_id,
-                    "premioName" => $premioKick->nombre_premio,
-                    "cantidad" => $value->qty_premio,
-                    "probabilidad" => $value->probabilidad
-                ];
+                if ($value->award_project_id == null) {
+                    $premioObj = [
+                        "id" => $value->id,
+                        "premioId" => "0",
+                        "premioName" => "No Premio",
+                        "cantidad" => $value->qty_premio,
+                        "probabilidad" => $value->probabilidad
+                    ];
+                } else {
+                    $premioKick = AwardProject::where("id", $value->award_project_id)->first();
+                    $premioObj = [
+                        "id" => $value->id,
+                        "premioId" => $value->award_project_id == null ? "0" : $value->award_project_id,
+                        "premioName" => $premioKick->nombre_premio,
+                        "cantidad" => $value->qty_premio,
+                        "probabilidad" => $value->probabilidad
+                    ];
+                }
+
                 $this->lPremios = array_merge($this->lPremios, [$premioObj]);
             }
         } else {
@@ -258,7 +276,7 @@ class Asignacion extends Component
                 $resultado = $preimioAssig->where('id', $value->id)->first();
 
                 $asignacionPdv->update([
-                    'award_project_id' => $resultado["premioId"],
+                    'award_project_id' => $resultado["premioId"] == "0" ? null : $resultado["premioId"],
                     'qty_premio' => $resultado["cantidad"],
                     'probabilidad' => $resultado["probabilidad"]
                 ]);
@@ -277,7 +295,7 @@ class Asignacion extends Component
         foreach ($resultado as $key => $value) {
             PremioPdv::create([
                 'asignacion_project_id' => $asignacion->id,
-                'award_project_id' => $value["premioId"],
+                'award_project_id' => $value["premioId"] == 0 ? null : $value["premioId"],
                 'qty_premio' => $value["cantidad"],
                 'probabilidad' => $value["probabilidad"]
             ]);
@@ -323,8 +341,8 @@ class Asignacion extends Component
     public function addTablePremio() {
         $idPremio = $this->premio;
         $premioKick = AwardProject::where("project_id", $this->projectId)->where('id', $idPremio)->first();
+        if ($premioKick || $idPremio == '0') {
 
-        if ($premioKick) {
 
             if ($this->textBtnAdd == "Editar") {
                 // $resultado = $preimioAssig->where('premioId', $idPremio)->first();
@@ -336,11 +354,10 @@ class Asignacion extends Component
                 }
                 $this->cancelar();
             } else {
-
                 $premioObj = [
                     "id" => 0,
                     "premioId" => $idPremio,
-                    "premioName" => $premioKick->nombre_premio,
+                    "premioName" => $idPremio == "0" ? "No Premio" : $premioKick->nombre_premio,
                     "cantidad" => $this->qty_premio,
                     "probabilidad" => $this->probabilidad
                 ];

@@ -45,7 +45,11 @@
                                 <span class="badge text-bg-success" style="background-color: #05CD991A !important;color: #05CD99 !important;font-weight: 700;">{{ $value->award_project->nombre_premio }}</span>
                             @else
                                 @foreach ($value->premio_pdvs as $item)
-                                    <span class="badge text-bg-success" style="background-color: #05CD991A !important;color: #05CD99 !important;font-weight: 700;">{{ $item->award_project->nombre_premio }}</span>
+                                    @if ($item->award_project_id)
+                                        <span class="badge text-bg-success" style="background-color: #05CD991A !important;color: #05CD99 !important;font-weight: 700;">{{ $item->award_project->nombre_premio }}</span>
+                                    @else
+                                    <span class="badge text-bg-success" style="background-color: #a1070746 !important;color: #a10707 !important;font-weight: 700;">No Premio</span>
+                                    @endif
                                 @endforeach
                             @endif
                         </td>
@@ -129,6 +133,7 @@
                             @foreach ($premios as $item)
                                 <option value="{{ $item->id }}">{{ $item->nombre_premio }}</option>
                             @endforeach
+                            <option value="0">No Premio</option>
                         </select>
                         @error('premio') <span class="text-danger">Premio es requerida.</span> @enderror
                     </div>
@@ -265,6 +270,7 @@
                             @foreach ($premios as $item)
                                 <option value="{{ $item->id }}">{{ $item->nombre_premio }}</option>
                             @endforeach
+                            <option value="0">No Premio</option>
                         </select>
                         @error('premio') <span class="text-danger">Premio es requerida.</span> @enderror
                     </div>

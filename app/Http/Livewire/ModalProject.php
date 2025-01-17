@@ -23,8 +23,9 @@ class ModalProject extends Component
     protected $listeners = ['hallChanged' => 'change'];
 
     public function submit() {
-        
+
         $texto = Ascii::to_ascii($this->nombre_promocion);
+        $hashUnico = bin2hex(random_bytes(8));
         $url = Str::of($texto)->lower()->replace(' ', '_')->slug('-');
 
         $proyecto = new Project();
@@ -35,7 +36,7 @@ class ModalProject extends Component
         $proyecto->game_id = $this->game_select;
         $proyecto->admin_id  = auth()->id();
         $proyecto->fecha_ini_proyecto = Carbon::now();
-        $proyecto->dominio = $url;
+        $proyecto->dominio = $url.'-'.$hashUnico;
 
         $proyecto->save();
 
@@ -45,7 +46,7 @@ class ModalProject extends Component
         $proyecto->desc_promocion = '';
         $proyecto->marcas = '';
         $proyecto->game_id = '';
-        
+
         $this->emit('eventoFinish');
     }
 
@@ -81,7 +82,7 @@ class ModalProject extends Component
         return redirect()->route($this->pageActual);
     }
 
-    public function mount($pageActual) 
+    public function mount($pageActual)
     {
         $this->pageActual = $pageActual;
         $this->game = Game::all();

@@ -994,6 +994,7 @@ $respuesta4 = $preguntas_frecuentes && $preguntas_frecuentes["respuesta4"] ? $pr
                 <h5>Selecciona un dispositivo</h5>
                 <div>
                     <select class="form-control" name="listaDeDispositivos" id="listaDeDispositivos"></select>
+                    <button class="btn btn-info" id="encender-camara">Reiniciar Cámara</button>
                 </div>
                 <br>
                 <video muted="muted" id="video" style="width: 100%"></video>

@@ -50,6 +50,8 @@ class GameMemoriaController extends Controller
 
         //     $user = User::find(Auth::user()->id);
         // }
+
+        $fechaActualDate = Carbon::now()->toDateString(); // Devuelve la fecha en formato 'Y-m-d'
         if ($project->project_type_id == 3) {
             if (!Auth::guard('admin')->user() && !Auth::guard('xplorer')->user()) {
                 return redirect()->route('login');
@@ -57,7 +59,10 @@ class GameMemoriaController extends Controller
 
             if(Auth::guard('admin')->user()) {// Administrador
 
-                $idUser = AsignacionProject::where('project_id', $project->id)->first();
+                $idUser = AsignacionProject::where('project_id', $project->id)
+                ->where('fecha_inicio','<=',$fechaActualDate)
+                ->where('fecha_fin','>=',$fechaActualDate)
+                ->first();
                 $user = ModelsXplorer::find($idUser->xplorer_id);
             }
             else if(Auth::guard('xplorer')->user()) {
@@ -115,9 +120,12 @@ class GameMemoriaController extends Controller
             ->join('asignacion_projects', 'asignacion_projects.sales_point_id', 'sales_points.id')
             ->where('asignacion_projects.project_id', $project->id)
             ->where('asignacion_projects.xplorer_id', $user->id)
+            ->where('asignacion_projects.fecha_inicio','<=',$fechaActualDate)
+            ->where('asignacion_projects.fecha_fin','>=',$fechaActualDate)
             ->select('sales_points.*')
             ->distinct()
-            ->get()->toArray();
+            ->get()
+            ->toArray();
 
         $data = [
             'project' => $project,
@@ -350,12 +358,41 @@ class GameMemoriaController extends Controller
         $premio = $this->obtenerPremio($project->id);
         $sigueIntentando = KeepTrying::where('project_id', $project->id)->first();
 
+        if ($project->project_type_id == 3) {
+
+            $userId = 0;
+
+            if(Auth::guard('admin')->user()) {
+                //admin
+                $user = AsignacionProject::where('project_id', $project->id)->first();
+                $userId = ModelsXplorer::find($user->xplorer_id)->id;
+            } else if (Auth::guard('xplorer')->user()) {
+                $userId = Auth::guard('xplorer')->user()->id;
+            }
+
+            $noPremio =  DB::table('premio_pdvs')
+            ->join('asignacion_projects', 'asignacion_projects.id', 'premio_pdvs.asignacion_project_id')
+            ->where('premio_pdvs.award_project_id', null)
+            ->where('asignacion_projects.project_id', $project->id)
+            ->where('asignacion_projects.sales_point_id', intval(session('punto_venta_raspa')))
+            ->where('asignacion_projects.xplorer_id', $userId)
+            ->where('premio_pdvs.qty_premio', '>', 0)
+            // ->where('award_projects.status', 1)
+            ->select('premio_pdvs.probabilidad', 'premio_pdvs.id')
+            ->first();
+
+            $idNoPremio = isset($noPremio->id) && !empty($noPremio->id) ? $noPremio->id : 0;
+        } else {
+            $idNoPremio = 0;
+        }
+
         $data = [
             'idParticipante' => $idParticipante,
             'project' => $project,
             'gameMemoria' => $game,
             'premio' => $premio,
-            'sigueIntentando' => $sigueIntentando
+            'sigueIntentando' => $sigueIntentando,
+            'idSigueIntentando' => $idNoPremio
         ];
 
         // Vista Proyecto
@@ -600,9 +637,13 @@ class GameMemoriaController extends Controller
         if ($project->project_type_id == 3) {
 
             $userId = 0;
+            $fechaActualDate = Carbon::now()->toDateString(); // Devuelve la fecha en formato 'Y-m-d'
 
             if(Auth::guard('admin')->user()) { //admin
-                $user = AsignacionProject::where('project_id', $project->id)->first();
+                $user = AsignacionProject::where('project_id', $project->id)
+                ->where('fecha_inicio','<=',$fechaActualDate)
+                ->where('fecha_fin','>=',$fechaActualDate)
+                ->first();
                 $userId = ModelsXplorer::find($user->xplorer_id)->id;
             }
             else if (Auth::guard('xplorer')->user()) {
@@ -672,15 +713,17 @@ class GameMemoriaController extends Controller
         }else { // Gano
 
             if ($project->project_type_id == 3) {
-
-                // Gano
-                $participante->update([
-                    'ganador' => 1,
-                    'award_project_id' => $premio->award_project_id,
-                    'fecha_premio' => Carbon::now()
-                ]);
-
                 $premio = PremioPdv::where('id', $request->premio_id)->first();
+
+                if ($premio->award_project_id != null) {
+                    // Gano
+                    $participante->update([
+                        'ganador' => 1,
+                        'award_project_id' => $premio->award_project_id,
+                        'fecha_premio' => Carbon::now()
+                    ]);
+                }
+
                 $premio->update([
                     "qty_premio" =>  $premio->qty_premio - 1
                 ]);

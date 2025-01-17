@@ -401,7 +401,7 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
                 <canvas id="scratch" height="450"></canvas> --}}
                 <div id="cardRaspa"></div>
                 <div class="btn_content">
-                    <button type="button" class="btn-memoria d-none text-uppercase" style="background-color: #fff;" id="continar_casino">Continuar</button>
+                    <button type="button" class="btn-memoria d-none text-uppercase" style="background-color: {{ $btnBg }}; color: {{ $btnColor }} !important;"id="continar_casino">Continuar</button>
                 </div>
             </div>
         </div>

@@ -47,11 +47,19 @@ $(document).ready(function() {
             contentType: false, // Para enviar los datos como FormData
             processData: false, // No procesar los datos
             success: function(data) {
-                // Procesar los datos devueltos
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Cambios guardados'
-                })
+                if (data.success === false) {
+                    // Procesar los datos devueltos
+                    Swal.fire({
+                        icon: 'warning',
+                        title: data.message
+                    })
+                } else {
+                    // Procesar los datos devueltos
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Cambios guardados'
+                    })
+                }
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
@@ -299,6 +307,7 @@ $(document).ready(function() {
                     if (response?.data != undefined || response?.data != null) {
                         lPremioAll = response.data.premio ?? []
                         $("#prob_no_premio").val(response.data.project.prob_no_premio);
+                        $("#cantidad_no_premio").val(response.data.project.cantidad_no_premio);
                         lPremio = lPremioAll.filter(pre => pre.status == 1).map(premio => {
                             return {
                                 ...premio,

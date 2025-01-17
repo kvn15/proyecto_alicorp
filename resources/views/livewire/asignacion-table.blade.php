@@ -75,7 +75,11 @@
                         <td>{{ count($value->premio_pdvs) }}</td>
                         <td>
                             @foreach ($value->premio_pdvs as $item)
+                                @if ($item->award_project_id)
                                 <span class="badge text-bg-success" style="background-color: #05CD991A !important;color: #05CD99 !important;font-weight: 700;">{{ $item->award_project->nombre_premio }}</span>
+                                @else
+                                <span class="badge text-bg-success" style="background-color: #f3070746 !important;color: #a10707 !important;font-weight: 700;">No Premio</span>
+                                @endif
                             @endforeach
                         </td>
                     </tr>
