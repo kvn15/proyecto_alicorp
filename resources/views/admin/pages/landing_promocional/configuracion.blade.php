@@ -431,7 +431,7 @@
                                             <option value="100" selected>100</option>
                                         </select> --}}
 
-                                        <input type="number" name="cantidad_no_premio" id="cantidad_no_premio" min="0" max="100" class="form-control" value="">
+                                        <input type="number" name="cantidad_no_premio" id="cantidad_no_premio" min="0"  class="form-control" value="">
                                     </div>
                                 </div>
                             </div>
