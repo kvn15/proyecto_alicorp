@@ -58,7 +58,7 @@ class AsignacionProjectsImport implements ToModel, WithHeadingRow
             throw new \Exception("Punto de venta no encontrado: " . $row['punto_venta']);
         }
 
-        if (!$award_project) {
+        if (!$award_project && Str::lower($row['premio']) != Str::lower('No Premio')) {
             // Manejar el caso cuando no se encuentra el premio
             throw new \Exception("Premio no encontrado: " . $row['premio']);
         }
@@ -73,19 +73,37 @@ class AsignacionProjectsImport implements ToModel, WithHeadingRow
 
         if (isset($asignacionRepeat) && !empty($asignacionRepeat)) {
 
-            $premioPdv = PremioPdv::where('asignacion_project_id', $asignacionRepeat->id)->where('award_project_id', $award_project->id)->get();
+            if (Str::lower($row['premio']) != Str::lower('No Premio')) {
 
-            if (count($premioPdv) > 0) {
-                throw new \Exception($xplorer->name.' ya tiene asignado este premio: '.$row['premio'] . ' en el punto de venta "' . $row['punto_venta'] .'" (Asignacion con ID: '.$asignacionRepeat->id.')');
+                $premioPdv = PremioPdv::where('asignacion_project_id', $asignacionRepeat->id)->where('award_project_id', $award_project->id)->get();
+
+                if (count($premioPdv) > 0) {
+                    throw new \Exception($xplorer->name.' ya tiene asignado este premio: '.$row['premio'] . ' en el punto de venta "' . $row['punto_venta'] .'" (Asignacion con ID: '.$asignacionRepeat->id.')');
+                }
+
+                return new PremioPdv([
+                    'asignacion_project_id' => $asignacionRepeat->id,
+                    'award_project_id' => $award_project->id,
+                    'qty_premio' => $row['qty_premio'],
+                    'probabilidad' => $row["probabilidad"]
+                ]);
+
+            } else {
+
+                $premioPdv = PremioPdv::where('asignacion_project_id', $asignacionRepeat->id)->where('award_project_id', null)->get();
+
+                if (count($premioPdv) > 0) {
+                    throw new \Exception($xplorer->name.' ya tiene asignado este premio: '.$row['premio'] . ' en el punto de venta "' . $row['punto_venta'] .'" (Asignacion con ID: '.$asignacionRepeat->id.')');
+                }
+
+                return new PremioPdv([
+                    'asignacion_project_id' => $asignacionRepeat->id,
+                    'award_project_id' => null,
+                    'qty_premio' => $row['qty_premio'],
+                    'probabilidad' => $row["probabilidad"]
+                ]);
+
             }
-
-            return new PremioPdv([
-                'asignacion_project_id' => $asignacionRepeat->id,
-                'award_project_id' => $award_project->id,
-                'qty_premio' => $row['qty_premio'],
-                'probabilidad' => $row["probabilidad"]
-            ]);
-
             # code...
         } else {
 
@@ -101,7 +119,7 @@ class AsignacionProjectsImport implements ToModel, WithHeadingRow
 
             return new PremioPdv([
                 'asignacion_project_id' => $asignacion->id,
-                'award_project_id' => $award_project->id,
+                'award_project_id' => Str::lower($row['premio']) != Str::lower('No Premio') ? $award_project->id : null,
                 'qty_premio' => $row['qty_premio'],
                 'probabilidad' => $row["probabilidad"]
             ]);
