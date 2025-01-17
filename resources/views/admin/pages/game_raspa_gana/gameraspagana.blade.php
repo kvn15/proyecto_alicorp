@@ -182,7 +182,8 @@
     .select_punto {
         height: 80px;
         font-size: 1.5em;
-        width: 200px;
+        width: 100%;
+        max-width: 200px;
         white-space: pre-wrap;
         text-align: center;
         border: 0;
