@@ -35,7 +35,7 @@ $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
 
     $titulo_subir = isset($gameRaspaGana) && !empty($gameRaspaGana->titulo_subir) ? "/storage/".$gameRaspaGana->titulo_subir : $imgNulo;
     $titulo_ganastes = isset($gameRaspaGana) && !empty($gameRaspaGana->titulo_ganastes) ? "/storage/".$gameRaspaGana->titulo_ganastes : $titulo_subir;
-    $titulo_final = $premioSelect['premio_id'] == 0 ? $titulo_subir : $titulo_ganastes;
+    $titulo_final = $premioSelect['premio_nombre'] == 'Sigue intentando' ? $titulo_subir : $titulo_ganastes;
 
     // titulo
     // valores

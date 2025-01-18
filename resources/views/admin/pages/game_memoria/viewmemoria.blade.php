@@ -169,8 +169,8 @@
     }
     .card {
         position: relative;
-        width: 120px;
-        height: 120px;
+        width: 130px;
+        height: 130px;
         cursor: pointer;
         background-color: transparent !important;
         border: 0;
@@ -270,17 +270,11 @@
     }
 </style>
 <style>
-    @media (max-width: 320px) {
+    @media (max-width: 330px) {
         .card {
             width: 130px;
             height: 130px;
         }
-
-        .div-premio {
-            min-height: auto;
-        }
-    }
-    @media (min-width: 321px) and  (max-width: 575.98px) {
         .board {
             grid-template-columns: repeat(2, auto) !important;
         }
@@ -289,9 +283,27 @@
             min-height: auto;
         }
     }
+    @media (min-width: 331px) and  (max-width: 575.98px) {
+        .board {
+            grid-template-columns: repeat(3, auto) !important;
+        }
+
+        .div-premio {
+            min-height: auto;
+        }
+
+        .card {
+            width: 100px !important;
+            height: 100px !important;
+        }
+    }
     @media (min-width: 576px) and (max-width: 767.98px) {
         .board {
             grid-template-columns: repeat(3, auto) !important;
+        }
+        .card {
+            width: 120px !important;
+            height: 120px !important;
         }
     }
 </style>

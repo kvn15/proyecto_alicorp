@@ -119,7 +119,7 @@ class GameMemoriaController extends Controller
                 ->join('asignacion_projects', 'asignacion_projects.sales_point_id', 'sales_points.id')
                 ->where('asignacion_projects.project_id', $project->id)
                 ->where('asignacion_projects.xplorer_id', $user->id)
-                ->select('sales_points.*')
+                ->select('sales_points.*', DB::raw("asignacion_projects.id AS asignacion_project_id"))
                 ->distinct()
                 ->get()
                 ->toArray();
@@ -131,7 +131,7 @@ class GameMemoriaController extends Controller
                 ->where('asignacion_projects.xplorer_id', $user->id)
                 ->where('asignacion_projects.fecha_inicio','<=',$fechaActualDate)
                 ->where('asignacion_projects.fecha_fin','>=',$fechaActualDate)
-                ->select('sales_points.*')
+                ->select('sales_points.*', DB::raw("asignacion_projects.id AS asignacion_project_id"))
                 ->distinct()
                 ->get()
                 ->toArray();
@@ -322,6 +322,9 @@ class GameMemoriaController extends Controller
             // Obtener la URL pública del archivo almacenado
             $ruta = 'game_memoria/' . $nombreArchivo;
 
+            // Obtenemos punto de venta
+            $asignacionProject = AsignacionProject::where('id', $request->punto_venta)->first();
+
             $participant = new Participant();
             $participant->project_id = $id;
             $participant->user_id = $userId;
@@ -331,7 +334,8 @@ class GameMemoriaController extends Controller
             $participant->codigo_valido = 1;
             $participant->participaciones = 1;
             $participant->file_producto = $ruta;
-            $participant->punto_entrega = isset($request->punto_venta) && !empty($request->punto_venta) ? $request->punto_venta : null;
+            $participant->punto_entrega = isset($asignacionProject) && !empty($asignacionProject->sales_point_id) ? $asignacionProject->sales_point_id : null;
+            $participant->asignacion_project_id = $request->punto_venta;
             $participant->save();
 
             $uuid = Str::uuid()->toString();
@@ -368,6 +372,10 @@ class GameMemoriaController extends Controller
         $premio = $this->obtenerPremio($project->id);
         $sigueIntentando = KeepTrying::where('project_id', $project->id)->first();
 
+        if ($premio == null || !isset($premio) || !isset($premio['premio_id'])) {
+            $premio = $this->obtenerPremioFirst($project->id);
+        }
+
         if ($project->project_type_id == 3) {
 
             $userId = 0;
@@ -383,9 +391,9 @@ class GameMemoriaController extends Controller
             $noPremio =  DB::table('premio_pdvs')
             ->join('asignacion_projects', 'asignacion_projects.id', 'premio_pdvs.asignacion_project_id')
             ->where('premio_pdvs.award_project_id', null)
-            ->where('asignacion_projects.project_id', $project->id)
-            ->where('asignacion_projects.sales_point_id', intval(session('punto_venta_raspa')))
-            ->where('asignacion_projects.xplorer_id', $userId)
+            // ->where('asignacion_projects.project_id', $project->id)
+            ->where('asignacion_projects.id', intval(session('punto_venta_memoria')))
+            // ->where('asignacion_projects.xplorer_id', $userId)
             ->where('premio_pdvs.qty_premio', '>', 0)
             // ->where('award_projects.status', 1)
             ->select('premio_pdvs.probabilidad', 'premio_pdvs.id')
@@ -649,21 +657,21 @@ class GameMemoriaController extends Controller
             $userId = 0;
             $fechaActualDate = Carbon::now()->toDateString(); // Devuelve la fecha en formato 'Y-m-d'
 
-            if(Auth::guard('admin')->user()) { //admin
-                $user = AsignacionProject::where('project_id', $project->id)
-                ->first();
-                $userId = ModelsXplorer::find($user->xplorer_id)->id;
-            }
-            else if (Auth::guard('xplorer')->user()) {
-                $userId = Auth::guard('xplorer')->user()->id;
-            }
+            // if(Auth::guard('admin')->user()) { //admin
+            //     $user = AsignacionProject::where('project_id', $project->id)
+            //     ->first();
+            //     $userId = ModelsXplorer::find($user->xplorer_id)->id;
+            // }
+            // else if (Auth::guard('xplorer')->user()) {
+            //     $userId = Auth::guard('xplorer')->user()->id;
+            // }
 
             $premios = DB::table('award_projects')
             ->join('premio_pdvs', 'premio_pdvs.award_project_id', 'award_projects.id')
             ->join('asignacion_projects', 'asignacion_projects.id', 'premio_pdvs.asignacion_project_id')
-            ->where('asignacion_projects.project_id', $projectId)
-            ->where('asignacion_projects.sales_point_id', intval(session('punto_venta_memoria')))
-            ->where('asignacion_projects.xplorer_id', $userId)
+            // ->where('asignacion_projects.project_id', $projectId)
+            ->where('asignacion_projects.id', intval(session('punto_venta_memoria')))
+            // ->where('asignacion_projects.xplorer_id', $userId)
             ->where('premio_pdvs.qty_premio', '>', 0)
             // ->where('award_projects.status', 1)
             ->select('premio_pdvs.id', 'award_projects.nombre_premio', 'award_projects.imagen', 'premio_pdvs.probabilidad')
@@ -686,6 +694,8 @@ class GameMemoriaController extends Controller
             ];
         }
 
+        shuffle($acumulado);
+
         // Generar un número aleatorio entre 1 y 100
         $random = rand(1, $total);
 
@@ -699,6 +709,50 @@ class GameMemoriaController extends Controller
                 ];
             }
         }
+    }
+
+    public function obtenerPremioFirst($projectId) {
+
+        $project = Project::findOrFail($projectId);
+
+        if ($project->project_type_id == 3) {
+            $userId = 0;
+
+            // if(Auth::guard('admin')->user()) { //admin
+            //     $user = AsignacionProject::where('project_id', $project->id)
+            //     ->first();
+            //     $userId = ModelsXplorer::find($user->xplorer_id)->id;
+            // }
+            // else if (Auth::guard('xplorer')->user()) {
+            //     $userId = Auth::guard('xplorer')->user()->id;
+            // }
+
+            $premios = DB::table('award_projects')
+            ->join('premio_pdvs', 'premio_pdvs.award_project_id', 'award_projects.id')
+            ->join('asignacion_projects', 'asignacion_projects.id', 'premio_pdvs.asignacion_project_id')
+            // ->where('asignacion_projects.project_id', $project->id)
+            ->where('asignacion_projects.id', intval(session('punto_venta_memoria')))
+            // ->where('asignacion_projects.xplorer_id', $userId)
+            ->where('premio_pdvs.qty_premio', '>', 0)
+            // ->where('award_projects.status', 1)
+            ->select('premio_pdvs.id', 'award_projects.nombre_premio', 'award_projects.imagen', 'premio_pdvs.probabilidad')
+            ->first();
+
+            return [
+                'premio_id' => $premios->id,
+                'premio_nombre' => $premios->nombre_premio,
+                'imagen' => $premios->imagen
+            ];
+        } else {
+            $premios = AwardProject::where('project_id', $projectId)->where('status', 1)->where('stock','>',0)->first();
+
+            return [
+                'premio_id' => $premios->id,
+                'premio_nombre' => $premios->nombre_premio,
+                'imagen' => $premios->imagen
+            ];
+        }
+
     }
 
     // Verificar ganador
@@ -718,6 +772,11 @@ class GameMemoriaController extends Controller
             $participante->update([
                 'ganador' => 0,
             ]);
+
+            $project->update([
+                'cantidad_no_premio' => $project->cantidad_no_premio ? intval($project->cantidad_no_premio)- 1 : 0
+            ]);
+
         }else { // Gano
 
             if ($project->project_type_id == 3) {
@@ -731,6 +790,10 @@ class GameMemoriaController extends Controller
                         'fecha_premio' => Carbon::now()
                     ]);
                 }
+
+                $participante->update([
+                    'premio_pdv_id' => $request->premio_id
+                ]);
 
                 $premio->update([
                     "qty_premio" =>  $premio->qty_premio - 1
@@ -751,6 +814,9 @@ class GameMemoriaController extends Controller
             }
 
         }
+
+        // Borrar la sesión
+        session()->forget('punto_venta_memoria');
 
         return response()->json([
             'message' => 'success'

@@ -277,135 +277,7 @@ class RuletaController extends Controller
         ]);
     }
 
-    public function show($hub) {
-
-        // Obtener proyecto
-        $project = Project::where('dominio', $hub)->where('status', 1)->where('game_id', 2)->first();
-
-        if(!isset($project)){
-            return redirect()->route('index');
-        }
-        $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
-
-        if (!session()->has('claveRuleta')) {
-            return redirect()->route($tipoJuego.'juego.view.registro.ruleta', $hub);
-        }
-        $idParticipante = session('claveRuleta');
-
-        $gameRuleta = Roulette::where('project_id', $project->id)->first();
-        $projectPremio = AwardProject::where('project_id', $project->id)->where('status', 1)->get();
-
-        if ($project->project_type_id == 3) {
-
-            $userId = 0;
-
-            if (Auth::guard('xplorer')->user()) {
-                $userId = Auth::guard('xplorer')->user()->id;
-            } else { //admin
-                $user = AsignacionProject::where('project_id', $project->id)->first();
-                $userId = Xplorer::find($user->xplorer_id);
-            }
-
-            $premioRuleta = DB::table('award_projects')
-            ->join('premio_pdvs', 'premio_pdvs.award_project_id', 'award_projects.id')
-            ->join('asignacion_projects', 'asignacion_projects.id', 'premio_pdvs.asignacion_project_id')
-            ->where('asignacion_projects.project_id', $project->id)
-            ->where('asignacion_projects.sales_point_id', intval(session('punto_venta_ruleta')))
-            ->where('asignacion_projects.xplorer_id', $userId)
-            // ->where('award_projects.status', 1)
-            ->where('premio_pdvs.qty_premio', '>', 0)
-            ->select('premio_pdvs.id', 'award_projects.nombre_premio as name', DB::raw("CONCAT('/storage/', award_projects.imagen) AS img"))
-            ->get();
-        } else {
-            $premioRuleta = DB::table('award_projects')->where('project_id', $project->id)->where('status', 1)->select('id', 'nombre_premio as name', DB::raw("CONCAT('/storage/', imagen) AS img"))->get();
-        }
-
-        $premio = $this->obtenerPremio($project->id);
-        $sigueIntentando = KeepTrying::where('project_id', $project->id)->first();
-
-        $data = [
-            'idParticipante' => $idParticipante,
-            'project' => $project,
-            'gameRuleta' => $gameRuleta,
-            'projectPremio' => $projectPremio,
-            'premio' => $premio,
-            'premioRuleta' => $premioRuleta,
-            'sigueIntentando' => $sigueIntentando
-        ];
-
-        // Borrar la sesión
-        session()->forget('claveRuleta');
-
-        return view('admin.pages.ruleta.ruleta', compact('data'));
-    }
-
-    public function obtenerPremio($projectId) {
-        // Obtener todos los premios con su probabilidad
-        $project = Project::findOrFail($projectId);
-        if ($project->project_type_id == 3) {
-
-            $userId = 0;
-            $fechaActualDate = Carbon::now()->toDateString(); // Devuelve la fecha en formato 'Y-m-d'
-
-            if (Auth::guard('admin')->user()) { //admin
-                $user = AsignacionProject::where('project_id', $project->id)
-                ->first();
-                $userId = Xplorer::find($user->xplorer_id)->id;
-            } else if (Auth::guard('xplorer')->user()) {
-                $userId = Auth::guard('xplorer')->user()->id;
-            }
-
-            $premios = DB::table('award_projects')
-            ->join('premio_pdvs', 'premio_pdvs.award_project_id', 'award_projects.id')
-            ->join('asignacion_projects', 'asignacion_projects.id', 'premio_pdvs.asignacion_project_id')
-            ->where('asignacion_projects.project_id', $projectId)
-            ->where('asignacion_projects.sales_point_id', intval(session('punto_venta_ruleta')))
-            ->where('asignacion_projects.xplorer_id', $userId)
-            ->where('premio_pdvs.qty_premio', '>', 0)
-            // ->where('award_projects.status', 1)
-            ->select('premio_pdvs.id', 'award_projects.nombre_premio', 'award_projects.imagen', 'premio_pdvs.probabilidad')
-            ->get();
-        } else {
-            $premios = AwardProject::where('project_id', $projectId)->where('status', 1)->where('status', 1)->where('stock','>',0)->get();
-        }
-
-        // Crear un array acumulativo para la probabilidad
-        $acumulado = [];
-        $total = 0;
-
-        foreach ($premios as $premio) {
-            $total += $premio->probabilidad;
-            $acumulado[] = [
-                'id' => $premio->id,
-                'nombre' => $premio->nombre_premio,
-                'imagen' => $premio->imagen,
-                'prob_acum' => $total
-            ];
-        }
-        $total += $project->prob_no_premio;
-        $acumulado[] = [
-            'id' => 0,
-            'nombre' => 'Sigue intentando',
-            'imagen' => '',
-            'prob_acum' => $total
-        ];
-
-        // Generar un número aleatorio entre 1 y 100
-        $random = rand(1, $total);
-
-        // Buscar el premio que corresponde al número aleatorio
-        foreach ($acumulado as $item) {
-            if ($random <= $item['prob_acum']) {
-                return [
-                    'premio_id' => $item['id'],
-                    'premio_nombre' => $item['nombre'],
-                    'imagen' => $item['imagen']
-                ];
-            }
-        }
-    }
-
-    //
+    // Pagina registro
     public function index($hub) {
 
         // Obtener proyecto
@@ -441,10 +313,10 @@ class RuletaController extends Controller
 
             if (Auth::guard('admin')->user()) {
                 //admin
-                $user = AsignacionProject::where('project_id', $project->id)
+                $userAsign = AsignacionProject::where('project_id', $project->id)
                 ->first();
 
-                $userId = Xplorer::find($user->xplorer_id)->id;
+                $user = Xplorer::find($userAsign->xplorer_id);
             }
             else if (Auth::guard('xplorer')->user()) {
                 $userId = Auth::guard('xplorer')->user()->id;
@@ -501,7 +373,7 @@ class RuletaController extends Controller
                 ->join('asignacion_projects', 'asignacion_projects.sales_point_id', 'sales_points.id')
                 ->where('asignacion_projects.project_id', $project->id)
                 ->where('asignacion_projects.xplorer_id', $user->id)
-                ->select('sales_points.*')
+                ->select('sales_points.*', DB::raw("asignacion_projects.id AS asignacion_project_id"))
                 ->distinct()
                 ->get()->toArray();
         } else {
@@ -511,7 +383,7 @@ class RuletaController extends Controller
                 ->where('asignacion_projects.xplorer_id', $user->id)
                 ->where('asignacion_projects.fecha_inicio','<=',$fechaActualDate)
                 ->where('asignacion_projects.fecha_fin','>=',$fechaActualDate)
-                ->select('sales_points.*')
+                ->select('sales_points.*', DB::raw("asignacion_projects.id AS asignacion_project_id"))
                 ->distinct()
                 ->get()->toArray();
         }
@@ -526,6 +398,7 @@ class RuletaController extends Controller
         return view('admin.pages.ruleta.registroruleta', compact('data'));
     }
 
+    // Registrar Participante
     public function store(Request $request, $id) {
 
         try {
@@ -701,6 +574,9 @@ class RuletaController extends Controller
             // Obtener la URL pública del archivo almacenado
             $ruta = 'ruleta/' . $nombreArchivo;
 
+            // Obtenemos punto de venta
+            $asignacionProject = AsignacionProject::where('id', $request->punto_venta)->first();
+
             $participant = new Participant();
             $participant->project_id = $id;
             $participant->user_id = $userId;
@@ -710,10 +586,12 @@ class RuletaController extends Controller
             $participant->codigo_valido = 1;
             $participant->participaciones = 1;
             $participant->file_producto = $ruta;
-            $participant->punto_entrega = isset($request->punto_venta) && !empty($request->punto_venta) ? $request->punto_venta : null;
+            $participant->punto_entrega = isset($asignacionProject) && !empty($asignacionProject->sales_point_id) ? $asignacionProject->sales_point_id : null;
+            $participant->asignacion_project_id = $request->punto_venta;
             $participant->save();
 
             $uuid = Str::uuid()->toString();
+            // dd($asignacionProject, $participant, $request->punto_venta);
 
             session(['punto_venta_ruleta' => $request->punto_venta]);
 
@@ -727,6 +605,138 @@ class RuletaController extends Controller
             return redirect()->route($tipoJuego.'juego.view.ruleta', $project->dominio)->with('claveRuleta', $participant->id);
         } catch (\Throwable $th) {
             return redirect()->back()->with('mensaje', 'Ocurrio un error inesperado.')->withInput();
+        }
+    }
+
+    // Pagina Juego
+    public function show($hub) {
+
+        // Obtener proyecto
+        $project = Project::where('dominio', $hub)->where('status', 1)->where('game_id', 2)->first();
+
+        if(!isset($project)){
+            return redirect()->route('index');
+        }
+        $tipoJuego = $project->project_type_id == 2 ? 'juegoWeb.' : 'juegoCampana.';
+
+        if (!session()->has('claveRuleta')) {
+            return redirect()->route($tipoJuego.'juego.view.registro.ruleta', $hub);
+        }
+        $idParticipante = session('claveRuleta');
+
+        $gameRuleta = Roulette::where('project_id', $project->id)->first();
+        $projectPremio = AwardProject::where('project_id', $project->id)->where('status', 1)->get();
+
+        if ($project->project_type_id == 3) {
+
+            $userId = 0;
+
+            if (Auth::guard('xplorer')->user()) {
+                $userId = Auth::guard('xplorer')->user()->id;
+            } else { //admin
+                $user = AsignacionProject::where('project_id', $project->id)->first();
+                $userId = Xplorer::find($user->xplorer_id);
+            }
+
+            $premioRuleta = DB::table('award_projects')
+            ->join('premio_pdvs', 'premio_pdvs.award_project_id', 'award_projects.id')
+            ->join('asignacion_projects', 'asignacion_projects.id', 'premio_pdvs.asignacion_project_id')
+            // ->where('asignacion_projects.project_id', $project->id)
+            ->where('asignacion_projects.id', intval(session('punto_venta_ruleta')))
+            // ->where('asignacion_projects.xplorer_id', $userId)
+            // ->where('award_projects.status', 1)
+            ->where('premio_pdvs.qty_premio', '>', 0)
+            ->select('premio_pdvs.id', 'award_projects.nombre_premio as name', DB::raw("CONCAT('/storage/', award_projects.imagen) AS img"))
+            ->get();
+        } else {
+            $premioRuleta = DB::table('award_projects')->where('project_id', $project->id)->where('status', 1)->select('id', 'nombre_premio as name', DB::raw("CONCAT('/storage/', imagen) AS img"))->get();
+        }
+
+        $premioRuletaShufle = $premioRuleta->shuffle();
+
+
+        $premio = $this->obtenerPremio($project->id);
+        $sigueIntentando = KeepTrying::where('project_id', $project->id)->first();
+
+        $data = [
+            'idParticipante' => $idParticipante,
+            'project' => $project,
+            'gameRuleta' => $gameRuleta,
+            'projectPremio' => $projectPremio,
+            'premio' => $premio,
+            'premioRuleta' => $premioRuletaShufle,
+            'sigueIntentando' => $sigueIntentando
+        ];
+
+        // Borrar la sesión
+        session()->forget('claveRuleta');
+
+        return view('admin.pages.ruleta.ruleta', compact('data'));
+    }
+
+    public function obtenerPremio($projectId) {
+        // Obtener todos los premios con su probabilidad
+        $project = Project::findOrFail($projectId);
+        if ($project->project_type_id == 3) {
+
+            // $userId = 0;
+            // $fechaActualDate = Carbon::now()->toDateString(); // Devuelve la fecha en formato 'Y-m-d'
+
+            // if (Auth::guard('admin')->user()) { //admin
+            //     $user = AsignacionProject::where('project_id', $project->id)
+            //     ->first();
+            //     $userId = Xplorer::find($user->xplorer_id)->id;
+            // } else if (Auth::guard('xplorer')->user()) {
+            //     $userId = Auth::guard('xplorer')->user()->id;
+            // }
+
+            $premios = DB::table('award_projects')
+            ->join('premio_pdvs', 'premio_pdvs.award_project_id', 'award_projects.id')
+            ->join('asignacion_projects', 'asignacion_projects.id', 'premio_pdvs.asignacion_project_id')
+            // ->where('asignacion_projects.project_id', $projectId)
+            ->where('asignacion_projects.id', intval(session('punto_venta_ruleta')))
+            // ->where('asignacion_projects.xplorer_id', $userId)
+            ->where('premio_pdvs.qty_premio', '>', 0)
+            // ->where('award_projects.status', 1)
+            ->select('premio_pdvs.id', 'award_projects.nombre_premio', 'award_projects.imagen', 'premio_pdvs.probabilidad')
+            ->get();
+        } else {
+            $premios = AwardProject::where('project_id', $projectId)->where('status', 1)->where('status', 1)->where('stock','>',0)->get();
+        }
+
+        // Crear un array acumulativo para la probabilidad
+        $acumulado = [];
+        $total = 0;
+
+        foreach ($premios as $premio) {
+            $total += $premio->probabilidad;
+            $acumulado[] = [
+                'id' => $premio->id,
+                'nombre' => $premio->nombre_premio,
+                'imagen' => $premio->imagen,
+                'prob_acum' => $total
+            ];
+        }
+        $total += $project->prob_no_premio;
+        $acumulado[] = [
+            'id' => 0,
+            'nombre' => 'Sigue intentando',
+            'imagen' => '',
+            'prob_acum' => $total
+        ];
+
+        // Generar un número aleatorio entre 1 y 100
+        $random = rand(1, $total);
+
+        // Buscar el premio que corresponde al número aleatorio
+        foreach ($acumulado as $item) {
+            if ($random <= $item['prob_acum']) {
+                return [
+                    'premio_id' => $item['id'],
+                    'premio_nombre' => $item['nombre'],
+                    'imagen' => $item['imagen']
+                ];
+            }
         }
     }
 }

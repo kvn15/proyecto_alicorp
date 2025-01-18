@@ -2,7 +2,6 @@
     $project = $data["project"];
     $gameRuleta = $data["gameRuleta"];
     $projectPremio = $data["projectPremio"];
-    $premioSelect = $data["premio"];
     $premioRuleta = $data["premioRuleta"];
     $idParticipante = $data["idParticipante"];
     $sigueIntentando = $data["sigueIntentando"];

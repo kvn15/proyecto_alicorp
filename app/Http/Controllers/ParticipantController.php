@@ -17,7 +17,7 @@ class ParticipantController extends Controller
 {
     //
     public function ganador(Request $request, $id) {
-        
+
         $project = Project::where("id", $request->idProject)->first();
         $participante = Participant::findOrFail($id);
 
@@ -30,24 +30,33 @@ class ParticipantController extends Controller
                 "fecha_premio" => Carbon::now(),
                 "award_project_id" => $request->idPremio == 0 ? null : $award->award_project_id
             ]);
-    
+
             if ($request->idPremio > 0) {
                 $award->update([
                     "qty_premio" =>  $award->qty_premio - 1
                 ]);
             }
+
+            $participante->update([
+                'premio_pdv_id' => $request->idPremio == 0 ? null : $request->idPremio
+            ]);
         } else {
             $participante->update([
                 "ganador" => $request->idPremio == 0 ? 0 : 1,
                 "fecha_premio" => Carbon::now(),
                 "award_project_id" => $request->idPremio == 0 ? null : $request->idPremio
             ]);
-    
+
             if ($request->idPremio > 0) {
                 // Reducir el stock del premio
                 $premio = AwardProject::findOrFail($request->idPremio);
                 $premio->update([
                     "stock" =>  $premio->stock - 1
+                ]);
+            } else {
+
+                $project->update([
+                    'cantidad_no_premio' => $project->cantidad_no_premio ? intval($project->cantidad_no_premio)- 1 : 0
                 ]);
             }
         }

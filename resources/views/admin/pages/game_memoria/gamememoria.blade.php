@@ -256,7 +256,7 @@
                         <select name="punto_venta" id="punto_venta" class="select_punto">
                             <option value="">Mercados o autoservicios</option>
                             @foreach ($data["puntoVenta"] as $index => $item)
-                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            <option value="{{ $item->asignacion_project_id }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </div>

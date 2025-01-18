@@ -21,6 +21,7 @@ class Participant extends Model
     'punto_entrega',
     'ganador',
     'participaciones',
+    'premio_pdv_id'
     ];
 
     // Relacion categoria - Uno a Uno
