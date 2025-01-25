@@ -9,7 +9,7 @@
                 <span>Código: <span class="codigo">Correcto</span></span>
                 <span class="cursor-pointer" wire:click="removeCorrecto"><i class="bi bi-x-lg"></i></span>
             </div>
-            
+
             <label for="checkFilter" class="btn btn-filtro" style="align-self: baseline;" id="btnFiltro">
                 <i class="bi bi-filter"></i> Filtros
             </label>
@@ -41,7 +41,7 @@
                         <label for="fecha_fin" class="form-label">Fecha Fin</label>
                         <input type="date" name="fecha_fin" id="fecha_fin" class="form-control" wire:model="fecha_fin">
                     </div>
-        
+
                     <div class="col-12">
                         <button type="button" class="btn btn-alicorp w-100" wire:click="filter">Filtrar</button>
                     </div>
@@ -64,6 +64,7 @@
                     <tr>
                         <th>Id <span wire:click="sortBy('participants.id')" style="cursor: pointer;" class="ms-3"><i class="bi bi-arrow-down-up"></i></span></th>
                         <th>Nombre <span wire:click="sortBy('users.name')" style="cursor: pointer;" class="ms-3"><i class="bi bi-arrow-down-up"></i></span></th>
+                        <th>Apellido <span wire:click="sortBy('users.name')" style="cursor: pointer;" class="ms-3"><i class="bi bi-arrow-down-up"></i></span></th>
                         <th>Teléfono <span wire:click="sortBy('users.telefono')" style="cursor: pointer;" class="ms-3"><i class="bi bi-arrow-down-up"></i></span></th>
                         <th>Correo <span wire:click="sortBy('users.email')" style="cursor: pointer;" class="ms-3"><i class="bi bi-arrow-down-up"></i></span></th>
                         <th>Documento <span wire:click="sortBy('users.documento')" style="cursor: pointer;" class="ms-3"><i class="bi bi-arrow-down-up"></i></span></th>
@@ -71,14 +72,18 @@
                         <th>T&C</th>
                         <th>Codígo <span wire:click="sortBy('participants.codigo')" style="cursor: pointer;" class="ms-3"><i class="bi bi-arrow-down-up"></i></span></th>
                         <th>Codígo</th>
+                        @if ($this->tipoProject == 3)
+                        <th>Punto de venta</th>
+                        @endif
                         <th>Fecha Registro <span wire:click="sortBy('participants.created_at')" style="cursor: pointer;" class="ms-3"><i class="bi bi-arrow-down-up"></i></span></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ( $participant as $value )
-                    <tr>    
+                    <tr>
                         <td>{{ $value->id }}</td>
                         <td>{{ isset($value->user->name) ? $value->user->name : $value->other_participant->nombres }}</td>
+                        <td>{{ isset($value->user->apellido) ? $value->user->apellido : $value->other_participant->apellidos }}</td>
                         <td>{{ isset($value->user->telefono) ? $value->user->telefono : $value->other_participant->telefono }}</td>
                         <td>{{ isset($value->user->email) ? $value->user->email : $value->other_participant->correo }}</td>
                         <td>{{ isset($value->user->documento) ? $value->user->documento : $value->other_participant->nro_documento }}</td>
@@ -106,6 +111,11 @@
                             </span>
                             @endif
                         </td>
+                        @if ($this->tipoProject == 3)
+                        <td>
+                            {{ $value->punto_venta }}
+                        </td>
+                        @endif
                         <td>{{ $value->created_at }}</td>
                     </tr>
                     @endforeach

@@ -30,7 +30,7 @@ class GanadoresTable extends Component
 
     // Filtro formulario
     public $fecha_ini = '', $fecha_fin = '', $premios_filtro = '';
- 
+
     // Filtro consulta
     public $fechaIni = '', $fechaFin = '', $premio = '';
 
@@ -43,15 +43,15 @@ class GanadoresTable extends Component
         'id_premio' => 'required'
     ];
     public $file;
- 
-    public function mount($projectId) 
+
+    public function mount($projectId)
     {
         $this->projectId = $projectId;
         $this->tipo_pro = Project::where('id',$this->projectId)->first();
         $this->premiosList = AwardProject::where('project_id', $projectId)->get();
         $this->ganadores = Participant::where('project_id', $projectId)->where("ganador", 0)->get();
     }
- 
+
     public function search()
     {
         $this->resetPage();
@@ -59,37 +59,67 @@ class GanadoresTable extends Component
 
     public function render()
     {
-        $participant = Participant::searchGanador($this->search)
-            ->where('participants.project_id', $this->projectId)
-            ->with(['user', 'other_participant'])
-            ->leftjoin('users', 'users.id', '=', 'participants.user_id')
-            ->leftjoin('other_participants', 'other_participants.id', '=', 'participants.other_participant_id')
-            ->select('participants.*', 'users.name', 'users.telefono', 'users.email', 'users.documento', 'other_participants.nombres', 'other_participants.correo', 'other_participants.nro_documento', 'other_participants.telefono as telefonoOther');
-        
-        // if (!empty($this->fechaIni) && !empty($this->fechaFin)) {
-        //     $participant->whereBetween('participants.created_at', [$this->fechaIni, $this->fechaFin]);
-        // }
-        
-        if (!empty($this->fechaIni)) {
-            $participant->whereDate('participants.created_at','>=', $this->fechaIni);
+        if ($this->tipo_pro->project_type_id == 3) {
+            $participant = Participant::searchGanador($this->search)
+                ->where('participants.project_id', $this->projectId)
+                ->with(['user', 'other_participant'])
+                ->leftjoin('users', 'users.id', '=', 'participants.user_id')
+                ->leftjoin('other_participants', 'other_participants.id', '=', 'participants.other_participant_id')
+                ->join('sales_points', 'sales_points.id', '=', 'participants.punto_entrega')
+                ->select('participants.*', 'sales_points.name as punto_venta', 'users.name', 'users.apellido', 'users.telefono', 'users.email', 'users.documento', 'other_participants.nombres', 'other_participants.correo', 'other_participants.nro_documento', 'other_participants.telefono as telefonoOther', 'other_participants.apellidos as apellidoOther');
+
+            // if (!empty($this->fechaIni) && !empty($this->fechaFin)) {
+            //     $participant->whereBetween('participants.created_at', [$this->fechaIni, $this->fechaFin]);
+            // }
+
+            if (!empty($this->fechaIni)) {
+                $participant->whereDate('participants.created_at','>=', $this->fechaIni);
+            }
+
+            if (!empty($this->fechaFin)) {
+                $participant->whereDate('participants.created_at', '<=', $this->fechaFin);
+            }
+
+
+            if (!empty($this->premio)) {
+                $participant->where('participants.award_project_id', $this->premio);
+                $this->emit('premio', $this->name_premio);
+            }
+
+            $participant = $participant->orderBy($this->sortColumnName, $this->sortDirection)->simplePaginate(10);
+        } else {
+            $participant = Participant::searchGanador($this->search)
+                ->where('participants.project_id', $this->projectId)
+                ->with(['user', 'other_participant'])
+                ->leftjoin('users', 'users.id', '=', 'participants.user_id')
+                ->leftjoin('other_participants', 'other_participants.id', '=', 'participants.other_participant_id')
+                ->select('participants.*', 'users.name', 'users.apellido', 'users.telefono', 'users.email', 'users.documento', 'other_participants.nombres', 'other_participants.correo', 'other_participants.nro_documento', 'other_participants.telefono as telefonoOther', 'other_participants.apellidos as apellidoOther');
+
+            // if (!empty($this->fechaIni) && !empty($this->fechaFin)) {
+            //     $participant->whereBetween('participants.created_at', [$this->fechaIni, $this->fechaFin]);
+            // }
+
+            if (!empty($this->fechaIni)) {
+                $participant->whereDate('participants.created_at','>=', $this->fechaIni);
+            }
+
+            if (!empty($this->fechaFin)) {
+                $participant->whereDate('participants.created_at', '<=', $this->fechaFin);
+            }
+
+
+            if (!empty($this->premio)) {
+                $participant->where('participants.award_project_id', $this->premio);
+                $this->emit('premio', $this->name_premio);
+            }
+
+            $participant = $participant->orderBy($this->sortColumnName, $this->sortDirection)->simplePaginate(10);
         }
-
-        if (!empty($this->fechaFin)) {
-            $participant->whereDate('participants.created_at', '<=', $this->fechaFin);
-        }
-
-
-        if (!empty($this->premio)) {
-            $participant->where('participants.award_project_id', $this->premio);
-            $this->emit('premio', $this->name_premio);
-        }
-
-        $participant = $participant->orderBy($this->sortColumnName, $this->sortDirection)->simplePaginate(10);
 
         return view('livewire.ganadores-table', compact('participant'));
     }
 
-    public function sortBy($columnName) 
+    public function sortBy($columnName)
     {
         if ($this->sortColumnName === $columnName) {
             $this->sortDirection = $this->swapSortDirection();
@@ -100,7 +130,7 @@ class GanadoresTable extends Component
         $this->sortColumnName = $columnName;
     }
 
-    public function swapSortDirection() 
+    public function swapSortDirection()
     {
         return $this->sortDirection === 'asc' ? 'desc' : 'asc';
     }
@@ -130,7 +160,7 @@ class GanadoresTable extends Component
     public function store() {
 
         $this->validate();
-        
+
         $participant = Participant::where('id', $this->id_ganador)->first();
 
         if (isset($participant) && !empty($participant)) {
@@ -193,7 +223,7 @@ class GanadoresTable extends Component
                 'title' => 'Exitoso!',
                 'icon' => 'success',
             ]);
-    
+
         } catch (\Exception $e) {
             // Maneja la excepción
             $this->dispatchBrowserEvent('swal:alert', [

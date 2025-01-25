@@ -63,11 +63,15 @@
                         <th>Id <span wire:click="sortBy('participants.id')" style="cursor: pointer;" class="ms-3"><i class="bi bi-arrow-down-up"></i></span></th>
                         <th>Fecha Registro <span wire:click="sortBy('participants.created_at')" style="cursor: pointer;" class="ms-3"><i class="bi bi-arrow-down-up"></i></span></th>
                         <th>Nombre <span wire:click="sortBy('users.name')" style="cursor: pointer;" class="ms-3"><i class="bi bi-arrow-down-up"></i></span></th>
+                        <th>Apellidos <span wire:click="sortBy('users.name')" style="cursor: pointer;" class="ms-3"><i class="bi bi-arrow-down-up"></i></span></th>
                         <th>Teléfono <span wire:click="sortBy('users.telefono')" style="cursor: pointer;" class="ms-3"><i class="bi bi-arrow-down-up"></i></span></th>
                         <th>Correo <span wire:click="sortBy('users.email')" style="cursor: pointer;" class="ms-3"><i class="bi bi-arrow-down-up"></i></span></th>
                         <th>Documento <span wire:click="sortBy('users.documento')" style="cursor: pointer;" class="ms-3"><i class="bi bi-arrow-down-up"></i></span></th>
                         <th>Participaciones <span wire:click="sortBy('asignancions.participaciones')" style="cursor: pointer;" class="ms-3"><i class="bi bi-arrow-down-up"></i></span></th>
                         <th>Premio</th>
+                        @if ($this->tipo_pro->project_type_id == 3)
+                        <th>Punto de venta</th>
+                        @endif
                         <th>Fecha Premio</th>
                         @if ($this->tipo_pro->project_type_id == 1)
                         <th>Acción</th>
@@ -80,6 +84,7 @@
                         <td>{{ $value->id }}</td>
                         <td>{{ $value->created_at }}</td>
                         <td>{{ isset($value->user->name) ? $value->user->name : $value->other_participant->nombres }}</td>
+                        <td>{{ isset($value->user->apellido) ? $value->user->apellido : $value->other_participant->apellidos }}</td>
                         <td>{{ isset($value->user->telefono) ? $value->user->telefono : $value->other_participant->telefono }}</td>
                         <td>{{ isset($value->user->email) ? $value->user->email : $value->other_participant->correo }}</td>
                         <td>{{ isset($value->user->documento) ? $value->user->documento : $value->other_participant->nro_documento }}</td>
@@ -89,6 +94,11 @@
                                 {{ $value->award_project->nombre_premio ?? ''  }}
                             </span>
                         </td>
+                        @if ($this->tipo_pro->project_type_id == 3)
+                        <td>
+                            {{ $value->punto_venta }}
+                        </td>
+                        @endif
                         <td>
                             {{ $value->fecha_premio }}
                         </td>
