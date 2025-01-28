@@ -96,3 +96,5 @@
     <img src="{{asset('/img/promo2.png')}}" alt="" class="hero-image">
     <img src="{{asset('/img/promo3.png')}}" alt="" class="hero-image">
 </section>
+
+@include('footer')

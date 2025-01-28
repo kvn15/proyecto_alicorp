@@ -14,4 +14,33 @@
             height: 150px;
         }
     }
+
+    h4{
+        color: #ffffff;
+        font-size: 1.6rem;
+    }
+
+    .redes-sociales{
+        color: #ffffff;
+        font-size: 1.6rem;
+    }
+
+    .service_client,
+    .contact{
+        margin-top: 20px;
+        line-height: 5px;
+        p{
+            color: #ffffff;
+        }
+    }
+
+    .contact{
+        margin-top: 8px;
+    }
+
+    .separador-pie{
+        border: none;
+        height: 2px;
+        background-color: white;
+    }
 }

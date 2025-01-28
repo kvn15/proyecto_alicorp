@@ -123,3 +123,5 @@
     </div>
 
 </section>
+
+@include('footer')

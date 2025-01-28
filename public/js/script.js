@@ -27,28 +27,28 @@ document.querySelector('.dropdown1-btn').addEventListener('click', function () {
 });
 
 
-//modal 
+//modal pho
 // Seleccionar elementos
-const openButton = document.querySelector('.btn-open');
-const modal = document.getElementById('customModal');
-const closeButton = modal.querySelector('.btn-close');
+// const openButton = document.querySelector('.btn-open');
+// const modal = document.getElementById('customModal');
+// const closeButton = modal.querySelector('.btn-close');
 
-// Abrir el modal
-openButton.addEventListener('click', () => {
-    modal.classList.add('show');
-});
+// // Abrir el modal
+// openButton.addEventListener('click', () => {
+//     modal.classList.add('show');
+// });
 
-// Cerrar el modal
-closeButton.addEventListener('click', () => {
-    modal.classList.remove('show');
-});
+// // Cerrar el modal
+// closeButton.addEventListener('click', () => {
+//     modal.classList.remove('show');
+// });
 
-// Cerrar el modal al hacer clic fuera del contenido
-modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
-        modal.classList.remove('show');
-    }
-});
+// // Cerrar el modal al hacer clic fuera del contenido
+// modal.addEventListener('click', (e) => {
+//     if (e.target === modal) {
+//         modal.classList.remove('show');
+//     }
+// });
 
 // //carusel 05/01/2024
 // const track = document.querySelector('.carousel-track');
@@ -211,3 +211,119 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+// document.addEventListener('DOMContentLoaded', () => {
+//     const openModalBtn = document.querySelector('.btn-open'); // Botón para abrir el modal
+//     const closeModalBtn = document.querySelector('.btn-close'); // Botón para cerrar el modal
+//     const modal = document.getElementById('customModal'); // Contenedor del modal
+
+//     // Abrir el modal
+//     openModalBtn.addEventListener('click', () => {
+//         modal.classList.add('show'); // Agrega la clase .show para mostrar el modal
+//         document.body.style.overflow = 'hidden'; // Desactiva el scroll del fondo
+//     });
+
+//     // Cerrar el modal
+//     closeModalBtn.addEventListener('click', () => {
+//         modal.classList.remove('show'); // Elimina la clase .show para ocultar el modal
+//         document.body.style.overflow = ''; // Reactiva el scroll
+//     });
+
+//     // Cerrar el modal al hacer clic fuera del contenido
+//     modal.addEventListener('click', (event) => {
+//         if (event.target === modal) {
+//             modal.classList.remove('show');
+//             document.body.style.overflow = '';
+//         }
+//     });
+// });
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Seleccionar todos los botones "VER MÁS"
+    const openButtons = document.querySelectorAll(".btn-open");
+
+    openButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+            const modalId = this.getAttribute("data-modal");
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.visibility = "visible";
+                modal.style.opacity = "1";
+            } else {
+                console.error(`Modal con ID "${modalId}" no encontrado.`);
+            }
+        });
+    });
+
+    // Seleccionar todos los botones "Cerrar" de los modales
+    const closeButtons = document.querySelectorAll(".btn-close");
+
+    closeButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+            const modal = this.closest(".modal");
+            if (modal) {
+                modal.style.visibility = "hidden";
+                modal.style.opacity = "0";
+            }
+        });
+    });
+
+    // Cerrar el modal al hacer clic fuera del contenido
+    window.addEventListener("click", function (event) {
+        const modals = document.querySelectorAll(".modal");
+        modals.forEach((modal) => {
+            if (event.target === modal) {
+                modal.style.visibility = "hidden";
+                modal.style.opacity = "0";
+            }
+        });
+    });
+});
+
+
+//caruel para los videos
+const videos = document.querySelectorAll('.carousel-video video');
+const videoContainer = document.querySelector('.carousel-videos');
+const leftButton = document.querySelector('.carousel-button.left');
+const rightButton = document.querySelector('.carousel-button.right');
+let current = 2;
+
+function updateCarousel() {
+  // Pausa todos los videos antes de actualizar
+  videos.forEach((video, index) => {
+    if (index !== current) {
+      video.pause();
+    }
+  });
+
+  // Actualiza las clases para resaltar el video principal
+  document.querySelectorAll('.carousel-video').forEach((video, index) => {
+    video.classList.remove('main');
+    if (index === current) {
+      video.classList.add('main');
+    }
+  });
+
+  // Ajusta el contenedor al video principal
+  const offset = -(current - 1) * 33.33;
+  videoContainer.style.transform = `translateX(${offset}%)`;
+
+  // Opcional: inicia automáticamente el video principal
+  videos[current].play();
+}
+
+// Botón izquierdo: ir al video anterior
+leftButton.addEventListener('click', () => {
+  videos[current].pause(); // Pausa el video actual
+  current = (current - 1 + videos.length) % videos.length;
+  updateCarousel();
+});
+
+// Botón derecho: ir al siguiente video
+rightButton.addEventListener('click', () => {
+  videos[current].pause(); // Pausa el video actual
+  current = (current + 1) % videos.length;
+  updateCarousel();
+});
+
+// Inicializa el carrusel
+updateCarousel();
