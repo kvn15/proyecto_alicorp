@@ -17,7 +17,7 @@
         <div class="col">
           <div class="card">
             <div class="card-imagen">
-              <img src="{{asset('img/Casino KPop-95.jpg')}}" class="card-img-top img-fluid" alt="...">
+              <img src="{{asset('img/Casino KPop-95.jpg')}}" class="card-img-top img-fluid" alt="..." style="height: 50rem">
             </div>
             <div class="card-body">
               <h5 class="card-title">K-POP <br> DANCE</h5>  

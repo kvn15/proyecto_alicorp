@@ -7,11 +7,29 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12 mt-5 logo-alicorp">
-                <img src="{{ asset('img/logo_Casino_2023.jpg') }}" alt="" >
-                <img src="{{ asset('img/logo_Dento-Intradevco.jpg') }}" alt="" >
-                <img src="{{ asset('img/logo_donvitprio.png') }}" alt="" >
-                <img src="{{ asset('img/logo_primor.jpg') }}" alt="" >
+            <div class="col-12 logo-alicorp">
+                <div class="carousel-container">
+                    <div class="carousel-wrapper">
+                        <div class="carousel">
+                            <img src="{{asset('img/logos/Amaras.png')}}" alt="Logo 1">
+                            <img src="{{asset('img/logos/BlancaFlor.png')}}" alt="Logo 2">
+                            <img src="{{asset('img/logos/Casino.png')}}" alt="Logo 3">
+                            <img src="{{asset('img/logos/Dento.png')}}" alt="Logo 4">
+                            <img src="{{asset('img/logos/Primor.png')}}" alt="Logo 5">
+                            <img src="{{asset('img/logos/Vittorio.png')}}" alt="Logo 6">
+                        </div>
+                
+                        <!-- Segunda copia de los logos para el bucle infinito -->
+                        <div class="carousel">
+                            <img src="{{asset('img/logos/Amaras.png')}}" alt="Logo 1">
+                            <img src="{{asset('img/logos/BlancaFlor.png')}}" alt="Logo 2">
+                            <img src="{{asset('img/logos/Casino.png')}}" alt="Logo 3">
+                            <img src="{{asset('img/logos/Dento.png')}}" alt="Logo 4">
+                            <img src="{{asset('img/logos/Primor.png')}}" alt="Logo 5">
+                            <img src="{{asset('img/logos/Vittorio.png')}}" alt="Logo 6">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -83,7 +101,7 @@
 
 
 <script src="{{asset('js/jQuery.js')}}"></script>
-{{-- <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script> --}}
+<script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('js/owl.carousel.min.js')}}"></script>
 <script src="{{asset('js/java.js')}}"></script>
 {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> --}}

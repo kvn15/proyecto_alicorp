@@ -1091,6 +1091,45 @@
   font-size: 15px;
 }
 
+.footer-alicorp {
+  /* Contenedor del carrusel */
+  /* Carrusel de logos */
+  /* Logos del carrusel */
+  /* Animación para mover los logos infinitamente */
+  /* Duplicamos los logos para dar efecto de bucle */
+}
+.footer-alicorp .carousel-container {
+  width: 100%;
+  overflow: hidden;
+  padding: 20px 0;
+  white-space: nowrap;
+  position: relative;
+}
+.footer-alicorp .carousel {
+  display: flex;
+  gap: 2rem;
+  animation: scroll 10s linear infinite; /* Animación infinita */
+}
+.footer-alicorp .carousel img {
+  height: 150px; /* Ajusta el tamaño de los logos */
+  max-width: 250px;
+  object-fit: contain;
+}
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+.footer-alicorp .carousel-wrapper {
+  display: flex;
+  width: 200%;
+}
+.footer-alicorp .carousel-wrapper .carousel {
+  width: 100%;
+}
 .footer-alicorp h3 {
   font: normal normal bold 70px/50px Golda;
   letter-spacing: 0.8px;
@@ -1100,11 +1139,10 @@
 .footer-alicorp .logo-alicorp {
   display: flex;
   justify-content: space-evenly;
-  margin-bottom: 150px;
 }
 .footer-alicorp .logo-alicorp img {
-  width: 150px;
-  height: 150px;
+  width: 250px;
+  height: 250px;
 }
 .footer-alicorp h4 {
   color: #ffffff;
@@ -1948,7 +1986,7 @@ li.submenu:hover ul {
   border: 1px solid white;
   padding: 80px;
   width: 538px;
-  height: 488px;
+  max-height: 600px;
   padding-top: 35px;
 }
 .perfil2 .formulario .contact-title h2 {
@@ -2281,6 +2319,9 @@ li.submenu:hover ul {
   right: 5px;
 }
 
+.videos {
+  margin-bottom: 10rem;
+}
 .videos .carousel-v {
   position: relative;
   width: 500px;
@@ -2353,6 +2394,14 @@ li.submenu:hover ul {
     width: 40rem;
   }
 }
+.alert.alert-danger {
+  max-width: 100%; /* Evita que los mensajes sean demasiado anchos */
+  overflow: hidden; /* Previene desbordamiento */
+  word-wrap: break-word; /* Asegura que el texto largo se ajuste */
+  padding: 10px; /* Espaciado interno */
+  border-radius: 5px; /* Bordes redondeados */
+}
+
 @media screen and (min-width: 1400px) {
   .perfil2 .hola-perfil {
     bottom: -46px;

@@ -1,4 +1,48 @@
 .footer-alicorp{
+
+     /* Contenedor del carrusel */
+     .carousel-container {
+        width: 100%;
+        overflow: hidden;
+        padding: 20px 0;
+        white-space: nowrap;
+        position: relative;
+    }
+
+    /* Carrusel de logos */
+    .carousel {
+        display: flex;
+        gap: 2rem;
+        animation: scroll 10s linear infinite; /* Animación infinita */
+    }
+
+    /* Logos del carrusel */
+    .carousel img {
+        height: 150px; /* Ajusta el tamaño de los logos */
+        max-width: 250px;
+        object-fit: contain;
+    }
+
+    /* Animación para mover los logos infinitamente */
+    @keyframes scroll {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(-100%);
+        }
+    }
+
+    /* Duplicamos los logos para dar efecto de bucle */
+    .carousel-wrapper {
+        display: flex;
+        width: 200%;
+    }
+
+    .carousel-wrapper .carousel {
+        width: 100%;
+    }
+
     h3{
         font: normal normal bold 70px/50px Golda;
         letter-spacing: 0.8px;
@@ -8,11 +52,10 @@
 
     .logo-alicorp{
         display: flex;
-        justify-content: space-evenly;
-        margin-bottom: 150px;
+        justify-content: space-evenly;        
         img{
-            width: 150px;
-            height: 150px;
+            width: 250px;
+            height: 250px;
         }
     }
 

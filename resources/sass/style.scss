@@ -1089,7 +1089,7 @@ li.submenu:hover ul {
         border: 1px solid white;
         padding: 80px;
         width: 538px;
-        height: 488px;
+        max-height: 600px;
         padding-top: 35px;
 
         .contact-title {
@@ -1604,7 +1604,7 @@ li.submenu:hover ul {
 .videos{
     // display: flex;
     // justify-content: center;
-
+    margin-bottom: 10rem;
     .carousel-v {
         position: relative;
         width: 500px;
@@ -1693,6 +1693,14 @@ li.submenu:hover ul {
         }
 
     }
+}
+
+.alert.alert-danger {
+    max-width: 100%; /* Evita que los mensajes sean demasiado anchos */
+    overflow: hidden; /* Previene desbordamiento */
+    word-wrap: break-word; /* Asegura que el texto largo se ajuste */
+    padding: 10px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
 }
 
 @media screen and (min-width: 1400px) {
