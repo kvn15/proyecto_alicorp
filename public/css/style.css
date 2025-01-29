@@ -1536,6 +1536,320 @@ li.submenu:hover ul {
   opacity: 1;
 }
 
+.carusel-home {
+  overflow: hidden;
+}
+.carusel-home .image-1 {
+  position: relative;
+}
+.carusel-home .image-1 .fondo {
+  border-radius: 10rem;
+  transform: scale(0.7);
+}
+.carusel-home .image-1 .margarita {
+  width: 38rem;
+  left: 9rem;
+  transform: rotate(-37deg);
+  top: 21rem;
+}
+.carusel-home .image-1 .tentacion {
+  width: 38rem;
+  left: 11rem;
+  transform: rotate(12deg);
+  top: 55rem;
+}
+.carusel-home .image-1 .chocobum {
+  width: 36rem;
+  transform: rotate(-22deg);
+  right: 4rem;
+  top: 12rem;
+}
+.carusel-home .image-1 .glacitas {
+  width: 36rem;
+  transform: rotate(-22deg);
+  right: 5rem;
+  top: 53rem;
+}
+.carusel-home .image-1 .alexa {
+  width: 14rem;
+  left: 11rem;
+  transform: rotate(25deg);
+  top: 7rem;
+}
+.carusel-home .image-1 .iPhone {
+  width: 18rem;
+  transform: rotate(6deg);
+  right: 16rem;
+  top: 36rem;
+}
+.carusel-home .image-1 .logo {
+  width: 65rem;
+  top: -21rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+.carusel-home .image-1 .CopyBajada {
+  width: 55rem;
+  top: 19rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+.carusel-home .image-1 .Watch {
+  opacity: 0;
+  visibility: hidden; /* Oculta pero mantiene el espacio */
+  transition: opacity 0.6s ease-in-out; /* Agrega transición */
+}
+.carusel-home .image-1:hover .fondo {
+  transform: scale(1);
+  border-radius: 0;
+}
+.carusel-home .image-1:hover .logo {
+  top: -48rem;
+}
+.carusel-home .image-1:hover .CopyBajada {
+  top: -1rem;
+}
+.carusel-home .image-1:hover .alexa {
+  transform: translate(80px, 100px) scale(2) rotate(-35deg);
+  transition: all 0.6s ease-in-out;
+}
+.carusel-home .image-1:hover .iPhone {
+  transform: translate(-10px, -150px) scale(2) rotate(350deg);
+  transition: all 0.6s ease-in-out;
+}
+.carusel-home .image-1:hover .Watch {
+  opacity: 1;
+  visibility: visible;
+  width: 10rem;
+  left: 15rem;
+  bottom: 20rem;
+  transform: rotate(-70deg);
+  transition: all 0.6s ease-in-out;
+}
+.carusel-home .image-1:hover .margarita,
+.carusel-home .image-1:hover .tentacion,
+.carusel-home .image-1:hover .chocobum,
+.carusel-home .image-1:hover .glacitas {
+  position: absolute;
+  width: 20rem; /* Ajusta el tamaño si es necesario */
+  transition: all 0.6s ease-in-out;
+  transform: rotate(4deg);
+}
+.carusel-home .image-1:hover .margarita {
+  top: 65%;
+  left: 30rem;
+}
+.carusel-home .image-1:hover .tentacion {
+  top: 65%;
+  left: 55rem;
+}
+.carusel-home .image-1:hover .chocobum {
+  top: 65%;
+  left: 80rem;
+}
+.carusel-home .image-1:hover .glacitas {
+  top: 65%;
+  left: 105rem;
+}
+.carusel-home .image-2 {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+.carusel-home .image-2 .fondo {
+  width: 120rem;
+  height: 60rem;
+  object-fit: cover; /* Recorta la imagen sin deformarla */
+  object-position: center; /* Centra el recorte */
+  border-radius: 2.5rem 2.5rem 0 0; /* Opcional: esquinas redondeadas */
+  margin-top: 2.5rem;
+}
+.carusel-home .image-2 .dvicttorio2 {
+  visibility: hidden;
+  bottom: -21rem;
+}
+.carusel-home .image-2 .dvicttorio4 {
+  width: 12rem;
+  height: 15rem;
+}
+.carusel-home .image-2 .dvicttorio5-i,
+.carusel-home .image-2 .dvicttorio5-d {
+  width: 7rem;
+  height: 18rem;
+}
+.carusel-home .image-2 .dvicttorio4 {
+  top: 5rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: 2;
+}
+.carusel-home .image-2 .dvicttorio5-i {
+  transform: rotate(-33deg);
+  top: 21rem;
+  left: 65rem;
+}
+.carusel-home .image-2 .dvicttorio5-d {
+  transform: rotate(33deg);
+  top: 21rem;
+  right: 65rem;
+  z-index: 1;
+}
+.carusel-home .image-2 .dvicttorio3 {
+  width: 32rem;
+  top: 7rem;
+}
+.carusel-home .image-2 .dvicttorio6 {
+  width: 32rem;
+  bottom: 7rem;
+}
+.carusel-home .image-2 .billetes_22 {
+  filter: blur(3px);
+  width: 24rem;
+  left: 10rem;
+  top: 6rem;
+}
+.carusel-home .image-2 .billetes_07 {
+  filter: blur(3px);
+  width: 25rem;
+  left: 6rem;
+  bottom: -11rem;
+}
+.carusel-home .image-2 .billetes_20 {
+  filter: blur(3px);
+  width: 21rem;
+  right: 24rem;
+  top: 13rem;
+}
+.carusel-home .image-2 .billetes_08 {
+  filter: blur(4px);
+  width: 16rem;
+  right: 22rem;
+  top: 31rem;
+}
+.carusel-home .image-2 .billetes_04 {
+  filter: blur(4px);
+  width: 16rem;
+  right: 22rem;
+  top: 53rem;
+  transform: rotate(-34deg);
+}
+.carusel-home .image-2 .billetes_13 {
+  filter: blur(5px);
+  left: 36rem;
+  width: 13rem;
+  top: 14rem;
+}
+.carusel-home .image-2 .billetes_09 {
+  filter: blur(5px);
+  left: 36rem;
+  width: 13rem;
+  top: 37rem;
+}
+.carusel-home .image-2 .dvicttorio4hi,
+.carusel-home .image-2 .dvicttorio5hi,
+.carusel-home .image-2 .dvicttorio4hd,
+.carusel-home .image-2 .dvicttorio5hd {
+  visibility: hidden;
+}
+.carusel-home .image-2:hover .fondo {
+  transform: scale(1);
+  width: 100%;
+  margin-top: 0;
+  border-radius: 0;
+}
+.carusel-home .image-2:hover .dvicttorio4,
+.carusel-home .image-2:hover .dvicttorio5-i,
+.carusel-home .image-2:hover .dvicttorio5-d {
+  display: none;
+}
+.carusel-home .image-2:hover .dvicttorio3 {
+  transform: translateY(8rem);
+  transition: opacity 0.8s ease-in-out, transform 0.5s ease-in-out; /* Agrega transición */
+}
+.carusel-home .image-2:hover .dvicttorio6 {
+  visibility: hidden;
+}
+.carusel-home .image-2:hover .dvicttorio2 {
+  width: 50rem;
+  visibility: visible;
+  transform: translateY(-30rem);
+  transition: opacity 0.8s ease-in-out, transform 0.5s ease-in-out;
+}
+.carusel-home .image-2:hover .billetes_22 {
+  filter: blur(5px);
+  transform: translate(14rem, 29rem) rotate(180deg);
+  transition: opacity 0.5s ease-in-out, filter 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+.carusel-home .image-2:hover .billetes_07 {
+  filter: blur(5px);
+  transform: translate(105.4rem, -14rem);
+  transition: opacity 0.5s ease-in-out, filter 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+.carusel-home .image-2:hover .billetes_20 {
+  filter: blur(5px);
+  transform: translate(0, 34rem);
+  transition: opacity 0.5s ease-in-out, filter 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+.carusel-home .image-2:hover .billetes_04 {
+  width: 10rem;
+  filter: blur(5px);
+  transform: translate(-63.6rem, -33rem) rotate(50deg);
+  transition: opacity 0.5s ease-in-out, filter 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+.carusel-home .image-2:hover .billetes_13 {
+  filter: blur(5px);
+  transform: translate(63.6rem, 3rem) rotate(50deg);
+  transition: opacity 0.5s ease-in-out, filter 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+.carusel-home .image-2:hover .billetes_09 {
+  filter: blur(5px);
+  transform: translate(73.6rem, -13rem) rotate(50deg);
+  transition: opacity 0.5s ease-in-out, filter 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+.carusel-home .image-2:hover .billetes_08 {
+  filter: blur(6px);
+  transform: translate(-103.6rem, -13rem) rotate(50deg);
+  transition: opacity 0.5s ease-in-out, filter 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+.carusel-home .image-2:hover .dvicttorio4hd,
+.carusel-home .image-2:hover .dvicttorio5hd,
+.carusel-home .image-2:hover .dvicttorio4hi,
+.carusel-home .image-2:hover .dvicttorio5hi {
+  visibility: visible;
+  width: 7rem;
+  height: 17rem;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+.carusel-home .image-2:hover .dvicttorio4hd {
+  width: 10rem;
+  height: 14rem;
+  transform: translate(30rem, -15rem) rotate(30deg);
+  transition: opacity 0.5s ease-in-out, filter 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+.carusel-home .image-2:hover .dvicttorio5hd {
+  transform: translate(39rem, -2rem) rotate(65deg);
+  transition: opacity 0.5s ease-in-out, filter 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+.carusel-home .image-2:hover .dvicttorio4hi {
+  width: 10rem;
+  height: 14rem;
+  transform: translate(-30rem, -15rem) rotate(-30deg);
+  transition: opacity 0.5s ease-in-out, filter 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+.carusel-home .image-2:hover .dvicttorio5hi {
+  transform: translate(-39rem, -2rem) rotate(-65deg);
+  transition: opacity 0.5s ease-in-out, filter 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
 .carusel-nuevo .carusel-tamano {
   width: 80%;
 }

@@ -1,40 +1,86 @@
 @include('cabecera/header')
 
-@php
+{{-- @php
     $sliders = App\Models\HomeInicio::all();    
     $promos = App\Models\HomePromociones::all();  
-@endphp
+@endphp --}}
 
 @if (empty(Auth::user()->name))    
-    <section class="carusel">
-      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-            aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-            aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-            aria-label="Slide 3"></button>
+{{-- <div class="carousel-container">
+  <div class="carousel">
+    <div class="carousel-item img-1">1</div>
+    <div class="carousel-item img-2">2</div>
+    <div class="carousel-item img-3">3</div>
+    <div class="carousel-item img-4">4</div>
+  </div>
+  <div class="carousel-navigation">
+    <span class="nav-dot" data-index="0"></span>
+    <span class="nav-dot" data-index="1"></span>
+    <span class="nav-dot" data-index="2"></span>
+    <span class="nav-dot" data-index="3"></span>
+  </div>
+</div> --}}
+<section class="carusel-home">
+  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="false" >
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="image-1 position-relative">
+          <img src="{{asset('img/banner-home/background_1.png')}}" alt="" class="img-fluid fondo">
+          <img src="{{asset('img/banner-home/MARGARITAS.png')}}" alt="" class="img-fluid position-absolute margarita">
+          <img src="{{asset('img/banner-home/TENTACIÓN.png')}}" alt="" class="img-fluid position-absolute tentacion">
+          <img src="{{asset('img/banner-home/CHOCOBUM.png')}}" alt="" class="img-fluid position-absolute chocobum">
+          <img src="{{asset('img/banner-home/GLACITAS.png')}}" alt="" class="img-fluid position-absolute glacitas">
+          <img src="{{asset('img/banner-home/Alexa.png')}}" alt="" class="img-fluid position-absolute alexa">
+          <img src="{{asset('img/banner-home/iPhone.png')}}" alt="" class="img-fluid position-absolute iPhone">
+          <img src="{{asset('img/banner-home/LOGO.png')}}" alt="" class="img-fluid position-absolute logo">
+          <img src="{{asset('img/banner-home/CopyBajada.png')}}" alt="" class="img-fluid position-absolute CopyBajada">
+          <img src="{{asset('img/banner-home/Watch.png')}}" alt="" class="img-fluid position-absolute Watch">
         </div>
-        <div class="carousel-inner">
-          @foreach ($sliders as  $key=> $slide)            
-              <div class="carousel-item {{$key == 0 ? 'active':''}}">
-                <img src="{{asset('storage/'.$slide->home_slide)}}" class="d-block w-100 " alt="...">
-              </div>
-          @endforeach
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-          data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-          data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
       </div>
-    </section>
+      <div class="carousel-item">
+        <div class="image-2 position-relative">
+          <img src="{{asset('img/banner-home/dvicttorio1.png')}}" alt="" class="img-fluid fondo">
+          <img src="{{asset('img/banner-home/dvicttorio3.png')}}" alt="" class="img-fluid position-absolute dvicttorio3">
+          <img src="{{asset('img/banner-home/dvicttorio5.png')}}" alt="" class="img-fluid position-absolute dvicttorio5-i">
+          <img src="{{asset('img/banner-home/dvicttorio4.png')}}" alt="" class="img-fluid position-absolute dvicttorio4">
+          <img src="{{asset('img/banner-home/dvicttorio5.png')}}" alt="" class="img-fluid position-absolute dvicttorio5-d">
+          <img src="{{asset('img/banner-home/dvicttorio6.png')}}" alt="" class="img-fluid position-absolute dvicttorio6">
+          <img src="{{asset('img/banner-home/billetes_04.png')}}" alt="" class="img-fluid position-absolute billetes_04">
+          <img src="{{asset('img/banner-home/billetes_07.png')}}" alt="" class="img-fluid position-absolute billetes_07">
+          <img src="{{asset('img/banner-home/billetes_08.png')}}" alt="" class="img-fluid position-absolute billetes_08">
+          <img src="{{asset('img/banner-home/billetes_09.png')}}" alt="" class="img-fluid position-absolute billetes_09">
+          <img src="{{asset('img/banner-home/billetes_13.png')}}" alt="" class="img-fluid position-absolute billetes_13">
+          <img src="{{asset('img/banner-home/billetes_20.png')}}" alt="" class="img-fluid position-absolute billetes_20">
+          <img src="{{asset('img/banner-home/billetes_22.png')}}" alt="" class="img-fluid position-absolute billetes_22">
+          <img src="{{asset('img/banner-home/dvicttorio2.png')}}" alt="" class="img-fluid position-absolute dvicttorio2">
+
+          <img src="{{asset('img/banner-home/dvicttorio4.png')}}" alt="" class="img-fluid position-absolute dvicttorio4hd">
+          <img src="{{asset('img/banner-home/dvicttorio5.png')}}" alt="" class="img-fluid position-absolute dvicttorio5hd">
+          <img src="{{asset('img/banner-home/dvicttorio4.png')}}" alt="" class="img-fluid position-absolute dvicttorio4hi">
+          <img src="{{asset('img/banner-home/dvicttorio5.png')}}" alt="" class="img-fluid position-absolute dvicttorio5hi">
+          
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="image-3"></div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</section>
+
 @else
   <section class="heroe-logueado">
     <div class="carousel">

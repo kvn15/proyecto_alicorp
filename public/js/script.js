@@ -1,128 +1,54 @@
+// //carusel hver inicio
+// document.addEventListener("DOMContentLoaded", function () {
+//     // Obtener elementos necesarios
+    
+//     const carouselH = document.querySelector('.carousel');
+//     const navDotsH = document.querySelectorAll('.nav-dot');
 
-document.querySelector('.dropdown-btn').addEventListener('click', function () {
-    this.classList.toggle("active");
-    const dropdown = document.querySelector('.dropdown');
-    dropdown.classList.toggle('expanded');
+//     let currentIndexH = 0;
 
-});
+//     // Función para actualizar el carrusel y los puntos
+//     function updateCarouselH(index) {
+//     const offset = -index * 100; // Calcula el desplazamiento
+//     carouselH.style.transform = `translateX(${offset}%)`; // Mueve el carrusel
 
-// window.onclick = function(event) {
-//     if (!event.target.matches('.dropdown-btn')) {
-//         var dropdowns = document.getElementsByClassName("dropdown");
-//         for (var i = 0; i < dropdowns.length; i++) {
-//             var openDropdown = dropdowns[i];
-//             if (openDropdown.style.display === "block") {
-//                 openDropdown.style.display = "none";
-//             }
-//         }
-//         document.getElementById("dropdown-btn").classList.remove("active");
+//     // Actualiza los puntos de navegación
+//     navDotsH.forEach(dot => dot.classList.remove('active'));
+//     navDotsH[index].classList.add('active');
 //     }
-// };
 
-
-document.querySelector('.dropdown1-btn').addEventListener('click', function () {
-    this.classList.toggle("active");
-    const dropdown = document.querySelector('.dropdown1');
-    dropdown.classList.toggle('expanded');
-});
-
-
-//modal pho
-// Seleccionar elementos
-// const openButton = document.querySelector('.btn-open');
-// const modal = document.getElementById('customModal');
-// const closeButton = modal.querySelector('.btn-close');
-
-// // Abrir el modal
-// openButton.addEventListener('click', () => {
-//     modal.classList.add('show');
-// });
-
-// // Cerrar el modal
-// closeButton.addEventListener('click', () => {
-//     modal.classList.remove('show');
-// });
-
-// // Cerrar el modal al hacer clic fuera del contenido
-// modal.addEventListener('click', (e) => {
-//     if (e.target === modal) {
-//         modal.classList.remove('show');
-//     }
-// });
-
-// //carusel 05/01/2024
-// const track = document.querySelector('.carousel-track');
-// const items = Array.from(track.children);
-// const leftButton = document.querySelector('.arrow.left');
-// const rightButton = document.querySelector('.arrow.right');
-// let currentIndex = 2; // Empieza con el tercer elemento centrado
-
-// // Duplicar el primer y último elemento para el efecto infinito
-// const firstClone = items[0].cloneNode(true);
-// const lastClone = items[items.length - 1].cloneNode(true);
-// track.appendChild(firstClone);
-// track.insertBefore(lastClone, items[0]);
-
-// // Reproduce solo el video central
-// function updateVideos() {
-//     items.forEach((item, index) => {
-//         const video = item.querySelector('video');
-//         if (index === currentIndex) {
-//             video.play(); // Reproduce el video central
-//         } else {
-//             video.pause(); // Pausa los demás videos
-//             video.currentTime = 0; // Reinicia el video pausado
-//         }
+//     // Agregar eventos de hover a los puntos de navegación
+//     navDotsH.forEach((dot, index) => {
+//     dot.addEventListener('mouseover', () => {
+//         currentIndexH = index; // Actualiza el índice actual
+//         updateCarouselH(currentIndexH);
 //     });
-// }
-
-// // Actualiza el carrusel
-// function updateCarousel(instant = false) {
-//     items.forEach((item, index) => {
-//         item.classList.remove('center');
-//         if (index === currentIndex) {
-//             item.classList.add('center');
-//         }
 //     });
 
-//     const itemWidth = items[0].getBoundingClientRect().width + 10; // Ancho del elemento con espacio
-//     const centerOffset = (track.offsetWidth / 2) - (itemWidth / 2); // Centra el elemento principal
-//     track.style.transition = instant ? 'none' : 'transform 0.5s ease-in-out';
-//     track.style.transform = `translateX(${centerOffset - (itemWidth * currentIndex)}px)`;
+//     // Iniciar con el primer punto activo
+//     updateCarouselH(currentIndexH);
+// });
+// //fin caruse home inicio
 
-//     updateVideos(); // Reproduce o pausa los videos según corresponda
-// }
 
-// // Manejo de carrusel infinito
-// function handleInfiniteScroll() {
-//     if (currentIndex === 0) {
-//         currentIndex = items.length - 2; // Salta al penúltimo elemento (último real)
-//         updateCarousel(true); // Actualización instantánea
-//     }
-//     if (currentIndex === items.length - 1) {
-//         currentIndex = 1; // Salta al primer elemento real
-//         updateCarousel(true); // Actualización instantánea
-//     }
-// }
 
-// // Botones de navegación
-// rightButton.addEventListener('click', () => {
-//     currentIndex++;
-//     updateCarousel();
-//     setTimeout(handleInfiniteScroll, 500); // Ajusta después de la transición
+// document.querySelector('.dropdown-btn').addEventListener('click', function () {
+//     this.classList.toggle("active");
+//     const dropdown = document.querySelector('.dropdown');
+//     dropdown.classList.toggle('expanded');
+
 // });
 
-// leftButton.addEventListener('click', () => {
-//     currentIndex--;
-//     updateCarousel();
-//     setTimeout(handleInfiniteScroll, 500); // Ajusta después de la transición
-// });
 
-// // Inicializa el carrusel
-// updateCarousel();
+// document.querySelector('.dropdown1-btn').addEventListener('click', function () {
+//     this.classList.toggle("active");
+//     const dropdown = document.querySelector('.dropdown1');
+//     dropdown.classList.toggle('expanded');
+// });
 
 // document.addEventListener('DOMContentLoaded', () => {
-//     let currentIndex = 0;
+//     let currentIndex = 0; // Índice del slide actual
+//     let autoSlideInterval; // Variable para almacenar el intervalo automático
 
 //     function updateCarousel() {
 //         const items = document.querySelectorAll('.carousel-item');
@@ -132,198 +58,346 @@ document.querySelector('.dropdown1-btn').addEventListener('click', function () {
 
 //         // Añade la clase active al elemento actual
 //         items[currentIndex].classList.add('active');
-
-//         // Mueve el carrusel usando transform
-//         const inner = document.querySelector('.carousel-inner');
-//         //inner.style.transform = `translateX(-${currentIndex * 100}%)`;
 //     }
 
 //     function nextSlide() {
 //         const items = document.querySelectorAll('.carousel-item');
-//         currentIndex = (currentIndex + 1) % items.length; // Avanza al siguiente slide (circular)
+//         currentIndex = (currentIndex + 1) % items.length; // Avanza al siguiente slide
 //         updateCarousel();
 //     }
 
 //     function prevSlide() {
 //         const items = document.querySelectorAll('.carousel-item');
-//         currentIndex = (currentIndex - 1 + items.length) % items.length; // Retrocede al anterior (circular)
+//         currentIndex = (currentIndex - 1 + items.length) % items.length; // Retrocede al slide anterior
 //         updateCarousel();
 //     }
 
-//     // Añadir eventos a los botones
-//     document.querySelector('.next').addEventListener('click', nextSlide);
-//     document.querySelector('.prev').addEventListener('click', prevSlide);
+//     function startAutoSlide() {
+//         autoSlideInterval = setInterval(nextSlide, 3000); // Cambia cada 3 segundos
+//     }
 
-//     // Inicializa el carrusel correctamente
-//     updateCarousel();
-// });
+//     function stopAutoSlide() {
+//         clearInterval(autoSlideInterval); // Detiene el cambio automático
+//     }
 
-document.addEventListener('DOMContentLoaded', () => {
-    let currentIndex = 0; // Índice del slide actual
-    let autoSlideInterval; // Variable para almacenar el intervalo automático
-
-    function updateCarousel() {
-        const items = document.querySelectorAll('.carousel-item');
-
-        // Elimina la clase active de todos los items
-        items.forEach(item => item.classList.remove('active'));
-
-        // Añade la clase active al elemento actual
-        items[currentIndex].classList.add('active');
-    }
-
-    function nextSlide() {
-        const items = document.querySelectorAll('.carousel-item');
-        currentIndex = (currentIndex + 1) % items.length; // Avanza al siguiente slide
-        updateCarousel();
-    }
-
-    function prevSlide() {
-        const items = document.querySelectorAll('.carousel-item');
-        currentIndex = (currentIndex - 1 + items.length) % items.length; // Retrocede al slide anterior
-        updateCarousel();
-    }
-
-    function startAutoSlide() {
-        autoSlideInterval = setInterval(nextSlide, 3000); // Cambia cada 3 segundos
-    }
-
-    function stopAutoSlide() {
-        clearInterval(autoSlideInterval); // Detiene el cambio automático
-    }
-
-    // Añadir eventos a los botones para cambiar manualmente
-    document.querySelector('.next').addEventListener('click', () => {
-        stopAutoSlide(); // Detiene el automático al hacer clic
-        nextSlide();
-        startAutoSlide(); // Reinicia el automático
-    });
-
-    document.querySelector('.prev').addEventListener('click', () => {
-        stopAutoSlide(); // Detiene el automático al hacer clic
-        prevSlide();
-        startAutoSlide(); // Reinicia el automático
-    });
-
-    // Inicia el carrusel automáticamente al cargar
-    startAutoSlide();
-});
-
-
-
-// document.addEventListener('DOMContentLoaded', () => {
-//     const openModalBtn = document.querySelector('.btn-open'); // Botón para abrir el modal
-//     const closeModalBtn = document.querySelector('.btn-close'); // Botón para cerrar el modal
-//     const modal = document.getElementById('customModal'); // Contenedor del modal
-
-//     // Abrir el modal
-//     openModalBtn.addEventListener('click', () => {
-//         modal.classList.add('show'); // Agrega la clase .show para mostrar el modal
-//         document.body.style.overflow = 'hidden'; // Desactiva el scroll del fondo
+//     // Añadir eventos a los botones para cambiar manualmente
+//     document.querySelector('.next').addEventListener('click', () => {
+//         stopAutoSlide(); // Detiene el automático al hacer clic
+//         nextSlide();
+//         startAutoSlide(); // Reinicia el automático
 //     });
 
-//     // Cerrar el modal
-//     closeModalBtn.addEventListener('click', () => {
-//         modal.classList.remove('show'); // Elimina la clase .show para ocultar el modal
-//         document.body.style.overflow = ''; // Reactiva el scroll
+//     document.querySelector('.prev').addEventListener('click', () => {
+//         stopAutoSlide(); // Detiene el automático al hacer clic
+//         prevSlide();
+//         startAutoSlide(); // Reinicia el automático
+//     });
+
+//     // Inicia el carrusel automáticamente al cargar
+//     startAutoSlide();
+// });
+
+
+// document.addEventListener("DOMContentLoaded", () => {
+//     // Seleccionar todos los botones "VER MÁS"
+//     const openButtons = document.querySelectorAll(".btn-open");
+
+//     openButtons.forEach((button) => {
+//         button.addEventListener("click", function () {
+//             const modalId = this.getAttribute("data-modal");
+//             const modal = document.getElementById(modalId);
+//             if (modal) {
+//                 modal.style.visibility = "visible";
+//                 modal.style.opacity = "1";
+//             } else {
+//                 console.error(`Modal con ID "${modalId}" no encontrado.`);
+//             }
+//         });
+//     });
+
+//     // Seleccionar todos los botones "Cerrar" de los modales
+//     const closeButtons = document.querySelectorAll(".btn-close");
+
+//     closeButtons.forEach((button) => {
+//         button.addEventListener("click", function () {
+//             const modal = this.closest(".modal");
+//             if (modal) {
+//                 modal.style.visibility = "hidden";
+//                 modal.style.opacity = "0";
+//             }
+//         });
 //     });
 
 //     // Cerrar el modal al hacer clic fuera del contenido
-//     modal.addEventListener('click', (event) => {
-//         if (event.target === modal) {
-//             modal.classList.remove('show');
-//             document.body.style.overflow = '';
-//         }
+//     window.addEventListener("click", function (event) {
+//         const modals = document.querySelectorAll(".modal");
+//         modals.forEach((modal) => {
+//             if (event.target === modal) {
+//                 modal.style.visibility = "hidden";
+//                 modal.style.opacity = "0";
+//             }
+//         });
 //     });
 // });
 
-document.addEventListener("DOMContentLoaded", () => {
-    // Seleccionar todos los botones "VER MÁS"
-    const openButtons = document.querySelectorAll(".btn-open");
 
-    openButtons.forEach((button) => {
-        button.addEventListener("click", function () {
-            const modalId = this.getAttribute("data-modal");
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.style.visibility = "visible";
-                modal.style.opacity = "1";
-            } else {
-                console.error(`Modal con ID "${modalId}" no encontrado.`);
-            }
-        });
+// //caruel para los videos
+// const videos = document.querySelectorAll('.carousel-video video');
+// const videoContainer = document.querySelector('.carousel-videos');
+// const leftButton = document.querySelector('.carousel-button.left');
+// const rightButton = document.querySelector('.carousel-button.right');
+// let current = 2;
+
+// function updateCarousel() {
+//   // Pausa todos los videos antes de actualizar
+//   videos.forEach((video, index) => {
+//     if (index !== current) {
+//       video.pause();
+//     }
+//   });
+
+//   // Actualiza las clases para resaltar el video principal
+//   document.querySelectorAll('.carousel-video').forEach((video, index) => {
+//     video.classList.remove('main');
+//     if (index === current) {
+//       video.classList.add('main');
+//     }
+//   });
+
+//   // Ajusta el contenedor al video principal
+//   const offset = -(current - 1) * 33.33;
+//   videoContainer.style.transform = `translateX(${offset}%)`;
+
+//   // Opcional: inicia automáticamente el video principal
+//   videos[current].play();
+// }
+
+// // Botón izquierdo: ir al video anterior
+// leftButton.addEventListener('click', () => {
+//   videos[current].pause(); // Pausa el video actual
+//   current = (current - 1 + videos.length) % videos.length;
+//   updateCarousel();
+// });
+
+// // Botón derecho: ir al siguiente video
+// rightButton.addEventListener('click', () => {
+//   videos[current].pause(); // Pausa el video actual
+//   current = (current + 1) % videos.length;
+//   updateCarousel();
+// });
+
+// // Inicializa el carrusel
+// updateCarousel();
+
+// document.addEventListener("DOMContentLoaded", function () {
+    
+//     function initHoverCarousel() {
+//         const carouselH = document.querySelector('.carousel');
+//         const navDotsH = document.querySelectorAll('.nav-dot');
+
+//         if (!carouselH || navDotsH.length === 0) return;
+
+//         let currentIndexH = 0;
+
+//         function updateCarouselH(index) {
+//             const offset = -index * 100;
+//             carouselH.style.transform = `translateX(${offset}%)`;
+
+//             navDotsH.forEach(dot => dot.classList.remove('active'));
+//             navDotsH[index].classList.add('active');
+//         }
+
+//         navDotsH.forEach((dot, index) => {
+//             dot.addEventListener('mouseover', () => {
+//                 currentIndexH = index;
+//                 updateCarouselH(currentIndexH);
+//             });
+//         });
+
+//         updateCarouselH(currentIndexH);
+//     }
+
+//     initHoverCarousel();
+// });
+
+// document.addEventListener("DOMContentLoaded", function () {
+//     function toggleDropdown(buttonClass, dropdownClass) {
+//         const button = document.querySelector(buttonClass);
+//         const dropdown = document.querySelector(dropdownClass);
+
+//         if (!button || !dropdown) return;
+
+//         button.addEventListener("click", function () {
+//             this.classList.toggle("active");
+//             dropdown.classList.toggle("expanded");
+//         });
+//     }
+
+//     toggleDropdown(".dropdown-btn", ".dropdown");
+//     toggleDropdown(".dropdown1-btn", ".dropdown1");
+// });
+
+// document.addEventListener("DOMContentLoaded", function () {
+//     function initImageCarousel(carouselSelector, nextBtnSelector, prevBtnSelector) {
+//         const carousel = document.querySelector(carouselSelector);
+//         const nextBtn = document.querySelector(nextBtnSelector);
+//         const prevBtn = document.querySelector(prevBtnSelector);
+//         if (!carousel || !nextBtn || !prevBtn) return;
+
+//         let currentIndex = 0;
+//         let autoSlideInterval;
+
+//         function updateCarousel() {
+//             const items = carousel.querySelectorAll('.carousel-item');
+//             items.forEach(item => item.classList.remove('active'));
+//             items[currentIndex].classList.add('active');
+//         }
+
+//         function nextSlide() {
+//             const items = carousel.querySelectorAll('.carousel-item');
+//             currentIndex = (currentIndex + 1) % items.length;
+//             updateCarousel();
+//         }
+
+//         function prevSlide() {
+//             const items = carousel.querySelectorAll('.carousel-item');
+//             currentIndex = (currentIndex - 1 + items.length) % items.length;
+//             updateCarousel();
+//         }
+
+//         function startAutoSlide() {
+//             autoSlideInterval = setInterval(nextSlide, 3000);
+//         }
+
+//         function stopAutoSlide() {
+//             clearInterval(autoSlideInterval);
+//         }
+
+//         nextBtn.addEventListener("click", () => {
+//             stopAutoSlide();
+//             nextSlide();
+//             startAutoSlide();
+//         });
+
+//         prevBtn.addEventListener("click", () => {
+//             stopAutoSlide();
+//             prevSlide();
+//             startAutoSlide();
+//         });
+
+//         startAutoSlide();
+//     }
+
+//     initImageCarousel(".carousel-container", ".next", ".prev");
+// });
+
+
+// document.addEventListener("DOMContentLoaded", function () {
+//     function initModalSystem() {
+//         document.body.addEventListener("click", function (event) {
+//             if (event.target.classList.contains("btn-open")) {
+//                 const modalId = event.target.getAttribute("data-modal");
+//                 const modal = document.getElementById(modalId);
+//                 if (modal) {
+//                     modal.style.visibility = "visible";
+//                     modal.style.opacity = "1";
+//                 }
+//             }
+
+//             if (event.target.classList.contains("btn-close") || event.target.classList.contains("modal")) {
+//                 const modal = event.target.closest(".modal");
+//                 if (modal) {
+//                     modal.style.visibility = "hidden";
+//                     modal.style.opacity = "0";
+//                 }
+//             }
+//         });
+//     }
+
+//     initModalSystem();
+// });
+
+// document.addEventListener("DOMContentLoaded", function () {
+//     function initVideoCarousel() {
+//         const videos = document.querySelectorAll('.carousel-video video');
+//         const videoContainer = document.querySelector('.carousel-videos');
+//         const leftButton = document.querySelector('.carousel-button.left');
+//         const rightButton = document.querySelector('.carousel-button.right');
+
+//         if (!videos.length || !videoContainer || !leftButton || !rightButton) return;
+
+//         let current = 2;
+
+//         function updateVideoCarousel() {
+//             videos.forEach((video, index) => {
+//                 if (index !== current) video.pause();
+//             });
+
+//             document.querySelectorAll('.carousel-video').forEach((video, index) => {
+//                 video.classList.toggle('main', index === current);
+//             });
+
+//             const offset = -(current - 1) * 33.33;
+//             videoContainer.style.transform = `translateX(${offset}%)`;
+//             videos[current].play();
+//         }
+
+//         leftButton.addEventListener("click", () => {
+//             videos[current].pause();
+//             current = (current - 1 + videos.length) % videos.length;
+//             updateVideoCarousel();
+//         });
+
+//         rightButton.addEventListener("click", () => {
+//             videos[current].pause();
+//             current = (current + 1) % videos.length;
+//             updateVideoCarousel();
+//         });
+
+//         updateVideoCarousel();
+//     }
+
+//     initVideoCarousel();
+// });
+
+
+// document.addEventListener("DOMContentLoaded", function() {
+//     alert('ptm')
+//     const carouselElement = document.querySelector("#carouselExampleIndicators");
+//     const carousel = new bootstrap.Carousel(carouselElement, {
+//         wrap: false, // Desactiva el reinicio infinito
+//         ride: false // No se mueve automáticamente
+//     });
+// });
+
+document.addEventListener("DOMContentLoaded", function() {
+    const carouselElement = document.querySelector("#carouselExampleIndicators");
+    const prevButton = document.querySelector("#prevBtn");
+    const nextButton = document.querySelector("#nextBtn");
+    const totalSlides = document.querySelectorAll(".carousel-item").length;
+    
+    let currentIndex = 0;
+
+    const carousel = new bootstrap.Carousel(carouselElement, {
+        wrap: false, // Desactiva el reinicio infinito
+        ride: false
     });
 
-    // Seleccionar todos los botones "Cerrar" de los modales
-    const closeButtons = document.querySelectorAll(".btn-close");
+    // Solo ejecutar si los botones existen
+    if (prevButton && nextButton) {
+        // Función para actualizar los botones
+        function updateButtons() {
+            prevButton.disabled = currentIndex === 0;
+            nextButton.disabled = currentIndex === totalSlides - 1;
+        }
 
-    closeButtons.forEach((button) => {
-        button.addEventListener("click", function () {
-            const modal = this.closest(".modal");
-            if (modal) {
-                modal.style.visibility = "hidden";
-                modal.style.opacity = "0";
-            }
+        // Detectar cuando cambia de slide
+        carouselElement.addEventListener("slid.bs.carousel", function(event) {
+            currentIndex = event.to;
+            updateButtons();
         });
-    });
 
-    // Cerrar el modal al hacer clic fuera del contenido
-    window.addEventListener("click", function (event) {
-        const modals = document.querySelectorAll(".modal");
-        modals.forEach((modal) => {
-            if (event.target === modal) {
-                modal.style.visibility = "hidden";
-                modal.style.opacity = "0";
-            }
-        });
-    });
-});
-
-
-//caruel para los videos
-const videos = document.querySelectorAll('.carousel-video video');
-const videoContainer = document.querySelector('.carousel-videos');
-const leftButton = document.querySelector('.carousel-button.left');
-const rightButton = document.querySelector('.carousel-button.right');
-let current = 2;
-
-function updateCarousel() {
-  // Pausa todos los videos antes de actualizar
-  videos.forEach((video, index) => {
-    if (index !== current) {
-      video.pause();
+        // Inicializar botones
+        updateButtons();
     }
-  });
-
-  // Actualiza las clases para resaltar el video principal
-  document.querySelectorAll('.carousel-video').forEach((video, index) => {
-    video.classList.remove('main');
-    if (index === current) {
-      video.classList.add('main');
-    }
-  });
-
-  // Ajusta el contenedor al video principal
-  const offset = -(current - 1) * 33.33;
-  videoContainer.style.transform = `translateX(${offset}%)`;
-
-  // Opcional: inicia automáticamente el video principal
-  videos[current].play();
-}
-
-// Botón izquierdo: ir al video anterior
-leftButton.addEventListener('click', () => {
-  videos[current].pause(); // Pausa el video actual
-  current = (current - 1 + videos.length) % videos.length;
-  updateCarousel();
 });
-
-// Botón derecho: ir al siguiente video
-rightButton.addEventListener('click', () => {
-  videos[current].pause(); // Pausa el video actual
-  current = (current + 1) % videos.length;
-  updateCarousel();
-});
-
-// Inicializa el carrusel
-updateCarousel();
