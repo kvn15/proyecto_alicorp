@@ -37,11 +37,11 @@
             <a class="btn btn-primary" href="{{ route('login') }}">Mi Perfil</a>
             @endguest
         </div>
-        <div class="menuh me-3">
+        {{-- <div class="menuh me-3">
             <a id="openModalBtn">
                 <i class="fa fa-bars"></i>
             </a>
-        </div>
+        </div> --}}
     </div>
 
     <div id="modal" class="modal">

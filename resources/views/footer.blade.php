@@ -1,6 +1,6 @@
 <section class="footer-alicorp">
 
-    <div class="container">
+    <div class="container" @if(request()->is('nuevo')) style="display: none;" @endif>
         <div class="row">
             <div class="col-12 text-center mt-5">
                 <h3>Nuestras marcas</h3>
@@ -14,6 +14,10 @@
                 <img src="{{ asset('img/logo_primor.jpg') }}" alt="" >
             </div>
         </div>
+    </div>
+
+    <div @if(request()->is('nuevo')) style="margin-top: 500px;" @endif>
+
     </div>
 
     <div class="container-fluid" style="background-color: #FB0000">

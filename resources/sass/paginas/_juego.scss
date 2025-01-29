@@ -1,5 +1,5 @@
-@include font-face('Gotham', 'Gold-Bold');
-
+@include font-face('Golda', 'Golda');  
+@include font-face('Barlow-Regular', 'Barlow-Regular');
 :root {
   --primary-color: rgba(8, 8, 0, 1);
   --secondary-color: rgba(147, 146, 135, 1);
@@ -17,27 +17,28 @@
     margin-top: 17rem;
 
     h2 {
+      font: normal normal bold 36px/120px Golda;
+      letter-spacing: 0.36px;
       color: #EADC75;
-      font-size: 3.6rem;
-      font-family: "Barlow", serif;
-      font-weight: bold;
+      text-shadow: 0px 3px 6px #00000029;
+      text-transform: uppercase;
+      opacity: 1;
     }
 
     h3 {
-      font-family: "Gold-Bold", serif;
-      font-size: 10rem;
-      color: #ffffff;
-      font-weight: bold;
+      font: normal normal bold 90px/110px Golda;
+      letter-spacing: 1px;
+      color: #FFFFFF;
+      text-shadow: 0px 3px 6px #00000029;
+      opacity: 1;
     }
 
     p {
-      margin-top: 2rem;
-      font-family: "Gold-Bold", serif;
-      font-size: 3rem;
-      color: #ffffff;
+      font: normal normal bold 26px/30px Barlow-Regular;
       letter-spacing: 0.36px;
-      line-height: 3.5rem;
-      font-weight: bold;
+      color: #FFFFFF;
+      text-shadow: 0px 3px 6px #00000029;
+      opacity: 1;
     }
   }
 
@@ -97,13 +98,13 @@
     }
 
     .card-title {
-      font-family: "Gotham", serif;
+      font-family: "Golda", serif;
       font-size: 2.5rem;
       margin: 0;
     }
 
     .card-subtitle {
-      font-family: "Gold-Bold", serif;
+      font-family: "Barlow-Regular", serif;
       font-size: 2rem;
       margin: 8px 0;
       color: #ffffff;

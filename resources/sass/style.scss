@@ -17,7 +17,8 @@
 @include font-face('CBold', 'CorporativeBold');
 @include font-face('CoprAltMed', 'CorporativeAltMedium');
 @include font-face('CoprAltBlack', 'CorporativeAltBlack');
-@include font-face('Gotham', 'Gotham-Black');
+@include font-face('Barlow-Regular', 'Barlow-Regular');
+@include font-face('Golda', 'Golda');
 
 // //ayudas@include font-face('CoprAltMed', 'CorporativeAltMedium');
 .separador {
@@ -81,9 +82,9 @@ html {
         height: auto;
     }
 
-    .navbar.nav-contact {
-        box-shadow: 5px 6px 6px 5px rgba(0, 0, 0, 0.2);
-    }
+    // .navbar.nav-contact {
+    //     //box-shadow: 5px 6px 6px 5px rgba(0, 0, 0, 0.2);
+    // }
 
 }
 
@@ -337,7 +338,7 @@ li.submenu:hover ul {
 }
 
 .navbar {
-    border-radius: 0 0 0 50px;
+    //border-radius: 0 0 0 50px;
     padding: 10px;
     height: 70px;
 }
@@ -832,7 +833,7 @@ li.submenu:hover ul {
 
     h2 {
         margin-top: 6rem;
-        font-family: 'Gotham';
+        font-family: 'Golda';
         color: #FFFFFF;
         font-size: 6rem;
     }
@@ -841,6 +842,7 @@ li.submenu:hover ul {
         margin-top: 2rem;
         color: #FFFFFF;
         font-size: 2.9rem;
+        font-family: 'Barlow-Regular';
     }
 
     /*Cards*/
@@ -853,7 +855,7 @@ li.submenu:hover ul {
             position: relative;
 
             h5 {
-                font-family: 'Gotham';
+                font-family: 'Golda';
                 color: #FB0000;
                 font-weight: bolder;
                 font-size: 2.3rem;
@@ -1269,11 +1271,13 @@ li.submenu:hover ul {
       }
 
     .trendy{
+        font-family: 'Golda';
         color: #FB0000;
         font-size: 5rem;
         transform: rotate(-10deg);
     }
     .trendy-p{
+        font-family: 'Barlow-Regular';
         color: #848484;
         font-size: 2rem;
         margin-left: 20px;

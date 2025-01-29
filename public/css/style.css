@@ -98,12 +98,133 @@
   width: 30%;
 }
 
+@font-face {
+  font-family: "Golda";
+  src: url('../fonts/Golda.otf') format('opentype'), url('../fonts/Golda.ttf') format('truetype');
+}
+@font-face {
+  font-family: "Barlow-Regular";
+  src: url('../fonts/Barlow-Regular.otf') format('opentype'), url('../fonts/Barlow-Regular.ttf') format('truetype');
+}
 .promociones {
   max-width: 100%;
 }
 .promociones .hero-image {
   width: 100%;
   height: auto;
+}
+
+.promo1 {
+  background-image: url(../img/Eventos.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+.promo1 .grupo-texto-promo {
+  margin-top: 5rem;
+}
+.promo1 .grupo-texto-promo h2 {
+  color: #EADC75;
+  font: normal normal bold 3.6rem/12rem Golda;
+  text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1607843137);
+  letter-spacing: 0.36px;
+  opacity: 1;
+}
+.promo1 .grupo-texto-promo h3 {
+  font: normal normal bold 8rem/10rem Golda;
+  letter-spacing: 1px;
+  color: #FFFFFF;
+  text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1607843137);
+  opacity: 1;
+}
+.promo1 .grupo-texto-promo p {
+  font: normal normal bold 3rem/4rem Barlow-Regular;
+  letter-spacing: 0.36px;
+  color: #FFFFFF;
+  text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1607843137);
+  opacity: 1;
+}
+.promo1 .grupo-img-promo {
+  margin-top: 15rem;
+}
+.promo1 .grupo-img-promo img {
+  width: 40.6rem;
+}
+
+.promo2 {
+  background-image: url(../img/seccion-prmo/fondo.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 84vh;
+  overflow: hidden;
+}
+.promo2 .grupo-texto-promo2 {
+  margin-top: 5rem;
+}
+.promo2 .grupo-texto-promo2 h2 {
+  font: normal normal bold 8rem/10rem Golda;
+  letter-spacing: 1px;
+  color: #FFFFFF;
+  opacity: 1;
+}
+.promo2 .grupo-texto-promo2 h3 {
+  font: normal normal bold 3rem/4rem Barlow;
+  letter-spacing: 0.36px;
+  color: #FFFFFF;
+  text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1607843137);
+  opacity: 1;
+}
+.promo2 .grupo-img-promo2 {
+  margin-top: 15rem;
+  position: relative;
+}
+.promo2 .grupo-img-promo2 img {
+  position: absolute;
+  width: 57rem;
+  right: -9rem;
+  top: -9rem;
+}
+.promo2 .grupo-img-promo2 .avion-promo2 {
+  position: absolute;
+  width: 48rem;
+  right: 72rem;
+  top: 19rem;
+}
+.promo2 .grupo-img-promo2 .grupo-shampos {
+  position: relative;
+}
+.promo2 .grupo-img-promo2 .grupo-shampos .shampo1,
+.promo2 .grupo-img-promo2 .grupo-shampos .shampo2,
+.promo2 .grupo-img-promo2 .grupo-shampos .shampo3,
+.promo2 .grupo-img-promo2 .grupo-shampos .shampo4,
+.promo2 .grupo-img-promo2 .grupo-shampos .shampo5 {
+  position: absolute;
+  width: 35rem;
+  left: 22rem;
+  top: 19rem;
+}
+.promo2 .grupo-img-promo2 .grupo-shampos .shampo1 {
+  transform: rotate(20deg);
+}
+.promo2 .grupo-img-promo2 .grupo-shampos .shampo2 {
+  transform: rotate(0deg);
+  left: 18rem;
+}
+.promo2 .grupo-img-promo2 .grupo-shampos .shampo3 {
+  transform: rotate(-18deg);
+  left: 14rem;
+}
+.promo2 .grupo-img-promo2 .grupo-shampos .shampo4 {
+  transform: rotate(-35deg);
+  left: 9rem;
+  top: 21rem;
+}
+.promo2 .grupo-img-promo2 .grupo-shampos .shampo5 {
+  transform: rotate(-46deg);
+  left: 5rem;
+  top: 25rem;
 }
 
 @font-face {
@@ -562,6 +683,14 @@
   font-family: "Gotham";
   src: url('../fonts/Gold-Bold.otf') format('opentype'), url('../fonts/Gold-Bold.ttf') format('truetype');
 }
+@font-face {
+  font-family: "Golda";
+  src: url('../fonts/Golda.otf') format('opentype'), url('../fonts/Golda.ttf') format('truetype');
+}
+@font-face {
+  font-family: "Barlow-Regular";
+  src: url('../fonts/Barlow-Regular.otf') format('opentype'), url('../fonts/Barlow-Regular.ttf') format('truetype');
+}
 .eventos {
   background-image: url(../img/Eventos.png);
   background-position: center;
@@ -573,11 +702,10 @@
   margin-top: 10rem;
 }
 .eventos h2 {
-  font-family: "Barlow", serif;
-  font-size: 6.9rem;
-  font-weight: 800;
-  font-style: bold;
-  color: #ffffff;
+  font: normal normal bold 7rem/5rem Golda;
+  letter-spacing: 0.32rem;
+  color: #FFFFFF;
+  opacity: 1;
 }
 .eventos p {
   font-family: "Barlow", serif;
@@ -613,15 +741,14 @@
   margin: auto;
 }
 .eventos .card-eventos .card-title {
+  font: normal normal bold 2.5rem/3.5rem Golda;
   color: #FB0000;
-  font-family: "Gold-Bold", sans-serif;
-  font-weight: bold;
-  font-size: 2.2rem;
+  opacity: 1;
 }
 .eventos .card-eventos .card-text {
+  font: normal normal bold 15px/35px Barlow-Regular;
+  letter-spacing: 0px;
   color: #848484;
-  font-family: "Barlow", serif;
-  font-size: 1.8rem;
   width: 100%;
 }
 .eventos .card-eventos .btn-evento button {
@@ -644,8 +771,12 @@
 }
 
 @font-face {
-  font-family: "Gotham";
-  src: url('../fonts/Gold-Bold.otf') format('opentype'), url('../fonts/Gold-Bold.ttf') format('truetype');
+  font-family: "Golda";
+  src: url('../fonts/Golda.otf') format('opentype'), url('../fonts/Golda.ttf') format('truetype');
+}
+@font-face {
+  font-family: "Barlow-Regular";
+  src: url('../fonts/Barlow-Regular.otf') format('opentype'), url('../fonts/Barlow-Regular.ttf') format('truetype');
 }
 :root {
   --primary-color: rgba(8, 8, 0, 1);
@@ -663,25 +794,26 @@
   margin-top: 17rem;
 }
 .juego .titulo-2 h2 {
+  font: normal normal bold 36px/120px Golda;
+  letter-spacing: 0.36px;
   color: #EADC75;
-  font-size: 3.6rem;
-  font-family: "Barlow", serif;
-  font-weight: bold;
+  text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1607843137);
+  text-transform: uppercase;
+  opacity: 1;
 }
 .juego .titulo-2 h3 {
-  font-family: "Gold-Bold", serif;
-  font-size: 10rem;
-  color: #ffffff;
-  font-weight: bold;
+  font: normal normal bold 90px/110px Golda;
+  letter-spacing: 1px;
+  color: #FFFFFF;
+  text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1607843137);
+  opacity: 1;
 }
 .juego .titulo-2 p {
-  margin-top: 2rem;
-  font-family: "Gold-Bold", serif;
-  font-size: 3rem;
-  color: #ffffff;
+  font: normal normal bold 26px/30px Barlow-Regular;
   letter-spacing: 0.36px;
-  line-height: 3.5rem;
-  font-weight: bold;
+  color: #FFFFFF;
+  text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1607843137);
+  opacity: 1;
 }
 .juego .img-juego-c {
   margin-top: 12rem;
@@ -729,12 +861,12 @@
   padding: 26px;
 }
 .juegos .card .card-title {
-  font-family: "Gotham", serif;
+  font-family: "Golda", serif;
   font-size: 2.5rem;
   margin: 0;
 }
 .juegos .card .card-subtitle {
-  font-family: "Gold-Bold", serif;
+  font-family: "Barlow-Regular", serif;
   font-size: 2rem;
   margin: 8px 0;
   color: #ffffff;
@@ -960,9 +1092,10 @@
 }
 
 .footer-alicorp h3 {
-  font-weight: bolder;
+  font: normal normal bold 70px/50px Golda;
+  letter-spacing: 0.8px;
   color: #FB0000;
-  font-size: 80px;
+  opacity: 1;
 }
 .footer-alicorp .logo-alicorp {
   display: flex;
@@ -1016,8 +1149,12 @@
   src: url('../fonts/CorporativeAltBlack.otf') format('opentype'), url('../fonts/CorporativeAltBlack.ttf') format('truetype');
 }
 @font-face {
-  font-family: "Gotham";
-  src: url('../fonts/Gotham-Black.otf') format('opentype'), url('../fonts/Gotham-Black.ttf') format('truetype');
+  font-family: "Barlow-Regular";
+  src: url('../fonts/Barlow-Regular.otf') format('opentype'), url('../fonts/Barlow-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: "Golda";
+  src: url('../fonts/Golda.otf') format('opentype'), url('../fonts/Golda.ttf') format('truetype');
 }
 .separador {
   margin-bottom: 300px;
@@ -1069,9 +1206,6 @@ html {
   margin-left: 10rem;
   max-width: 15rem;
   height: auto;
-}
-.cabecera2 .navbar.nav-contact {
-  box-shadow: 5px 6px 6px 5px rgba(0, 0, 0, 0.2);
 }
 
 .cabecera3 {
@@ -1222,7 +1356,6 @@ li.submenu:hover ul {
 }
 
 .navbar {
-  border-radius: 0 0 0 50px;
   padding: 10px;
   height: 70px;
 }
@@ -1596,7 +1729,7 @@ li.submenu:hover ul {
 }
 .exp h2 {
   margin-top: 6rem;
-  font-family: "Gotham";
+  font-family: "Golda";
   color: #FFFFFF;
   font-size: 6rem;
 }
@@ -1604,6 +1737,7 @@ li.submenu:hover ul {
   margin-top: 2rem;
   color: #FFFFFF;
   font-size: 2.9rem;
+  font-family: "Barlow-Regular";
 }
 .exp .cards-grupo {
   margin-top: 5rem;
@@ -1614,7 +1748,7 @@ li.submenu:hover ul {
   position: relative;
 }
 .exp .cards-grupo .card h5 {
-  font-family: "Gotham";
+  font-family: "Golda";
   color: #FB0000;
   font-weight: bolder;
   font-size: 2.3rem;
@@ -1883,11 +2017,13 @@ li.submenu:hover ul {
   right: 0px;
 }
 .videos .trendy {
+  font-family: "Golda";
   color: #FB0000;
   font-size: 5rem;
   transform: rotate(-10deg);
 }
 .videos .trendy-p {
+  font-family: "Barlow-Regular";
   color: #848484;
   font-size: 2rem;
   margin-left: 20px;
