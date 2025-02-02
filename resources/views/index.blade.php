@@ -13,7 +13,7 @@
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <div class="image-1 position-relative">
-                    <img src="{{ asset('img/banner-home/background_1.png') }}" alt="" class="img-fluid fondo">
+                    <img src="{{ asset('img/banner-home/background.png') }}" alt="" class="img-fluid fondo">
                     <img src="{{ asset('img/banner-home/MARGARITAS.png') }}" alt=""
                         class="img-fluid position-absolute margarita">
                     <img src="{{ asset('img/banner-home/TENTACIÓN.png') }}" alt=""
@@ -34,17 +34,14 @@
                         class="img-fluid position-absolute Watch">
                 </div>
             </div>
-            <div class="carousel-item">
+            <div class="carousel-item ">
                 <div class="image-2 position-relative">
                     <img src="{{ asset('img/banner-home/dvicttorio1.png') }}" alt="" class="img-fluid fondo">
                     <img src="{{ asset('img/banner-home/dvicttorio3.png') }}" alt=""
                         class="img-fluid position-absolute dvicttorio3">
-                    <img src="{{ asset('img/banner-home/dvicttorio5.png') }}" alt=""
-                        class="img-fluid position-absolute dvicttorio5-i">
-                    <img src="{{ asset('img/banner-home/dvicttorio4.png') }}" alt=""
-                        class="img-fluid position-absolute dvicttorio4">
-                    <img src="{{ asset('img/banner-home/dvicttorio5.png') }}" alt=""
-                        class="img-fluid position-absolute dvicttorio5-d">
+                    <img src="{{ asset('img/banner-home/dvicttorio5.png') }}" alt="" class="img-fluid position-absolute dvicttorio5-i">
+                    <img src="{{ asset('img/banner-home/dvicttorio4.png') }}" alt="" class="img-fluid position-absolute dvicttorio4">
+                    <img src="{{ asset('img/banner-home/dvicttorio5.png') }}" alt="" class="img-fluid position-absolute dvicttorio5-d">
                     <img src="{{ asset('img/banner-home/dvicttorio6.png') }}" alt=""
                         class="img-fluid position-absolute dvicttorio6">
                     <img src="{{ asset('img/banner-home/billetes_04.png') }}" alt=""
@@ -75,8 +72,24 @@
 
                 </div>
             </div>
-            <div class="carousel-item">
-                <div class="image-3"></div>
+            <div class="carousel-item ">
+                <div class="image-3">
+                    <div class="grupo-amaras">
+                        <img src="{{ asset('img/banner-home/amaras7.png')}}" alt="" class="amaras7 img-fluid">
+                        <img src="{{ asset('img/banner-home/amaras4.png')}}" alt="" class="amaras4 img-fluid">                     
+                        <img src="{{ asset('img/banner-home/amaras8.png')}}" alt="" class="amaras8 img-fluid">                        
+                        <img src="{{ asset('img/banner-home/amaras6.png')}}" alt="" class="amaras6 img-fluid">
+                        <img src="{{ asset('img/banner-home/amaras5.png')}}" alt="" class="amaras5 img-fluid">
+
+                        <img src="{{ asset('img/banner-home/Amaras.png')}}" alt="" class="amaras img-fluid position-absolute">
+
+                        <img src="{{ asset('img/banner-home/amaras2.png')}}" alt="" class="nube nube-1 img-fluid">                        
+                        <img src="{{ asset('img/banner-home/amaras2.png')}}" alt="" class="nube nube-2 img-fluid">
+                        <img src="{{ asset('img/banner-home/amaras2.png')}}" alt="" class="nube nube-3 img-fluid">
+
+                        <img src="{{ asset('img/banner-home/amaras3.png')}}" alt="" class="avion img-fluid position-absolute">
+                    </div>
+                </div>
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
@@ -159,7 +172,7 @@
         <div class="carousel-v">
             <button class="carousel-button left">◀</button>
             <div class="carousel-videos">
-                <div class="carousel-video">
+                {{-- <div class="carousel-video">
                     <video src="{{ asset('img/videos/video_1.mp4') }}" controls></video>
                 </div>
                 <div class="carousel-video">
@@ -167,7 +180,7 @@
                 </div>
                 <div class="carousel-video main">
                     <video src="{{ asset('img/videos/video_3.mp4') }}" controls></video>
-                </div>
+                </div> --}}
             </div>
             <button class="carousel-button right">▶</button>
         </div>

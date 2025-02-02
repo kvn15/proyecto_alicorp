@@ -17,11 +17,30 @@
             <li class="nav-item me-3 me-s">
                 <a class="nav-link" href="{{ route('juegos') }}">Juegos</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item me-3">
                 <a class="nav-link" href="{{ route('nuevo') }}">Eventos</a>
             </li>
+            <li class="nav-item perfil">
+                    @auth
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                        <a class="btn btn-primary" href="{{ route('logout') }} "
+                            onclick="event.preventDefault(); 
+                            document.getElementById('logout-form').submit();">
+                            Salir
+                        </a>
+                        @if (Route::currentRouteName() !== 'cliente.dashboard')
+                            <a class="btn btn-primary" href="{{route('cliente.dashboard')}}">Dashboard</a>
+                        @endif
+                    @endauth
+                    @guest
+                    <a class="btn btn-primary" href="{{ route('login') }}">Mi Perfil</a>
+                    @endguest
+            </li>
+           
     </div>
-    <div class="perfil d-flex align-items-center justify-content-between">
+    {{-- <div class="perfil d-flex align-items-center justify-content-between">
         <div class="a-perfil d-md-flex">
             @auth
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -41,8 +60,8 @@
             <a id="openModalBtn">
                 <i class="fa fa-bars"></i>
             </a>
-        </div> --}}
-    </div>
+        </div> 
+    </div> --}}
 
     <div id="modal" class="modal">
         <div class="modal-content">

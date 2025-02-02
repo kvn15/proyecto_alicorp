@@ -19,7 +19,7 @@ use App\Http\Controllers\AdminPanel\CalendarioController;
 use App\Http\Controllers\AdminPanel\PromocionesController;
 use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\VistaController;
-
+use App\Http\Controllers\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +56,9 @@ Route::prefix('admin')->group(function () {
     //Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
     //Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
     //Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
+
+    Route::post('/register', [RegisterController::class, 'store'])->name('create');
+
 
     Route::get('/logout', [AdminController::class, 'destroy'])->name('admin.logout');
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');

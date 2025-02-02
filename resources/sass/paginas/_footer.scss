@@ -1,4 +1,9 @@
+@include font-face('Barlow-Regular', 'Barlow-Regular');
+
 .footer-alicorp{
+    .seccion2-pie{
+        max-height: 50rem;
+    }
 
      /* Contenedor del carrusel */
      .carousel-container {
@@ -44,7 +49,7 @@
     }
 
     h3{
-        font: normal normal bold 70px/50px Golda;
+        font: normal normal bold 40px/60px Barlow-Regular;
         letter-spacing: 0.8px;
         color: #FB0000;
         opacity: 1;
@@ -59,11 +64,15 @@
         }
     }
 
-    h4{
-        color: #ffffff;
-        font-size: 1.6rem;
+    h4,.anio{
+        font: normal normal bold 26px/60px Barlow-Regular;
+        letter-spacing: 0.26px;
+        color: #FFFFFF;
+        opacity: 1;
     }
-
+    .anio{
+        font: normal normal bold 18px/50px Barlow-Regular;
+    }
     .redes-sociales{
         color: #ffffff;
         font-size: 1.6rem;
@@ -75,6 +84,8 @@
         line-height: 5px;
         p{
             color: #ffffff;
+            font-family: 'Barlow-Regular';
+            font-size: 1.7rem;
         }
     }
 

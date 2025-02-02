@@ -278,9 +278,9 @@
                             <p>Hoy es {{ date('d') }} de {{$monthName}} del {{ date('Y') }} | {{ now()->isoFormat('H:mm:ss A') }}</p>
                         </div>
                     </div>
-                    <div class="avatar">
+                    {{-- <div class="avatar">
                         <img src="{{ !empty($adminData->profile_image) ? url('img/upload/admin_images/' . $adminData->profile_image) : url('img/upload/no_image.jpg') }}" alt="" class="rounded-circle">
-                    </div>
+                    </div> --}}
                 </div>                
                 @yield('content')
             </main>
