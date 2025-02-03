@@ -13,6 +13,48 @@
   background-repeat: no-repeat;
   background-size: cover;
 
+    .juego1{
+        transform: scale(0.6);
+        top: -20rem;
+    }
+
+    .juego2{
+      transform: scale(0.2) rotate(-59deg);
+      top: -16rem;
+      left: -9rem;
+    }
+
+    .juego3{
+      transform: scale(0.37);
+      top: 8rem;
+      left: -3rem;
+    }
+
+    .juego4{
+      transform: scale(0.37);
+      top: 21rem;
+      left: -7rem;
+    }
+
+
+    .juego5{
+      transform: scale(0.37);
+      top: 16rem;
+      right: -13rem;
+    }
+
+    .juego6{
+      transform: scale(0.38);
+      top: 6rem;
+      right: -13rem;
+    }
+
+    .juego7{
+      transform: scale(0.36);
+      top: -18rem;
+      right: -15rem;
+    }
+
   .titulo-2 {
     margin-top: 17rem;
 
@@ -45,6 +87,11 @@
   .img-juego-c {
     margin-top: 12rem;
   }
+
+  .juego1{
+    transform: scale(0.6);
+    top: -20rem;
+}
 }
 
 .juegos {

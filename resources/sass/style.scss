@@ -18,7 +18,8 @@
 @include font-face('CoprAltMed', 'CorporativeAltMedium');
 @include font-face('CoprAltBlack', 'CorporativeAltBlack');
 @include font-face('Barlow-Regular', 'Barlow-Regular');
-@include font-face('Golda', 'Golda');
+@include font-face('Golda', 'Golda');   
+@include font-face('Montserrat-Bold', 'Montserrat-Bold'); 
 
 
 :root {
@@ -460,7 +461,10 @@ li.submenu:hover ul {
     /* Ajusta la altura según el número de elementos */
 }
 
-
+.carousel-control-next-icon, .carousel-control-prev-icon{
+    height: 10rem !important;
+    width: 5rem !important;
+}
 
 
 .carousel-indicators [data-bs-target] {
@@ -1264,7 +1268,7 @@ li.submenu:hover ul {
         margin-top: 5rem;
 
         .card {
-            border-radius: 1.25rem !important;
+            border-radius: 2.5rem !important;
             transition: transform 0.6s ease; // Suaviza la animación
             position: relative;
             width: 24rem;
@@ -1299,31 +1303,29 @@ li.submenu:hover ul {
                     .img-pro-4 {
                         visibility: visible;
                         opacity: 1;
-                        width: 100px;
+                        width: 80px;
                         //transform: rotate(-30deg) translateY(-10px);
-                        left: 10px;
+                        left: 11px;
                         top: 20px;
-                        transform: none; // Elimina el ajuste del centro
+                        transform: rotate(-35deg)
                     }
 
                     .img-pro-5 {
                         visibility: visible;
                         opacity: 1;
-                        width: 50px;
-                        //transform: rotate(-30deg) translateY(-10px);
-                        left: 20px;
-                        top: 120px;
-                        transform: none; // Elimina el ajuste del centro
+                        width: 45px;
+                        left: 5px;
+                        top: 101px;
+                        transform: rotate(8deg);
                     }
 
                     .img-pro-6 {
                         visibility: visible;
                         opacity: 1;
-                        width: 50px;
-                        //transform: rotate(-30deg) translateY(-10px);
-                        top: 20px;
-                        right: 20px; // Nueva posición al hacer hover
-                        transform: none; // Elimina el ajuste del centro
+                        width: 52px;
+                        top: -3px;
+                        right: 22px;
+                        transform: rotate(8deg);
                     }
                 }
 
@@ -1394,8 +1396,35 @@ li.submenu:hover ul {
                 transform: rotate(10deg);
                 background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(0, 189, 182, 1) 80%);
                 transform-origin: center; /* Garantiza que la rotación se realice desde el centro */
-                .card-body, .imagenes-card {
+                .card-body, 
+                .imagenes-card {
                     transform: rotate(-10deg);
+                    .img-pro-6 {
+                        visibility: visible;
+                        opacity: 1;
+                        width: 60px;
+                        top: 34px;
+                        right: 15px;
+                        transform: rotate(40deg);
+                    }
+
+                    .img-pro-5 {
+                        visibility: visible;
+                        opacity: 1;
+                        width: 49px;
+                        left: 5px;
+                        top: 101px;
+                        transform: rotate(29deg);
+                    }
+
+                    .img-pro-4 {
+                        visibility: visible;
+                        opacity: 1;
+                        width: 72px;
+                        left: 11px;
+                        top: 20px;
+                        transform: rotate(-30deg);
+                    }
                 }
             }
 
@@ -1410,6 +1439,32 @@ li.submenu:hover ul {
         .card3{
             &:hover {
                 background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(253, 227, 0, 1.00) 80%);
+                .imagenes-card{
+                    .img-pro-5 {
+                        visibility: visible;
+                        opacity: 1;
+                        width: 79px;
+                        left: -1px;
+                        top: 84px;
+                        transform: rotate(-17deg);
+                    }
+                    .img-pro-6 {
+                        visibility: visible;
+                        opacity: 1;
+                        width: 44px;
+                        top: 35px;
+                        right: 41px;
+                        transform: rotate(5deg);
+                    }
+                    .img-pro-4 {
+                        visibility: visible;
+                        opacity: 1;
+                        width: 70px;
+                        left: 11px;
+                        top: 20px;
+                        transform: rotate(-35deg);
+                    }
+                }
             }
             .imagenes-card {     
                 height: 170px;          
@@ -1424,7 +1479,34 @@ li.submenu:hover ul {
         .card4{
             &:hover {
                 background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(0, 0, 0, 1.00) 80%);
+                .imagenes-card {
+                    .img-pro-6 {
+                        visibility: visible;
+                        opacity: 1;
+                        width: 26px;
+                        top: 35px;
+                        right: 22px;
+                        transform: rotate(31deg) scale(0.7);
+                    }
 
+                    .img-pro-5 {
+                        visibility: visible;
+                        opacity: 1;
+                        width: 26px;
+                        left: 32px;
+                        top: 101px;
+                        transform: rotate(-41deg) scale(0.5);
+                    }
+
+                    .img-pro-4 {
+                        visibility: visible;
+                        opacity: 1;
+                        width: 58px;
+                        left: 11px;
+                        top: 32px;
+                        transform: rotate(-48deg);
+                    }
+                }
             }
             .imagenes-card {     
                 height: 170px;  
@@ -1499,22 +1581,28 @@ li.submenu:hover ul {
 
         img {
             border-radius: 15px;
+            transform: scale(0.9);
         }
 
         h2 {
             color: #FB0000;
-            font-family: 'Gotham';
+            font-family: 'Golda';
             font-size: 4rem;
         }
 
         p {
             color: #1D1D1D;
             font-size: 2rem;
+            font-family: 'Montserrat-Bold';
+            line-height: 21px;
         }
 
         .fa-calendar,
         .fa-map-marker {
             color: #FB0000;
+        }
+        span.calendar{
+            color: #1D1D1D;
         }
 
 

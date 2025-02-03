@@ -53,8 +53,14 @@
                 <h3>Despierta <br> La diversión!</h3>
                 <p>Juéganos con tus marcas favoritas y gana <br> premios Increíbles.</p>
             </div>
-            <div class="col-md-6 img-juego-c">
-                <img src="{{ asset('img/juegos-img.png') }}" alt="" class="img-fluid">
+            <div class="col-md-6 img-juego-c position-relative">
+                <img src="{{ asset('img/juegos/GamerHoover.png') }}" alt="" class="img-fluid position-absolute juego1">
+                <img src="{{ asset('img/juegos/3. Coin.png') }}" alt="" class="img-fluid position-absolute juego2">
+                <img src="{{ asset('img/juegos/3D Icon Gaming 02.png') }}" alt="" class="img-fluid position-absolute juego3">
+                <img src="{{ asset('img/juegos/3D Icon Gaming 08.png') }}" alt="" class="img-fluid position-absolute juego4">
+                <img src="{{ asset('img/juegos/3D Icon Gaming 03.png') }}" alt="" class="img-fluid position-absolute juego5">
+                <img src="{{ asset('img/juegos/3D Icon Gaming 09.png') }}" alt="" class="img-fluid position-absolute juego6">
+                <img src="{{ asset('img/juegos/3. Coin.png') }}" alt="" class="img-fluid position-absolute juego7">
             </div>
         </div>
         <div class="row">

@@ -18,8 +18,8 @@
         <div class="modal-content">
             <img src="{{ asset($modalImage) }}" alt="">
             <div class="d-flex justify-content-around mt-5">
-                <p><i class="fa fa-calendar me-2"></i>{{ $eventDate }}</p>
-                <p><i class="fa fa-map-marker me-2"></i>{{ $eventLocation }}</p>
+                <p><i class="fa fa-calendar me-2"></i> <span class="calendar">{{ $eventDate }}</span> </p>
+                <p><i class="fa fa-map-marker me-2"></i><span class="map">{{ $eventLocation }}</span></p>
             </div>
             <h2 class="mt-0">{{ $modalTitle }}</h2>
             <p>{{ $modalDescription }}</p>

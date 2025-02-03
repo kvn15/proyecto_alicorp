@@ -112,7 +112,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h2>Experiencias Únicas</h2>
-                    <h3><span>!LLEGAMOS MÁS A TI!</span> Conoce los eventos y novedades de nuestras marcas.</h3>
+                    <h3><span style="color: black">!LLEGAMOS MÁS A TI!</span> Conoce los eventos y novedades de nuestras marcas.</h3>
                 </div>
             </div>
             <div class="row row-cols-1 row-cols-md-4 g-4 cards-grupo">
@@ -143,7 +143,7 @@
                 <x-card id=4 image1="img/victorio/visual totem triangular.png"
                     image2="img/victorio/visual totem triangular.png" image3="img/victorio/Pasta-CodoRayado.png"
                     image4="img/victorio/LogoVittorio.png" image5="img/victorio/Pasta-Spaguetti.png"
-                    image6="img/victorio/Pasta-Spaguetti.png" title="Amaras en <br> Universidades"
+                    image6="img/victorio/Pasta-Spaguetti.png" title="Historias que <br> dan lo mejor"
                     modalImage="img/hero1.png" eventDate="18 de Enero" eventLocation="Coliseo Aldo Chumnimune"
                     modalTitle="Casino K-pop Dance"
                     modalDescription="Disfruta del mundo del K-pop y demuestra tus mejores pasos en el #CasinoKpopDance"
@@ -172,7 +172,7 @@
         <div class="carousel-v">
             <button class="carousel-button left">◀</button>
             <div class="carousel-videos">
-                {{-- <div class="carousel-video">
+                <div class="carousel-video">
                     <video src="{{ asset('img/videos/video_1.mp4') }}" controls></video>
                 </div>
                 <div class="carousel-video">
@@ -180,7 +180,7 @@
                 </div>
                 <div class="carousel-video main">
                     <video src="{{ asset('img/videos/video_3.mp4') }}" controls></video>
-                </div> --}}
+                </div>
             </div>
             <button class="carousel-button right">▶</button>
         </div>

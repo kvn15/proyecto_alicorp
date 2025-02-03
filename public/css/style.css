@@ -106,6 +106,29 @@
   font-family: "Barlow-Regular";
   src: url('../fonts/Barlow-Regular.otf') format('opentype'), url('../fonts/Barlow-Regular.ttf') format('truetype');
 }
+@keyframes slideRight {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+/* Inicialmente ocultamos el texto */
+.hidden {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* Cuando el elemento entra en la pantalla, aplicamos la animación */
+.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
 .promociones {
   max-width: 100%;
 }
@@ -122,7 +145,7 @@
   height: 100vh;
 }
 .promo1 .grupo-texto-promo {
-  margin-top: 5rem;
+  margin-top: 17rem;
 }
 .promo1 .grupo-texto-promo h2 {
   color: #EADC75;
@@ -145,8 +168,14 @@
   text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1607843137);
   opacity: 1;
 }
+.promo1 .grupo-texto-promo .animated-text {
+  transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+}
+.promo1 .grupo-texto-promo:hover {
+  transform: translateY(10px);
+}
 .promo1 .grupo-img-promo {
-  margin-top: 15rem;
+  margin-top: 27rem;
 }
 .promo1 .grupo-img-promo img {
   width: 40.6rem;
@@ -176,6 +205,10 @@
   text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1607843137);
   opacity: 1;
 }
+.promo2 .grupo-texto-promo2 .img-amaras {
+  top: 7.2rem;
+  left: 44rem;
+}
 .promo2 .grupo-img-promo2 {
   margin-top: 15rem;
   position: relative;
@@ -190,7 +223,7 @@
   position: absolute;
   width: 48rem;
   right: 72rem;
-  top: 19rem;
+  top: 26rem;
 }
 .promo2 .grupo-img-promo2 .grupo-shampos {
   position: relative;
@@ -225,6 +258,164 @@
   transform: rotate(-46deg);
   left: 5rem;
   top: 25rem;
+}
+.promo2 .grupo-img-promo2 .codigo-barra {
+  background-color: #FB0000;
+  position: absolute;
+  left: -65rem;
+  bottom: -14rem;
+  line-height: 3rem;
+  border-radius: 25px 0 0 25px;
+  padding: 1rem;
+  width: 36rem;
+}
+.promo2 .grupo-img-promo2 .codigo-barra p {
+  font-family: "Golda";
+  font-size: 3rem;
+  color: #ffffff;
+}
+.promo2 .grupo-img-promo2 .codigo-barra .fa-mobile {
+  font-size: 10rem;
+  color: #ffffff;
+}
+.promo2 .grupo-img-promo2 .codigo-barra .fa-chevron-right {
+  font-size: 3rem;
+  color: #ffffff;
+}
+.promo2 .grupo-img-promo2 .codigo-barra2 {
+  background-color: #FFFFFF;
+  position: absolute;
+  left: -29rem;
+  bottom: -14rem;
+  line-height: 3rem;
+  border-radius: 0 25px 25px 0;
+  padding: 1rem;
+  width: 10rem;
+  height: 11.9rem;
+}
+.promo2 .grupo-img-promo2 .codigo-barra2 img {
+  position: absolute;
+  top: 1rem;
+  left: 0rem;
+  transform: scale(1);
+}
+
+.promo3 {
+  background: linear-gradient(to right, #3E54B1, #7586E8);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 84vh;
+  overflow: hidden;
+  position: relative;
+}
+.promo3 .bloque1 {
+  margin-top: 12rem;
+}
+.promo3 .bloque1 .titulo1 {
+  color: #FFFFFF;
+  font-family: "Golda";
+  font-size: 2.4rem;
+}
+.promo3 .bloque1 h2 {
+  color: #FFFFFF;
+  font-family: "Golda";
+  font-size: 7rem;
+}
+.promo3 .bloque1 .titulo2 {
+  color: #FFFFFF;
+  font-family: "Barlow-Regular";
+  font-size: 2.4rem;
+  font-weight: bolder;
+}
+.promo3 .bloque1 .codigo-barra {
+  background-color: #FB0000;
+  position: absolute;
+  left: 10rem;
+  bottom: 8rem;
+  line-height: 3rem;
+  border-radius: 25px 0 0 25px;
+  padding: 1rem;
+  width: 36rem;
+}
+.promo3 .bloque1 .codigo-barra p {
+  font-family: "Golda";
+  font-size: 3rem;
+  color: #ffffff;
+}
+.promo3 .bloque1 .codigo-barra .fa-mobile {
+  font-size: 10rem;
+  color: #ffffff;
+}
+.promo3 .bloque1 .codigo-barra .fa-chevron-right {
+  font-size: 3rem;
+  color: #ffffff;
+}
+.promo3 .bloque1 .codigo-barra2 {
+  background-color: #FFFFFF;
+  position: absolute;
+  left: 46rem;
+  bottom: 8rem;
+  line-height: 3rem;
+  border-radius: 0 25px 25px 0;
+  padding: 1rem;
+  width: 10rem;
+  height: 11.9rem;
+}
+.promo3 .bloque1 .codigo-barra2 img {
+  position: absolute;
+  top: 1rem;
+  left: 0rem;
+  transform: scale(1);
+}
+.promo3 .bloque2-i .ig0 {
+  transform: scale(0.46);
+  top: -32rem;
+  right: -7rem;
+}
+.promo3 .bloque2-i .ig9 {
+  bottom: -13rem;
+  left: 24rem;
+}
+.promo3 .bloque2-i .ig8 {
+  bottom: -36rem;
+  transform: scale(0.15);
+  right: -22rem;
+}
+.promo3 .bloque2-i .ig2 {
+  transform: scale(0.4);
+  right: -3rem;
+  bottom: -2rem;
+}
+.promo3 .bloque2-i .ig1 {
+  transform: scale(0.2) rotate(125deg);
+  right: -17rem;
+  bottom: 0rem;
+}
+.promo3 .bloque2-i .ig7 {
+  transform: scale(0.3) rotate(13deg);
+  right: 3rem;
+  bottom: 10rem;
+}
+.promo3 .bloque2-i .ig5 {
+  transform: scale(0.5);
+  bottom: 25rem;
+  left: 23rem;
+}
+.promo3 .bloque2-i .ig6 {
+  transform: scale(0.15);
+  bottom: -21rem;
+  left: -18rem;
+}
+.promo3 .bloque2-i .ig4 {
+  transform: scale(0.3);
+  bottom: -13rem;
+  left: 24rem;
+}
+.promo3 .bloque2-i .ig3 {
+  transform: scale(0.3);
+  bottom: -4rem;
+  left: -6rem;
 }
 
 @font-face {
@@ -718,6 +909,7 @@
 .eventos .card {
   border-radius: 25px !important;
   overflow: hidden; /* Evita desbordamientos */
+  width: 25rem;
 }
 .eventos .card .card-imagen {
   overflow: hidden; /* Oculta partes fuera del contenedor */
@@ -729,6 +921,7 @@
   border-radius: 25px 25px 0 0;
   object-fit: cover; /* Ajusta la imagen */
   transition: transform 0.3s ease; /* Animación más fluida */
+  height: 25rem;
 }
 .eventos .card .card-imagen:hover img {
   transform: scale(1.2); /* Escala la imagen al pasar el mouse */
@@ -744,6 +937,7 @@
   font: normal normal bold 2.5rem/3.5rem Golda;
   color: #FB0000;
   opacity: 1;
+  line-height: 23px;
 }
 .eventos .card-eventos .card-text {
   font: normal normal bold 15px/35px Barlow-Regular;
@@ -790,6 +984,40 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+.juego .juego1 {
+  transform: scale(0.6);
+  top: -20rem;
+}
+.juego .juego2 {
+  transform: scale(0.2) rotate(-59deg);
+  top: -16rem;
+  left: -9rem;
+}
+.juego .juego3 {
+  transform: scale(0.37);
+  top: 8rem;
+  left: -3rem;
+}
+.juego .juego4 {
+  transform: scale(0.37);
+  top: 21rem;
+  left: -7rem;
+}
+.juego .juego5 {
+  transform: scale(0.37);
+  top: 16rem;
+  right: -13rem;
+}
+.juego .juego6 {
+  transform: scale(0.38);
+  top: 6rem;
+  right: -13rem;
+}
+.juego .juego7 {
+  transform: scale(0.36);
+  top: -18rem;
+  right: -15rem;
+}
 .juego .titulo-2 {
   margin-top: 17rem;
 }
@@ -817,6 +1045,10 @@
 }
 .juego .img-juego-c {
   margin-top: 12rem;
+}
+.juego .juego1 {
+  transform: scale(0.6);
+  top: -20rem;
 }
 
 .juegos .sec-juegos {
@@ -1208,6 +1440,10 @@
   font-family: "Golda";
   src: url('../fonts/Golda.otf') format('opentype'), url('../fonts/Golda.ttf') format('truetype');
 }
+@font-face {
+  font-family: "Montserrat-Bold";
+  src: url('../fonts/Montserrat-Bold.otf') format('opentype'), url('../fonts/Montserrat-Bold.ttf') format('truetype');
+}
 :root {
   --blur-low: blur(3px);
   --blur-mid: blur(4px);
@@ -1515,6 +1751,11 @@ li.submenu:hover ul {
 .expanded {
   max-height: 200px;
   /* Ajusta la altura según el número de elementos */
+}
+
+.carousel-control-next-icon, .carousel-control-prev-icon {
+  height: 10rem !important;
+  width: 5rem !important;
 }
 
 .carousel-indicators [data-bs-target] {
@@ -2216,7 +2457,7 @@ li.submenu:hover ul {
   margin-top: 5rem;
 }
 .exp .cards-grupo .card {
-  border-radius: 1.25rem !important;
+  border-radius: 2.5rem !important;
   transition: transform 0.6s ease;
   position: relative;
   width: 24rem;
@@ -2246,26 +2487,26 @@ li.submenu:hover ul {
 .exp .cards-grupo .card:hover .imagenes-card .img-pro-4 {
   visibility: visible;
   opacity: 1;
-  width: 100px;
-  left: 10px;
+  width: 80px;
+  left: 11px;
   top: 20px;
-  transform: none;
+  transform: rotate(-35deg);
 }
 .exp .cards-grupo .card:hover .imagenes-card .img-pro-5 {
   visibility: visible;
   opacity: 1;
-  width: 50px;
-  left: 20px;
-  top: 120px;
-  transform: none;
+  width: 45px;
+  left: 5px;
+  top: 101px;
+  transform: rotate(8deg);
 }
 .exp .cards-grupo .card:hover .imagenes-card .img-pro-6 {
   visibility: visible;
   opacity: 1;
-  width: 50px;
-  top: 20px;
-  right: 20px;
-  transform: none;
+  width: 52px;
+  top: -3px;
+  right: 22px;
+  transform: rotate(8deg);
 }
 .exp .cards-grupo .card:hover .card-title {
   color: #FFFFFF;
@@ -2324,14 +2565,66 @@ li.submenu:hover ul {
   background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgb(0, 189, 182) 80%);
   transform-origin: center; /* Garantiza que la rotación se realice desde el centro */
 }
-.exp .cards-grupo .card2:hover .card-body, .exp .cards-grupo .card2:hover .imagenes-card {
+.exp .cards-grupo .card2:hover .card-body,
+.exp .cards-grupo .card2:hover .imagenes-card {
   transform: rotate(-10deg);
+}
+.exp .cards-grupo .card2:hover .card-body .img-pro-6,
+.exp .cards-grupo .card2:hover .imagenes-card .img-pro-6 {
+  visibility: visible;
+  opacity: 1;
+  width: 60px;
+  top: 34px;
+  right: 15px;
+  transform: rotate(40deg);
+}
+.exp .cards-grupo .card2:hover .card-body .img-pro-5,
+.exp .cards-grupo .card2:hover .imagenes-card .img-pro-5 {
+  visibility: visible;
+  opacity: 1;
+  width: 49px;
+  left: 5px;
+  top: 101px;
+  transform: rotate(29deg);
+}
+.exp .cards-grupo .card2:hover .card-body .img-pro-4,
+.exp .cards-grupo .card2:hover .imagenes-card .img-pro-4 {
+  visibility: visible;
+  opacity: 1;
+  width: 72px;
+  left: 11px;
+  top: 20px;
+  transform: rotate(-30deg);
 }
 .exp .cards-grupo .card2 .imagenes-card {
   height: 172px;
 }
 .exp .cards-grupo .card3:hover {
   background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgb(253, 227, 0) 80%);
+}
+.exp .cards-grupo .card3:hover .imagenes-card .img-pro-5 {
+  visibility: visible;
+  opacity: 1;
+  width: 79px;
+  left: -1px;
+  top: 84px;
+  transform: rotate(-17deg);
+}
+.exp .cards-grupo .card3:hover .imagenes-card .img-pro-6 {
+  visibility: visible;
+  opacity: 1;
+  width: 44px;
+  top: 35px;
+  right: 41px;
+  transform: rotate(5deg);
+}
+.exp .cards-grupo .card3:hover .imagenes-card .img-pro-4 {
+  visibility: visible;
+  opacity: 1;
+  width: 70px;
+  left: 11px;
+  top: 20px;
+  transform: rotate(-35deg);
 }
 .exp .cards-grupo .card3 .imagenes-card {
   height: 170px;
@@ -2342,6 +2635,30 @@ li.submenu:hover ul {
 }
 .exp .cards-grupo .card4:hover {
   background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgb(0, 0, 0) 80%);
+}
+.exp .cards-grupo .card4:hover .imagenes-card .img-pro-6 {
+  visibility: visible;
+  opacity: 1;
+  width: 26px;
+  top: 35px;
+  right: 22px;
+  transform: rotate(31deg) scale(0.7);
+}
+.exp .cards-grupo .card4:hover .imagenes-card .img-pro-5 {
+  visibility: visible;
+  opacity: 1;
+  width: 26px;
+  left: 32px;
+  top: 101px;
+  transform: rotate(-41deg) scale(0.5);
+}
+.exp .cards-grupo .card4:hover .imagenes-card .img-pro-4 {
+  visibility: visible;
+  opacity: 1;
+  width: 58px;
+  left: 11px;
+  top: 32px;
+  transform: rotate(-48deg);
 }
 .exp .cards-grupo .card4 .imagenes-card {
   height: 170px;
@@ -2401,19 +2718,25 @@ li.submenu:hover ul {
 }
 .exp .modal-content img {
   border-radius: 15px;
+  transform: scale(0.9);
 }
 .exp .modal-content h2 {
   color: #FB0000;
-  font-family: "Gotham";
+  font-family: "Golda";
   font-size: 4rem;
 }
 .exp .modal-content p {
   color: #1D1D1D;
   font-size: 2rem;
+  font-family: "Montserrat-Bold";
+  line-height: 21px;
 }
 .exp .modal-content .fa-calendar,
 .exp .modal-content .fa-map-marker {
   color: #FB0000;
+}
+.exp .modal-content span.calendar {
+  color: #1D1D1D;
 }
 .exp .modal-content .vm {
   border-radius: 15px;

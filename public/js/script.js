@@ -326,39 +326,50 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (!videos.length || !videoContainer || !leftButton || !rightButton) return;
 
-        let current = 2;
+        let current = 2; // Índice del video inicial
 
         function updateVideoCarousel() {
-            videos.forEach((video, index) => {
-                if (index !== current) video.pause();
-            });
+            // Pausar todos los videos
+            videos.forEach(video => video.pause());
 
+            // Aplicar la clase 'main' al video actual
             document.querySelectorAll('.carousel-video').forEach((video, index) => {
                 video.classList.toggle('main', index === current);
             });
 
+            // Mover el carrusel
             const offset = -(current - 1) * 33.33;
             videoContainer.style.transform = `translateX(${offset}%)`;
-            videos[current].play();
         }
 
         leftButton.addEventListener("click", () => {
-            videos[current].pause();
             current = (current - 1 + videos.length) % videos.length;
             updateVideoCarousel();
         });
 
         rightButton.addEventListener("click", () => {
-            videos[current].pause();
             current = (current + 1) % videos.length;
             updateVideoCarousel();
         });
 
+        // Agregar evento para que el usuario inicie el video al hacer clic
+        videos.forEach(video => {
+            video.addEventListener("click", () => {
+                if (video.paused) {
+                    video.play();
+                } else {
+                    video.pause();
+                }
+            });
+        });
+
+        // Llamar la función sin reproducir video automáticamente
         updateVideoCarousel();
     }
 
     initVideoCarousel();
 });
+
 
 
 // document.addEventListener("DOMContentLoaded", function() {
@@ -400,4 +411,20 @@ document.addEventListener("DOMContentLoaded", function() {
         // Inicializar botones
         updateButtons();
     }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const textElement = document.getElementById("promo-text");
+
+    function checkScroll() {
+        const rect = textElement.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        if (rect.top < windowHeight * 0.8) { // Aparece cuando el 80% del elemento es visible
+            textElement.classList.add("visible");
+        }
+    }
+
+    window.addEventListener("scroll", checkScroll);
+    checkScroll(); // Verifica al cargar la página
 });

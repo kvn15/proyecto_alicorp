@@ -33,7 +33,7 @@
     .card {
         border-radius: 25px !important;
         overflow: hidden; /* Evita desbordamientos */
-        
+        width: 25rem;
         .card-imagen {
             overflow: hidden; /* Oculta partes fuera del contenedor */
             position: relative;
@@ -44,6 +44,7 @@
                 border-radius: 25px 25px 0 0;
                 object-fit: cover; /* Ajusta la imagen */
                 transition: transform 0.3s ease; /* Animación más fluida */
+                height: 25rem;
             }
     
             &:hover img {
@@ -64,6 +65,7 @@
             font: normal normal bold 2.5rem/3.5rem Golda;
             color: #FB0000;
             opacity: 1;
+            line-height: 23px;
         }
 
         .card-text{
