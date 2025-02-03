@@ -317,53 +317,97 @@ document.addEventListener("DOMContentLoaded", function () {
     initModalSystem();
 });
 
+// document.addEventListener("DOMContentLoaded", function () {
+//     function initVideoCarousel() {
+//         const videos = document.querySelectorAll('.carousel-video video');
+//         const videoContainers = document.querySelectorAll('.carousel-video');
+//         const videoContainer = document.querySelector('.carousel-videos');
+//         const leftButton = document.querySelector('.carousel-button.left');
+//         const rightButton = document.querySelector('.carousel-button.right');
+
+//         if (!videos.length || !videoContainer || !leftButton || !rightButton) return;
+
+//         let current = 2; // Índice del video inicial (centrado)
+
+//         function updateVideoCarousel() {
+//             // Pausar todos los videos
+//             videos.forEach(video => video.pause());
+
+//             // Remover la clase .main de todos los videos
+//             videoContainers.forEach(video => video.classList.remove('main'));
+
+//             // Agregar la clase .main al video actual
+//             videoContainers[current].classList.add('main');
+
+//             // Mover el carrusel
+//             const offset = -(current - 1) * 33.33;
+//             videoContainer.style.transform = `translateX(${offset}%)`;
+//         }
+
+//         leftButton.addEventListener("click", () => {
+//             current = (current - 1 + videos.length) % videos.length;
+//             updateVideoCarousel();
+//         });
+
+//         rightButton.addEventListener("click", () => {
+//             current = (current + 1) % videos.length;
+//             updateVideoCarousel();
+//         });
+
+//         // Reproducir video solo cuando el usuario haga clic
+//         videos.forEach(video => {
+//             video.addEventListener("click", () => {
+//                 if (video.paused) {
+//                     video.play();
+//                 } else {
+//                     video.pause();
+//                 }
+//             });
+//         });
+
+//         // Llamar la función para establecer el video inicial sin reproducción automática
+//         updateVideoCarousel();
+//     }
+
+//     initVideoCarousel();
+// });
+
+
 document.addEventListener("DOMContentLoaded", function () {
     function initVideoCarousel() {
-        const videos = document.querySelectorAll('.carousel-video video');
         const videoContainer = document.querySelector('.carousel-videos');
         const leftButton = document.querySelector('.carousel-button.left');
         const rightButton = document.querySelector('.carousel-button.right');
 
-        if (!videos.length || !videoContainer || !leftButton || !rightButton) return;
-
-        let current = 2; // Índice del video inicial
+        if (!videoContainer || !leftButton || !rightButton) return;
 
         function updateVideoCarousel() {
-            // Pausar todos los videos
-            videos.forEach(video => video.pause());
+            const videos = document.querySelectorAll('.carousel-video');
 
-            // Aplicar la clase 'main' al video actual
-            document.querySelectorAll('.carousel-video').forEach((video, index) => {
-                video.classList.toggle('main', index === current);
-            });
+            // Removemos la clase 'main' de todos los videos
+            videos.forEach(video => video.classList.remove('main'));
 
-            // Mover el carrusel
-            const offset = -(current - 1) * 33.33;
-            videoContainer.style.transform = `translateX(${offset}%)`;
+            // Agregamos 'main' al segundo video, que es el central después del cambio
+            videos[1].classList.add('main');
         }
 
-        leftButton.addEventListener("click", () => {
-            current = (current - 1 + videos.length) % videos.length;
-            updateVideoCarousel();
-        });
-
         rightButton.addEventListener("click", () => {
-            current = (current + 1) % videos.length;
+            const firstVideo = videoContainer.firstElementChild;
+            videoContainer.appendChild(firstVideo.cloneNode(true)); // Clonamos el primero y lo agregamos al final
+            videoContainer.removeChild(firstVideo); // Eliminamos el original
+
             updateVideoCarousel();
         });
 
-        // Agregar evento para que el usuario inicie el video al hacer clic
-        videos.forEach(video => {
-            video.addEventListener("click", () => {
-                if (video.paused) {
-                    video.play();
-                } else {
-                    video.pause();
-                }
-            });
+        leftButton.addEventListener("click", () => {
+            const lastVideo = videoContainer.lastElementChild;
+            videoContainer.insertBefore(lastVideo.cloneNode(true), videoContainer.firstElementChild);
+            videoContainer.removeChild(lastVideo);
+
+            updateVideoCarousel();
         });
 
-        // Llamar la función sin reproducir video automáticamente
+        // Inicializar el carrusel
         updateVideoCarousel();
     }
 

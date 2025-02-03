@@ -11,7 +11,7 @@
                 aria-label="Slide 3"></button>
         </div>
         <div class="carousel-inner">
-            <div class="carousel-item active">
+            <div class="carousel-item ">
                 <div class="image-1 position-relative">
                     <img src="{{ asset('img/banner-home/background.png') }}" alt="" class="img-fluid fondo">
                     <img src="{{ asset('img/banner-home/MARGARITAS.png') }}" alt=""
@@ -72,7 +72,7 @@
 
                 </div>
             </div>
-            <div class="carousel-item ">
+            <div class="carousel-item active">
                 <div class="image-3">
                     <div class="grupo-amaras">
                         <img src="{{ asset('img/banner-home/amaras7.png')}}" alt="" class="amaras7 img-fluid">
@@ -88,6 +88,10 @@
                         <img src="{{ asset('img/banner-home/amaras2.png')}}" alt="" class="nube nube-3 img-fluid">
 
                         <img src="{{ asset('img/banner-home/amaras3.png')}}" alt="" class="avion img-fluid position-absolute">
+
+                        <img src="{{ asset('img/banner-home/amaras9.png')}}" alt="" class="amaras9 img-fluid position-absolute">
+                        <img src="{{ asset('img/banner-home/amaras10.png')}}" alt="" class="amaras10 img-fluid position-absolute">
+
                     </div>
                 </div>
             </div>
@@ -112,7 +116,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h2>Experiencias Únicas</h2>
-                    <h3><span style="color: black">!LLEGAMOS MÁS A TI!</span> Conoce los eventos y novedades de nuestras marcas.</h3>
+                    <h3><span style="font-weight: bolder">!LLEGAMOS MÁS A TI!</span> Conoce los eventos y novedades de nuestras marcas.</h3>
                 </div>
             </div>
             <div class="row row-cols-1 row-cols-md-4 g-4 cards-grupo">
@@ -170,7 +174,7 @@
 
     <div class="row d-flex justify-content-center">
         <div class="carousel-v">
-            <button class="carousel-button left">◀</button>
+            <button class="carousel-button left"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
             <div class="carousel-videos">
                 <div class="carousel-video">
                     <video src="{{ asset('img/videos/video_1.mp4') }}" controls></video>
@@ -182,7 +186,7 @@
                     <video src="{{ asset('img/videos/video_3.mp4') }}" controls></video>
                 </div>
             </div>
-            <button class="carousel-button right">▶</button>
+            <button class="carousel-button right"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
         </div>
     </div>
 

@@ -382,7 +382,7 @@ li.submenu:hover ul {
 
 .navbar-center {
     position: absolute;
-    left: 50%;
+    left: 63%;
     //transform: translatex(-50%);
 }
 
@@ -954,6 +954,11 @@ li.submenu:hover ul {
                 display: none;
                 transition: opacity 2s ease-out, transform 2s ease-out;
             }
+
+            .amaras9,
+            .amaras10{
+                visibility: hidden;
+            }
         }
 
         &:hover{
@@ -990,6 +995,17 @@ li.submenu:hover ul {
                 transform: scale(0.5);
                 right: -60rem;
                 bottom: 0rem;
+            }
+
+            .amaras9{
+                visibility: visible;
+                transform: translateY(30.2rem);
+            }
+
+            .amaras10{
+                visibility: visible;
+                /* top: 24rem; */
+                transform: translateY(141px);
             }
         }
     }
@@ -1713,63 +1729,73 @@ li.submenu:hover ul {
     // display: flex;
     // justify-content: center;
     margin-bottom: 10rem;
+    
     .carousel-v {
         position: relative;
         width: 500px;
         display: flex;
-        overflow: hidden;
-        margin-top: 4rem;
-      }
+        overflow: visible !important;
+        margin-top: 13rem;
+    }
     
-      .carousel-videos {
+    .carousel-videos {
         display: flex;
         position: relative;
         width: 300%;
         transition: transform 0.5s ease-in-out;
-      }
+    }
     
-      .carousel-video {
+    .carousel-video {
         flex: 0 0 33.33%;
         opacity: 0.7;
         transform: scale(0.9);
         transition: all 0.5s ease-in-out;
-        transition: all 0.5s ease-in-out;
         position: relative;
-      }
+    }
     
-      .carousel-video.main {
-        transform: scale(1); /* Video principal crece */
-        opacity: 1; /* Máxima visibilidad */
-        z-index: 2; /* Asegura que esté encima */
-      }
+    /* Asegurar que el video central siempre sea más grande */
+    .carousel-video.main {
+        transform: scale(1.7); /* Hace el video principal más grande */
+        opacity: 1;
+        z-index: 2;
+        position: relative;
+    }
     
-      video {
+    
+    video {
         width: 100%;
-        border-radius: 70px;
+        border-radius: 20px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      }
+    }
     
-      .carousel-button {
+    .carousel-button {
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        background-color: white;
+        background-color: #FB0000;
         border: none;
         padding: 10px;
         cursor: pointer;
         border-radius: 50%;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         z-index: 20;
-      }
+    }
     
-      .carousel-button.left {
+    .carousel-button.left {
         left: 0px;
-      }
+    }
     
-      .carousel-button.right {
+    .carousel-button.right {
         right: 0px;
-      }
+    }
 
+    .fa-arrow-right,
+    .fa-arrow-left{
+        color: #FFFFFF;
+    }
+    
+
+      /**/
     .trendy{
         font-family: 'Golda';
         color: #FB0000;
