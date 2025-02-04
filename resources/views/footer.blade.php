@@ -1,6 +1,6 @@
 <section class="footer-alicorp">
 
-    <div class="container" @if(request()->is('nuevo') || request()->is('juegos')) style="display: none;" @endif>
+    <div class="container" @if(request()->is('nuevo') || request()->is('juegos')) style="display: none; background-color: red" @endif>
         <div class="row">
             <div class="col-12 text-center mt-5">
                 <h3>Nuestras marcas</h3>

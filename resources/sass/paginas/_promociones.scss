@@ -12,6 +12,13 @@
     }
 }
 
+@keyframes subirBajar {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+
 /* Inicialmente ocultamos el texto */
 .hidden {
     opacity: 0;
@@ -143,9 +150,15 @@
 
         }
 
+        @keyframes rotarLentamente {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-15deg); }
+        }
+        
+
         .grupo-shampos {
             position: relative;
-
+            transition: transform 1.5s ease-in-out;
             .shampo1,
             .shampo2,
             .shampo3,
@@ -261,6 +274,7 @@
             font-weight: bolder;
         }
 
+        
         .codigo-barra{
             background-color: #FB0000;
             position: absolute;
@@ -303,7 +317,20 @@
                 transform: scale(1);
             }
         }
+
+        // .codigo-barra, .codigo-barra2 {
+        //     animation: subirBajar 0.6s ease-in-out;
+        // }
+
+        &:hover{
+            .titulo1,h2,.titulo2,.barrita,.codigo-barra, .codigo-barra2{
+                animation: subirBajar 0.6s ease-in-out;
+            }
+            
+        }
     }
+
+    
 
     .bloque2-i{
         .ig0{
@@ -312,45 +339,89 @@
             right: -7rem;
         }
 
+        @keyframes diagonalIzquierda7 {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(-50px, 50px); }
+            100% { transform: translate(0, 0); }
+        }
+
+
         .ig9{
             bottom: -13rem;
             left: 24rem;
+            animation: diagonalIzquierda7 2s ease-in-out infinite;
+        }
+
+        @keyframes diagonalIzquierda4 {
+            0% { transform: scale(0.15) translate(0, 0); }
+            50% { transform: scale(0.15) translate(50px, 50px); }
+            100% { transform: scale(0.15) translate(0, 0); }
         }
 
         .ig8{
             bottom: -36rem;
-            transform: scale(0.15);
             right: -22rem;
+            animation: diagonalIzquierda4 2s ease-in-out infinite;
+        }
+
+        @keyframes diagonalIzquierda3 {
+            0% { transform: scale(0.4) translate(0, 0); }
+            50% { transform: scale(0.4) translate(50px, 50px); }
+            100% { transform: scale(0.4) translate(0, 0); }
         }
         
         .ig2{
-            transform: scale(0.4);
             right: -3rem;
             bottom: -2rem;
+            animation: diagonalIzquierda3 2s ease-in-out infinite;
+        }
+
+        @keyframes diagonalIzquierda2 {
+            0% { transform: scale(0.2) rotate(125deg) translate(0, 0); }
+            50% { transform: scale(0.2) rotate(125deg) translate(-50px, -50px); }
+            100% { transform: scale(0.2) rotate(125deg) translate(0, 0); }
         }
 
         .ig1{
-            transform: scale(0.2) rotate(125deg);
             right: -17rem;
             bottom: 0rem;
+            animation: diagonalIzquierda2 2s ease-in-out infinite;
+        }
+
+        @keyframes diagonalIzquierda {
+            0% { transform: scale(0.3) rotate(13deg) translate(0, 0); }
+            50% { transform: scale(0.3) rotate(13deg) translate(50px, -50px); }
+            100% { transform: scale(0.3) rotate(13deg) translate(0, 0); }
         }
 
         .ig7{
-            transform: scale(0.3) rotate(13deg);
             right: 3rem;
             bottom: 10rem;
+            animation: diagonalIzquierda 2s ease-in-out infinite;
+        }
+
+        @keyframes diagonalIzquierda1 {
+            0% { transform: scale(0.5) translate(0, 0); }
+            50% { transform: scale(0.5) translate(-50px, -50px); }
+            100% { transform: scale(0.5) translate(0, 0); }
         }
 
         .ig5{
-            transform: scale(0.5);
             bottom: 25rem;
             left: 23rem;
+            animation: diagonalIzquierda1 2s ease-in-out infinite;
+        }
+
+        @keyframes diagonalIzquierda6 {
+            0% { transform: scale(0.15) translate(0, 0); }
+            50% { transform: scale(0.15) translate(50px, -50px); }
+            100% { transform: scale(0.15) translate(0, 0); }
         }
 
         .ig6{
-            transform: scale(0.15);
             bottom: -21rem;
             left: -18rem;
+            animation: diagonalIzquierda6 2s ease-in-out infinite;
         }
 
         .ig4{
@@ -359,12 +430,20 @@
             left: 24rem;
         }
 
+        @keyframes diagonalIzquierda5 {
+            0% { transform: scale(0.3) translate(0, 0); }
+            50% { transform: scale(0.3) translate(-50px, -50px); }
+            100% { transform: scale(0.3) translate(0, 0); }
+        }
+
         .ig3{
-            transform: scale(0.3);
             bottom: -4rem;
             left: -6rem;
+            animation: diagonalIzquierda5 2s ease-in-out infinite;
         
         }
+
+
 
     }
   

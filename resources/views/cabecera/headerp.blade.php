@@ -11,13 +11,13 @@
             {{-- <li class="nav-item me-3">
                 <a class="nav-link" href="{{ route('calendario') }}">Calendario</a>
             </li> --}}
-            <li class="nav-item me-3">
+            <li class="nav-item me-5">
                 <a class="nav-link" href="{{ route('promocion') }}">Promociones</a>
             </li>
-            <li class="nav-item me-3 me-s">
+            <li class="nav-item me-5 me-s">
                 <a class="nav-link" href="{{ route('juegos') }}">Juegos</a>
             </li>
-            <li class="nav-item me-3">
+            <li class="nav-item me-5">
                 <a class="nav-link" href="{{ route('nuevo') }}">Eventos</a>
             </li>
             <li class="nav-item perfil">

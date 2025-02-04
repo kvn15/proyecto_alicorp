@@ -50,11 +50,11 @@
 <section class="promo3" >
     <div class="container">
         <div class="row">
-            <div class="col-md-4 d-flex flex-column justify-content-around bloque1">
+            <div class="col-md-4 d-flex flex-column justify-content-around bloque1 ">
                 <p class="titulo1">Participa con tus galletas favoritas</p>
                 <h2>A clases con <br> intelligencia</h2>
                 <p class="titulo2">Gana S/.35,000 y gadgets tecnológicos</p>
-
+               
                 <div class="codigo-barra d-flex align-items-center justify-content-around">
                     <i class="fa fa-mobile" aria-hidden="true"></i>
                     <p>Escanea para <br> participar</p>
@@ -62,8 +62,10 @@
                 </div>
                 <div class="codigo-barra2 d-flex align-items-center justify-content-around">
                     <img src="{{ asset('img/seccion-prmo/QR.svg')}}" alt="" class="img-fluid">
-                </div>
+                </div>              
+                
             </div>
+            
             <div class="col-md-8 position-relative bloque2-i">
                 <img src="{{asset('img/seccion-prmo/robot galletas.png')}}" alt="" class="img-fluid position-absolute ig0">
                 <img src="{{asset('img/seccion-prmo/InteligenciaAsset1.png')}}" alt="" class="img-fluid position-absolute ig1">
