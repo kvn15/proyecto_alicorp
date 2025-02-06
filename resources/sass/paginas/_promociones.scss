@@ -165,36 +165,78 @@
             .shampo4,
             .shampo5 {
                 position: absolute;
-                width: 35rem;
-                left: 22rem;
-                top: 19rem;
+                width: 6rem;
+                left: 28rem;
+                top: 23rem;
+                transform-origin: bottom center; /* Punto de rotación en la base */
             }
 
+            @keyframes rotateAnimation {
+                0% {
+                  transform: rotate(0deg);
+                }
+                100% {
+                  transform: rotate(20deg);
+                }
+            }
+              
+
             .shampo1 {
-                transform: rotate(20deg);
+                //transform: rotate(20deg);
+                animation: rotateAnimation 2s infinite alternate linear;
+            }
+
+            @keyframes rotateAnimation1 {
+                0% {
+                  transform: rotate(0deg);
+                }
+                100% {
+                  transform: rotate(-20deg);
+                }
             }
 
             .shampo2 {
-                transform: rotate(0deg);
-                left: 18rem;
+                //transform: rotate(0deg);
+                //left: 18rem;
+                animation: rotateAnimation1 2s infinite alternate linear;
+            }
+
+            @keyframes rotateAnimation2 {
+                0% {
+                  transform: rotate(0deg);
+                }
+                100% {
+                  transform: rotate(-40deg);
+                }
             }
 
             .shampo3 {
-                transform: rotate(-18deg);
-                left: 14rem;
+                //transform: rotate(-18deg);
+                //left: 14rem;
+                animation: rotateAnimation2 2s infinite alternate linear;
+            }
+
+            @keyframes rotateAnimation3 {
+                0% {
+                  transform: rotate(0deg);
+                }
+                100% {
+                  transform: rotate(-60deg);
+                }
             }
 
             .shampo4 {
-                transform: rotate(-35deg);
-                left: 9rem;
-                top: 21rem;
+                //transform: rotate(-35deg);
+                // left: 9rem;
+                // top: 21rem;
+                animation: rotateAnimation3 2s infinite alternate linear;
             }
 
-            .shampo5 {
-                transform: rotate(-46deg);
-                left: 5rem;
-                top: 25rem;
-            }
+            // .shampo5 {
+            //     //transform: rotate(-46deg);
+            //     // left: 5rem;
+            //     // top: 25rem;
+            // }
         }
 
         .codigo-barra{

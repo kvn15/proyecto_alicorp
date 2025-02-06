@@ -1,4 +1,4 @@
-@include('cabecera/header-2')
+@include('cabecera/header')
 
 @php
 

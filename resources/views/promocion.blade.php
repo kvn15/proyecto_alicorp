@@ -28,11 +28,11 @@
                 <img src="{{ asset('img/seccion-prmo/imagen1.png')}}">
                 <img src="{{ asset('img/seccion-prmo/avion.png')}}" class="avion-promo2">
                 <div class="grupo-shampos">
-                    <img src="{{ asset('img/seccion-prmo/shampo.webp')}}" class="shampo1">
-                    <img src="{{ asset('img/seccion-prmo/shampo.webp')}}" class="shampo2">
-                    <img src="{{ asset('img/seccion-prmo/shampo.webp')}}" class="shampo3">
-                    <img src="{{ asset('img/seccion-prmo/shampo.webp')}}" class="shampo4">
-                    <img src="{{ asset('img/seccion-prmo/shampo.webp')}}" class="shampo5">
+                    <img src="{{ asset('img/seccion-prmo/SHAMPOO-1.png')}}" class="shampo1">
+                    <img src="{{ asset('img/seccion-prmo/SHAMPOO-2.png')}}" class="shampo2">
+                    <img src="{{ asset('img/seccion-prmo/SHAMPOO-3.png')}}" class="shampo3">
+                    <img src="{{ asset('img/seccion-prmo/SHAMPOO-4.png')}}" class="shampo4">
+                    <img src="{{ asset('img/seccion-prmo/SHAMPOO-5.png')}}" class="shampo5">
                 </div>
                 <div class="codigo-barra d-flex align-items-center justify-content-around">
                     <i class="fa fa-mobile" aria-hidden="true"></i>

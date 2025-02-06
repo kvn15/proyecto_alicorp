@@ -1,6 +1,6 @@
 @charset "UTF-8";
 .juegos {
-  margin-bottom: 50rem;
+  margin-bottom: -50rem;
 }
 .juegos .card .card-body {
   top: 15rem;
@@ -254,30 +254,54 @@
 .promo2 .grupo-img-promo2 .grupo-shampos .shampo4,
 .promo2 .grupo-img-promo2 .grupo-shampos .shampo5 {
   position: absolute;
-  width: 35rem;
-  left: 22rem;
-  top: 19rem;
+  width: 6rem;
+  left: 28rem;
+  top: 23rem;
+  transform-origin: bottom center; /* Punto de rotación en la base */
+}
+@keyframes rotateAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(20deg);
+  }
 }
 .promo2 .grupo-img-promo2 .grupo-shampos .shampo1 {
-  transform: rotate(20deg);
+  animation: rotateAnimation 2s infinite alternate linear;
+}
+@keyframes rotateAnimation1 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-20deg);
+  }
 }
 .promo2 .grupo-img-promo2 .grupo-shampos .shampo2 {
-  transform: rotate(0deg);
-  left: 18rem;
+  animation: rotateAnimation1 2s infinite alternate linear;
+}
+@keyframes rotateAnimation2 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-40deg);
+  }
 }
 .promo2 .grupo-img-promo2 .grupo-shampos .shampo3 {
-  transform: rotate(-18deg);
-  left: 14rem;
+  animation: rotateAnimation2 2s infinite alternate linear;
+}
+@keyframes rotateAnimation3 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-60deg);
+  }
 }
 .promo2 .grupo-img-promo2 .grupo-shampos .shampo4 {
-  transform: rotate(-35deg);
-  left: 9rem;
-  top: 21rem;
-}
-.promo2 .grupo-img-promo2 .grupo-shampos .shampo5 {
-  transform: rotate(-46deg);
-  left: 5rem;
-  top: 25rem;
+  animation: rotateAnimation3 2s infinite alternate linear;
 }
 .promo2 .grupo-img-promo2 .codigo-barra {
   background-color: #FB0000;
@@ -2257,7 +2281,7 @@ li.submenu:hover ul {
   transform: translate(-39rem, -2rem) rotate(-65deg);
 }
 .carusel-home .image-3 {
-  background-image: url(../img/banner-home/amaras1.png);
+  background-image: url(../img/banner-home/amaras1.jpg);
   height: 70rem;
   display: flex;
   justify-content: center;
