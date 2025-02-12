@@ -2,7 +2,7 @@
 
     <div class="container" @if(request()->is('nuevo') || request()->is('juegos') || request()->is('promocion')) style="display: none; background-color: red" @endif>
         <div class="row">
-            <div class="col-12 text-center mt-5">
+            <div class="col-12 text-center mt-p">
                 <h3>Nuestras marcas</h3>
             </div>
         </div>

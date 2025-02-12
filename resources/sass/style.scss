@@ -913,15 +913,15 @@ li.submenu:hover ul {
                 z-index: 1; /* Asegura que estén detrás */
                 opacity: 0.5; /* Opcional: hace las nubes semitransparentes */
                 width: 80%;
-                max-width: 500px;
-                mix-blend-mode: multiply;            
+                max-width: 500px;         
             }
 
             .nube-1 {
-                top: 26%;
+                top: -5rem;
                 left: -19%;
                 width: 291px;
                 height: 13rem;
+                z-index: 1;
             }
             
             .nube-2 {
@@ -929,13 +929,15 @@ li.submenu:hover ul {
                 left: 50%;
                 width: 300px;
                 transform: translateX(-50%);
+                z-index: 1;
             }
             
             .nube-3 {
-                bottom: 21%;
-                right: -23%;
+                bottom: -10rem;
+                right: -30%;
                 width: 40rem;
                 height: 13rem;
+                z-index: 1;
             }
 
             .amaras{
@@ -944,20 +946,63 @@ li.submenu:hover ul {
             }
 
             .avion{
-                bottom: -31rem;
-                left: -56rem;
+                bottom: -4rem;
+                left: -51rem;
                 transition: transform 0.5s ease-out;
             }
 
-            .amaras4,
-            .amaras5{
-                display: none;
-                transition: opacity 2s ease-out, transform 2s ease-out;
+            // .amaras4,
+            // .amaras5{
+            //     display: none;
+            //     transition: opacity 2s ease-out, transform 2s ease-out;
+            // }
+
+
+
+            .amaras9
+           {
+                visibility: hidden;
             }
 
-            .amaras9,
             .amaras10{
-                visibility: hidden;
+                bottom: 21rem;
+                transition: top 1s ease-out; /* Animación suave */
+                transform: translateX(2rem);
+            }
+
+            .amaras14{
+                top:19rem;
+                transform: scale(1.2);
+                
+            }
+
+            .VentanaIzq,
+            .VentanaDer{
+                transform: scale(0.4);
+                z-index: 3;
+            }
+            .FondoVentIzq{
+                transform: scale(0.3);
+                left: -35rem;
+                z-index: 2;
+            }
+            .VentanaDerFondo{
+                transform: scale(0.3);
+                right: -35rem;
+                z-index: 2;
+            }
+
+            .amaras4{
+                transform: scale(0.1);
+                left: -35rem;
+                z-index: 4;
+                bottom: -7rem;
+            }
+            .amaras5{
+                transform: scale(0.1);
+                right: -32rem;
+                z-index: 4;
+                top: 20rem;
             }
         }
 
@@ -967,7 +1012,7 @@ li.submenu:hover ul {
                 transform: translate(-100px, -100px);            
             }
             .avion{
-                transform: translate(50rem, -33rem) scale(0.7);
+                transform: translate(50rem, 8rem) scale(0.7);
             }
             .amaras{
                 transform: translateY(50px);
@@ -980,22 +1025,6 @@ li.submenu:hover ul {
                 transform: translateX(120px) scale(1.6);
             }
 
-            .amaras4{
-                display: block;
-                position: absolute;
-                transform: scale(0.3);
-                left: -52rem;
-                bottom: -33rem;
-                clip-path: inset(0px 0px 100px 0px);
-            }
-
-            .amaras5{
-                display: block;
-                position: absolute;
-                transform: scale(0.5);
-                right: -60rem;
-                bottom: 0rem;
-            }
 
             .amaras9{
                 visibility: visible;
@@ -1003,9 +1032,51 @@ li.submenu:hover ul {
             }
 
             .amaras10{
-                visibility: visible;
-                /* top: 24rem; */
-                transform: translateY(141px);
+               
+                //transform: translateY(141px);
+                top:10rem
+            }
+
+            .amaras14{
+                top: -20rem;
+                transform: scale(1.4);
+            }
+
+            .VentanaIzq,
+            .VentanaDer{
+                transform: scale(0.6);
+                position: absolute;
+            }
+
+            .VentanaIzq{    
+                right: -46rem;
+            }
+
+            .VentanaDer{
+                left: -48rem;
+            }
+
+            .FondoVentIzq{
+               transform: scale(0.45);
+                left: -48rem;
+                
+            }
+            .VentanaDerFondo{
+                transform: scale(0.43);
+                right: -46rem;
+             
+            }
+
+            .amaras4{
+                transform: scale(0.34);
+                left: -46rem;
+                bottom: -52rem;
+                clip-path: ellipse(74% 40% at 48% 31%);
+            }
+            .amaras5{
+                transform: scale(0.4);
+                right: -56rem;
+                top: -34rem;
             }
         }
     }
@@ -1264,6 +1335,10 @@ li.submenu:hover ul {
 }
 
 .exp {
+
+    .row-cols-md-4>*{
+        width: 19%!important;
+    }   
 
     h2 {
         margin-top: 6rem;
@@ -1595,6 +1670,7 @@ li.submenu:hover ul {
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         position: relative;
 
+     
         img {
             border-radius: 15px;
             transform: scale(0.9);
@@ -1628,9 +1704,22 @@ li.submenu:hover ul {
             background: #FB0000;
             width: 20% !important;
             padding: 10px 16px;
+            font-size: 1.7rem;
         }
     }
-
+    
+    #modal-1,
+    #modal-2,
+    #modal-3,
+    #modal-4{
+        .modal-content
+            img{
+                border-radius: 25px;
+                width: 81rem;
+                height: 34rem;
+            }
+        
+    }
 
     /* Botón de cerrar */
     .btn-close {

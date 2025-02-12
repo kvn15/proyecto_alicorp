@@ -12,46 +12,47 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  height: 70rem;
 
     .juego1{
         transform: scale(0.6);
-        top: -20rem;
+        top: -9rem;
     }
 
     .juego2{
       transform: scale(0.2) rotate(-59deg);
-      top: -16rem;
+      top: -5rem;
       left: -9rem;
     }
 
     .juego3{
       transform: scale(0.37);
-      top: 8rem;
+      top: 22rem;
       left: -3rem;
     }
 
     .juego4{
       transform: scale(0.37);
-      top: 21rem;
+      top: 31rem;
       left: -7rem;
     }
 
 
     .juego5{
       transform: scale(0.37);
-      top: 16rem;
+      top: 27rem;
       right: -13rem;
     }
 
     .juego6{
       transform: scale(0.38);
-      top: 6rem;
+      top: 15rem;
       right: -13rem;
     }
 
     .juego7{
       transform: scale(0.36);
-      top: -18rem;
+      top: -8rem;
       right: -15rem;
     }
 
@@ -90,7 +91,7 @@
 
   .juego1{
     transform: scale(0.6);
-    top: -20rem;
+    top: -9rem;
 }
 }
 
@@ -109,6 +110,7 @@
     flex-direction: column;
     background: linear-gradient(263deg, rgba(2, 0, 36, 1) 5%, rgba(9, 9, 121, 1) 48%, rgba(0, 212, 255, 1) 96%);
     position: relative;
+    border: none;
 
     .img-transicion{
       display: flex;
@@ -228,7 +230,7 @@
     }
   
     .card-subtitle {
-      font-size: 1rem;
+      font-size: 2rem;
       line-height: 1.5;
       margin-bottom: 1rem;
     }

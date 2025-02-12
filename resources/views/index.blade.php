@@ -75,17 +75,24 @@
             <div class="carousel-item active">
                 <div class="image-3">
                     <div class="grupo-amaras">
-                        <img src="{{ asset('img/banner-home/amaras7.png')}}" alt="" class="amaras7 img-fluid">
+                        {{-- <img src="{{ asset('img/banner-home/amaras7.png')}}" alt="" class="amaras7 img-fluid">
                         <img src="{{ asset('img/banner-home/amaras4.png')}}" alt="" class="amaras4 img-fluid">                     
-                        <img src="{{ asset('img/banner-home/amaras8.png')}}" alt="" class="amaras8 img-fluid">                        
+                                               
                         <img src="{{ asset('img/banner-home/amaras6.png')}}" alt="" class="amaras6 img-fluid">
-                        <img src="{{ asset('img/banner-home/amaras5.png')}}" alt="" class="amaras5 img-fluid">
+                        <img src="{{ asset('img/banner-home/amaras5.png')}}" alt="" class="amaras5 img-fluid"> --}}
+                        <img src="{{ asset('img/banner-home/VentanaIzq.png')}}" alt="" class="VentanaIzq img-fluid">
+                        <img src="{{ asset('img/banner-home/FondoVentIzq.webp')}}" alt="" class="FondoVentIzq img-fluid position-absolute">
+                        <img src="{{ asset('img/banner-home/amaras4.png')}}" alt="" class="amaras4 img-fluid position-absolute"> 
+                        <img src="{{ asset('img/banner-home/VentanaDer.png')}}" alt="" class="VentanaDer img-fluid">
+                        <img src="{{ asset('img/banner-home/VentanaDerFondo.webp')}}" alt="" class="VentanaDerFondo img-fluid position-absolute">
+                        <img src="{{ asset('img/banner-home/amaras5.png')}}" alt="" class="amaras5 img-fluid position-absolute"> 
 
-                        <img src="{{ asset('img/banner-home/Amaras.png')}}" alt="" class="amaras img-fluid position-absolute">
+                        <img src="{{ asset('img/banner-home/amaras14.png')}}" alt="" class="amaras14 img-fluid position-absolute">
+                        <img src="{{ asset('img/banner-home/amaras8.png')}}" alt="" class="amaras8 img-fluid position-absolute"> 
 
-                        <img src="{{ asset('img/banner-home/amaras2.png')}}" alt="" class="nube nube-1 img-fluid">                        
-                        <img src="{{ asset('img/banner-home/amaras2.png')}}" alt="" class="nube nube-2 img-fluid">
-                        <img src="{{ asset('img/banner-home/amaras2.png')}}" alt="" class="nube nube-3 img-fluid">
+                        <img src="{{ asset('img/banner-home/amaras22.png')}}" alt="" class="nube nube-1 img-fluid">                        
+                        <img src="{{ asset('img/banner-home/amaras22.png')}}" alt="" class="nube nube-2 img-fluid">
+                        <img src="{{ asset('img/banner-home/amaras22.png')}}" alt="" class="nube nube-3 img-fluid">
 
                         <img src="{{ asset('img/banner-home/amaras3.png')}}" alt="" class="avion img-fluid position-absolute">
 
@@ -119,11 +126,11 @@
                     <h3><span style="font-weight: bolder">!LLEGAMOS MÁS A TI!</span> Conoce los eventos y novedades de nuestras marcas.</h3>
                 </div>
             </div>
-            <div class="row row-cols-1 row-cols-md-4 g-4 cards-grupo">
+            <div class="row row-cols-1 row-cols-md-4 g-4 cards-grupo justify-content-center">
                 <x-card id=1 image1="img/ali/evento-casino-kpop1.png" image2="img/ali/evento-casino-kpop2.png"
                     image3="img/ali/casino.jpg" image4="img/ali/evento-casino-kpopKeyVisual.png"
                     image5="img/ali/MusicNote1.png" image6="img/ali/MusicNote2.png" title="K-POP DANCE"
-                    modalImage="img/hero1.png" eventDate="18 de Enero" eventLocation="Coliseo Aldo Chumnimune"
+                    modalImage="img/Casino KPop-951.jpg" eventDate="18 de Enero" eventLocation="Coliseo Aldo Chumnimune"
                     modalTitle="Casino K-pop Dance"
                     modalDescription="Disfruta del mundo del K-pop y demuestra tus mejores pasos en el #CasinoKpopDance" />
 
@@ -167,7 +174,7 @@
                 <P class="trendy">LO MÁS TRENDY</P>
             </div>
             <div class="col-md-6">
-                <p class="trendy-p">!Mantente al día con las últimas tendencias <br> de tus marcas favoritas¡</p>
+                <p class="trendy-p">¡Mantente al día con las últimas tendencias <br> de tus marcas favoritas!</p>
             </div>
         </div>
     </div>
