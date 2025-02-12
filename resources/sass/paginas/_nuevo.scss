@@ -30,6 +30,10 @@
         width: 47%;
     }
 
+    .row-cols-md-4>* {
+        width: 20%;
+    }
+
     .card {
         border-radius: 25px !important;
         overflow: hidden; /* Evita desbordamientos */

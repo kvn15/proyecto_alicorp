@@ -1,5 +1,6 @@
 @include font-face('Golda', 'Golda');
 @include font-face('Barlow-Regular', 'Barlow-Regular');
+@include font-face('Barlow-Medium', 'Barlow-Medium');
 
 @keyframes slideRight {
     from {
@@ -100,7 +101,8 @@
 }
 
 .promo2 {
-    background-image: url(../img/seccion-prmo/fondo.png);
+    //background-image: url(../img/seccion-prmo/fondo.png);
+    background: transparent radial-gradient(closest-side at 50% 50%, #F5C0FC 0%, #B862C4 100%) 0% 0% no-repeat padding-box;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -118,7 +120,7 @@
         }
 
         h3 {
-            font: normal normal bold 3rem/4rem Barlow;
+            font: normal normal bold 3rem/4rem Barlow-Regular;
             letter-spacing: 0.36px;
             color: #FFFFFF;
             text-shadow: 0px 3px 6px #00000029;
