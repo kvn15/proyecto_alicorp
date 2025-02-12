@@ -106,6 +106,10 @@
   font-family: "Barlow-Regular";
   src: url('../fonts/Barlow-Regular.otf') format('opentype'), url('../fonts/Barlow-Regular.ttf') format('truetype');
 }
+@font-face {
+  font-family: "Barlow-Medium";
+  src: url('../fonts/Barlow-Medium.otf') format('opentype'), url('../fonts/Barlow-Medium.ttf') format('truetype');
+}
 @keyframes slideRight {
   from {
     opacity: 0;
@@ -193,7 +197,7 @@
 }
 
 .promo2 {
-  background-image: url(../img/seccion-prmo/fondo.png);
+  background: transparent radial-gradient(closest-side at 50% 50%, #F5C0FC 0%, #B862C4 100%) 0% 0% no-repeat padding-box;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -210,7 +214,7 @@
   opacity: 1;
 }
 .promo2 .grupo-texto-promo2 h3 {
-  font: normal normal bold 3rem/4rem Barlow;
+  font: normal normal bold 3rem/4rem Barlow-Regular;
   letter-spacing: 0.36px;
   color: #FFFFFF;
   text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1607843137);
@@ -1042,6 +1046,9 @@
   color: #ffffff;
   width: 47%;
 }
+.eventos .row-cols-md-4 > * {
+  width: 20%;
+}
 .eventos .card {
   border-radius: 25px !important;
   overflow: hidden; /* Evita desbordamientos */
@@ -1119,39 +1126,40 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  height: 70rem;
 }
 .juego .juego1 {
   transform: scale(0.6);
-  top: -20rem;
+  top: -9rem;
 }
 .juego .juego2 {
   transform: scale(0.2) rotate(-59deg);
-  top: -16rem;
+  top: -5rem;
   left: -9rem;
 }
 .juego .juego3 {
   transform: scale(0.37);
-  top: 8rem;
+  top: 22rem;
   left: -3rem;
 }
 .juego .juego4 {
   transform: scale(0.37);
-  top: 21rem;
+  top: 31rem;
   left: -7rem;
 }
 .juego .juego5 {
   transform: scale(0.37);
-  top: 16rem;
+  top: 27rem;
   right: -13rem;
 }
 .juego .juego6 {
   transform: scale(0.38);
-  top: 6rem;
+  top: 15rem;
   right: -13rem;
 }
 .juego .juego7 {
   transform: scale(0.36);
-  top: -18rem;
+  top: -8rem;
   right: -15rem;
 }
 .juego .titulo-2 {
@@ -1184,7 +1192,7 @@
 }
 .juego .juego1 {
   transform: scale(0.6);
-  top: -20rem;
+  top: -9rem;
 }
 
 .juegos .sec-juegos {
@@ -1200,6 +1208,7 @@
   flex-direction: column;
   background: linear-gradient(263deg, rgb(2, 0, 36) 5%, rgb(9, 9, 121) 48%, rgb(0, 212, 255) 96%);
   position: relative;
+  border: none;
 }
 .juegos .card .img-transicion {
   display: flex;
@@ -1296,7 +1305,7 @@
   margin-bottom: 0.5rem;
 }
 .juegos .card-2 .card-subtitle {
-  font-size: 1rem;
+  font-size: 2rem;
   line-height: 1.5;
   margin-bottom: 1rem;
 }
@@ -1463,12 +1472,19 @@
   font-family: "Barlow-Regular";
   src: url('../fonts/Barlow-Regular.otf') format('opentype'), url('../fonts/Barlow-Regular.ttf') format('truetype');
 }
+@font-face {
+  font-family: "Golda";
+  src: url('../fonts/Golda.otf') format('opentype'), url('../fonts/Golda.ttf') format('truetype');
+}
 .footer-alicorp {
   /* Contenedor del carrusel */
   /* Carrusel de logos */
   /* Logos del carrusel */
   /* Animación para mover los logos infinitamente */
   /* Duplicamos los logos para dar efecto de bucle */
+}
+.footer-alicorp .mt-p {
+  margin-top: 20rem;
 }
 .footer-alicorp .seccion2-pie {
   max-height: 50rem;
@@ -1506,7 +1522,7 @@
   width: 100%;
 }
 .footer-alicorp h3 {
-  font: normal normal bold 40px/60px Barlow-Regular;
+  font: normal normal bold 6rem/4rem Golda;
   letter-spacing: 0.8px;
   color: #FB0000;
   opacity: 1;
@@ -2320,50 +2336,82 @@ li.submenu:hover ul {
   opacity: 0.5; /* Opcional: hace las nubes semitransparentes */
   width: 80%;
   max-width: 500px;
-  mix-blend-mode: multiply;
 }
 .carusel-home .image-3 .grupo-amaras .nube-1 {
-  top: 26%;
+  top: -5rem;
   left: -19%;
   width: 291px;
   height: 13rem;
+  z-index: 1;
 }
 .carusel-home .image-3 .grupo-amaras .nube-2 {
   top: 50%;
   left: 50%;
   width: 300px;
   transform: translateX(-50%);
+  z-index: 1;
 }
 .carusel-home .image-3 .grupo-amaras .nube-3 {
-  bottom: 21%;
-  right: -23%;
+  bottom: -10rem;
+  right: -30%;
   width: 40rem;
   height: 13rem;
+  z-index: 1;
 }
 .carusel-home .image-3 .grupo-amaras .amaras {
   top: -11rem;
   transition: transform 0.5s ease-out;
 }
 .carusel-home .image-3 .grupo-amaras .avion {
-  bottom: -31rem;
-  left: -56rem;
+  bottom: -4rem;
+  left: -51rem;
   transition: transform 0.5s ease-out;
 }
-.carusel-home .image-3 .grupo-amaras .amaras4,
-.carusel-home .image-3 .grupo-amaras .amaras5 {
-  display: none;
-  transition: opacity 2s ease-out, transform 2s ease-out;
-}
-.carusel-home .image-3 .grupo-amaras .amaras9,
-.carusel-home .image-3 .grupo-amaras .amaras10 {
+.carusel-home .image-3 .grupo-amaras .amaras9 {
   visibility: hidden;
+}
+.carusel-home .image-3 .grupo-amaras .amaras10 {
+  bottom: 21rem;
+  transition: top 1s ease-out; /* Animación suave */
+  transform: translateX(2rem);
+}
+.carusel-home .image-3 .grupo-amaras .amaras14 {
+  top: 19rem;
+  transform: scale(1.2);
+}
+.carusel-home .image-3 .grupo-amaras .VentanaIzq,
+.carusel-home .image-3 .grupo-amaras .VentanaDer {
+  transform: scale(0.4);
+  z-index: 3;
+}
+.carusel-home .image-3 .grupo-amaras .FondoVentIzq {
+  transform: scale(0.3);
+  left: -35rem;
+  z-index: 2;
+}
+.carusel-home .image-3 .grupo-amaras .VentanaDerFondo {
+  transform: scale(0.3);
+  right: -35rem;
+  z-index: 2;
+}
+.carusel-home .image-3 .grupo-amaras .amaras4 {
+  transform: scale(0.1);
+  left: -35rem;
+  z-index: 4;
+  bottom: -7rem;
+}
+.carusel-home .image-3 .grupo-amaras .amaras5 {
+  transform: scale(0.1);
+  right: -32rem;
+  z-index: 4;
+  top: 20rem;
 }
 .carusel-home .image-3:hover .amaras8 {
   opacity: 0;
   transform: translate(-100px, -100px);
 }
 .carusel-home .image-3:hover .avion {
-  transform: translate(50rem, -33rem) scale(0.7);
+  transform: translate(50rem, 8rem) scale(0.7);
 }
 .carusel-home .image-3:hover .amaras {
   transform: translateY(50px);
@@ -2374,29 +2422,46 @@ li.submenu:hover ul {
 .carusel-home .image-3:hover .amaras6 {
   transform: translateX(120px) scale(1.6);
 }
-.carusel-home .image-3:hover .amaras4 {
-  display: block;
-  position: absolute;
-  transform: scale(0.3);
-  left: -52rem;
-  bottom: -33rem;
-  clip-path: inset(0px 0px 100px 0px);
-}
-.carusel-home .image-3:hover .amaras5 {
-  display: block;
-  position: absolute;
-  transform: scale(0.5);
-  right: -60rem;
-  bottom: 0rem;
-}
 .carusel-home .image-3:hover .amaras9 {
   visibility: visible;
   transform: translateY(30.2rem);
 }
 .carusel-home .image-3:hover .amaras10 {
-  visibility: visible;
-  /* top: 24rem; */
-  transform: translateY(141px);
+  top: 10rem;
+}
+.carusel-home .image-3:hover .amaras14 {
+  top: -20rem;
+  transform: scale(1.4);
+}
+.carusel-home .image-3:hover .VentanaIzq,
+.carusel-home .image-3:hover .VentanaDer {
+  transform: scale(0.6);
+  position: absolute;
+}
+.carusel-home .image-3:hover .VentanaIzq {
+  right: -46rem;
+}
+.carusel-home .image-3:hover .VentanaDer {
+  left: -48rem;
+}
+.carusel-home .image-3:hover .FondoVentIzq {
+  transform: scale(0.45);
+  left: -48rem;
+}
+.carusel-home .image-3:hover .VentanaDerFondo {
+  transform: scale(0.43);
+  right: -46rem;
+}
+.carusel-home .image-3:hover .amaras4 {
+  transform: scale(0.34);
+  left: -46rem;
+  bottom: -52rem;
+  clip-path: ellipse(74% 40% at 48% 31%);
+}
+.carusel-home .image-3:hover .amaras5 {
+  transform: scale(0.4);
+  right: -56rem;
+  top: -34rem;
 }
 
 .carusel-nuevo .carusel-tamano {
@@ -2589,6 +2654,9 @@ li.submenu:hover ul {
   /* Mostrar el modal */
   /* Contenido del modal */
   /* Botón de cerrar */
+}
+.exp .row-cols-md-4 > * {
+  width: 19% !important;
 }
 .exp h2 {
   margin-top: 6rem;
@@ -2892,6 +2960,15 @@ li.submenu:hover ul {
   background: #FB0000;
   width: 20% !important;
   padding: 10px 16px;
+  font-size: 1.7rem;
+}
+.exp #modal-1 .modal-content img,
+.exp #modal-2 .modal-content img,
+.exp #modal-3 .modal-content img,
+.exp #modal-4 .modal-content img {
+  border-radius: 25px;
+  width: 81rem;
+  height: 34rem;
 }
 .exp .btn-close {
   top: 0px;

@@ -304,12 +304,27 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
 
-            if (event.target.classList.contains("btn-close") || event.target.classList.contains("modal")) {
+            // if (event.target.classList.contains("btn-close") || event.target.classList.closest(".modal") && event.target.classList.contains("modal")) {
+            //     const modal = event.target.closest(".modal");
+            //     if (modal) {
+            //         modal.style.visibility = "hidden";
+            //         modal.style.opacity = "0";
+            //     }
+            // }
+
+            // Cerrar modal al hacer clic en el botón de cierre
+            if (event.target.closest(".btn-close")) {
                 const modal = event.target.closest(".modal");
                 if (modal) {
                     modal.style.visibility = "hidden";
                     modal.style.opacity = "0";
                 }
+            }
+
+            // Cerrar modal al hacer clic fuera del contenido (en el fondo oscuro)
+            if (event.target.classList.contains("modal")) {
+                event.target.style.visibility = "hidden";
+                event.target.style.opacity = "0";
             }
         });
     }
@@ -415,16 +430,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-
-// document.addEventListener("DOMContentLoaded", function() {
-//     alert('ptm')
-//     const carouselElement = document.querySelector("#carouselExampleIndicators");
-//     const carousel = new bootstrap.Carousel(carouselElement, {
-//         wrap: false, // Desactiva el reinicio infinito
-//         ride: false // No se mueve automáticamente
-//     });
-// });
-
 document.addEventListener("DOMContentLoaded", function() {
     const carouselElement = document.querySelector("#carouselExampleIndicators");
     const prevButton = document.querySelector("#prevBtn");
@@ -472,3 +477,4 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener("scroll", checkScroll);
     checkScroll(); // Verifica al cargar la página
 });
+
